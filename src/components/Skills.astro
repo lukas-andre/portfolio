@@ -1,0 +1,540 @@
+---
+import CinematicReveal from './ui/CinematicReveal.tsx';
+
+const skillCategories = [
+  {
+    title: 'frontend',
+    repo: 'core',
+    skills: [
+      { name: 'typescript', version: '5.3.3', level: 100, size: '2.1M' },
+      { name: 'react', version: '18.2.0', level: 95, size: '1.8M' },
+      { name: 'astro', version: '4.16.0', level: 90, size: '1.2M' },
+      { name: 'vue', version: '3.4.0', level: 85, size: '980K' },
+    ],
+  },
+  {
+    title: 'backend',
+    repo: 'extra',
+    skills: [
+      { name: 'nestjs', version: '10.3.0', level: 95, size: '3.4M' },
+      { name: 'golang', version: '1.22.0', level: 90, size: '156M' },
+      { name: 'nodejs', version: '20.11.0', level: 92, size: '45M' },
+      { name: 'grpc', version: '1.60.0', level: 85, size: '12M' },
+    ],
+  },
+  {
+    title: 'ai-tools',
+    repo: 'aur',
+    highlight: true,
+    skills: [
+      { name: 'claude-code', version: '4.0.0', level: 100, size: '∞' },
+      { name: 'chatgpt-api', version: '4.5.0', level: 95, size: '∞' },
+      { name: 'prompt-engineering', version: '2.0.0', level: 90, size: '∞' },
+      { name: 'ai-integration', version: '1.5.0', level: 88, size: '∞' },
+    ],
+  },
+  {
+    title: 'devops',
+    repo: 'community',
+    skills: [
+      { name: 'docker', version: '25.0.0', level: 90, size: '89M' },
+      { name: 'kubernetes', version: '1.29.0', level: 85, size: '45M' },
+      { name: 'gitlab-ci', version: '16.8.0', level: 92, size: '12M' },
+      { name: 'grafana', version: '10.3.0', level: 88, size: '234M' },
+    ],
+  },
+];
+
+// Calculate totals
+const totalPackages = skillCategories.reduce((acc, cat) => acc + cat.skills.length, 0);
+---
+
+<section id="skills" class="section skills">
+  <CinematicReveal client:load>
+    <div class="section-header">
+      <span class="section-cmd">pacman -Qi lucas-skills</span>
+      <h2 class="section-title">
+        <span class="title-bracket">[</span>
+        Tech Stack
+        <span class="title-bracket">]</span>
+      </h2>
+    </div>
+  </CinematicReveal>
+
+  <!-- System Stats Bar (htop style) -->
+  <CinematicReveal client:load delay={0.1}>
+    <div class="htop-header">
+      <div class="htop-row">
+        <span class="htop-label">Packages:</span>
+        <span class="htop-value">{totalPackages} total</span>
+        <span class="htop-separator">|</span>
+        <span class="htop-label">Repos:</span>
+        <span class="htop-value">core extra aur community</span>
+      </div>
+      <div class="htop-meters">
+        <div class="meter-row">
+          <span class="meter-label">Frontend</span>
+          <div class="meter-bar">
+            <div class="meter-fill" style="--level: 92.5%"></div>
+            <span class="meter-text">92.5%</span>
+          </div>
+        </div>
+        <div class="meter-row">
+          <span class="meter-label">Backend</span>
+          <div class="meter-bar">
+            <div class="meter-fill" style="--level: 90.5%"></div>
+            <span class="meter-text">90.5%</span>
+          </div>
+        </div>
+        <div class="meter-row highlight">
+          <span class="meter-label">AI/ML</span>
+          <div class="meter-bar">
+            <div class="meter-fill highlight" style="--level: 93.3%"></div>
+            <span class="meter-text">93.3%</span>
+          </div>
+        </div>
+        <div class="meter-row">
+          <span class="meter-label">DevOps</span>
+          <div class="meter-bar">
+            <div class="meter-fill" style="--level: 88.8%"></div>
+            <span class="meter-text">88.8%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </CinematicReveal>
+
+  <!-- Package Categories -->
+  <div class="skills-grid">
+    {skillCategories.map((category, i) => (
+      <CinematicReveal client:load delay={0.15 * (i + 1)}>
+        <div class:list={['package-category', { highlight: category.highlight }]}>
+          <div class="category-header">
+            <span class="repo-badge">{category.repo}</span>
+            <span class="category-title">{category.title}</span>
+            <span class="package-count">[{category.skills.length}]</span>
+          </div>
+          <div class="package-list">
+            {category.skills.map((skill) => (
+              <div class="package-item" data-level={skill.level}>
+                <div class="package-info">
+                  <span class="package-name">{skill.name}</span>
+                  <span class="package-version">{skill.version}</span>
+                </div>
+                <div class="package-progress">
+                  <div class="progress-bar">
+                    <div
+                      class:list={['progress-fill', { highlight: category.highlight }]}
+                      style={`--level: ${skill.level}%`}
+                    ></div>
+                  </div>
+                  <span class="package-size">{skill.size}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div class="category-footer">
+            <span class="footer-text">Total installed size: {
+              category.skills.filter(s => s.size !== '∞').length > 0
+                ? category.skills.map(s => s.size).join(' + ')
+                : '∞ (cloud-native)'
+            }</span>
+          </div>
+        </div>
+      </CinematicReveal>
+    ))}
+  </div>
+
+  <!-- Pacman Output Footer -->
+  <CinematicReveal client:load delay={0.8}>
+    <div class="pacman-footer">
+      <p class="pacman-output">
+        <span class="pacman-arrow">::</span>
+        <span class="pacman-text">Synchronizing package databases...</span>
+      </p>
+      <p class="pacman-output success">
+        <span class="pacman-check">[OK]</span>
+        <span class="pacman-text">All {totalPackages} packages are up to date</span>
+      </p>
+    </div>
+  </CinematicReveal>
+</section>
+
+<style>
+  .skills {
+    background: linear-gradient(180deg, var(--bg-secondary), var(--bg-primary), var(--bg-secondary));
+  }
+
+  .section-header {
+    margin-bottom: 2rem;
+  }
+
+  .section-cmd {
+    font-family: var(--font-terminal);
+    font-size: 0.8rem;
+    color: var(--accent-amber);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .title-bracket {
+    color: var(--accent-amber);
+    font-weight: 300;
+  }
+
+  /* htop-style header */
+  .htop-header {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    margin-bottom: 2rem;
+    font-family: var(--font-terminal);
+  }
+
+  .htop-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: 0.75rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .htop-label {
+    color: var(--text-muted);
+  }
+
+  .htop-value {
+    color: var(--accent-cream);
+  }
+
+  .htop-separator {
+    color: var(--text-dim);
+  }
+
+  .htop-meters {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .meter-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .meter-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    min-width: 60px;
+    text-transform: uppercase;
+  }
+
+  .meter-bar {
+    flex: 1;
+    height: 12px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--glass-border);
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .meter-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg,
+      var(--accent-sage) 0%,
+      var(--accent-sage) 50%,
+      var(--accent-amber) 80%,
+      var(--accent-gold) 100%
+    );
+    background-size: var(--level) 100%;
+    transition: width 1.5s var(--ease-out-expo);
+    position: relative;
+  }
+
+  .meter-fill.highlight {
+    background: linear-gradient(90deg,
+      var(--accent-gold) 0%,
+      var(--accent-amber) 50%,
+      var(--accent-cream) 100%
+    );
+  }
+
+  .meter-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 3px,
+      rgba(0, 0, 0, 0.2) 3px,
+      rgba(0, 0, 0, 0.2) 4px
+    );
+  }
+
+  .htop-meters .meter-row:nth-child(1) .meter-fill,
+  .htop-meters .meter-row:nth-child(2) .meter-fill,
+  .htop-meters .meter-row:nth-child(3) .meter-fill,
+  .htop-meters .meter-row:nth-child(4) .meter-fill {
+    width: var(--level);
+  }
+
+  .meter-text {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.6rem;
+    color: var(--text-primary);
+    text-shadow: 0 0 4px var(--bg-void);
+    font-weight: 500;
+  }
+
+  .meter-row.highlight .meter-label {
+    color: var(--accent-gold);
+  }
+
+  /* Skills Grid */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  /* Package Category */
+  .package-category {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: all var(--transition-medium);
+  }
+
+  .package-category:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-sage);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  .package-category.highlight {
+    border-color: var(--accent-gold);
+    background: rgba(201, 148, 58, 0.05);
+  }
+
+  .package-category.highlight:hover {
+    border-color: var(--accent-amber);
+    box-shadow: 0 10px 40px rgba(201, 148, 58, 0.15);
+  }
+
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-tertiary);
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  .repo-badge {
+    font-family: var(--font-terminal);
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+    background: var(--accent-sage);
+    color: var(--bg-void);
+    border-radius: 2px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .package-category.highlight .repo-badge {
+    background: var(--accent-gold);
+  }
+
+  .category-title {
+    font-family: var(--font-terminal);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .package-count {
+    font-family: var(--font-terminal);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-left: auto;
+  }
+
+  /* Package List */
+  .package-list {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .package-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .package-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .package-name {
+    font-family: var(--font-terminal);
+    font-size: 0.8rem;
+    color: var(--accent-cream);
+  }
+
+  .package-version {
+    font-family: var(--font-terminal);
+    font-size: 0.7rem;
+    color: var(--accent-sage);
+  }
+
+  .package-progress {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .progress-bar {
+    flex: 1;
+    height: 6px;
+    background: var(--bg-tertiary);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent-sage), var(--accent-amber));
+    border-radius: 3px;
+    transition: width 1.5s var(--ease-out-expo);
+  }
+
+  .progress-fill.highlight {
+    background: linear-gradient(90deg, var(--accent-gold), var(--accent-amber));
+  }
+
+  .package-item.visible .progress-fill {
+    width: var(--level);
+  }
+
+  .package-size {
+    font-family: var(--font-terminal);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    min-width: 45px;
+    text-align: right;
+  }
+
+  .category-footer {
+    padding: 0.5rem 1rem;
+    background: var(--bg-tertiary);
+    border-top: 1px solid var(--glass-border);
+  }
+
+  .footer-text {
+    font-family: var(--font-terminal);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+  }
+
+  /* Pacman Footer */
+  .pacman-footer {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    font-family: var(--font-terminal);
+  }
+
+  .pacman-output {
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .pacman-output:last-child {
+    margin-bottom: 0;
+  }
+
+  .pacman-arrow {
+    color: var(--accent-sage);
+  }
+
+  .pacman-text {
+    color: var(--text-secondary);
+  }
+
+  .pacman-output.success .pacman-check {
+    color: var(--accent-sage);
+    font-weight: 600;
+  }
+
+  .pacman-output.success .pacman-text {
+    color: var(--accent-cream);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .skills-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .htop-meters {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .meter-label {
+      min-width: 50px;
+      font-size: 0.6rem;
+    }
+  }
+</style>
+
+<script>
+  // Animate progress bars when visible
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    },
+    { threshold: 0.3 }
+  );
+
+  document.querySelectorAll('.package-item').forEach((item) => {
+    observer.observe(item);
+  });
+</script>

@@ -1,0 +1,110 @@
+---
+import BootScreen from '../components/ui/BootScreen.tsx';
+
+interface Props {
+  title: string;
+  description?: string;
+  showBoot?: boolean;
+}
+
+const {
+  title,
+  description = "Tech Lead & Software Engineer specializing in TypeScript, Go, and AI-native development. Building exceptional digital experiences at Falabella.",
+  showBoot = true
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <meta name="author" content="Lucas Andre Henry Diaz" />
+  <meta name="theme-color" content="#0d0d0b" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <title>{title}</title>
+</head>
+<body>
+  <!-- Boot Screen -->
+  {showBoot && (
+    <div id="boot-container">
+      <BootScreen client:load />
+    </div>
+  )}
+
+  <!-- Subtle Scanlines Overlay -->
+  <div class="scanlines"></div>
+
+  <!-- Noise Texture Overlay -->
+  <div class="noise"></div>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress">
+    <div class="scroll-progress-bar" id="scroll-bar"></div>
+  </div>
+
+  <!-- Main Content -->
+  <div id="main-content" class:list={['main-content', { loaded: !showBoot }]}>
+    <slot />
+  </div>
+
+  <!-- Scroll Progress Script -->
+  <script>
+    const scrollBar = document.getElementById('scroll-bar');
+
+    function updateScrollProgress() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      if (scrollBar) {
+        scrollBar.style.width = `${scrollPercent}%`;
+      }
+    }
+
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+    updateScrollProgress();
+
+    // Fallback: ensure content shows after max 5 seconds even if boot fails
+    setTimeout(() => {
+      const mainContent = document.getElementById('main-content');
+      const bootContainer = document.getElementById('boot-container');
+      if (mainContent && !mainContent.classList.contains('loaded')) {
+        mainContent.classList.add('loaded');
+        if (bootContainer) {
+          bootContainer.style.display = 'none';
+        }
+      }
+    }, 5000);
+  </script>
+</body>
+</html>
+
+<style is:global>
+  @import '../styles/global.css';
+
+  /* Main content fade in */
+  .main-content {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .main-content.loaded {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>

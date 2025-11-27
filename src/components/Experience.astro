@@ -1,0 +1,616 @@
+---
+import CinematicReveal from './ui/CinematicReveal.tsx';
+
+const experiences = [
+  {
+    company: 'Falabella',
+    role: 'Tech Lead',
+    period: 'Jun 2023 — Present',
+    hash: 'e7f3a2c',
+    branch: 'main',
+    description: 'Directing Falabella\'s migration to Microfrontends architecture with a monorepo system supporting multiple businesses across South America.',
+    highlights: [
+      'Microfrontends architecture + monorepo',
+      'Customer journey: returns, cancellations, orders',
+      'Proprietary analytics framework',
+      'Playwright E2E testing framework',
+      'Engineering culture: CI/CD, Grafana observability',
+    ],
+    additions: 847,
+    deletions: 234,
+    tags: ['TypeScript', 'React', 'Go', 'gRPC', 'Playwright', 'Grafana'],
+    current: true,
+  },
+  {
+    company: 'Falabella',
+    role: 'Senior Software Engineer',
+    period: 'Feb 2022 — Jun 2023',
+    hash: 'b4d8f1e',
+    branch: 'develop',
+    description: 'Enhanced digital platform with backend optimizations and Go microservices for cross-service communication.',
+    highlights: [
+      'My Purchases section optimization',
+      'Go microservices + gRPC',
+      'NextJS + React monorepo',
+      'A/B testing for conversion',
+      'DevOps: GitLab CI + Datadog',
+    ],
+    additions: 623,
+    deletions: 189,
+    tags: ['TypeScript', 'Go', 'NextJS', 'React', 'Datadog'],
+    current: false,
+  },
+  {
+    company: 'Cencosud',
+    role: 'Senior Software Engineer',
+    period: 'Aug 2021 — Feb 2022',
+    hash: '9c2e6a7',
+    branch: 'feature/marketplace',
+    description: 'Developed Seller Center modules for Paris Marketplace and designed API-driven Transport Management System.',
+    highlights: [
+      'Seller Center modules (Paris Marketplace)',
+      'Transport Management System (TMS)',
+      'Multi-carrier logistics optimization',
+      'Complex business rules automation',
+    ],
+    additions: 412,
+    deletions: 78,
+    tags: ['Node.js', 'React', 'API Design', 'Logistics'],
+    current: false,
+  },
+  {
+    company: 'Cencosud',
+    role: 'Software Engineer',
+    period: 'Feb 2021 — Aug 2021',
+    hash: '5f1d9b3',
+    branch: 'feature/orders',
+    description: 'Focused on async order management and legacy system integration.',
+    highlights: [
+      'Async seller order management',
+      'XML processing automation',
+      'Legacy system integration',
+    ],
+    additions: 287,
+    deletions: 92,
+    tags: ['Node.js', 'XML', 'Integration'],
+    current: false,
+  },
+  {
+    company: 'WiTi',
+    role: 'Fullstack Developer',
+    period: 'Feb 2020 — Feb 2021',
+    hash: '1a7c4e2',
+    branch: 'feature/returns',
+    description: 'Integrated PIM systems and led returns module development with state machines.',
+    highlights: [
+      'PIM systems integration (Paris)',
+      'Returns module with state machines',
+      'Marketplace features launch',
+    ],
+    additions: 156,
+    deletions: 34,
+    tags: ['React', 'Node.js', 'State Machines'],
+    current: false,
+  },
+];
+
+// Calculate totals
+const totalAdditions = experiences.reduce((acc, exp) => acc + exp.additions, 0);
+const totalDeletions = experiences.reduce((acc, exp) => acc + exp.deletions, 0);
+---
+
+<section id="experience" class="section experience">
+  <CinematicReveal client:load>
+    <div class="section-header">
+      <span class="section-cmd">git log --oneline --graph career.md</span>
+      <h2 class="section-title">
+        <span class="title-bracket">[</span>
+        Runtime History
+        <span class="title-bracket">]</span>
+      </h2>
+    </div>
+  </CinematicReveal>
+
+  <!-- Git Stats Header -->
+  <CinematicReveal client:load delay={0.1}>
+    <div class="git-stats">
+      <span class="stat-item">
+        <span class="stat-label">commits:</span>
+        <span class="stat-value">{experiences.length}</span>
+      </span>
+      <span class="stat-separator">|</span>
+      <span class="stat-item">
+        <span class="stat-label">insertions:</span>
+        <span class="stat-value additions">+{totalAdditions}</span>
+      </span>
+      <span class="stat-separator">|</span>
+      <span class="stat-item">
+        <span class="stat-label">deletions:</span>
+        <span class="stat-value deletions">-{totalDeletions}</span>
+      </span>
+      <span class="stat-separator">|</span>
+      <span class="stat-item">
+        <span class="stat-label">branch:</span>
+        <span class="stat-value branch">career/lucas-henry</span>
+      </span>
+    </div>
+  </CinematicReveal>
+
+  <!-- Git Log Timeline -->
+  <div class="git-log">
+    <div class="git-graph">
+      {experiences.map((exp, i) => (
+        <div class="graph-node">
+          <div class:list={['node-line', { first: i === 0, last: i === experiences.length - 1 }]}></div>
+          <div class:list={['node-dot', { current: exp.current }]}>
+            {exp.current && <span class="dot-pulse"></span>}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="commits-list">
+      {experiences.map((exp, i) => (
+        <CinematicReveal client:load delay={0.15 * (i + 1)}>
+          <div class:list={['commit-item', { current: exp.current }]}>
+            <!-- Commit Header -->
+            <div class="commit-header">
+              <span class="commit-hash">{exp.hash}</span>
+              <span class="commit-branch">({exp.branch})</span>
+              <span class="commit-author">HEAD -{'>'} lucas</span>
+            </div>
+
+            <!-- Commit Message -->
+            <div class="commit-message">
+              <span class="commit-title">{exp.role}</span>
+              <span class="commit-at">@</span>
+              <span class="commit-company">{exp.company}</span>
+            </div>
+
+            <!-- Commit Meta -->
+            <div class="commit-meta">
+              <span class="meta-date">{exp.period}</span>
+              <span class="meta-diff">
+                <span class="diff-add">+{exp.additions}</span>
+                <span class="diff-del">-{exp.deletions}</span>
+              </span>
+            </div>
+
+            <!-- Commit Body -->
+            <div class="commit-body">
+              <p class="body-description">{exp.description}</p>
+
+              <div class="diff-block">
+                <div class="diff-header">
+                  <span class="diff-file">diff --git a/career.md b/career.md</span>
+                </div>
+                <div class="diff-content">
+                  {exp.highlights.map((highlight) => (
+                    <p class="diff-line addition">
+                      <span class="diff-symbol">+</span>
+                      <span class="diff-text">{highlight}</span>
+                    </p>
+                  ))}
+                </div>
+              </div>
+
+              <div class="commit-tags">
+                {exp.tags.map((tag) => (
+                  <span class="tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </CinematicReveal>
+      ))}
+    </div>
+  </div>
+
+  <!-- Git Log Footer -->
+  <CinematicReveal client:load delay={0.9}>
+    <div class="git-footer">
+      <span class="footer-prompt">$</span>
+      <span class="footer-text">git status</span>
+      <p class="footer-output">
+        On branch <span class="highlight">career/lucas-henry</span>
+        <br/>
+        Your branch is up to date with 'origin/career/lucas-henry'.
+        <br/>
+        <span class="status-clean">nothing to commit, working tree clean</span>
+      </p>
+    </div>
+  </CinematicReveal>
+</section>
+
+<style>
+  .experience {
+    background: linear-gradient(180deg, var(--bg-primary), var(--bg-secondary), var(--bg-primary));
+  }
+
+  .section-header {
+    margin-bottom: 2rem;
+  }
+
+  .section-cmd {
+    font-family: var(--font-terminal);
+    font-size: 0.8rem;
+    color: var(--accent-sage);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .title-bracket {
+    color: var(--accent-amber);
+    font-weight: 300;
+  }
+
+  /* Git Stats */
+  .git-stats {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    margin-bottom: 2rem;
+    font-family: var(--font-terminal);
+    font-size: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .stat-item {
+    display: flex;
+    gap: 0.35rem;
+  }
+
+  .stat-label {
+    color: var(--text-muted);
+  }
+
+  .stat-value {
+    color: var(--accent-cream);
+  }
+
+  .stat-value.additions {
+    color: var(--accent-sage);
+  }
+
+  .stat-value.deletions {
+    color: var(--accent-rust, #a85a32);
+  }
+
+  .stat-value.branch {
+    color: var(--accent-amber);
+  }
+
+  .stat-separator {
+    color: var(--text-dim);
+  }
+
+  /* Git Log Layout */
+  .git-log {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 0;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* Git Graph */
+  .git-graph {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .graph-node {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    min-height: 180px;
+  }
+
+  .node-line {
+    position: absolute;
+    width: 2px;
+    top: 0;
+    bottom: 0;
+    background: linear-gradient(180deg,
+      var(--accent-amber),
+      var(--accent-gold),
+      var(--accent-sage)
+    );
+  }
+
+  .node-line.first {
+    top: 20px;
+  }
+
+  .node-line.last {
+    bottom: calc(100% - 20px);
+  }
+
+  .node-dot {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    background: var(--bg-primary);
+    border: 3px solid var(--accent-amber);
+    border-radius: 50%;
+    z-index: 1;
+    margin-top: 20px;
+  }
+
+  .node-dot.current {
+    border-color: var(--accent-gold);
+    background: var(--accent-gold);
+  }
+
+  .dot-pulse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--accent-gold);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: dotPulse 2s infinite;
+  }
+
+  @keyframes dotPulse {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(1.8); opacity: 0; }
+  }
+
+  /* Commits List */
+  .commits-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .commit-item {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: all var(--transition-medium);
+  }
+
+  .commit-item:hover {
+    transform: translateX(8px);
+    border-color: var(--accent-sage);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .commit-item.current {
+    border-color: var(--accent-gold);
+    background: rgba(201, 148, 58, 0.05);
+  }
+
+  .commit-item.current:hover {
+    border-color: var(--accent-amber);
+  }
+
+  /* Commit Header */
+  .commit-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-tertiary);
+    border-bottom: 1px solid var(--glass-border);
+    font-family: var(--font-terminal);
+    font-size: 0.75rem;
+  }
+
+  .commit-hash {
+    color: var(--accent-gold);
+    font-weight: 600;
+  }
+
+  .commit-branch {
+    color: var(--accent-sage);
+  }
+
+  .commit-author {
+    color: var(--text-muted);
+    margin-left: auto;
+  }
+
+  /* Commit Message */
+  .commit-message {
+    padding: 1rem;
+    font-family: var(--font-terminal);
+    font-size: 1rem;
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  .commit-title {
+    color: var(--accent-cream);
+    font-weight: 600;
+  }
+
+  .commit-at {
+    color: var(--text-dim);
+    margin: 0 0.35rem;
+  }
+
+  .commit-company {
+    color: var(--accent-amber);
+  }
+
+  /* Commit Meta */
+  .commit-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: var(--bg-tertiary);
+    font-family: var(--font-terminal);
+    font-size: 0.7rem;
+  }
+
+  .meta-date {
+    color: var(--text-muted);
+  }
+
+  .meta-diff {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .diff-add {
+    color: var(--accent-sage);
+  }
+
+  .diff-del {
+    color: var(--accent-rust, #a85a32);
+  }
+
+  /* Commit Body */
+  .commit-body {
+    padding: 1rem;
+  }
+
+  .body-description {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  /* Diff Block */
+  .diff-block {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+
+  .diff-header {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--glass-border);
+    font-family: var(--font-terminal);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+  }
+
+  .diff-content {
+    padding: 0.75rem;
+  }
+
+  .diff-line {
+    font-family: var(--font-terminal);
+    font-size: 0.75rem;
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .diff-line:last-child {
+    margin-bottom: 0;
+  }
+
+  .diff-line.addition {
+    color: var(--accent-sage);
+  }
+
+  .diff-symbol {
+    color: var(--accent-sage);
+    font-weight: 600;
+    min-width: 12px;
+  }
+
+  .diff-text {
+    color: var(--text-secondary);
+  }
+
+  /* Commit Tags */
+  .commit-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  /* Git Footer */
+  .git-footer {
+    max-width: 900px;
+    margin: 2rem auto 0;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    font-family: var(--font-terminal);
+  }
+
+  .footer-prompt {
+    color: var(--accent-sage);
+    margin-right: 0.5rem;
+  }
+
+  .footer-text {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+  }
+
+  .footer-output {
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .footer-output .highlight {
+    color: var(--accent-amber);
+  }
+
+  .status-clean {
+    color: var(--accent-sage);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .git-log {
+      grid-template-columns: 30px 1fr;
+    }
+
+    .graph-node {
+      min-height: 150px;
+    }
+
+    .commit-header {
+      flex-wrap: wrap;
+    }
+
+    .commit-author {
+      width: 100%;
+      margin-left: 0;
+      margin-top: 0.5rem;
+    }
+
+    .git-stats {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.35rem;
+    }
+
+    .stat-separator {
+      display: none;
+    }
+  }
+</style>

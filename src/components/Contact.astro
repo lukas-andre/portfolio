@@ -1,0 +1,610 @@
+---
+import CinematicReveal from './ui/CinematicReveal.tsx';
+import Icon from './ui/Icon.tsx';
+
+const contactLinks = [
+  {
+    iconName: 'mail' as const,
+    label: 'email',
+    value: 'lucas.henrydz@gmail.com',
+    href: 'mailto:lucas.henrydz@gmail.com',
+    port: '25',
+  },
+  {
+    iconName: 'linkedin' as const,
+    label: 'linkedin',
+    value: '/in/lucas-henryd',
+    href: 'https://linkedin.com/in/lucas-henryd',
+    port: '443',
+  },
+  {
+    iconName: 'github' as const,
+    label: 'github',
+    value: '@lucashenry',
+    href: 'https://github.com/lucashenry',
+    port: '22',
+  },
+];
+---
+
+<section id="contact" class="section contact">
+  <CinematicReveal client:load>
+    <div class="section-header">
+      <span class="section-cmd">ssh lucas@connect</span>
+      <h2 class="section-title">
+        <span class="title-bracket">[</span>
+        Establish Connection
+        <span class="title-bracket">]</span>
+      </h2>
+    </div>
+  </CinematicReveal>
+
+  <div class="contact-content">
+    <CinematicReveal client:load delay={0.2}>
+      <div class="ssh-terminal">
+        <div class="terminal-bar">
+          <div class="terminal-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <span class="terminal-title">ssh lucas@portfolio -p 22</span>
+        </div>
+
+        <div class="terminal-body">
+          <!-- SSH Banner -->
+          <div class="ssh-banner">
+            <pre class="banner-art">
+╔═══════════════════════════════════════╗
+║         LUCAS HENRY TERMINAL          ║
+║              v1.0.0                   ║
+╠═══════════════════════════════════════╣
+║  Authorized access only.              ║
+║  All connections are monitored.       ║
+╚═══════════════════════════════════════╝
+            </pre>
+          </div>
+
+          <!-- Connection Messages -->
+          <div class="ssh-messages">
+            <p class="ssh-line">
+              <span class="ssh-arrow">::</span>
+              <span class="ssh-text">Connecting to lucas@portfolio...</span>
+            </p>
+            <p class="ssh-line">
+              <span class="ssh-arrow">::</span>
+              <span class="ssh-text">Verifying host key fingerprint...</span>
+            </p>
+            <p class="ssh-line fingerprint">
+              <span class="ssh-key">SHA256:</span>
+              <span class="ssh-hash">K3yF1ng3rPr1nt/AI+N4t1v3D3v/2024==</span>
+            </p>
+            <p class="ssh-line success">
+              <span class="ssh-check">[OK]</span>
+              <span class="ssh-text">Connection established</span>
+            </p>
+            <p class="ssh-line success">
+              <span class="ssh-check">[OK]</span>
+              <span class="ssh-text">Welcome, visitor!</span>
+            </p>
+          </div>
+
+          <!-- Available Ports -->
+          <div class="ports-section">
+            <p class="ports-header">
+              <span class="prompt-user">lucas</span>
+              <span class="prompt-at">@</span>
+              <span class="prompt-host">portfolio</span>
+              <span class="prompt-colon">:</span>
+              <span class="prompt-path">~</span>
+              <span class="prompt-symbol">$</span>
+              <span class="cmd-text">cat ~/.ssh/available_ports</span>
+            </p>
+
+            <div class="contact-links">
+              {contactLinks.map((link) => (
+                <a href={link.href} target="_blank" rel="noopener" class="contact-link">
+                  <span class="link-port">:{link.port}</span>
+                  <span class="link-icon">
+                    <Icon client:load name={link.iconName} size={16} strokeWidth={1.5} />
+                  </span>
+                  <span class="link-label">{link.label}</span>
+                  <span class="link-separator">::</span>
+                  <span class="link-value">{link.value}</span>
+                  <span class="link-status">OPEN</span>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <!-- Interactive Prompt -->
+          <div class="interactive-section">
+            <div class="prompt-line">
+              <span class="prompt-user">visitor</span>
+              <span class="prompt-at">@</span>
+              <span class="prompt-host">lucas-portfolio</span>
+              <span class="prompt-colon">:</span>
+              <span class="prompt-path">~</span>
+              <span class="prompt-symbol">$</span>
+              <input
+                type="text"
+                class="contact-input"
+                placeholder="try 'hello' to connect..."
+                id="contact-cmd"
+              />
+              <span class="cursor"></span>
+            </div>
+            <div class="terminal-response" id="terminal-response"></div>
+          </div>
+        </div>
+      </div>
+    </CinematicReveal>
+
+    <!-- Location Info -->
+    <CinematicReveal client:load delay={0.4}>
+      <div class="location-block">
+        <div class="location-header">
+          <span class="location-cmd">curl -s ipinfo.io/lucas</span>
+        </div>
+        <div class="location-content">
+          <div class="location-row">
+            <span class="loc-key">"city"</span>
+            <span class="loc-colon">:</span>
+            <span class="loc-value">"Santiago"</span>
+          </div>
+          <div class="location-row">
+            <span class="loc-key">"country"</span>
+            <span class="loc-colon">:</span>
+            <span class="loc-value">"Chile"</span>
+          </div>
+          <div class="location-row">
+            <span class="loc-key">"timezone"</span>
+            <span class="loc-colon">:</span>
+            <span class="loc-value">"America/Santiago"</span>
+          </div>
+          <div class="location-row">
+            <span class="loc-key">"remote"</span>
+            <span class="loc-colon">:</span>
+            <span class="loc-value bool">true</span>
+          </div>
+          <div class="location-row">
+            <span class="loc-key">"status"</span>
+            <span class="loc-colon">:</span>
+            <span class="loc-value status">"Open to opportunities worldwide"</span>
+          </div>
+        </div>
+      </div>
+    </CinematicReveal>
+
+    <!-- CTA -->
+    <CinematicReveal client:load delay={0.6}>
+      <div class="cta-block">
+        <span class="cta-prompt">echo $MISSION</span>
+        <p class="cta-text">
+          Let's build something <span class="highlight">extraordinary</span> together.
+        </p>
+      </div>
+    </CinematicReveal>
+  </div>
+</section>
+
+<style>
+  .contact {
+    background: linear-gradient(180deg, var(--bg-primary), var(--bg-secondary));
+  }
+
+  .section-header {
+    margin-bottom: 2rem;
+  }
+
+  .section-cmd {
+    font-family: var(--font-terminal);
+    font-size: 0.8rem;
+    color: var(--accent-sage);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .title-bracket {
+    color: var(--accent-amber);
+    font-weight: 300;
+  }
+
+  .contact-content {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* SSH Terminal */
+  .ssh-terminal {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  .terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  .terminal-dots {
+    display: flex;
+    gap: 6px;
+  }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+
+  .dot.red { background: rgba(232, 89, 89, 0.8); }
+  .dot.yellow { background: rgba(212, 165, 116, 0.8); }
+  .dot.green { background: rgba(138, 154, 124, 0.8); }
+
+  .terminal-title {
+    font-family: var(--font-terminal);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .terminal-body {
+    padding: 1.25rem;
+  }
+
+  /* SSH Banner */
+  .ssh-banner {
+    margin-bottom: 1.5rem;
+  }
+
+  .banner-art {
+    font-family: var(--font-terminal);
+    font-size: 0.6rem;
+    line-height: 1.3;
+    color: var(--accent-amber);
+    text-align: center;
+    white-space: pre;
+  }
+
+  /* SSH Messages */
+  .ssh-messages {
+    margin-bottom: 1.5rem;
+    font-family: var(--font-terminal);
+    font-size: 0.75rem;
+  }
+
+  .ssh-line {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .ssh-arrow {
+    color: var(--accent-sage);
+  }
+
+  .ssh-text {
+    color: var(--text-secondary);
+  }
+
+  .ssh-line.fingerprint {
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .ssh-key {
+    color: var(--text-muted);
+  }
+
+  .ssh-hash {
+    color: var(--accent-cream);
+    font-size: 0.65rem;
+  }
+
+  .ssh-line.success .ssh-check {
+    color: var(--accent-sage);
+    font-weight: 600;
+  }
+
+  .ssh-line.success .ssh-text {
+    color: var(--accent-cream);
+  }
+
+  /* Ports Section */
+  .ports-section {
+    margin-bottom: 1.5rem;
+  }
+
+  .ports-header {
+    font-family: var(--font-terminal);
+    font-size: 0.75rem;
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 0;
+  }
+
+  .prompt-user { color: var(--accent-sage); }
+  .prompt-at { color: var(--text-muted); }
+  .prompt-host { color: var(--accent-amber); }
+  .prompt-colon { color: var(--text-muted); }
+  .prompt-path { color: var(--accent-cream); }
+  .prompt-symbol { color: var(--text-muted); margin-right: 0.5rem; }
+  .cmd-text { color: var(--text-secondary); }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-terminal);
+    font-size: 0.75rem;
+    transition: all var(--transition-medium);
+  }
+
+  .contact-link:hover {
+    border-color: var(--accent-amber);
+    transform: translateX(8px);
+    background: rgba(212, 165, 116, 0.05);
+  }
+
+  .contact-link:hover .link-status {
+    color: var(--accent-sage);
+  }
+
+  .link-port {
+    color: var(--accent-gold);
+    font-weight: 600;
+    min-width: 35px;
+  }
+
+  .link-icon {
+    display: flex;
+    align-items: center;
+    color: var(--accent-amber);
+  }
+
+  .link-label {
+    color: var(--accent-sage);
+    min-width: 60px;
+  }
+
+  .link-separator {
+    color: var(--text-dim);
+  }
+
+  .link-value {
+    color: var(--text-secondary);
+    flex: 1;
+  }
+
+  .link-status {
+    color: var(--text-muted);
+    font-size: 0.65rem;
+    padding: 0.15rem 0.4rem;
+    background: rgba(138, 154, 124, 0.15);
+    border-radius: 2px;
+    transition: color var(--transition-fast);
+  }
+
+  /* Interactive Section */
+  .interactive-section {
+    border-top: 1px solid var(--glass-border);
+    padding-top: 1rem;
+  }
+
+  .prompt-line {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    font-family: var(--font-terminal);
+    font-size: 0.75rem;
+  }
+
+  .contact-input {
+    background: transparent;
+    border: none;
+    font-family: var(--font-terminal);
+    font-size: 0.75rem;
+    color: var(--accent-cream);
+    outline: none;
+    flex: 1;
+  }
+
+  .contact-input::placeholder {
+    color: var(--text-dim);
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 8px;
+    height: 14px;
+    background: var(--accent-amber);
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  .terminal-response {
+    margin-top: 0.75rem;
+    font-family: var(--font-terminal);
+    font-size: 0.75rem;
+    min-height: 1.5em;
+  }
+
+  .terminal-response :global(.success) {
+    color: var(--accent-sage);
+  }
+
+  .terminal-response :global(.error) {
+    color: var(--accent-rust, #a85a32);
+  }
+
+  .terminal-response :global(.info) {
+    color: var(--accent-amber);
+  }
+
+  /* Location Block */
+  .location-block {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  .location-header {
+    padding: 0.75rem 1rem;
+    background: var(--bg-tertiary);
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  .location-cmd {
+    font-family: var(--font-terminal);
+    font-size: 0.75rem;
+    color: var(--accent-sage);
+  }
+
+  .location-content {
+    padding: 1rem;
+    font-family: var(--font-terminal);
+    font-size: 0.75rem;
+  }
+
+  .location-row {
+    display: flex;
+    gap: 0.35rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .location-row:last-child {
+    margin-bottom: 0;
+  }
+
+  .loc-key {
+    color: var(--accent-cream);
+  }
+
+  .loc-colon {
+    color: var(--text-dim);
+  }
+
+  .loc-value {
+    color: var(--accent-sage);
+  }
+
+  .loc-value.bool {
+    color: var(--accent-gold);
+  }
+
+  .loc-value.status {
+    color: var(--accent-amber);
+  }
+
+  /* CTA Block */
+  .cta-block {
+    text-align: center;
+    padding: 2rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+  }
+
+  .cta-prompt {
+    font-family: var(--font-terminal);
+    font-size: 0.75rem;
+    color: var(--accent-sage);
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .cta-text {
+    font-size: 1.25rem;
+    color: var(--text-primary);
+  }
+
+  .cta-text .highlight {
+    color: var(--accent-gold);
+    font-weight: 600;
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .banner-art {
+      font-size: 0.5rem;
+    }
+
+    .contact-link {
+      flex-wrap: wrap;
+    }
+
+    .link-value {
+      width: 100%;
+      margin-top: 0.25rem;
+    }
+  }
+</style>
+
+<script>
+  const input = document.getElementById('contact-cmd') as HTMLInputElement;
+  const response = document.getElementById('terminal-response');
+
+  if (input && response) {
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const command = input.value.toLowerCase().trim();
+
+        if (command === 'hello' || command === 'hi' || command === 'connect') {
+          response.innerHTML = '<span class="success">:: Establishing secure connection...</span>';
+          setTimeout(() => {
+            response.innerHTML = '<span class="success">[OK] Opening email client...</span>';
+            setTimeout(() => {
+              window.location.href = 'mailto:lucas.henrydz@gmail.com?subject=Hello from your portfolio!';
+            }, 800);
+          }, 600);
+        } else if (command === 'help') {
+          response.innerHTML = '<span class="info">:: Commands: hello, help, clear, whoami, exit</span>';
+        } else if (command === 'clear') {
+          response.innerHTML = '';
+        } else if (command === 'whoami') {
+          response.innerHTML = '<span class="info">:: visitor@lucas-portfolio (guest)</span>';
+        } else if (command === 'exit' || command === 'logout') {
+          response.innerHTML = '<span class="info">:: Connection closed by remote host.</span>';
+        } else if (command === 'sudo' || command.startsWith('sudo ')) {
+          response.innerHTML = '<span class="error">[DENIED] Permission denied. Nice try though.</span>';
+        } else if (command === 'ls') {
+          response.innerHTML = '<span class="info">:: skills/ experience/ projects/ contact.md</span>';
+        } else if (command !== '') {
+          response.innerHTML = `<span class="error">[ERROR] Command not found: ${command}. Type 'help'.</span>`;
+        }
+
+        input.value = '';
+      }
+    });
+  }
+</script>

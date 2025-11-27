@@ -1,0 +1,454 @@
+---
+import GlitchText from './ui/GlitchText.tsx';
+import TypeWriter from './ui/TypeWriter.tsx';
+import CinematicReveal from './ui/CinematicReveal.tsx';
+---
+
+<section id="hero" class="hero">
+  <div class="hero-content">
+    <CinematicReveal client:load delay={0.3}>
+      <div class="hero-terminal-line">
+        <span class="prompt-user">lucas</span>
+        <span class="prompt-at">@</span>
+        <span class="prompt-host">arch</span>
+        <span class="prompt-separator">:</span>
+        <span class="prompt-path">~</span>
+        <span class="prompt-symbol">$</span>
+        <TypeWriter client:load text="whoami --verbose" delay={800} speed={60} />
+      </div>
+    </CinematicReveal>
+
+    <CinematicReveal client:load delay={0.6}>
+      <div class="hero-identity">
+        <div class="hero-photo-small">
+          <div class="photo-placeholder">
+            <span class="placeholder-text">PHOTO</span>
+          </div>
+          <div class="photo-frame-glow"></div>
+        </div>
+        <div class="hero-name-container">
+          <h1 class="hero-name">
+            <GlitchText client:load className="name-text">
+              Lucas Henry
+            </GlitchText>
+          </h1>
+        </div>
+      </div>
+    </CinematicReveal>
+
+    <CinematicReveal client:load delay={0.9}>
+      <div class="hero-roles">
+        <span class="role-badge primary">Tech Lead</span>
+        <span class="role-separator">//</span>
+        <span class="role-badge">Software Engineer</span>
+        <span class="role-separator">//</span>
+        <span class="role-badge highlight">AI Native</span>
+      </div>
+    </CinematicReveal>
+
+    <CinematicReveal client:load delay={1.1}>
+      <div class="hero-output">
+        <p class="output-line">
+          <span class="output-key">company</span>
+          <span class="output-colon">:</span>
+          <span class="output-value company">"Falabella"</span>
+        </p>
+        <p class="output-line">
+          <span class="output-key">focus</span>
+          <span class="output-colon">:</span>
+          <span class="output-value">"Microfrontends & E-commerce"</span>
+        </p>
+        <p class="output-line">
+          <span class="output-key">stack</span>
+          <span class="output-colon">:</span>
+          <span class="output-value">["TypeScript", "Go", "React", "AI"]</span>
+        </p>
+        <p class="output-line">
+          <span class="output-key">status</span>
+          <span class="output-colon">:</span>
+          <span class="output-value status">"Open to opportunities"</span>
+        </p>
+      </div>
+    </CinematicReveal>
+
+    <CinematicReveal client:load delay={1.4}>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary">
+          <span>ssh connect</span>
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+        <a href="#demos" class="btn btn-secondary">
+          <span>ls ~/projects</span>
+        </a>
+      </div>
+    </CinematicReveal>
+  </div>
+
+  <!-- Floating code decoration -->
+  <div class="hero-decoration">
+    <CinematicReveal client:load delay={1.6}>
+      <div class="code-block">
+        <pre><code><span class="code-comment">// lucas.config.ts</span>
+<span class="code-keyword">export const</span> <span class="code-var">lucas</span> = {'{'}
+  <span class="code-prop">role</span>: <span class="code-string">"Tech Lead"</span>,
+  <span class="code-prop">company</span>: <span class="code-string">"Falabella"</span>,
+  <span class="code-prop">ai_native</span>: <span class="code-bool">true</span>,
+  <span class="code-prop">years_exp</span>: <span class="code-number">6</span>,
+{'}'} <span class="code-keyword">as const</span>;
+</code></pre>
+      </div>
+    </CinematicReveal>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="scroll-indicator">
+    <div class="scroll-mouse">
+      <div class="scroll-wheel"></div>
+    </div>
+    <span class="scroll-text">scroll</span>
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 5% 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-content {
+    max-width: 750px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Terminal prompt line */
+  .hero-terminal-line {
+    font-family: var(--font-terminal);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .prompt-user {
+    color: var(--accent-sage);
+    font-weight: 500;
+  }
+
+  .prompt-at {
+    color: var(--text-muted);
+  }
+
+  .prompt-host {
+    color: var(--accent-amber);
+    font-weight: 500;
+  }
+
+  .prompt-separator {
+    color: var(--text-muted);
+  }
+
+  .prompt-path {
+    color: var(--accent-cream);
+  }
+
+  .prompt-symbol {
+    color: var(--text-muted);
+    margin-right: 0.75rem;
+  }
+
+  /* Identity section with photo */
+  .hero-identity {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-photo-small {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
+  }
+
+  .photo-placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--bg-tertiary);
+    border: 2px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .placeholder-text {
+    font-family: var(--font-terminal);
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+  }
+
+  .photo-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 2px solid transparent;
+    border-radius: inherit;
+    background: linear-gradient(135deg, var(--accent-amber), var(--accent-gold), var(--accent-cream)) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: rotate-border 6s linear infinite;
+  }
+
+  @keyframes rotate-border {
+    to {
+      filter: hue-rotate(30deg);
+    }
+  }
+
+  .photo-frame-glow {
+    position: absolute;
+    inset: -8px;
+    background: radial-gradient(circle, rgba(212, 165, 116, 0.2) 0%, transparent 70%);
+    border-radius: var(--radius-xl);
+    z-index: -1;
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.05); }
+  }
+
+  .hero-name-container {
+    flex: 1;
+  }
+
+  .hero-name {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .hero-name :global(.name-text) {
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-cream) 40%, var(--accent-amber) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Roles */
+  .hero-roles {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .role-badge {
+    font-family: var(--font-terminal);
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    padding: 0.4rem 0.75rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+  }
+
+  .role-badge.primary {
+    border-color: var(--accent-amber);
+    color: var(--accent-amber);
+  }
+
+  .role-badge.highlight {
+    background: rgba(201, 148, 58, 0.15);
+    border-color: var(--accent-gold);
+    color: var(--accent-gold);
+  }
+
+  .role-separator {
+    color: var(--text-dim);
+    font-family: var(--font-terminal);
+  }
+
+  /* Output section */
+  .hero-output {
+    font-family: var(--font-terminal);
+    font-size: 0.85rem;
+    margin-bottom: 2.5rem;
+    padding: 1.25rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+  }
+
+  .output-line {
+    margin-bottom: 0.35rem;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .output-line:last-child {
+    margin-bottom: 0;
+  }
+
+  .output-key {
+    color: var(--accent-cream);
+    min-width: 70px;
+  }
+
+  .output-colon {
+    color: var(--text-dim);
+  }
+
+  .output-value {
+    color: var(--accent-sage);
+  }
+
+  .output-value.company {
+    color: var(--accent-amber);
+    font-weight: 500;
+  }
+
+  .output-value.status {
+    color: var(--accent-gold);
+  }
+
+  /* CTA */
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  /* Decoration */
+  .hero-decoration {
+    position: absolute;
+    right: 8%;
+    top: 50%;
+    transform: translateY(-50%) rotate(2deg);
+    opacity: 0.25;
+    pointer-events: none;
+  }
+
+  .code-block {
+    background: var(--bg-secondary);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    font-family: var(--font-terminal);
+    font-size: 0.8rem;
+    line-height: 1.6;
+  }
+
+  .code-comment { color: var(--text-dim); font-style: italic; }
+  .code-keyword { color: var(--accent-amber); }
+  .code-var { color: var(--accent-cream); }
+  .code-prop { color: var(--text-secondary); }
+  .code-string { color: var(--accent-sage); }
+  .code-bool { color: var(--accent-gold); }
+  .code-number { color: var(--accent-ember, #e07b4a); }
+
+  /* Scroll indicator */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .scroll-mouse {
+    width: 20px;
+    height: 32px;
+    border: 1.5px solid var(--glass-border);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    padding-top: 6px;
+  }
+
+  .scroll-wheel {
+    width: 2px;
+    height: 6px;
+    background: var(--accent-amber);
+    border-radius: 1px;
+    animation: scroll-wheel 2s ease-in-out infinite;
+  }
+
+  @keyframes scroll-wheel {
+    0%, 100% { transform: translateY(0); opacity: 1; }
+    50% { transform: translateY(6px); opacity: 0.3; }
+  }
+
+  .scroll-text {
+    font-family: var(--font-terminal);
+    font-size: 0.6rem;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .hero-decoration {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      padding-top: 6rem;
+    }
+
+    .hero-identity {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .hero-photo-small {
+      width: 80px;
+      height: 80px;
+    }
+
+    .hero-name {
+      font-size: clamp(2rem, 10vw, 3rem);
+    }
+
+    .hero-roles {
+      justify-content: flex-start;
+    }
+
+    .hero-output {
+      font-size: 0.75rem;
+    }
+
+    .hero-cta {
+      flex-direction: column;
+    }
+
+    .hero-cta .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

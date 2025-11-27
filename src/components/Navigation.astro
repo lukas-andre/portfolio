@@ -1,0 +1,310 @@
+---
+import VibratingLogo from './ui/VibratingLogo.tsx';
+
+const navLinks = [
+  { href: '#about', label: 'about', cmd: 'cat' },
+  { href: '#skills', label: 'skills', cmd: 'pacman -Qi' },
+  { href: '#experience', label: 'exp', cmd: 'git log' },
+  { href: '#demos', label: 'demos', cmd: 'ls -la' },
+  { href: '#ai', label: 'neural', highlight: true, cmd: 'neofetch' },
+  { href: '#contact', label: 'ssh', cmd: 'connect' },
+];
+---
+
+<nav class="nav">
+  <a href="#" class="nav-logo">
+    <VibratingLogo client:load />
+  </a>
+
+  <div class="nav-links">
+    {navLinks.map((link) => (
+      <a
+        href={link.href}
+        class:list={['nav-link', { highlight: link.highlight }]}
+        data-cmd={link.cmd}
+      >
+        <span class="link-cmd">{link.cmd}</span>
+        <span class="link-separator">::</span>
+        <span class="link-label">{link.label}</span>
+      </a>
+    ))}
+  </div>
+
+  <div class="nav-status">
+    <span class="status-item">
+      <span class="status-dot active"></span>
+      <span class="status-text">ONLINE</span>
+    </span>
+  </div>
+
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-content">
+    {navLinks.map((link) => (
+      <a
+        href={link.href}
+        class:list={['mobile-link', { highlight: link.highlight }]}
+      >
+        <span class="mobile-cmd">{link.cmd}</span>
+        <span class="mobile-label">{link.label}</span>
+      </a>
+    ))}
+  </div>
+</div>
+
+<style>
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: linear-gradient(180deg, var(--bg-void) 0%, rgba(13, 13, 11, 0.9) 50%, transparent 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .nav-logo {
+    transition: all var(--transition-medium);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .nav-link {
+    font-family: var(--font-terminal);
+    font-size: 0.7rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .link-cmd {
+    color: var(--accent-sage);
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all var(--transition-fast);
+  }
+
+  .link-separator {
+    color: var(--text-dim);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+  }
+
+  .link-label {
+    color: var(--text-secondary);
+    transition: color var(--transition-fast);
+  }
+
+  .nav-link:hover {
+    background: var(--glass-bg);
+  }
+
+  .nav-link:hover .link-cmd {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .nav-link:hover .link-separator {
+    opacity: 1;
+  }
+
+  .nav-link:hover .link-label {
+    color: var(--accent-amber);
+  }
+
+  .nav-link.highlight .link-label {
+    color: var(--accent-gold);
+  }
+
+  .nav-link.highlight:hover .link-label {
+    color: var(--accent-amber);
+    text-shadow: 0 0 10px rgba(212, 165, 116, 0.5);
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent-amber), var(--accent-gold));
+    transition: width var(--transition-medium);
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  .nav-status {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .status-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-terminal);
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  .status-dot.active {
+    background: var(--accent-sage);
+    box-shadow: 0 0 8px rgba(138, 154, 124, 0.6);
+    animation: status-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes status-pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0.5rem;
+    cursor: pointer;
+    z-index: 110;
+  }
+
+  .nav-toggle span {
+    width: 24px;
+    height: 2px;
+    background: var(--accent-amber);
+    transition: all var(--transition-fast);
+    transform-origin: center;
+  }
+
+  .nav-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .nav-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+
+  /* Mobile Menu */
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-void);
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-medium);
+  }
+
+  .mobile-menu.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .mobile-menu-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    gap: 1.5rem;
+  }
+
+  .mobile-link {
+    font-family: var(--font-terminal);
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 1rem;
+    transition: all var(--transition-fast);
+  }
+
+  .mobile-cmd {
+    font-size: 0.7rem;
+    color: var(--accent-sage);
+  }
+
+  .mobile-link:hover {
+    color: var(--accent-amber);
+  }
+
+  .mobile-link.highlight {
+    color: var(--accent-gold);
+  }
+
+  @media (max-width: 900px) {
+    .nav-links,
+    .nav-status {
+      display: none;
+    }
+
+    .nav-toggle {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const menu = document.getElementById('mobile-menu');
+
+  toggle?.addEventListener('click', () => {
+    toggle.classList.toggle('active');
+    menu?.classList.toggle('active');
+    document.body.style.overflow = menu?.classList.contains('active') ? 'hidden' : '';
+  });
+
+  // Close menu on link click
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      toggle?.classList.remove('active');
+      menu?.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+  });
+</script>

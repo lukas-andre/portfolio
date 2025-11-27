@@ -1,0 +1,650 @@
+---
+import CinematicReveal from './ui/CinematicReveal.tsx';
+import Icon from './ui/Icon.tsx';
+
+const aiSpecs = {
+  os: 'AI-Native Developer',
+  host: 'lucas@neural',
+  kernel: 'Human Intelligence 1.0',
+  uptime: '2+ years',
+  packages: 'Claude, Opus, ChatGPT, Copilot',
+  shell: 'prompt-engineering 2.0',
+  resolution: '∞ x ∞',
+  de: 'Augmented Intelligence',
+  wm: 'Collaborative Workflow',
+  theme: 'Dark Mode [Neural]',
+  cpu: 'Critical Thinking @ 100%',
+  gpu: 'Creativity Accelerated',
+  memory: '∞ / ∞ GB (cloud-augmented)',
+};
+
+const aiTools = [
+  {
+    name: 'Claude Code',
+    version: '4.0',
+    status: 'PRIMARY',
+    usage: 'Architecture, Code Review, Problem Solving',
+    active: true,
+  },
+  {
+    name: 'Claude Opus',
+    version: 'Latest',
+    status: 'ACTIVE',
+    usage: 'Complex Analysis, Strategic Planning',
+    active: true,
+  },
+  {
+    name: 'ChatGPT',
+    version: '4.5',
+    status: 'ACTIVE',
+    usage: 'Brainstorming, Documentation, Prototyping',
+    active: true,
+  },
+  {
+    name: 'GitHub Copilot',
+    version: 'X',
+    status: 'ACTIVE',
+    usage: 'Code Completion, Suggestions',
+    active: true,
+  },
+];
+
+const philosophy = [
+  {
+    key: 'approach',
+    value: 'Critical Adoption',
+    desc: 'Strategic integration with deep understanding',
+  },
+  {
+    key: 'mindset',
+    value: 'Augmented Intelligence',
+    desc: 'Human creativity amplified by AI',
+  },
+  {
+    key: 'vision',
+    value: 'Future-Ready',
+    desc: 'Building for tomorrow\'s AI capabilities',
+  },
+];
+
+const asciiArt = `
+    ╔═══════════════════════╗
+    ║   ◢██████████████◣   ║
+    ║  ◢████████████████◣  ║
+    ║ █████▀▀▀▀▀▀▀▀▀█████ ║
+    ║ ████  ◉    ◉   ████ ║
+    ║ ████    ▼▼     ████ ║
+    ║ █████▄▄▄▄▄▄▄▄▄█████ ║
+    ║  ◥████████████████◤  ║
+    ║   ◥██████████████◤   ║
+    ║      ║ NEURAL ║      ║
+    ╚═══════════════════════╝
+`;
+---
+
+<section id="ai" class="section ai-section">
+  <CinematicReveal client:load>
+    <div class="section-header">
+      <span class="section-cmd">neofetch --ai-native</span>
+      <h2 class="section-title">
+        <span class="title-bracket">[</span>
+        Neural Core
+        <span class="title-bracket">]</span>
+      </h2>
+    </div>
+  </CinematicReveal>
+
+  <!-- Main Neofetch Display -->
+  <CinematicReveal client:load delay={0.2}>
+    <div class="neofetch-container">
+      <div class="terminal-bar">
+        <div class="terminal-dots">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+        </div>
+        <span class="terminal-title">lucas@neural: neofetch</span>
+      </div>
+
+      <div class="neofetch-content">
+        <!-- ASCII Art Side -->
+        <div class="ascii-side">
+          <pre class="ascii-art">{asciiArt}</pre>
+          <div class="ascii-label">AI-Native</div>
+        </div>
+
+        <!-- System Info Side -->
+        <div class="info-side">
+          <div class="info-header">
+            <span class="info-user">lucas</span>
+            <span class="info-at">@</span>
+            <span class="info-host">neural</span>
+          </div>
+          <div class="info-divider"></div>
+
+          <div class="info-grid">
+            <div class="info-row">
+              <span class="info-key">OS</span>
+              <span class="info-value">{aiSpecs.os}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-key">Host</span>
+              <span class="info-value">{aiSpecs.host}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-key">Kernel</span>
+              <span class="info-value">{aiSpecs.kernel}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-key">Uptime</span>
+              <span class="info-value highlight">{aiSpecs.uptime}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-key">Packages</span>
+              <span class="info-value">{aiSpecs.packages}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-key">Shell</span>
+              <span class="info-value">{aiSpecs.shell}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-key">DE</span>
+              <span class="info-value">{aiSpecs.de}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-key">WM</span>
+              <span class="info-value">{aiSpecs.wm}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-key">Theme</span>
+              <span class="info-value">{aiSpecs.theme}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-key">CPU</span>
+              <span class="info-value">{aiSpecs.cpu}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-key">GPU</span>
+              <span class="info-value">{aiSpecs.gpu}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-key">Memory</span>
+              <span class="info-value">{aiSpecs.memory}</span>
+            </div>
+          </div>
+
+          <!-- Color palette -->
+          <div class="color-blocks">
+            <span class="color-block" style="background: #0d0d0b"></span>
+            <span class="color-block" style="background: #a85a32"></span>
+            <span class="color-block" style="background: #8a9a7c"></span>
+            <span class="color-block" style="background: #d4a574"></span>
+            <span class="color-block" style="background: #c9943a"></span>
+            <span class="color-block" style="background: #e8dcc8"></span>
+            <span class="color-block" style="background: #f5f0e8"></span>
+            <span class="color-block" style="background: #7c8a94"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </CinematicReveal>
+
+  <!-- AI Tools Grid -->
+  <CinematicReveal client:load delay={0.4}>
+    <div class="tools-section">
+      <div class="tools-header">
+        <span class="tools-cmd">systemctl status ai-tools</span>
+      </div>
+
+      <div class="tools-grid">
+        {aiTools.map((tool) => (
+          <div class="tool-card">
+            <div class="tool-header">
+              <span class="tool-dot active"></span>
+              <span class="tool-name">{tool.name}</span>
+              <span class="tool-version">v{tool.version}</span>
+            </div>
+            <div class="tool-body">
+              <div class="tool-row">
+                <span class="tool-key">Status</span>
+                <span class:list={['tool-status', { primary: tool.status === 'PRIMARY' }]}>{tool.status}</span>
+              </div>
+              <div class="tool-row">
+                <span class="tool-key">Usage</span>
+                <span class="tool-usage">{tool.usage}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </CinematicReveal>
+
+  <!-- Philosophy Section -->
+  <CinematicReveal client:load delay={0.6}>
+    <div class="philosophy-section">
+      <div class="philosophy-header">
+        <span class="philosophy-cmd">cat ~/.config/ai/philosophy.conf</span>
+      </div>
+
+      <div class="philosophy-content">
+        {philosophy.map((item) => (
+          <div class="philosophy-item">
+            <span class="phil-key">{item.key}</span>
+            <span class="phil-eq">=</span>
+            <span class="phil-value">"{item.value}"</span>
+            <span class="phil-comment"># {item.desc}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </CinematicReveal>
+
+  <!-- Quote -->
+  <CinematicReveal client:load delay={0.8}>
+    <div class="quote-block">
+      <span class="quote-prompt">echo $MANIFESTO</span>
+      <blockquote class="quote-text">
+        "I don't just use AI — I think with it. The developers who thrive aren't those who fear AI, but those who learn to dance with it."
+      </blockquote>
+    </div>
+  </CinematicReveal>
+</section>
+
+<style>
+  .ai-section {
+    background: linear-gradient(180deg, var(--bg-secondary), var(--bg-primary), var(--bg-secondary));
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-header {
+    margin-bottom: 2rem;
+  }
+
+  .section-cmd {
+    font-family: var(--font-terminal);
+    font-size: 0.8rem;
+    color: var(--accent-gold);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .title-bracket {
+    color: var(--accent-amber);
+    font-weight: 300;
+  }
+
+  /* Neofetch Container */
+  .neofetch-container {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    max-width: 900px;
+    margin: 0 auto 3rem;
+  }
+
+  .terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  .terminal-dots {
+    display: flex;
+    gap: 6px;
+  }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+
+  .dot.red { background: rgba(232, 89, 89, 0.8); }
+  .dot.yellow { background: rgba(212, 165, 116, 0.8); }
+  .dot.green { background: rgba(138, 154, 124, 0.8); }
+
+  .terminal-title {
+    font-family: var(--font-terminal);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .neofetch-content {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 2rem;
+    padding: 1.5rem;
+  }
+
+  /* ASCII Art */
+  .ascii-side {
+    text-align: center;
+  }
+
+  .ascii-art {
+    font-family: var(--font-terminal);
+    font-size: 0.65rem;
+    line-height: 1.2;
+    color: var(--accent-gold);
+    white-space: pre;
+    text-shadow: 0 0 20px rgba(201, 148, 58, 0.3);
+  }
+
+  .ascii-label {
+    font-family: var(--font-terminal);
+    font-size: 0.7rem;
+    color: var(--accent-amber);
+    margin-top: 0.5rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* Info Side */
+  .info-side {
+    font-family: var(--font-terminal);
+    font-size: 0.75rem;
+  }
+
+  .info-header {
+    margin-bottom: 0.5rem;
+  }
+
+  .info-user {
+    color: var(--accent-amber);
+    font-weight: 600;
+  }
+
+  .info-at {
+    color: var(--text-muted);
+  }
+
+  .info-host {
+    color: var(--accent-gold);
+    font-weight: 600;
+  }
+
+  .info-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent-amber), var(--accent-gold), transparent);
+    margin-bottom: 0.75rem;
+  }
+
+  .info-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .info-row {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .info-key {
+    color: var(--accent-amber);
+    min-width: 80px;
+    font-weight: 500;
+  }
+
+  .info-key::after {
+    content: ':';
+    color: var(--text-dim);
+  }
+
+  .info-value {
+    color: var(--text-secondary);
+  }
+
+  .info-value.highlight {
+    color: var(--accent-gold);
+    font-weight: 600;
+  }
+
+  /* Color blocks */
+  .color-blocks {
+    display: flex;
+    gap: 4px;
+    margin-top: 1rem;
+  }
+
+  .color-block {
+    width: 20px;
+    height: 20px;
+    border-radius: 2px;
+  }
+
+  /* Tools Section */
+  .tools-section {
+    max-width: 900px;
+    margin: 0 auto 3rem;
+  }
+
+  .tools-header {
+    margin-bottom: 1rem;
+  }
+
+  .tools-cmd {
+    font-family: var(--font-terminal);
+    font-size: 0.8rem;
+    color: var(--accent-sage);
+  }
+
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .tool-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: all var(--transition-medium);
+  }
+
+  .tool-card:hover {
+    border-color: var(--accent-amber);
+    transform: translateY(-2px);
+  }
+
+  .tool-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-tertiary);
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  .tool-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--text-dim);
+  }
+
+  .tool-dot.active {
+    background: var(--accent-sage);
+    box-shadow: 0 0 8px rgba(138, 154, 124, 0.6);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .tool-name {
+    font-family: var(--font-terminal);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent-cream);
+  }
+
+  .tool-version {
+    font-family: var(--font-terminal);
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    margin-left: auto;
+  }
+
+  .tool-body {
+    padding: 0.75rem 1rem;
+  }
+
+  .tool-row {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.35rem;
+    font-family: var(--font-terminal);
+    font-size: 0.75rem;
+  }
+
+  .tool-row:last-child {
+    margin-bottom: 0;
+  }
+
+  .tool-key {
+    color: var(--text-muted);
+    min-width: 50px;
+  }
+
+  .tool-status {
+    color: var(--accent-sage);
+    font-weight: 500;
+  }
+
+  .tool-status.primary {
+    color: var(--accent-gold);
+  }
+
+  .tool-usage {
+    color: var(--text-secondary);
+  }
+
+  /* Philosophy Section */
+  .philosophy-section {
+    max-width: 900px;
+    margin: 0 auto 3rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .philosophy-header {
+    padding: 0.75rem 1rem;
+    background: var(--bg-tertiary);
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  .philosophy-cmd {
+    font-family: var(--font-terminal);
+    font-size: 0.75rem;
+    color: var(--accent-sage);
+  }
+
+  .philosophy-content {
+    padding: 1.25rem;
+  }
+
+  .philosophy-item {
+    font-family: var(--font-terminal);
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+
+  .philosophy-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .phil-key {
+    color: var(--accent-cream);
+  }
+
+  .phil-eq {
+    color: var(--text-dim);
+  }
+
+  .phil-value {
+    color: var(--accent-sage);
+  }
+
+  .phil-comment {
+    color: var(--text-dim);
+    font-style: italic;
+    margin-left: 0.5rem;
+  }
+
+  /* Quote Block */
+  .quote-block {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 2rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+  }
+
+  .quote-prompt {
+    font-family: var(--font-terminal);
+    font-size: 0.75rem;
+    color: var(--accent-sage);
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .quote-text {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--accent-cream);
+    line-height: 1.8;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .neofetch-content {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .ascii-side {
+      display: none;
+    }
+
+    .tools-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .philosophy-item {
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .phil-comment {
+      margin-left: 0;
+    }
+  }
+</style>

@@ -1,0 +1,714 @@
+---
+import CinematicReveal from './ui/CinematicReveal.tsx';
+import Icon from './ui/Icon.tsx';
+
+const demos = [
+  {
+    id: 'microfrontends',
+    name: 'falabella-microfrontends',
+    description: 'Microfrontends architecture supporting multiple businesses across South America with monorepo system.',
+    tech: ['TypeScript', 'React', 'Module Federation'],
+    status: 'production',
+    permissions: 'drwxr-xr-x',
+    owner: 'lucas',
+    group: 'falabella',
+    size: '847K',
+    date: 'Nov 27',
+  },
+  {
+    id: 'playwright',
+    name: 'playwright-e2e-framework',
+    description: 'E2E testing framework with automated regression tests and market-specific test generation.',
+    tech: ['Playwright', 'TypeScript', 'CI/CD'],
+    status: 'production',
+    permissions: 'drwxr-xr-x',
+    owner: 'lucas',
+    group: 'falabella',
+    size: '234K',
+    date: 'Nov 15',
+  },
+  {
+    id: 'analytics',
+    name: 'analytics-engine',
+    description: 'Proprietary analytics framework capturing frontend events without third-party dependencies.',
+    tech: ['TypeScript', 'Custom Events', 'Grafana'],
+    status: 'production',
+    permissions: 'drwxr-xr-x',
+    owner: 'lucas',
+    group: 'falabella',
+    size: '156K',
+    date: 'Oct 28',
+  },
+  {
+    id: 'tms',
+    name: 'transport-management-system',
+    description: 'API-driven TMS optimizing multi-carrier logistics with automated carrier selection.',
+    tech: ['Node.js', 'API Design', 'Logistics'],
+    status: 'completed',
+    permissions: 'drwxr-xr-x',
+    owner: 'lucas',
+    group: 'cencosud',
+    size: '89K',
+    date: 'Feb 22',
+  },
+];
+
+const totalSize = demos.reduce((acc, d) => acc + parseInt(d.size), 0);
+---
+
+<section id="demos" class="section demos">
+  <CinematicReveal client:load>
+    <div class="section-header">
+      <span class="section-cmd">ls -la ~/projects/</span>
+      <h2 class="section-title">
+        <span class="title-bracket">[</span>
+        Execute Projects
+        <span class="title-bracket">]</span>
+      </h2>
+    </div>
+  </CinematicReveal>
+
+  <CinematicReveal client:load delay={0.2}>
+    <div class="ls-container">
+      <!-- Terminal Header -->
+      <div class="terminal-bar">
+        <div class="terminal-dots">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+        </div>
+        <span class="terminal-path">lucas@arch:~/projects</span>
+      </div>
+
+      <!-- ls output -->
+      <div class="ls-output">
+        <!-- Command line -->
+        <div class="cmd-line">
+          <span class="prompt-user">lucas</span>
+          <span class="prompt-at">@</span>
+          <span class="prompt-host">arch</span>
+          <span class="prompt-colon">:</span>
+          <span class="prompt-path">~/projects</span>
+          <span class="prompt-symbol">$</span>
+          <span class="cmd-text">ls -la</span>
+        </div>
+
+        <!-- Total line -->
+        <div class="ls-total">total {totalSize}K</div>
+
+        <!-- Header row -->
+        <div class="ls-header">
+          <span class="col-perms">permissions</span>
+          <span class="col-links">lnk</span>
+          <span class="col-owner">owner</span>
+          <span class="col-group">group</span>
+          <span class="col-size">size</span>
+          <span class="col-date">modified</span>
+          <span class="col-name">name</span>
+        </div>
+
+        <!-- Directory entries -->
+        <div class="ls-entries">
+          <!-- . and .. -->
+          <div class="ls-row">
+            <span class="col-perms">drwxr-xr-x</span>
+            <span class="col-links">6</span>
+            <span class="col-owner">lucas</span>
+            <span class="col-group">users</span>
+            <span class="col-size">4.0K</span>
+            <span class="col-date">Nov 27</span>
+            <span class="col-name dir">.</span>
+          </div>
+          <div class="ls-row">
+            <span class="col-perms">drwxr-xr-x</span>
+            <span class="col-links">12</span>
+            <span class="col-owner">lucas</span>
+            <span class="col-group">users</span>
+            <span class="col-size">4.0K</span>
+            <span class="col-date">Nov 27</span>
+            <span class="col-name dir">..</span>
+          </div>
+
+          {demos.map((demo, i) => (
+            <div class="ls-row project-row" data-project={demo.id}>
+              <span class="col-perms">{demo.permissions}</span>
+              <span class="col-links">3</span>
+              <span class="col-owner">{demo.owner}</span>
+              <span class="col-group">{demo.group}</span>
+              <span class="col-size">{demo.size}</span>
+              <span class="col-date">{demo.date}</span>
+              <span class:list={['col-name', 'dir', { active: demo.status === 'production' }]}>
+                {demo.name}/
+                {demo.status === 'production' && <span class="status-badge">LIVE</span>}
+              </span>
+            </div>
+          ))}
+
+          <!-- Config files -->
+          <div class="ls-row">
+            <span class="col-perms">-rw-r--r--</span>
+            <span class="col-links">1</span>
+            <span class="col-owner">lucas</span>
+            <span class="col-group">users</span>
+            <span class="col-size">2.1K</span>
+            <span class="col-date">Nov 27</span>
+            <span class="col-name file">.gitignore</span>
+          </div>
+          <div class="ls-row">
+            <span class="col-perms">-rw-r--r--</span>
+            <span class="col-links">1</span>
+            <span class="col-owner">lucas</span>
+            <span class="col-group">users</span>
+            <span class="col-size">1.8K</span>
+            <span class="col-date">Nov 27</span>
+            <span class="col-name file readme">README.md</span>
+          </div>
+        </div>
+
+        <!-- New prompt -->
+        <div class="cmd-line new-prompt">
+          <span class="prompt-user">lucas</span>
+          <span class="prompt-at">@</span>
+          <span class="prompt-host">arch</span>
+          <span class="prompt-colon">:</span>
+          <span class="prompt-path">~/projects</span>
+          <span class="prompt-symbol">$</span>
+          <span class="cursor"></span>
+        </div>
+      </div>
+    </div>
+  </CinematicReveal>
+
+  <!-- Project Details (expanded view) -->
+  <div class="project-details-container">
+    {demos.map((demo, i) => (
+      <CinematicReveal client:load delay={0.3 + (i * 0.1)}>
+        <div class="project-card" id={`card-${demo.id}`}>
+          <div class="card-header">
+            <div class="card-title-row">
+              <span class="card-cmd">cat {demo.name}/README.md</span>
+              <span class:list={['card-status', demo.status]}>
+                {demo.status === 'production' ? 'RUNNING' : 'ARCHIVED'}
+              </span>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="readme-content">
+              <p class="readme-title"># {demo.name}</p>
+              <p class="readme-desc">{demo.description}</p>
+
+              <p class="readme-section">## Stack</p>
+              <div class="tech-list">
+                {demo.tech.map((tech) => (
+                  <span class="tech-item">- {tech}</span>
+                ))}
+              </div>
+            </div>
+
+            <div class="card-actions">
+              <button class="action-btn primary" data-action="run" data-project={demo.id}>
+                <Icon client:load name="play" size={14} strokeWidth={2} />
+                <span>./run.sh</span>
+              </button>
+              <button class="action-btn" data-action="code" data-project={demo.id}>
+                <Icon client:load name="code" size={14} strokeWidth={2} />
+                <span>vim src/</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Preview area -->
+          <div class="preview-area" id={`preview-${demo.id}`}>
+            <div class="preview-loading">
+              <span class="loading-text">:: Compiling {demo.name}...</span>
+              <div class="loading-bar"><div class="loading-fill"></div></div>
+            </div>
+            <div class="preview-content">
+              <div class="preview-placeholder">
+                <Icon client:load name="terminal" size={32} strokeWidth={1} />
+                <span class="placeholder-main">Demo Environment</span>
+                <span class="placeholder-sub">Video content coming soon</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </CinematicReveal>
+    ))}
+  </div>
+</section>
+
+<style>
+  .demos {
+    background: linear-gradient(180deg, var(--bg-primary), var(--bg-secondary));
+  }
+
+  .section-header {
+    margin-bottom: 2rem;
+  }
+
+  .section-cmd {
+    font-family: var(--font-terminal);
+    font-size: 0.8rem;
+    color: var(--accent-sage);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .title-bracket {
+    color: var(--accent-amber);
+    font-weight: 300;
+  }
+
+  /* LS Container */
+  .ls-container {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin-bottom: 2rem;
+    max-width: 1000px;
+  }
+
+  .terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  .terminal-dots {
+    display: flex;
+    gap: 6px;
+  }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+
+  .dot.red { background: rgba(232, 89, 89, 0.8); }
+  .dot.yellow { background: rgba(212, 165, 116, 0.8); }
+  .dot.green { background: rgba(138, 154, 124, 0.8); }
+
+  .terminal-path {
+    font-family: var(--font-terminal);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  /* LS Output */
+  .ls-output {
+    padding: 1rem 1.25rem;
+    font-family: var(--font-terminal);
+    font-size: 0.75rem;
+    overflow-x: auto;
+  }
+
+  .cmd-line {
+    display: flex;
+    gap: 0;
+    margin-bottom: 1rem;
+    align-items: center;
+  }
+
+  .prompt-user { color: var(--accent-sage); }
+  .prompt-at { color: var(--text-muted); }
+  .prompt-host { color: var(--accent-amber); }
+  .prompt-colon { color: var(--text-muted); }
+  .prompt-path { color: var(--accent-cream); }
+  .prompt-symbol { color: var(--text-muted); margin: 0 0.5rem 0 0; }
+  .cmd-text { color: var(--text-secondary); }
+
+  .ls-total {
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .ls-header {
+    display: grid;
+    grid-template-columns: 100px 30px 60px 70px 50px 60px 1fr;
+    gap: 0.5rem;
+    color: var(--text-dim);
+    font-size: 0.65rem;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .ls-entries {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .ls-row {
+    display: grid;
+    grid-template-columns: 100px 30px 60px 70px 50px 60px 1fr;
+    gap: 0.5rem;
+    padding: 0.35rem 0;
+    border-radius: 2px;
+    transition: background var(--transition-fast);
+  }
+
+  .ls-row.project-row:hover {
+    background: rgba(212, 165, 116, 0.05);
+  }
+
+  .col-perms { color: var(--text-muted); }
+  .col-links { color: var(--text-dim); text-align: center; }
+  .col-owner { color: var(--accent-amber); }
+  .col-group { color: var(--accent-sage); }
+  .col-size { color: var(--accent-sage); text-align: right; }
+  .col-date { color: var(--text-muted); }
+
+  .col-name {
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .col-name.dir {
+    color: var(--accent-amber);
+    font-weight: 500;
+  }
+
+  .col-name.dir.active {
+    color: var(--accent-gold);
+  }
+
+  .col-name.file {
+    color: var(--text-muted);
+  }
+
+  .col-name.file.readme {
+    color: var(--accent-cream);
+  }
+
+  .status-badge {
+    font-size: 0.55rem;
+    padding: 0.1rem 0.35rem;
+    background: rgba(138, 154, 124, 0.2);
+    color: var(--accent-sage);
+    border-radius: 2px;
+    font-weight: 600;
+  }
+
+  .new-prompt {
+    margin-bottom: 0;
+    border-top: 1px solid var(--glass-border);
+    padding-top: 1rem;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 8px;
+    height: 14px;
+    background: var(--accent-amber);
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  /* Project Cards */
+  .project-details-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    max-width: 1000px;
+  }
+
+  .project-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: all var(--transition-medium);
+  }
+
+  .project-card:hover {
+    border-color: var(--accent-amber);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  .card-header {
+    padding: 0.75rem 1rem;
+    background: var(--bg-tertiary);
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  .card-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .card-cmd {
+    font-family: var(--font-terminal);
+    font-size: 0.7rem;
+    color: var(--accent-sage);
+  }
+
+  .card-status {
+    font-family: var(--font-terminal);
+    font-size: 0.6rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 2px;
+    font-weight: 600;
+  }
+
+  .card-status.production {
+    background: rgba(138, 154, 124, 0.2);
+    color: var(--accent-sage);
+  }
+
+  .card-status.completed {
+    background: rgba(212, 165, 116, 0.15);
+    color: var(--accent-amber);
+  }
+
+  .card-body {
+    padding: 1rem;
+  }
+
+  .readme-content {
+    font-family: var(--font-terminal);
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .readme-title {
+    color: var(--accent-cream);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .readme-desc {
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+  }
+
+  .readme-section {
+    color: var(--accent-amber);
+    font-size: 0.7rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .tech-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .tech-item {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+  }
+
+  .card-actions {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-terminal);
+    font-size: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .action-btn:hover {
+    border-color: var(--accent-amber);
+    color: var(--accent-amber);
+  }
+
+  .action-btn.primary {
+    border-color: var(--accent-sage);
+    color: var(--accent-sage);
+  }
+
+  .action-btn.primary:hover {
+    background: var(--accent-sage);
+    color: var(--bg-void);
+  }
+
+  /* Preview Area */
+  .preview-area {
+    display: none;
+    border-top: 1px solid var(--glass-border);
+    padding: 1rem;
+    background: var(--bg-tertiary);
+  }
+
+  .preview-area.active {
+    display: block;
+    animation: slideDown 0.3s ease;
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; max-height: 0; }
+    to { opacity: 1; max-height: 300px; }
+  }
+
+  .preview-loading {
+    display: none;
+    text-align: center;
+  }
+
+  .preview-loading.active {
+    display: block;
+  }
+
+  .loading-text {
+    font-family: var(--font-terminal);
+    font-size: 0.75rem;
+    color: var(--accent-sage);
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .loading-bar {
+    width: 100%;
+    max-width: 200px;
+    height: 4px;
+    background: var(--bg-secondary);
+    border-radius: 2px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  .loading-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-amber), var(--accent-gold));
+    animation: loadFill 1.5s ease forwards;
+  }
+
+  @keyframes loadFill {
+    to { width: 100%; }
+  }
+
+  .preview-content {
+    display: none;
+  }
+
+  .preview-content.active {
+    display: block;
+  }
+
+  .preview-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    border: 1px dashed var(--glass-border);
+    border-radius: var(--radius-sm);
+    color: var(--accent-amber);
+  }
+
+  .placeholder-main {
+    font-family: var(--font-terminal);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+  }
+
+  .placeholder-sub {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .project-details-container {
+      grid-template-columns: 1fr;
+    }
+
+    .ls-header,
+    .ls-row {
+      grid-template-columns: 90px 25px 50px 60px 45px 50px 1fr;
+      font-size: 0.65rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .ls-header {
+      display: none;
+    }
+
+    .ls-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem 0.5rem;
+      padding: 0.5rem;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-sm);
+      margin-bottom: 0.5rem;
+    }
+
+    .ls-row .col-perms,
+    .ls-row .col-links {
+      display: none;
+    }
+
+    .ls-row .col-name {
+      width: 100%;
+      order: -1;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.action-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const action = btn.getAttribute('data-action');
+      const projectId = btn.getAttribute('data-project');
+      const preview = document.getElementById(`preview-${projectId}`);
+      const loading = preview?.querySelector('.preview-loading');
+      const content = preview?.querySelector('.preview-content');
+
+      if (action === 'run' && preview) {
+        if (preview.classList.contains('active')) {
+          preview.classList.remove('active');
+        } else {
+          preview.classList.add('active');
+          loading?.classList.add('active');
+          content?.classList.remove('active');
+
+          setTimeout(() => {
+            loading?.classList.remove('active');
+            content?.classList.add('active');
+          }, 1500);
+        }
+      }
+    });
+  });
+</script>
