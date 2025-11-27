@@ -32,3 +32,4 @@ npm run build
 
 - Email: lucas.henrydz@gmail.com
 - LinkedIn: [lucas-henryd](https://www.linkedin.com/in/lucas-henryd)
+- GitHub: [lukas-andre](https://github.com/lukas-andre)
