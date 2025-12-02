@@ -21,7 +21,13 @@ const {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={description} />
   <meta name="author" content="Lucas Andre Henry Diaz" />
+  <meta name="keywords" content="Tech Lead, Software Engineer, TypeScript, Go, React, AI, Santiago Chile, Falabella, Microfrontends" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow" />
   <meta name="theme-color" content="#0d0d0b" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://lucashenry.dev" />
 
   <!-- Open Graph -->
   <meta property="og:title" content={title} />
@@ -39,7 +45,32 @@ const {
   <meta name="twitter:image" content="https://lucashenry.dev/og.png" />
 
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Lucas Andre Henry Diaz",
+    "jobTitle": "Tech Lead",
+    "url": "https://lucashenry.dev",
+    "image": "https://lucashenry.dev/images/profile.jpeg",
+    "sameAs": [
+      "https://linkedin.com/in/lucas-henryd",
+      "https://github.com/lukas-andre"
+    ],
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Falabella"
+    },
+    "knowsAbout": ["TypeScript", "Go", "React", "AI", "Microfrontends", "E-commerce"]
+  }
+  </script>
 
   <title>{title}</title>
 </head>
