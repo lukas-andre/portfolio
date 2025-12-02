@@ -6,20 +6,20 @@ const skillCategories = [
     title: 'frontend',
     repo: 'core',
     skills: [
+      { name: 'nextjs', version: '15.0.0', level: 95, size: '2.8M' },
       { name: 'typescript', version: '5.3.3', level: 100, size: '2.1M' },
       { name: 'react', version: '18.2.0', level: 95, size: '1.8M' },
       { name: 'astro', version: '4.16.0', level: 90, size: '1.2M' },
-      { name: 'vue', version: '3.4.0', level: 85, size: '980K' },
     ],
   },
   {
     title: 'backend',
     repo: 'extra',
     skills: [
-      { name: 'nestjs', version: '10.3.0', level: 95, size: '3.4M' },
-      { name: 'golang', version: '1.22.0', level: 90, size: '156M' },
-      { name: 'nodejs', version: '20.11.0', level: 92, size: '45M' },
-      { name: 'grpc', version: '1.60.0', level: 85, size: '12M' },
+      { name: 'nestjs', version: '1.1.0', level: 92, size: '48M' },
+      { name: 'bun+elysia', version: '1.0.0', level: 90, size: '1.2M' },
+      { name: 'golang', version: '10.3.0', level: 95, size: '3.4M' },
+      { name: 'grpc', version: '1.22.0', level: 90, size: '156M' },
     ],
   },
   {
@@ -27,10 +27,19 @@ const skillCategories = [
     repo: 'aur',
     highlight: true,
     skills: [
-      { name: 'claude-code', version: '4.0.0', level: 100, size: '∞' },
-      { name: 'chatgpt-api', version: '4.5.0', level: 95, size: '∞' },
-      { name: 'prompt-engineering', version: '2.0.0', level: 90, size: '∞' },
-      { name: 'ai-integration', version: '1.5.0', level: 88, size: '∞' },
+      { name: 'claude-code', version: '1.0.0', level: 100, size: '∞' },
+      { name: 'codex', version: '5.1.0', level: 95, size: '∞' },
+      { name: 'context-engineering', version: '2.0.0', level: 92, size: '∞' },
+      { name: 'agentic-coding', version: '1.0.0', level: 90, size: '∞' },
+    ],
+  },
+  {
+    title: 'databases',
+    repo: 'core',
+    skills: [
+      { name: 'postgresql', version: '16.0', level: 90, size: '32M' },
+      { name: 'supabase', version: '2.0.0', level: 88, size: '∞' },
+      { name: 'redis', version: '7.2.0', level: 85, size: '8M' },
     ],
   },
   {
@@ -87,10 +96,17 @@ const totalPackages = skillCategories.reduce((acc, cat) => acc + cat.skills.leng
           </div>
         </div>
         <div class="meter-row highlight">
-          <span class="meter-label">AI/ML</span>
+          <span class="meter-label">AI Tools</span>
           <div class="meter-bar">
             <div class="meter-fill highlight" style="--level: 93.3%"></div>
             <span class="meter-text">93.3%</span>
+          </div>
+        </div>
+        <div class="meter-row">
+          <span class="meter-label">Databases</span>
+          <div class="meter-bar">
+            <div class="meter-fill" style="--level: 87.7%"></div>
+            <span class="meter-text">87.7%</span>
           </div>
         </div>
         <div class="meter-row">
@@ -224,7 +240,7 @@ const totalPackages = skillCategories.reduce((acc, cat) => acc + cat.skills.leng
 
   .htop-meters {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 0.75rem;
   }
 
@@ -289,10 +305,7 @@ const totalPackages = skillCategories.reduce((acc, cat) => acc + cat.skills.leng
     );
   }
 
-  .htop-meters .meter-row:nth-child(1) .meter-fill,
-  .htop-meters .meter-row:nth-child(2) .meter-fill,
-  .htop-meters .meter-row:nth-child(3) .meter-fill,
-  .htop-meters .meter-row:nth-child(4) .meter-fill {
+  .htop-meters .meter-row .meter-fill {
     width: var(--level);
   }
 
@@ -314,7 +327,7 @@ const totalPackages = skillCategories.reduce((acc, cat) => acc + cat.skills.leng
   /* Skills Grid */
   .skills-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
     margin-bottom: 2rem;
   }
@@ -503,6 +516,16 @@ const totalPackages = skillCategories.reduce((acc, cat) => acc + cat.skills.leng
   }
 
   /* Responsive */
+  @media (max-width: 1200px) {
+    .skills-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .htop-meters {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
   @media (max-width: 900px) {
     .skills-grid {
       grid-template-columns: 1fr;

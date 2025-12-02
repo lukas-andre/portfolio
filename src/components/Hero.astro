@@ -21,8 +21,8 @@ import CinematicReveal from './ui/CinematicReveal.tsx';
     <CinematicReveal client:load delay={0.6}>
       <div class="hero-identity">
         <div class="hero-photo-small">
-          <div class="photo-placeholder">
-            <span class="placeholder-text">PHOTO</span>
+          <div class="photo-wrapper">
+            <img src="/images/profile.jpeg" alt="Lucas Henry" class="profile-photo" />
           </div>
           <div class="photo-frame-glow"></div>
         </div>
@@ -56,7 +56,7 @@ import CinematicReveal from './ui/CinematicReveal.tsx';
         <p class="output-line">
           <span class="output-key">focus</span>
           <span class="output-colon">:</span>
-          <span class="output-value">"Microfrontends & E-commerce"</span>
+          <span class="output-value">"E-commerce & Distributed System"</span>
         </p>
         <p class="output-line">
           <span class="output-key">stack</span>
@@ -179,27 +179,29 @@ import CinematicReveal from './ui/CinematicReveal.tsx';
     flex-shrink: 0;
   }
 
-  .photo-placeholder {
+  .photo-wrapper {
     width: 100%;
     height: 100%;
-    background: var(--bg-tertiary);
     border: 2px solid var(--glass-border);
     border-radius: var(--radius-lg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: relative;
     overflow: hidden;
   }
 
-  .placeholder-text {
-    font-family: var(--font-terminal);
-    font-size: 0.65rem;
-    color: var(--text-muted);
-    letter-spacing: 0.1em;
+  .profile-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    filter: grayscale(20%) contrast(1.05);
+    transition: filter 0.3s ease;
   }
 
-  .photo-placeholder::before {
+  .hero-photo-small:hover .profile-photo {
+    filter: grayscale(0%) contrast(1.1);
+  }
+
+  .photo-wrapper::before {
     content: '';
     position: absolute;
     inset: 0;

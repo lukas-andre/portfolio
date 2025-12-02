@@ -21,8 +21,8 @@ import Icon from './ui/Icon.tsx';
     <CinematicReveal client:load delay={0.2}>
       <div class="about-photo-container">
         <div class="photo-frame">
-          <div class="photo-placeholder">
-            <span class="placeholder-text">PHOTO</span>
+          <div class="photo-wrapper">
+            <img src="/images/profile.jpeg" alt="Lucas Henry" class="profile-photo" />
             <div class="scan-line"></div>
           </div>
           <div class="photo-border"></div>
@@ -74,7 +74,7 @@ import Icon from './ui/Icon.tsx';
             <p class="config-line">
               <span class="config-key">focus</span>
               <span class="config-eq">=</span>
-              <span class="config-string">"Microfrontends & E-commerce"</span>
+              <span class="config-string">"E-commerce & Sistributed Systems"</span>
             </p>
             <p class="config-line">
               <span class="config-key">architecture</span>
@@ -104,7 +104,7 @@ import Icon from './ui/Icon.tsx';
             <p class="config-line">
               <span class="config-key">ai_tools</span>
               <span class="config-eq">=</span>
-              <span class="config-array">["Claude", "Opus", "ChatGPT"]</span>
+              <span class="config-array">["Claude Code", "Codex", "Perplexity"]</span>
             </p>
           </div>
         </div>
@@ -255,25 +255,26 @@ import Icon from './ui/Icon.tsx';
     max-width: 280px;
   }
 
-  .photo-placeholder {
+  .photo-wrapper {
     width: 100%;
     height: 100%;
-    background: var(--bg-tertiary);
     border: 2px solid var(--glass-border);
     border-radius: var(--radius-lg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: relative;
     overflow: hidden;
   }
 
-  .placeholder-text {
-    font-family: var(--font-terminal);
-    font-size: 1rem;
-    color: var(--text-muted);
-    letter-spacing: 0.2em;
-    z-index: 1;
+  .profile-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    filter: grayscale(20%) contrast(1.05);
+    transition: filter 0.3s ease;
+  }
+
+  .photo-frame:hover .profile-photo {
+    filter: grayscale(0%) contrast(1.1);
   }
 
   /* Scan line effect */
