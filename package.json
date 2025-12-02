@@ -10,12 +10,14 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^4.16.0",
     "@astrojs/react": "^3.6.0",
+    "astro": "^4.16.0",
+    "astro-og-canvas": "^0.7.2",
+    "framer-motion": "^11.11.0",
+    "lucide-react": "^0.460.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "framer-motion": "^11.11.0",
-    "lucide-react": "^0.460.0"
+    "satori": "^0.18.3"
   },
   "devDependencies": {
     "@types/react": "^18.3.0",
