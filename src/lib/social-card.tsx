@@ -1,4 +1,5 @@
 import { readFile } from 'node:fs/promises';
+import { createRequire } from 'node:module';
 import { extname, resolve, sep } from 'node:path';
 import type { ReactNode } from 'react';
 import satori from 'satori';
@@ -48,13 +49,21 @@ const colors = {
 
 const projectRoot = process.cwd();
 const publicRoot = resolve(projectRoot, 'public');
+const { Resvg } = createRequire(import.meta.url)('@resvg/resvg-js') as typeof import('@resvg/resvg-js');
+const fontFiles = {
+  diagramSansRegular: resolve(projectRoot, 'node_modules/dejavu-fonts-ttf/ttf/DejaVuSans.ttf'),
+  diagramSansBold: resolve(projectRoot, 'node_modules/dejavu-fonts-ttf/ttf/DejaVuSans-Bold.ttf'),
+  diagramMonoRegular: resolve(projectRoot, 'node_modules/dejavu-fonts-ttf/ttf/DejaVuSansMono.ttf'),
+  jetbrainsMonoMedium: resolve(projectRoot, 'node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-500-normal.woff'),
+  newsreaderSemibold: resolve(projectRoot, 'node_modules/@fontsource/newsreader/files/newsreader-latin-600-normal.woff'),
+};
 
 let fontsPromise: Promise<ArrayBuffer[]> | undefined;
 
 function loadFonts() {
   fontsPromise ??= Promise.all([
-    readFile(resolve(projectRoot, 'node_modules/@fontsource/newsreader/files/newsreader-latin-600-normal.woff')),
-    readFile(resolve(projectRoot, 'node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-500-normal.woff')),
+    readFile(fontFiles.newsreaderSemibold),
+    readFile(fontFiles.jetbrainsMonoMedium),
   ]).then((buffers) => buffers.map((buffer) => (
     buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength)
   )));
@@ -84,6 +93,25 @@ async function assetDataUri(assetPath: string) {
   const absolutePath = publicAssetPath(assetPath);
   const data = await readFile(absolutePath);
   return `data:${mimeType(absolutePath)};base64,${data.toString('base64')}`;
+}
+
+async function diagramDataUri(assetPath: string) {
+  const absolutePath = publicAssetPath(assetPath);
+  if (extname(absolutePath).toLowerCase() !== '.svg') return assetDataUri(assetPath);
+
+  const source = await readFile(absolutePath);
+  const diagram = new Resvg(source, {
+    fitTo: { mode: 'width', value: 1200 },
+    font: {
+      fontFiles: [fontFiles.diagramSansRegular, fontFiles.diagramSansBold, fontFiles.diagramMonoRegular],
+      loadSystemFonts: false,
+      defaultFontFamily: 'DejaVu Sans',
+      sansSerifFamily: 'DejaVu Sans',
+      monospaceFamily: 'DejaVu Sans Mono',
+    },
+  });
+
+  return `data:image/png;base64,${Buffer.from(diagram.render().asPng()).toString('base64')}`;
 }
 
 function Grid() {
@@ -282,7 +310,7 @@ export async function renderSocialCard(card: SocialCardInput) {
   const [newsreader, jetbrainsMono] = await loadFonts();
   const element = card.kind === 'profile'
     ? <ProfileCard card={card} portrait={await assetDataUri(card.portraitPath)} />
-    : <NoteCard card={card} diagram={await assetDataUri(card.diagramPath)} />;
+    : <NoteCard card={card} diagram={await diagramDataUri(card.diagramPath)} />;
 
   const svg = await satori(element, {
     width: SOCIAL_CARD_WIDTH,

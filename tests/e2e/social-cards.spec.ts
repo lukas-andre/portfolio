@@ -3,9 +3,9 @@ import { expect, test } from '@playwright/test';
 import sharp from 'sharp';
 
 const versionedCards = [
-  '/open-graph/v3/home.png',
-  '/open-graph/v3/en/notes/the-end-of-software-engineering.png',
-  '/open-graph/v3/es/notas/el-fin-de-la-ingenieria-de-software.png',
+  '/open-graph/v4/home.png',
+  '/open-graph/v4/en/notes/the-end-of-software-engineering.png',
+  '/open-graph/v4/es/notas/el-fin-de-la-ingenieria-de-software.png',
 ];
 
 const compatibilityCards = [

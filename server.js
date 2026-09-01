@@ -1,6 +1,6 @@
 import { createServer } from 'http';
 import { readFileSync, existsSync, statSync } from 'fs';
-import { join, extname, resolve, sep } from 'path';
+import { join, extname, relative, resolve, sep } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
@@ -59,10 +59,15 @@ export function createStaticServer(root = distDir) {
 
     const ext = extname(filePath);
     const contentType = mimeTypes[ext] || 'application/octet-stream';
+    const relativePath = relative(resolve(root), filePath).split(sep).join('/');
+    const isVersionedSocialCard = /^open-graph\/v\d+\//.test(relativePath);
 
     try {
       const content = readFileSync(filePath);
-      res.writeHead(200, { 'Content-Type': `${contentType}${contentType.startsWith('text/') ? '; charset=utf-8' : ''}` });
+      res.writeHead(200, {
+        'Content-Type': `${contentType}${contentType.startsWith('text/') ? '; charset=utf-8' : ''}`,
+        ...(isVersionedSocialCard ? { 'Cache-Control': 'public, max-age=31536000, immutable' } : {}),
+      });
       res.end(req.method === 'HEAD' ? undefined : content);
     } catch {
       res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
