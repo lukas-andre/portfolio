@@ -1,0 +1,168 @@
+---
+interface Props { lang: 'es' | 'en'; }
+
+const { lang } = Astro.props;
+const copy = lang === 'es'
+  ? { toDark: 'Cambiar a tema oscuro', toLight: 'Cambiar a tema claro' }
+  : { toDark: 'Switch to dark theme', toLight: 'Switch to light theme' };
+---
+
+<button
+  id="theme-toggle"
+  class="theme-toggle"
+  type="button"
+  aria-label={copy.toDark}
+  aria-pressed="false"
+  data-theme-toggle
+  data-label-dark={copy.toDark}
+  data-label-light={copy.toLight}
+>
+  <span class="theme-toggle__prompt" aria-hidden="true">$</span>
+  <span class="theme-toggle__command" aria-hidden="true">theme</span>
+  <span class="theme-toggle__separator" aria-hidden="true">::</span>
+  <span class="theme-toggle__value" data-theme-label aria-hidden="true">light</span>
+  <span class="theme-toggle__glyph" aria-hidden="true">
+    <svg class="theme-toggle__sun" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="3.25"></circle>
+      <path d="M12 2.75v2M12 19.25v2M2.75 12h2M19.25 12h2M5.46 5.46l1.42 1.42M17.12 17.12l1.42 1.42M18.54 5.46l-1.42 1.42M6.88 17.12l-1.42 1.42"></path>
+    </svg>
+    <svg class="theme-toggle__moon" viewBox="0 0 24 24" fill="none">
+      <path d="M19.35 15.1A7.8 7.8 0 0 1 8.9 4.65 7.8 7.8 0 1 0 19.35 15.1Z"></path>
+    </svg>
+  </span>
+</button>
+
+<script is:inline>
+  (() => {
+    const root = document.documentElement;
+    const button = document.querySelector('[data-theme-toggle]');
+    if (!(button instanceof HTMLButtonElement)) return;
+
+    const value = button.querySelector('[data-theme-label]');
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+    const storageKey = 'lucas-color-theme';
+
+    const applyTheme = (theme, persist = false) => {
+      const normalized = theme === 'dark' ? 'dark' : 'light';
+      root.dataset.theme = normalized;
+      button.setAttribute('aria-pressed', String(normalized === 'dark'));
+      const actionLabel = normalized === 'dark' ? button.dataset.labelLight : button.dataset.labelDark;
+      if (actionLabel) {
+        button.setAttribute('aria-label', actionLabel);
+        button.title = actionLabel;
+      }
+      if (value) value.textContent = normalized;
+      if (themeColor) themeColor.setAttribute('content', normalized === 'dark' ? '#0d0d0b' : '#f3f0e8');
+      if (persist) {
+        try { window.localStorage.setItem(storageKey, normalized); } catch { /* Storage may be unavailable. */ }
+      }
+      window.dispatchEvent(new CustomEvent('lucas:theme-change', { detail: { theme: normalized } }));
+    };
+
+    applyTheme(root.dataset.theme);
+    button.addEventListener('click', () => {
+      applyTheme(root.dataset.theme === 'dark' ? 'light' : 'dark', true);
+    });
+    window.addEventListener('storage', (event) => {
+      if (event.key === storageKey) applyTheme(event.newValue);
+    });
+  })();
+</script>
+
+<style>
+  .theme-toggle {
+    position: fixed;
+    right: max(1rem, env(safe-area-inset-right));
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    z-index: 700;
+    display: inline-flex;
+    align-items: center;
+    min-height: 42px;
+    padding: 0.55rem 0.6rem 0.55rem 0.72rem;
+    border: 1px solid var(--glass-border);
+    border-radius: 3px;
+    background: var(--glass-bg);
+    color: var(--text-muted);
+    box-shadow: var(--shadow-terminal);
+    backdrop-filter: blur(18px) saturate(1.15);
+    -webkit-backdrop-filter: blur(18px) saturate(1.15);
+    font: 600 0.64rem/1 var(--font-terminal);
+    letter-spacing: 0.045em;
+    text-transform: lowercase;
+    transition:
+      color var(--transition-medium),
+      background var(--transition-medium),
+      border-color var(--transition-medium),
+      box-shadow var(--transition-medium),
+      transform var(--transition-medium);
+  }
+
+  .theme-toggle::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 10px;
+    width: 25px;
+    height: 1px;
+    background: var(--accent-amber);
+  }
+
+  .theme-toggle:hover {
+    color: var(--text-primary);
+    border-color: color-mix(in srgb, var(--accent-amber) 45%, transparent);
+    background: var(--glass-hover);
+    transform: translateY(-2px);
+  }
+
+  .theme-toggle:active { transform: translateY(0); }
+  .theme-toggle__prompt { margin-right: 0.45rem; color: var(--accent-sage); }
+  .theme-toggle__separator { color: var(--text-dim); }
+  .theme-toggle__value { min-width: 2.65rem; color: var(--accent-amber); }
+
+  .theme-toggle__glyph {
+    position: relative;
+    width: 1.45rem;
+    height: 1.45rem;
+    margin-left: 0.45rem;
+    display: grid;
+    place-items: center;
+    border-left: 1px solid var(--glass-border);
+    color: var(--accent-amber);
+  }
+
+  .theme-toggle svg {
+    position: absolute;
+    width: 0.92rem;
+    height: 0.92rem;
+    margin-left: 0.4rem;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: opacity var(--transition-medium), transform var(--transition-medium);
+  }
+
+  .theme-toggle__moon { opacity: 0; transform: rotate(-35deg) scale(0.6); }
+
+  :global(html[data-theme='dark']) .theme-toggle__sun {
+    opacity: 0;
+    transform: rotate(35deg) scale(0.6);
+  }
+
+  :global(html[data-theme='dark']) .theme-toggle__moon {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+
+  @media (max-width: 520px) {
+    .theme-toggle { min-height: 40px; }
+    .theme-toggle__command,
+    .theme-toggle__separator { display: none; }
+    .theme-toggle__value { min-width: 2.5rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .theme-toggle,
+    .theme-toggle svg { transition: none; }
+  }
+</style>

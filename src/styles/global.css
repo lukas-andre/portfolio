@@ -1,7 +1,7 @@
 /* ==========================================
-   ARCH NEURAL CHAOS v3
-   Powerlevel10k meets Sci-Fi Terminal
-   Beige/Gray Adult Palette
+   ARCH PAPER TERMINAL v4
+   Powerlevel10k meets an editorial notebook
+   Light by default, dark on demand
    ========================================== */
 
 /* Fonts - Space Grotesk for display, JetBrains for terminal */
@@ -9,47 +9,67 @@
 
 /* CSS Custom Properties */
 :root {
-  /* Backgrounds - Warm dark grays */
-  --bg-void: #0d0d0b;
-  --bg-primary: #151513;
-  --bg-secondary: #1e1e1a;
-  --bg-tertiary: #2a2a24;
-  --bg-elevated: #333330;
-  --bg-card: rgba(30, 30, 26, 0.85);
+  color-scheme: light;
 
-  /* Accent Colors - Sophisticated warm palette */
-  --accent-amber: #d4a574;
-  --accent-gold: #c9943a;
-  --accent-cream: #e8dcc8;
-  --accent-sage: #8a9a7c;
-  --accent-rust: #a85a32;
-  --accent-steel: #7c8a94;
-  --accent-ember: #e07b4a;
+  /* Backgrounds — mineral paper, never pure white */
+  --bg-void: #f3f0e8;
+  --bg-primary: #ebe7dc;
+  --bg-secondary: #faf8f1;
+  --bg-tertiary: #ddd7ca;
+  --bg-elevated: #fffdf7;
+  --bg-card: rgba(255, 253, 247, 0.82);
 
-  /* Text - Cream/Off-white spectrum */
-  --text-primary: #f5f2eb;
-  --text-secondary: #c9c4b8;
-  --text-muted: #7a756a;
-  --text-dim: #4a4640;
+  /* Accents — Arch amber tuned for light-surface contrast */
+  --accent-amber: #92551d;
+  --accent-gold: #7b5b12;
+  --accent-cream: #5d4933;
+  --accent-sage: #526149;
+  --accent-rust: #8b3d24;
+  --accent-steel: #50616c;
+  --accent-ember: #a94a22;
+
+  /* Ink spectrum */
+  --text-primary: #171813;
+  --text-secondary: #41423b;
+  --text-muted: #68685f;
+  --text-dim: #9b998f;
+  --text-on-accent: #fffaf0;
 
   /* Status Colors */
-  --status-success: #8a9a7c;
-  --status-warning: #d4a574;
-  --status-error: #a85a32;
-  --status-info: #7c8a94;
+  --status-success: #526149;
+  --status-warning: #92551d;
+  --status-error: #8b3d24;
+  --status-info: #50616c;
 
-  /* Glow Effects - Warm, sophisticated */
-  --glow-amber: 0 0 30px rgba(212, 165, 116, 0.4), 0 0 60px rgba(212, 165, 116, 0.2);
-  --glow-gold: 0 0 40px rgba(201, 148, 58, 0.35), 0 0 80px rgba(201, 148, 58, 0.15);
-  --glow-cream: 0 0 25px rgba(232, 220, 200, 0.25);
-  --glow-sage: 0 0 20px rgba(138, 154, 124, 0.3);
-  --glow-soft: 0 0 100px rgba(212, 165, 116, 0.1);
+  /* Light-mode depth replaces neon glow with printed elevation */
+  --glow-amber: 0 14px 38px rgba(116, 68, 20, 0.18), 0 0 0 1px rgba(146, 85, 29, 0.13);
+  --glow-gold: 0 18px 50px rgba(123, 91, 18, 0.16), 0 0 0 1px rgba(123, 91, 18, 0.1);
+  --glow-cream: 0 14px 35px rgba(77, 64, 47, 0.12);
+  --glow-sage: 0 12px 32px rgba(82, 97, 73, 0.16);
+  --glow-soft: 0 0 100px rgba(146, 85, 29, 0.08);
 
   /* Glass Effects */
-  --glass-bg: rgba(30, 30, 26, 0.7);
-  --glass-border: rgba(212, 165, 116, 0.12);
-  --glass-hover: rgba(42, 42, 36, 0.85);
-  --glass-active: rgba(212, 165, 116, 0.08);
+  --glass-bg: rgba(255, 253, 247, 0.72);
+  --glass-border: rgba(48, 45, 37, 0.16);
+  --glass-hover: rgba(255, 255, 252, 0.94);
+  --glass-active: rgba(146, 85, 29, 0.09);
+
+  /* Theme-aware atmosphere and surfaces */
+  --page-background:
+    radial-gradient(circle at 14% 8%, rgba(146, 85, 29, 0.08), transparent 28rem),
+    linear-gradient(rgba(23, 24, 19, 0.026) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(23, 24, 19, 0.026) 1px, transparent 1px),
+    var(--bg-void);
+  --page-grid-size: 32px;
+  --nav-fade: rgba(243, 240, 232, 0.94);
+  --button-sheen: rgba(255, 255, 255, 0.36);
+  --scanline-color: rgba(31, 30, 25, 0.035);
+  --noise-opacity: 0.022;
+  --shadow-terminal: 0 22px 55px rgba(49, 43, 32, 0.13), 0 1px 0 rgba(255, 255, 255, 0.8) inset;
+  --shadow-card: 0 28px 58px rgba(49, 43, 32, 0.13);
+  --my-take-bg: linear-gradient(135deg, rgba(146, 85, 29, 0.09), rgba(255, 253, 247, 0.88));
+  --diagram-surface: #11110f;
+  --neural-opacity: 0.3;
 
   /* Typography */
   --font-terminal: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
@@ -87,6 +107,60 @@
   --z-cursor: 9999;
 }
 
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg-void: #0d0d0b;
+  --bg-primary: #151513;
+  --bg-secondary: #1e1e1a;
+  --bg-tertiary: #2a2a24;
+  --bg-elevated: #333330;
+  --bg-card: rgba(30, 30, 26, 0.85);
+
+  --accent-amber: #d4a574;
+  --accent-gold: #c9943a;
+  --accent-cream: #e8dcc8;
+  --accent-sage: #8a9a7c;
+  --accent-rust: #a85a32;
+  --accent-steel: #7c8a94;
+  --accent-ember: #e07b4a;
+
+  --text-primary: #f5f2eb;
+  --text-secondary: #c9c4b8;
+  --text-muted: #7a756a;
+  --text-dim: #4a4640;
+  --text-on-accent: #0d0d0b;
+
+  --status-success: #8a9a7c;
+  --status-warning: #d4a574;
+  --status-error: #a85a32;
+  --status-info: #7c8a94;
+
+  --glow-amber: 0 0 30px rgba(212, 165, 116, 0.4), 0 0 60px rgba(212, 165, 116, 0.2);
+  --glow-gold: 0 0 40px rgba(201, 148, 58, 0.35), 0 0 80px rgba(201, 148, 58, 0.15);
+  --glow-cream: 0 0 25px rgba(232, 220, 200, 0.25);
+  --glow-sage: 0 0 20px rgba(138, 154, 124, 0.3);
+  --glow-soft: 0 0 100px rgba(212, 165, 116, 0.1);
+
+  --glass-bg: rgba(30, 30, 26, 0.7);
+  --glass-border: rgba(212, 165, 116, 0.12);
+  --glass-hover: rgba(42, 42, 36, 0.85);
+  --glass-active: rgba(212, 165, 116, 0.08);
+
+  --page-background:
+    radial-gradient(circle at 14% 8%, rgba(212, 165, 116, 0.045), transparent 32rem),
+    var(--bg-void);
+  --nav-fade: rgba(13, 13, 11, 0.9);
+  --button-sheen: rgba(255, 255, 255, 0.1);
+  --scanline-color: rgba(0, 0, 0, 0.02);
+  --noise-opacity: 0.03;
+  --shadow-terminal: 0 20px 60px rgba(0, 0, 0, 0.4);
+  --shadow-card: 0 30px 60px rgba(0, 0, 0, 0.3);
+  --my-take-bg: linear-gradient(135deg, rgba(212, 165, 116, 0.09), rgba(30, 30, 26, 0.75));
+  --diagram-surface: #11110f;
+  --neural-opacity: 0.7;
+}
+
 /* ==========================================
    RESET & BASE
    ========================================== */
@@ -108,23 +182,26 @@ html {
 body {
   font-family: var(--font-display);
   font-weight: 300;
-  background: var(--bg-void);
+  background: var(--page-background);
+  background-size: auto, var(--page-grid-size) var(--page-grid-size), var(--page-grid-size) var(--page-grid-size), auto;
+  background-attachment: fixed;
   color: var(--text-primary);
   line-height: 1.7;
   overflow-x: hidden;
   min-height: 100vh;
   letter-spacing: 0.01em;
+  transition: color 240ms var(--ease-in-out), background-color 240ms var(--ease-in-out);
 }
 
 /* Selection - Warm amber */
 ::selection {
   background: var(--accent-amber);
-  color: var(--bg-void);
+  color: var(--text-on-accent);
 }
 
 ::-moz-selection {
   background: var(--accent-amber);
-  color: var(--bg-void);
+  color: var(--text-on-accent);
 }
 
 /* Scrollbar - Minimal */
@@ -244,7 +321,7 @@ p {
 
 .glass:hover {
   background: var(--glass-hover);
-  border-color: rgba(212, 165, 116, 0.25);
+  border-color: color-mix(in srgb, var(--accent-amber) 32%, transparent);
 }
 
 /* Gradient Text - Amber to Gold */
@@ -311,8 +388,8 @@ p {
   color: var(--accent-amber);
   margin-bottom: 1.25rem;
   padding: 0.5rem 1.25rem;
-  background: rgba(212, 165, 116, 0.08);
-  border: 1px solid rgba(212, 165, 116, 0.2);
+  background: color-mix(in srgb, var(--accent-amber) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent-amber) 22%, transparent);
   border-radius: var(--radius-xl);
   letter-spacing: 0.05em;
 }
@@ -373,7 +450,7 @@ p {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, transparent, rgba(255,255,255,0.1), transparent);
+  background: linear-gradient(135deg, transparent, var(--button-sheen), transparent);
   transform: translateX(-100%);
   transition: transform 0.6s ease;
 }
@@ -384,7 +461,7 @@ p {
 
 .btn-primary {
   background: linear-gradient(135deg, var(--accent-amber), var(--accent-gold));
-  color: var(--bg-void);
+  color: var(--text-on-accent);
   border: none;
 }
 
@@ -424,7 +501,7 @@ p {
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow-terminal);
 }
 
 .terminal-header {
@@ -515,7 +592,7 @@ p {
 
 .p10k-user {
   background: var(--accent-sage);
-  color: var(--bg-void);
+  color: var(--text-on-accent);
 }
 
 .p10k-path {
@@ -525,7 +602,7 @@ p {
 
 .p10k-git {
   background: var(--accent-amber);
-  color: var(--bg-void);
+  color: var(--text-on-accent);
 }
 
 /* ==========================================
@@ -542,9 +619,9 @@ p {
 
 .card:hover {
   background: var(--glass-hover);
-  border-color: rgba(212, 165, 116, 0.3);
+  border-color: color-mix(in srgb, var(--accent-amber) 34%, transparent);
   transform: translateY(-6px);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-card);
 }
 
 /* ==========================================
@@ -655,8 +732,8 @@ p {
     0deg,
     transparent,
     transparent 2px,
-    rgba(0, 0, 0, 0.02) 2px,
-    rgba(0, 0, 0, 0.02) 4px
+    var(--scanline-color) 2px,
+    var(--scanline-color) 4px
   );
   opacity: 0.4;
 }
@@ -711,8 +788,8 @@ p {
   font-size: 0.7rem;
   font-weight: 400;
   padding: 0.3rem 0.6rem;
-  background: rgba(212, 165, 116, 0.08);
-  border: 1px solid rgba(212, 165, 116, 0.15);
+  background: color-mix(in srgb, var(--accent-amber) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent-amber) 18%, transparent);
   border-radius: var(--radius-sm);
   color: var(--text-muted);
   transition: all var(--transition-fast);
@@ -722,7 +799,7 @@ p {
 .tag:hover {
   border-color: var(--accent-amber);
   color: var(--accent-amber);
-  background: rgba(212, 165, 116, 0.12);
+  background: color-mix(in srgb, var(--accent-amber) 12%, transparent);
 }
 
 /* ==========================================
@@ -865,7 +942,7 @@ p {
   height: 100%;
   pointer-events: none;
   z-index: var(--z-overlay);
-  opacity: 0.03;
+  opacity: var(--noise-opacity);
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
 }
 

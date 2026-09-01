@@ -32,7 +32,10 @@ test('localized article metadata and language switch are correct', async ({ page
   for (const image of await page.locator('.note-figure img').all()) {
     await expect(image).not.toHaveAttribute('alt', '');
     await image.scrollIntoViewIfNeeded();
-    await expect.poll(() => image.evaluate((node) => node.complete && node.naturalWidth > 0)).toBe(true);
+    await expect.poll(() => image.evaluate((node) => {
+      const renderedImage = node as HTMLImageElement;
+      return renderedImage.complete && renderedImage.naturalWidth > 0;
+    })).toBe(true);
   }
   await expect(page.getByText(/asistencia de IA/)).toBeVisible();
   expect(errors).toEqual([]);
@@ -67,7 +70,10 @@ test('localized diagrams, share cards, and missing routes behave correctly', asy
     await expect(diagrams).toHaveCount(4);
     for (const diagram of await diagrams.all()) {
       await diagram.scrollIntoViewIfNeeded();
-      await expect.poll(() => diagram.evaluate((node) => node.complete && node.naturalWidth > 0)).toBe(true);
+      await expect.poll(() => diagram.evaluate((node) => {
+        const renderedImage = node as HTMLImageElement;
+        return renderedImage.complete && renderedImage.naturalWidth > 0;
+      })).toBe(true);
     }
 
     const shareCard = await page.locator('meta[property="og:image"]').getAttribute('content');

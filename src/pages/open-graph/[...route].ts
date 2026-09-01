@@ -1,4 +1,5 @@
 import { OGImageRoute } from 'astro-og-canvas';
+import type { APIRoute } from 'astro';
 import { getVisibleNotes, localSlug, localeConfig } from '../../lib/notes';
 
 const entries = await getVisibleNotes();
@@ -7,7 +8,7 @@ const pages = Object.fromEntries(entries.map((entry) => {
   return [`${entry.data.lang}/${segment}/${localSlug(entry)}`, entry.data];
 }));
 
-export const { getStaticPaths, GET } = OGImageRoute({
+const imageRoute = OGImageRoute({
   param: 'route',
   pages,
   getImageOptions: (_path, page) => ({
@@ -22,3 +23,15 @@ export const { getStaticPaths, GET } = OGImageRoute({
     },
   }),
 });
+
+export const getStaticPaths = imageRoute.getStaticPaths;
+export const GET: APIRoute = async (context) => {
+  const response = await imageRoute.GET(context);
+  const headers = new Headers(response.headers);
+  if (response.ok) headers.set('Content-Type', 'image/png');
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+};

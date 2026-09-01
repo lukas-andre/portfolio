@@ -12,7 +12,7 @@ const aiSpecs = {
   resolution: '∞ x ∞',
   de: 'Augmented Intelligence',
   wm: 'Collaborative Workflow',
-  theme: 'Dark Mode [Neural]',
+  theme: 'Paper / Neural [Dual]',
   cpu: 'Critical Thinking @ 100%',
   gpu: 'Creativity Accelerated',
   memory: '∞ / ∞ GB (cloud-augmented)',
@@ -175,14 +175,14 @@ const asciiArt = `
 
           <!-- Color palette -->
           <div class="color-blocks">
-            <span class="color-block" style="background: #0d0d0b"></span>
-            <span class="color-block" style="background: #a85a32"></span>
-            <span class="color-block" style="background: #8a9a7c"></span>
-            <span class="color-block" style="background: #d4a574"></span>
-            <span class="color-block" style="background: #c9943a"></span>
-            <span class="color-block" style="background: #e8dcc8"></span>
-            <span class="color-block" style="background: #f5f0e8"></span>
-            <span class="color-block" style="background: #7c8a94"></span>
+            <span class="color-block" style="background: var(--bg-void)"></span>
+            <span class="color-block" style="background: var(--accent-rust)"></span>
+            <span class="color-block" style="background: var(--accent-sage)"></span>
+            <span class="color-block" style="background: var(--accent-amber)"></span>
+            <span class="color-block" style="background: var(--accent-gold)"></span>
+            <span class="color-block" style="background: var(--accent-cream)"></span>
+            <span class="color-block" style="background: var(--text-primary)"></span>
+            <span class="color-block" style="background: var(--accent-steel)"></span>
           </div>
         </div>
       </div>
@@ -428,6 +428,7 @@ const asciiArt = `
     width: 20px;
     height: 20px;
     border-radius: 2px;
+    border: 1px solid var(--glass-border);
   }
 
   /* Tools Section */

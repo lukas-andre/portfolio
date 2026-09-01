@@ -9,7 +9,7 @@ const { title } = Astro.props;
 </aside>
 
 <style>
-  .my-take { width: min(850px, calc(100vw - 2rem)); margin: 3rem 50%; transform: translateX(-50%); display: grid; grid-template-columns: auto 1fr; gap: 1rem; padding: clamp(1.25rem, 4vw, 2rem); border: 1px solid color-mix(in srgb, var(--accent-amber) 30%, transparent); background: linear-gradient(135deg, rgba(212,165,116,.09), rgba(30,30,26,.75)); }
+  .my-take { width: min(850px, calc(100vw - 2rem)); margin: 3rem 50%; transform: translateX(-50%); display: grid; grid-template-columns: auto 1fr; gap: 1rem; padding: clamp(1.25rem, 4vw, 2rem); border: 1px solid color-mix(in srgb, var(--accent-amber) 30%, transparent); background: var(--my-take-bg); }
   .my-take__marker { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border: 1px solid var(--accent-amber); border-radius: 50%; font: 600 .7rem/1 var(--font-terminal); color: var(--accent-amber); }
   .my-take__title { margin: .2rem 0 .65rem !important; font: 600 .68rem/1 var(--font-terminal) !important; color: var(--accent-amber) !important; letter-spacing: .1em; text-transform: uppercase; }
   .my-take :global(p:last-child) { margin-bottom: 0; }

@@ -59,7 +59,7 @@ export default function TypeWriter({
             display: 'inline-block',
             width: '2px',
             height: '1em',
-            background: isTyping ? '#00d4ff' : 'transparent',
+            background: isTyping ? 'var(--accent-amber)' : 'transparent',
             marginLeft: '2px',
             animation: isTyping ? 'none' : 'blink 1s step-end infinite',
             verticalAlign: 'middle',

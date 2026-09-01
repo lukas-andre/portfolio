@@ -42,6 +42,9 @@ This is a personal portfolio built with Astro and React.
 - Astro components (`.astro`) are used for static page sections
 - React components (`.tsx`) with `client:load` directive are used for interactive/animated elements
 - Framer Motion is configured as SSR-external in `astro.config.mjs`
+- The entire portfolio uses the shared light/dark tokens in `src/styles/global.css`; light is the deterministic default.
+- `ThemeToggle.astro` sets `data-theme` on `<html>` and persists the explicit choice under `lucas-color-theme`.
+- New UI must use the shared theme variables for surfaces, text, borders, shadows, and accents instead of hard-coded dark-only colors.
 
 ## Research notes contract
 

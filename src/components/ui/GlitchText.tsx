@@ -46,7 +46,7 @@ export default function GlitchText({
               position: 'absolute',
               top: 0,
               left: 0,
-              color: '#00d4ff',
+              color: 'var(--accent-amber)',
               clipPath: 'polygon(0 0, 100% 0, 100% 35%, 0 35%)',
               zIndex: 0,
             }}
@@ -72,7 +72,7 @@ export default function GlitchText({
               position: 'absolute',
               top: 0,
               left: 0,
-              color: '#d946ef',
+              color: 'var(--accent-sage)',
               clipPath: 'polygon(0 65%, 100% 65%, 100% 100%, 0 100%)',
               zIndex: 0,
             }}

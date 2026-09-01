@@ -1,5 +1,6 @@
 ---
 import BootScreen from '../components/ui/BootScreen.tsx';
+import ThemeToggle from '../components/ThemeToggle.astro';
 
 interface Props {
   title: string;
@@ -46,17 +47,26 @@ const ogImageUrl = new URL(ogImage, site).toString();
 ---
 
 <!DOCTYPE html>
-<html lang={lang}>
+<html lang={lang} data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f3f0e8" />
+  <script is:inline>
+    (() => {
+      let theme = 'light';
+      try {
+        if (window.localStorage.getItem('lucas-color-theme') === 'dark') theme = 'dark';
+      } catch { /* Light remains the deterministic default. */ }
+      document.documentElement.dataset.theme = theme;
+      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#0d0d0b' : '#f3f0e8');
+    })();
+  </script>
   <meta name="description" content={description} />
   <meta name="author" content="Lucas Andre Henry Diaz" />
   <meta name="keywords" content="Tech Lead, Software Engineer, TypeScript, Go, React, AI, Santiago Chile, Falabella, Microfrontends" />
   <meta name="robots" content={robots} />
   <meta name="googlebot" content={robots} />
-  <meta name="theme-color" content="#0d0d0b" />
-
   <!-- Canonical -->
   <link rel="canonical" href={canonicalUrl} />
   {alternateLanguages.map((alternate) => (
@@ -111,6 +121,8 @@ const ogImageUrl = new URL(ogImage, site).toString();
   <div class="scroll-progress">
     <div class="scroll-progress-bar" id="scroll-bar"></div>
   </div>
+
+  <ThemeToggle lang={lang} />
 
   <!-- Main Content -->
   <div id="main-content" class:list={['main-content', { loaded: !showBoot }]}>
