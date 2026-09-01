@@ -11,5 +11,6 @@
       "@layouts/*": ["src/layouts/*"],
       "@styles/*": ["src/styles/*"]
     }
-  }
+  },
+  "exclude": ["dist", "node_modules", "playwright-report", "test-results"]
 }

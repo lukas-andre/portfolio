@@ -1,0 +1,15 @@
+---
+import NoteLayout from '../../../components/notes/NoteLayout.astro';
+import { getTranslation, getVisibleNotes, localSlug, type NoteEntry } from '../../../lib/notes';
+
+export async function getStaticPaths() {
+  const notes = await getVisibleNotes('en');
+  return notes.map((note) => ({ params: { slug: localSlug(note) }, props: { note } }));
+}
+
+interface Props { note: NoteEntry; }
+const { note } = Astro.props;
+const translation = await getTranslation(note);
+const { Content } = await note.render();
+---
+<NoteLayout note={note} translation={translation}><Content /></NoteLayout>

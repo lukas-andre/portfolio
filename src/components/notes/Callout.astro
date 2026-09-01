@@ -1,0 +1,18 @@
+---
+interface Props { kind: 'thesis' | 'evidence' | 'limit'; label: string; }
+const { kind, label } = Astro.props;
+---
+
+<aside class:list={['callout', `callout--${kind}`]}>
+  <p class="callout__label">{label}</p>
+  <div class="callout__body"><slot /></div>
+</aside>
+
+<style>
+  .callout { margin: 2.2rem 0; padding: 1.25rem 1.35rem; background: color-mix(in srgb, var(--bg-secondary) 85%, transparent); border-left: 3px solid var(--accent-steel); }
+  .callout--thesis { border-color: var(--accent-amber); }
+  .callout--evidence { border-color: var(--accent-sage); }
+  .callout--limit { border-color: var(--accent-rust); }
+  .callout__label { margin: 0 0 .55rem !important; font: 600 .65rem/1 var(--font-terminal) !important; letter-spacing: .12em; color: var(--text-muted) !important; text-transform: uppercase; }
+  .callout__body :global(p:last-child) { margin-bottom: 0; }
+</style>

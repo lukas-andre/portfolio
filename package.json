@@ -2,14 +2,25 @@
   "name": "portfolio-lucas-henry",
   "type": "module",
   "version": "2.0.0",
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "dev": "astro dev",
     "start": "node server.js",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check": "astro check",
+    "validate:notes": "node scripts/notes/validate.mjs",
+    "test:unit": "node --test tests/unit/*.test.mjs",
+    "test:e2e": "playwright test",
+    "verify": "npm run validate:notes && npm run check && npm run test:unit && npm run build",
+    "notes:new": "node scripts/notes/new.mjs",
+    "notes:publish": "node scripts/notes/publish.mjs"
   },
   "dependencies": {
+    "@astrojs/mdx": "^3.1.9",
     "@astrojs/react": "^3.6.0",
     "@astrojs/sitemap": "^3.6.0",
     "astro": "^4.16.0",
@@ -21,8 +32,11 @@
     "satori": "^0.18.3"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@playwright/test": "^1.62.1",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
+    "gray-matter": "^4.0.3",
     "typescript": "^5.6.0"
   }
 }

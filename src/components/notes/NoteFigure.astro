@@ -1,0 +1,16 @@
+---
+interface Props { src: string; alt: string; caption: string; }
+const { src, alt, caption } = Astro.props;
+---
+
+<figure class="note-figure">
+  <div class="note-figure__frame"><img src={src} alt={alt} loading="lazy" decoding="async" /></div>
+  <figcaption>{caption}</figcaption>
+</figure>
+
+<style>
+  .note-figure { width: min(1080px, calc(100vw - 2rem)); margin: 3rem 50%; transform: translateX(-50%); }
+  .note-figure__frame { padding: clamp(.6rem, 2vw, 1rem); border: 1px solid var(--glass-border); background: #11110f; box-shadow: 0 24px 70px rgba(0,0,0,.24); }
+  img { width: 100%; }
+  figcaption { max-width: 75ch; margin: .8rem auto 0; text-align: center; font: .72rem/1.6 var(--font-terminal); color: var(--text-muted); }
+</style>

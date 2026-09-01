@@ -2,17 +2,18 @@
 import VibratingLogo from './ui/VibratingLogo.tsx';
 
 const navLinks = [
-  { href: '#about', label: 'about', cmd: 'cat' },
-  { href: '#skills', label: 'skills', cmd: 'pacman -Qi' },
-  { href: '#experience', label: 'exp', cmd: 'git log' },
-  { href: '#demos', label: 'demos', cmd: 'ls -la' },
-  { href: '#ai', label: 'neural', highlight: true, cmd: 'neofetch' },
-  { href: '#contact', label: 'ssh', cmd: 'connect' },
+  { href: '/#about', label: 'about', cmd: 'cat' },
+  { href: '/#skills', label: 'skills', cmd: 'pacman -Qi' },
+  { href: '/#experience', label: 'exp', cmd: 'git log' },
+  { href: '/#demos', label: 'demos', cmd: 'ls -la' },
+  { href: '/#ai', label: 'neural', highlight: true, cmd: 'neofetch' },
+  { href: '/en/notes/', label: 'notes', cmd: 'less' },
+  { href: '/#contact', label: 'ssh', cmd: 'connect' },
 ];
 ---
 
 <nav class="nav">
-  <a href="#" class="nav-logo">
+  <a href="/" class="nav-logo" aria-label="Lucas Henry — home">
     <VibratingLogo client:load />
   </a>
 

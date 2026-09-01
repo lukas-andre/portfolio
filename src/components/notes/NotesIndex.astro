@@ -1,0 +1,64 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import type { NoteEntry, NoteLanguage } from '../../lib/notes';
+import NotesNav from './NotesNav.astro';
+import NoteCard from './NoteCard.astro';
+
+interface Props { lang: NoteLanguage; notes: NoteEntry[]; }
+const { lang, notes } = Astro.props;
+const isSpanish = lang === 'es';
+const copy = isSpanish ? {
+  eyebrow: 'CUADERNO DE INVESTIGACIÓN / 001',
+  title: 'Notas para entender lo que cambia.',
+  description: 'Papers sobre software, agentes e inteligencia artificial, traducidos a modelos mentales útiles — con sus límites a la vista.',
+  empty: 'Todavía no hay notas publicadas.',
+} : {
+  eyebrow: 'RESEARCH NOTEBOOK / 001',
+  title: 'Notes for understanding what changes.',
+  description: 'Papers on software, agents, and artificial intelligence, translated into useful mental models — with their limits in plain sight.',
+  empty: 'No notes have been published yet.',
+};
+const canonicalPath = isSpanish ? '/es/notas/' : '/en/notes/';
+---
+
+<Layout
+  title={`${copy.title} | Lucas Henry`}
+  description={copy.description}
+  showBoot={false}
+  lang={lang}
+  canonicalPath={canonicalPath}
+  alternateLanguages={[{ lang: 'es', href: '/es/notas/' }, { lang: 'en', href: '/en/notes/' }]}
+>
+  <a class="skip-link" href="#notes-list">{isSpanish ? 'Saltar a las notas' : 'Skip to notes'}</a>
+  <NotesNav lang={lang} switchHref={isSpanish ? '/en/notes/' : '/es/notas/'} />
+  <main class="notes-index">
+    <header class="notes-index__hero">
+      <p class="notes-index__eyebrow">{copy.eyebrow}</p>
+      <h1>{copy.title}</h1>
+      <p class="notes-index__intro">{copy.description}</p>
+      <div class="notes-index__rule" aria-hidden="true"><span></span><code>{String(notes.length).padStart(2, '0')} ENTRIES</code></div>
+    </header>
+    <section id="notes-list" aria-label={isSpanish ? 'Listado de notas' : 'Notes list'}>
+      {notes.length > 0 ? notes.map((note) => <NoteCard note={note} />) : <p class="notes-index__empty">{copy.empty}</p>}
+    </section>
+  </main>
+  <footer class="notes-footer">
+    <span>© {new Date().getFullYear()} Lucas Henry</span>
+    <span>{isSpanish ? 'Escrito por un humano, asistido por IA.' : 'Written by a human, assisted by AI.'}</span>
+  </footer>
+</Layout>
+
+<style>
+  .skip-link { position: fixed; top: -100px; left: 1rem; z-index: 1000; padding: .7rem 1rem; background: var(--accent-cream); color: var(--bg-void); }
+  .skip-link:focus { top: 1rem; }
+  .notes-index { width: min(960px, calc(100% - 2rem)); margin: 0 auto; padding: clamp(4rem, 10vw, 8rem) 0 6rem; }
+  .notes-index__hero { margin-bottom: clamp(4rem, 10vw, 7rem); }
+  .notes-index__eyebrow { font: 500 .68rem/1.4 var(--font-terminal); color: var(--accent-amber); letter-spacing: .13em; }
+  h1 { max-width: 900px; margin: 1.1rem 0 1.6rem; font-family: var(--font-editorial); font-size: clamp(3.2rem, 9vw, 7.2rem); font-weight: 450; line-height: .92; letter-spacing: -.055em; }
+  .notes-index__intro { max-width: 64ch; font-size: clamp(1rem, 2vw, 1.22rem); }
+  .notes-index__rule { display: flex; align-items: center; gap: 1rem; margin-top: 3rem; }
+  .notes-index__rule span { height: 1px; flex: 1; background: linear-gradient(90deg, var(--accent-amber), transparent); }
+  .notes-index__rule code { font-size: .62rem; color: var(--text-muted); }
+  .notes-index__empty { border-top: 1px solid var(--glass-border); padding-top: 2rem; }
+  .notes-footer { width: min(1120px, calc(100% - 2rem)); margin: 0 auto; padding: 1.5rem 0 2.5rem; border-top: 1px solid var(--glass-border); display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font: .64rem/1.5 var(--font-terminal); color: var(--text-muted); }
+</style>

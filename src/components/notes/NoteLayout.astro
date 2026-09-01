@@ -1,0 +1,127 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getNoteSources, notePath, readingMinutes, type NoteEntry } from '../../lib/notes';
+import NotesNav from './NotesNav.astro';
+
+interface Props { note: NoteEntry; translation?: NoteEntry; }
+const { note, translation } = Astro.props;
+const isSpanish = note.data.lang === 'es';
+const sources = await getNoteSources(note);
+const sourceRows = note.data.sources.map(({ ref, role }) => ({ source: sources.find((item) => item.id === ref.id), role }));
+const canonicalPath = notePath(note);
+const translationPath = translation ? notePath(translation) : (isSpanish ? '/en/notes/' : '/es/notas/');
+const localizedEntries = [note, ...(translation ? [translation] : [])].sort((a, b) => a.data.lang === 'es' ? -1 : b.data.lang === 'es' ? 1 : 0);
+const alternates = localizedEntries.map((entry) => ({ lang: entry.data.lang, href: notePath(entry) }));
+const date = note.data.publishedAt ?? note.data.updatedAt;
+const ogImage = `/open-graph${canonicalPath.slice(0, -1)}.png`;
+const site = Astro.site ?? new URL('https://lucashenry.dev');
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: note.data.title,
+  description: note.data.description,
+  inLanguage: note.data.lang,
+  url: new URL(canonicalPath, site).toString(),
+  image: new URL(ogImage, site).toString(),
+  author: { '@type': 'Person', name: 'Lucas Henry', url: 'https://lucashenry.dev' },
+  ...(note.data.publishedAt ? { datePublished: note.data.publishedAt.toISOString() } : {}),
+  ...(note.data.updatedAt ? { dateModified: note.data.updatedAt.toISOString() } : {}),
+};
+---
+
+<Layout
+  title={`${note.data.title} | Lucas Henry`}
+  description={note.data.description}
+  showBoot={false}
+  lang={note.data.lang}
+  canonicalPath={canonicalPath}
+  ogType="article"
+  ogImage={ogImage}
+  alternateLanguages={alternates}
+  jsonLd={jsonLd}
+  robots={note.data.draft ? 'noindex, nofollow' : 'index, follow'}
+>
+  <a class="skip-link" href="#article-body">{isSpanish ? 'Saltar al artículo' : 'Skip to article'}</a>
+  <NotesNav lang={note.data.lang} switchHref={translationPath} />
+  <main>
+    <article class="note-article">
+      <header class="note-header">
+        <div class="note-header__meta">
+          <span>{note.data.kind === 'single' ? (isSpanish ? 'PAPER, EXPLICADO' : 'PAPER, EXPLAINED') : (isSpanish ? 'SÍNTESIS' : 'SYNTHESIS')}</span>
+          <span aria-hidden="true">/</span>
+          <span>{readingMinutes(note)} MIN</span>
+          {note.data.draft && <span class="note-header__draft">{isSpanish ? 'BORRADOR' : 'DRAFT'}</span>}
+        </div>
+        <h1>{note.data.title}</h1>
+        <p class="note-header__description">{note.data.description}</p>
+        <div class="note-header__byline">
+          <span>Lucas Henry</span>
+          {date && <time datetime={date.toISOString()}>{new Intl.DateTimeFormat(note.data.lang, { dateStyle: 'long', timeZone: 'UTC' }).format(date)}</time>}
+        </div>
+      </header>
+
+      <div id="article-body" class="note-prose"><slot /></div>
+
+      <footer class="note-end">
+        <section class="source-list" aria-labelledby="source-list-title">
+          <p class="note-end__eyebrow">{isSpanish ? 'TRAZABILIDAD' : 'TRACEABILITY'}</p>
+          <h2 id="source-list-title">{isSpanish ? 'Fuentes' : 'Sources'}</h2>
+          <ol>
+            {sourceRows.map(({ source, role }) => source && (
+              <li>
+                <span class="source-list__role">{role}</span>
+                <div><a href={source.data.url} target="_blank" rel="noreferrer">{source.data.title}</a><small>{source.data.authors.join(', ')} · {source.data.identifier}{source.data.version ? ` · ${source.data.version}` : ''}</small></div>
+              </li>
+            ))}
+          </ol>
+        </section>
+        <aside class="ai-note">
+          <span aria-hidden="true">✦</span>
+          <p>{isSpanish
+            ? 'Este artículo fue investigado y redactado con asistencia de IA. Lucas definió el ángulo, verificó las fuentes y conserva la responsabilidad editorial.'
+            : 'This article was researched and drafted with AI assistance. Lucas set the angle, verified the sources, and retains editorial responsibility.'}</p>
+        </aside>
+        <a class="back-link" href={isSpanish ? '/es/notas/' : '/en/notes/'}>← {isSpanish ? 'Volver a todas las notas' : 'Back to all notes'}</a>
+      </footer>
+    </article>
+  </main>
+</Layout>
+
+<style is:global>
+  .skip-link { position: fixed; top: -100px; left: 1rem; z-index: 1000; padding: .7rem 1rem; background: var(--accent-cream); color: var(--bg-void); }
+  .skip-link:focus { top: 1rem; }
+  .note-article { overflow: clip; }
+  .note-header { width: min(960px, calc(100% - 2rem)); margin: 0 auto; padding: clamp(4rem, 10vw, 8rem) 0 clamp(3.5rem, 8vw, 6rem); text-align: center; }
+  .note-header__meta, .note-header__byline { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: .7rem; font: 500 .67rem/1.4 var(--font-terminal); color: var(--text-muted); letter-spacing: .08em; }
+  .note-header__draft { padding: .12rem .45rem; color: var(--accent-amber); border: 1px solid rgba(212,165,116,.35); }
+  .note-header h1 { max-width: 950px; margin: 1.25rem auto 1.5rem; font-family: var(--font-editorial); font-size: clamp(3.1rem, 9vw, 7rem); font-weight: 450; line-height: .94; letter-spacing: -.055em; text-wrap: balance; }
+  .note-header__description { max-width: 66ch; margin: 0 auto 2rem; font-size: clamp(1.05rem, 2.2vw, 1.3rem); text-wrap: balance; }
+  .note-header__byline span:first-child { color: var(--accent-cream); }
+  .note-prose { width: min(72ch, calc(100% - 2rem)); margin: 0 auto; font-family: var(--font-editorial); font-size: clamp(1.08rem, 2.1vw, 1.24rem); line-height: 1.75; color: var(--text-secondary); }
+  .note-prose > p { margin: 0 0 1.45rem; font: inherit; color: inherit; }
+  .note-prose > p:first-child { font-size: clamp(1.25rem, 2.6vw, 1.55rem); color: var(--accent-cream); }
+  .note-prose > p:first-child::first-letter { float: left; margin: .12em .13em 0 0; font-size: 4em; line-height: .72; color: var(--accent-amber); }
+  .note-prose h2 { margin: 4.5rem 0 1.35rem; font-family: var(--font-editorial); font-size: clamp(2rem, 5vw, 3.3rem); font-weight: 450; letter-spacing: -.04em; }
+  .note-prose h3 { margin: 2.8rem 0 1rem; font-family: var(--font-display); font-size: 1.3rem; }
+  .note-prose ul, .note-prose ol { margin: 0 0 1.6rem 1.3rem; }
+  .note-prose ul { list-style: square; }
+  .note-prose ol { list-style: decimal; }
+  .note-prose li { margin: .65rem 0; padding-left: .35rem; }
+  .note-prose strong { color: var(--accent-cream); font-weight: 600; }
+  .note-prose code { padding: .12em .3em; background: var(--bg-secondary); color: var(--accent-amber); font-size: .82em; }
+  .note-prose blockquote { margin: 2.2rem 0; padding-left: 1.2rem; border-left: 1px solid var(--accent-amber); color: var(--accent-cream); font-size: 1.15em; }
+  .note-end { width: min(850px, calc(100% - 2rem)); margin: clamp(5rem, 12vw, 9rem) auto 0; padding: 3rem 0 5rem; border-top: 1px solid var(--glass-border); }
+  .note-end__eyebrow { font: 600 .65rem/1 var(--font-terminal); color: var(--accent-amber); letter-spacing: .12em; }
+  .source-list h2 { margin: .7rem 0 1.6rem; font-family: var(--font-editorial); font-size: 2.2rem; }
+  .source-list ol { list-style: none; }
+  .source-list li { display: grid; grid-template-columns: 90px 1fr; gap: 1rem; padding: 1rem 0; border-top: 1px solid var(--glass-border); }
+  .source-list__role { font: .62rem/1.5 var(--font-terminal); color: var(--accent-sage); text-transform: uppercase; }
+  .source-list a { color: var(--accent-cream); text-decoration: underline; text-decoration-color: var(--glass-border); text-underline-offset: .2em; }
+  .source-list small { display: block; margin-top: .35rem; font: .68rem/1.5 var(--font-terminal); color: var(--text-muted); }
+  .ai-note { display: flex; gap: .8rem; margin: 2.5rem 0; padding: 1rem; border: 1px solid var(--glass-border); }
+  .ai-note span { color: var(--accent-amber); }
+  .ai-note p { font: .72rem/1.65 var(--font-terminal); color: var(--text-muted); }
+  .back-link { font: .72rem/1.5 var(--font-terminal); color: var(--accent-amber); }
+  @media (max-width: 600px) { .source-list li { grid-template-columns: 1fr; gap: .35rem; } }
+  @media (prefers-reduced-motion: reduce) { .main-content { transition: none !important; transform: none !important; } }
+</style>

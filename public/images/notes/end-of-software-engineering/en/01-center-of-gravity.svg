@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" role="img" aria-labelledby="title desc">
+  <title id="title">From fixed code to a decision loop</title>
+  <desc id="desc">Traditional software turns input into output through fixed decisions. An agent cycles through perceiving, deciding, acting, and verifying.</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0d0d0b"/><stop offset="1" stop-color="#1e1e1a"/></linearGradient><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0l10 5-10 5z" fill="#d4a574"/></marker></defs>
+  <rect width="1200" height="640" rx="24" fill="url(#bg)"/>
+  <text x="64" y="64" fill="#d4a574" font-family="monospace" font-size="15" letter-spacing="3">SHIFT IN THE CENTER OF GRAVITY</text>
+  <line x1="600" y1="104" x2="600" y2="566" stroke="#3c3a34" stroke-dasharray="5 8"/>
+  <g>
+    <text x="70" y="128" fill="#f5f2eb" font-family="sans-serif" font-size="26" font-weight="600">Traditional software</text>
+    <text x="70" y="158" fill="#7a756a" font-family="monospace" font-size="14">THE DECISION IS ALREADY WRITTEN</text>
+    <rect x="72" y="235" width="130" height="74" rx="10" fill="#2a2a24" stroke="#4a4640"/><text x="137" y="279" text-anchor="middle" fill="#c9c4b8" font-family="sans-serif" font-size="18">Input</text>
+    <path d="M202 272H268" stroke="#8a9a7c" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="276" y="204" width="210" height="136" rx="12" fill="#201f1b" stroke="#d4a574"/>
+    <text x="381" y="245" text-anchor="middle" fill="#d4a574" font-family="monospace" font-size="13">DURABLE CODE</text><text x="381" y="278" text-anchor="middle" fill="#f5f2eb" font-family="sans-serif" font-size="20">Rules + branches</text><text x="381" y="306" text-anchor="middle" fill="#7a756a" font-family="sans-serif" font-size="15">decided before use</text>
+    <path d="M486 272H526" stroke="#8a9a7c" stroke-width="2" marker-end="url(#arrow)"/><circle cx="548" cy="272" r="8" fill="#8a9a7c"/>
+    <text x="70" y="420" fill="#c9c4b8" font-family="sans-serif" font-size="17">Changing behavior requires</text><text x="70" y="447" fill="#f5f2eb" font-family="sans-serif" font-size="18" font-weight="600">editing and redeploying.</text>
+  </g>
+  <g>
+    <text x="650" y="128" fill="#f5f2eb" font-family="sans-serif" font-size="26" font-weight="600">Agentic system</text><text x="650" y="158" fill="#7a756a" font-family="monospace" font-size="14">THE DECISION HAPPENS AT RUNTIME</text>
+    <circle cx="900" cy="300" r="82" fill="#201f1b" stroke="#d4a574" stroke-width="2"/><text x="900" y="288" text-anchor="middle" fill="#d4a574" font-family="monospace" font-size="13">GOAL + BOUNDS</text><text x="900" y="321" text-anchor="middle" fill="#f5f2eb" font-family="sans-serif" font-size="21" font-weight="600">What next?</text>
+    <g fill="#2a2a24" stroke="#4a4640"><rect x="673" y="211" width="130" height="58" rx="10"/><rect x="997" y="211" width="130" height="58" rx="10"/><rect x="997" y="343" width="130" height="58" rx="10"/><rect x="673" y="343" width="130" height="58" rx="10"/></g>
+    <g fill="#c9c4b8" font-family="sans-serif" font-size="16" text-anchor="middle"><text x="738" y="247">1. Perceive</text><text x="1062" y="247">2. Decide</text><text x="1062" y="379">3. Act</text><text x="738" y="379">4. Verify</text></g>
+    <path d="M803 235C866 181 957 183 997 235M1063 269V343M997 377C932 432 840 430 803 377M737 343V269" fill="none" stroke="#d4a574" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="650" y="474" fill="#c9c4b8" font-family="sans-serif" font-size="17">The next action adapts</text><text x="650" y="501" fill="#f5f2eb" font-family="sans-serif" font-size="18" font-weight="600">to the state just observed.</text>
+  </g>
+  <text x="64" y="588" fill="#7a756a" font-family="monospace" font-size="13">NOT “NO SOFTWARE” · SOFTWARE WHERE SOME LOGIC IS CHOSEN DURING THE TASK</text>
+</svg>

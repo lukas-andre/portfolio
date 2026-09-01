@@ -1,0 +1,6 @@
+---
+import NotesIndex from '../../../components/notes/NotesIndex.astro';
+import { getVisibleNotes } from '../../../lib/notes';
+const notes = await getVisibleNotes('es');
+---
+<NotesIndex lang="es" notes={notes} />

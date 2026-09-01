@@ -5,36 +5,73 @@ interface Props {
   title: string;
   description?: string;
   showBoot?: boolean;
+  lang?: 'es' | 'en';
+  canonicalPath?: string;
+  ogType?: 'website' | 'article';
+  ogImage?: string;
+  alternateLanguages?: Array<{ lang: 'es' | 'en'; href: string }>;
+  jsonLd?: Record<string, unknown>;
+  robots?: string;
 }
 
 const {
   title,
   description = "Tech Lead & Software Engineer specializing in TypeScript, Go, and AI-native development. Building exceptional digital experiences at Falabella.",
-  showBoot = true
+  showBoot = true,
+  lang = 'en',
+  canonicalPath = '/',
+  ogType = 'website',
+  ogImage = '/og.png',
+  alternateLanguages = [],
+  robots = 'index, follow',
+  jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Lucas Andre Henry Diaz',
+    jobTitle: 'Tech Lead',
+    url: 'https://lucashenry.dev',
+    image: 'https://lucashenry.dev/images/profile.jpeg',
+    sameAs: [
+      'https://linkedin.com/in/lucas-henryd',
+      'https://github.com/lukas-andre',
+    ],
+    worksFor: { '@type': 'Organization', name: 'Falabella' },
+    knowsAbout: ['TypeScript', 'Go', 'React', 'AI', 'Microfrontends', 'E-commerce'],
+  },
 } = Astro.props;
+
+const site = Astro.site ?? new URL('https://lucashenry.dev');
+const canonicalUrl = new URL(canonicalPath, site).toString();
+const ogImageUrl = new URL(ogImage, site).toString();
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang={lang}>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={description} />
   <meta name="author" content="Lucas Andre Henry Diaz" />
   <meta name="keywords" content="Tech Lead, Software Engineer, TypeScript, Go, React, AI, Santiago Chile, Falabella, Microfrontends" />
-  <meta name="robots" content="index, follow" />
-  <meta name="googlebot" content="index, follow" />
+  <meta name="robots" content={robots} />
+  <meta name="googlebot" content={robots} />
   <meta name="theme-color" content="#0d0d0b" />
 
   <!-- Canonical -->
-  <link rel="canonical" href="https://lucashenry.dev" />
+  <link rel="canonical" href={canonicalUrl} />
+  {alternateLanguages.map((alternate) => (
+    <link rel="alternate" hreflang={alternate.lang} href={new URL(alternate.href, site).toString()} />
+  ))}
+  {alternateLanguages.length > 0 && (
+    <link rel="alternate" hreflang="x-default" href={new URL(alternateLanguages[0].href, site).toString()} />
+  )}
 
   <!-- Open Graph -->
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://lucashenry.dev" />
-  <meta property="og:image" content="https://lucashenry.dev/og.png" />
+  <meta property="og:type" content={ogType} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:image" content={ogImageUrl} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
@@ -42,35 +79,17 @@ const {
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content="https://lucashenry.dev/og.png" />
+  <meta name="twitter:image" content={ogImageUrl} />
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
 
   <!-- Performance hints -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
 
-  <!-- JSON-LD Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Lucas Andre Henry Diaz",
-    "jobTitle": "Tech Lead",
-    "url": "https://lucashenry.dev",
-    "image": "https://lucashenry.dev/images/profile.jpeg",
-    "sameAs": [
-      "https://linkedin.com/in/lucas-henryd",
-      "https://github.com/lukas-andre"
-    ],
-    "worksFor": {
-      "@type": "Organization",
-      "name": "Falabella"
-    },
-    "knowsAbout": ["TypeScript", "Go", "React", "AI", "Microfrontends", "E-commerce"]
-  }
-  </script>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
   <title>{title}</title>
 </head>
@@ -105,7 +124,7 @@ const {
     function updateScrollProgress() {
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrollPercent = (scrollTop / docHeight) * 100;
+      const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
       if (scrollBar) {
         scrollBar.style.width = `${scrollPercent}%`;
       }

@@ -1,0 +1,192 @@
+---
+translationKey: end-of-software-engineering
+lang: es
+kind: single
+title: ¿El fin de la ingeniería de software? No exactamente.
+description: >-
+  Un paper propone que los agentes convierten el código en material efímero. La
+  idea importa, pero su evidencia apunta a un cambio de centro de gravedad, no a
+  una extinción.
+draft: false
+updatedAt: '2026-09-01'
+tags:
+  - agentes
+  - software
+  - inteligencia-artificial
+  - ingeniería
+sources:
+  - ref: arxiv-2606.05608v1
+    role: primary
+aiAssisted: true
+diagrams:
+  - src: /images/notes/end-of-software-engineering/es/01-centro-de-gravedad.svg
+    alt: >-
+      Comparación entre software tradicional, con decisiones fijadas en código,
+      y un agente que decide dentro de un ciclo de ejecución.
+    caption: >-
+      El cambio central del paper: de ejecutar decisiones ya codificadas a
+      decidir el siguiente paso durante la tarea.
+  - src: /images/notes/end-of-software-engineering/es/02-dos-capas.svg
+    alt: >-
+      Diagrama por capas que separa código temporal de una tarea y la
+      infraestructura durable que permite controlarlo.
+    caption: >-
+      Que parte del código sea descartable no vuelve descartable al sistema que
+      lo ejecuta, observa y gobierna.
+  - src: /images/notes/end-of-software-engineering/es/03-fiabilidad-compuesta.svg
+    alt: >-
+      Curva ilustrativa donde una cadena de pasos confiables pierde probabilidad
+      de éxito total a medida que se alarga.
+    caption: >-
+      Modelo ilustrativo: con 95 por ciento de éxito por paso, veinte pasos
+      perfectos juntos bajan a cerca de 36 por ciento.
+  - src: /images/notes/end-of-software-engineering/es/04-roadmap.svg
+    alt: >-
+      Roadmap de cuatro etapas desde copilotos hasta ecosistemas autoevolutivos,
+      con evidencia decreciente hacia el futuro.
+    caption: >-
+      El roadmap mezcla presente observado y futuro especulativo; conviene
+      leerlo como hipótesis, no como calendario.
+publishedAt: '2026-09-01'
+---
+
+import Cite from '../../../components/notes/Cite.astro';
+import Callout from '../../../components/notes/Callout.astro';
+import MyTake from '../../../components/notes/MyTake.astro';
+import NoteFigure from '../../../components/notes/NoteFigure.astro';
+
+El título promete una demolición: *el fin de la ingeniería de software*. La tesis real es más útil y menos cinematográfica. Zhenfeng Cao propone que, en un sistema agéntico, **el código deja de ser el único lugar donde viven las decisiones**. Un modelo puede interpretar una meta, elegir herramientas, producir código para un paso y descartarlo después. El producto ya no sería necesariamente un programa entregado al usuario, sino un sistema capaz de perseguir resultados. <Cite source="arxiv-2606.05608v1" locator="Resumen y §1" />
+
+<Callout kind="thesis" label="La tesis, sin humo">
+  No estamos pasando solamente de «humanos escribiendo código» a «IA escribiendo código». Estamos pasando de fijar toda la conducta antes de ejecutar a permitir que parte de esa conducta se decida durante la ejecución.
+</Callout>
+
+Eso sí cambia el trabajo. Pero no elimina la ingeniería. La desplaza hacia el contexto, las herramientas, los permisos, la memoria, la observabilidad, las evaluaciones y las barreras que vuelven confiable a un agente. Esa diferencia —entre **código efímero** e **infraestructura durable**— es la clave para quedarse con lo valioso del paper sin comprar su título literalmente.
+
+## Del recetario al cocinero
+
+Imagina un software tradicional como un recetario exhaustivo. Antes de abrir el restaurante alguien debe anticipar cada plato, cada excepción y cada orden válido. Cuando llega una entrada, el sistema recorre las reglas que ya estaban escritas.
+
+Un agente se parece más a un cocinero con una meta, una despensa y reglas sanitarias. Observa el pedido, decide qué hacer, usa una herramienta, mira el resultado y corrige. El paper formaliza esa diferencia con cuatro piezas: un modelo como motor de razonamiento, herramientas ejecutables, memoria y una política que gobierna la elección de acciones. <Cite source="arxiv-2606.05608v1" locator="§2.3" />
+
+<NoteFigure
+  src="/images/notes/end-of-software-engineering/es/01-centro-de-gravedad.svg"
+  alt="Comparación entre software tradicional, con decisiones fijadas en código, y un agente que decide dentro de un ciclo de ejecución."
+  caption="El cambio central del paper: de ejecutar decisiones ya codificadas a decidir el siguiente paso durante la tarea."
+/>
+
+La diferencia no es que el agente carezca de software. El modelo corre en software; las herramientas son software; el sandbox, los conectores, la memoria y los tests también. Lo nuevo es que una parte de la lógica específica de la tarea puede aparecer *just in time* en vez de quedar congelada en una aplicación.
+
+Esto permite adaptarse a casos que nadie enumeró de antemano. También introduce estados difíciles de reproducir, decisiones probabilísticas y nuevas formas de fallar. **Más adaptación no equivale automáticamente a más confiabilidad.**
+
+## Qué se vuelve efímero — y qué no
+
+La frase más potente del paper dice que el código puede convertirse en un «instrumento efímero de razonamiento». <Cite source="arxiv-2606.05608v1" locator="§1 y §3.3" /> Leída rápido, suena a que pronto no necesitaremos repositorios ni plataformas. Leída con cuidado, describe algo más acotado: scripts, consultas o transformaciones generadas para resolver una tarea concreta pueden desecharse una vez obtenido y verificado el resultado.
+
+Debajo sigue existiendo una base durable:
+
+- el modelo y su runtime;
+- herramientas y contratos de API;
+- identidad, permisos y aislamiento;
+- estado, memoria y trazas;
+- tests, evaluadores e invariantes;
+- presupuestos, límites y rollback;
+- reglas para pedir intervención humana.
+
+<NoteFigure
+  src="/images/notes/end-of-software-engineering/es/02-dos-capas.svg"
+  alt="Diagrama por capas que separa código temporal de una tarea y la infraestructura durable que permite controlarlo."
+  caption="Que parte del código sea descartable no vuelve descartable al sistema que lo ejecuta, observa y gobierna."
+/>
+
+<MyTake title="Mi lectura">
+  El activo no es el prompt aislado y tampoco el código que el agente produce una vez. El activo es el **harness**: el entorno que le entrega contexto, capacidades, feedback y límites. Si generar se abarata, diseñar evidencia y control se vuelve más importante, no menos.
+</MyTake>
+
+## De vender programas a vender resultados
+
+El paper dibuja una línea histórica: software con licencia, luego Software-as-a-Service y finalmente **Agent-as-a-Service**. Cada etapa absorbe una capa adicional de complejidad. Primero el usuario dejó de instalar y operar el programa; después, según esta propuesta, podría dejar incluso de aprender el flujo de una aplicación y pedir directamente un resultado. <Cite source="arxiv-2606.05608v1" locator="§3" />
+
+Un CRM tradicional te ofrece pantallas para administrar prospectos. Un servicio agéntico recibiría algo como: «encuentra los diez clientes con mayor riesgo, explica por qué y prepara un plan de retención dentro de estas políticas». La interfaz principal pasa de ser un conjunto de operaciones a ser **intención más restricciones**.
+
+“Agent-as-a-Service” es una etiqueta propuesta por el autor, no una categoría ya estabilizada por el mercado. Aun así, captura una tendencia útil: el valor se mide menos por las funciones disponibles y más por el outcome comprobable.
+
+## El ingeniero sube un nivel
+
+El paper llama *Agentic Engineering* a una disciplina en la que el humano cambia de autor de cada instrucción a arquitecto de intención, coordinador y auditor de resultados. <Cite source="arxiv-2606.05608v1" locator="§4" /> En la práctica, eso concentra el trabajo en cuatro preguntas:
+
+1. **¿Qué resultado cuenta como correcto?** Una meta ambigua produce una evaluación ambigua.
+2. **¿Qué puede tocar el agente?** Herramientas y permisos determinan su radio de impacto.
+3. **¿Qué evidencia debe dejar?** Un relato convincente no reemplaza tests, artefactos ni trazas.
+4. **¿Cuándo debe detenerse?** Costo, incertidumbre y riesgo necesitan límites explícitos.
+
+Programar sigue siendo útil para construir las herramientas y comprender sus fallas. Pero escribir cada línea deja de ser una aproximación suficiente al trabajo. La nueva unidad de diseño es un circuito sociotécnico: humano, modelo, contexto, herramientas y verificación.
+
+## La evidencia: fuerte para tareas, débil para extinciones
+
+El propio paper evita presentar una historia completamente triunfalista. Reporta que Lingma SWE-GPT 72B resuelve un 30,2% de SWE-bench Verified, cerca del 31,8% atribuido allí a GPT-4o. Eso muestra capacidad relevante para issues reales y acotados; no demuestra mantenimiento autónomo sostenido. <Cite source="arxiv-2606.05608v1" locator="§5.1" />
+
+La señal más importante está en el contraste. El paper resume EvoClaw: al pasar de evaluaciones aisladas a evolución continua del software, el éxito cae desde más de 80% hasta un máximo de 38% en doce modelos y cuatro frameworks. <Cite source="arxiv-2606.05608v1" locator="§5.2–5.3" /> Una tarea puede cerrarse con un parche plausible. Mantener un sistema exige conservar invariantes durante muchos cambios, reconocer deuda técnica y recuperarse de errores anteriores.
+
+<Callout kind="evidence" label="Qué sí sostiene la evidencia">
+  Los agentes ya pueden completar una fracción relevante de trabajo de ingeniería bien delimitado. Su rendimiento depende del modelo, pero también del entorno, las herramientas, la memoria y la verificación.
+</Callout>
+
+<Callout kind="limit" label="Qué todavía no sostiene">
+  Esos benchmarks no prueban operación autónoma segura durante meses, mejor economía total, responsabilidad sin humanos ni la desaparición de la ingeniería de software.
+</Callout>
+
+## El cuello de botella cambia: verificar
+
+En una cadena, los errores se componen. Si cada paso independiente tuviera 95% de probabilidad de ser correcto, la probabilidad ilustrativa de que veinte pasos sean todos correctos sería `0,95^20`, cerca de 36%. La independencia casi nunca se cumple en un agente real, pero el modelo mental sirve: **una tasa por paso que parece excelente puede producir una trayectoria frágil**.
+
+<NoteFigure
+  src="/images/notes/end-of-software-engineering/es/03-fiabilidad-compuesta.svg"
+  alt="Curva ilustrativa donde una cadena de pasos confiables pierde probabilidad de éxito total a medida que se alarga."
+  caption="Modelo ilustrativo: con 95 por ciento de éxito por paso, veinte pasos perfectos juntos bajan a cerca de 36 por ciento."
+/>
+
+Cuando producir una solución cuesta poco, distinguir la correcta de la que solo parece correcta pasa a dominar el costo. Los sistemas agénticos necesitan evaluaciones que no dependan de la confianza del propio agente: tests ejecutados, consultas reproducibles, comparación contra invariantes, revisión de seguridad y aprobación humana donde el daño potencial es alto.
+
+## Cuatro razones para no comprar el título
+
+### 1. El argumento matemático no prueba inevitabilidad
+
+El paper escribe que los caminos de interacción crecen como `Θ(2^n)`, pero en la explicación cuenta todos los grafos posibles entre pares, `2^(n sobre 2)`: expresiones muy distintas. <Cite source="arxiv-2606.05608v1" locator="Proposición 2.1" /> Además, un límite superior de configuraciones posibles no describe cuántas importan en un sistema modular real. La complejidad es un problema verdadero; esa derivación no demuestra que los agentes sean su destino inevitable.
+
+### 2. La comparación favorece al agente desde el inicio
+
+Tratar la cognición humana como `O(1)` y la capacidad del modelo como creciente borra que los humanos trabajan con equipos, documentación, abstracciones y herramientas. También borra costo, latencia, límites de contexto y propagación de errores del agente. La comparación justa es entre sistemas completos, no entre un cerebro aislado y un modelo aislado.
+
+### 3. Distintas métricas responden distintas preguntas
+
+Resolver un issue mide resolución de issues. Un piloto coordinado mide ese piloto. Popularidad de un repositorio mide interés. Ninguna de esas señales, sola, prueba un nuevo modelo económico o confiabilidad productiva sostenida. El paper reúne indicios sugestivos; el salto desde esos indicios al «fin» sigue siendo una inferencia.
+
+### 4. El roadmap es una apuesta
+
+Las cuatro etapas van desde herramientas aumentadas (2023–2025), a tareas autónomas (2025–2027), equipos multiagente (2026–2029) y ecosistemas autoevolutivos (2028+). La cuarta se describe explícitamente con sistemas representativos «prospectivos». <Cite source="arxiv-2606.05608v1" locator="§6, tabla 3" /> Las fechas expresan una trayectoria propuesta, no resultados experimentales.
+
+<NoteFigure
+  src="/images/notes/end-of-software-engineering/es/04-roadmap.svg"
+  alt="Roadmap de cuatro etapas desde copilotos hasta ecosistemas autoevolutivos, con evidencia decreciente hacia el futuro."
+  caption="El roadmap mezcla presente observado y futuro especulativo; conviene leerlo como hipótesis, no como calendario."
+/>
+
+## Qué haría hoy
+
+No esperaría a que aparezca la etapa cuatro. Usaría la idea central para rediseñar trabajo que ya existe:
+
+- definir el outcome y su evidencia antes de delegar;
+- entregar contexto curado, no un depósito infinito de documentos;
+- dar herramientas mínimas, observables y reversibles;
+- separar generación de verificación;
+- medir retrabajo, costo, tiempo y defectos escapados, no líneas de código;
+- reservar decisión humana para ambigüedad, riesgo alto o acciones irreversibles.
+
+El buen candidato tiene una meta verificable, feedback frecuente y un radio de impacto controlado. El mal candidato combina consecuencias graves, criterios tácitos y una verdad que solo conoceremos mucho después.
+
+<MyTake title="Conclusión">
+  No estamos viendo el fin de la ingeniería de software. Estamos viendo **el fin de identificarla solamente con escribir código**. Parte de la lógica se moverá al runtime; parte del código será temporal; y el centro de gravedad irá hacia diseñar intención, entorno, evidencia y gobierno. El paper exagera la ruptura, pero señala correctamente dónde mirar.
+</MyTake>
+
+Si recuerdas cinco cosas: el agente decide dentro de un ciclo; el código puede ser temporal pero su plataforma no; los benchmarks actuales favorecen tareas acotadas; la confiabilidad cae en trayectorias largas; y el trabajo humano se desplaza desde producir instrucciones hacia especificar y auditar resultados.

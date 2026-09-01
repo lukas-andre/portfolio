@@ -1,0 +1,72 @@
+---
+interface Props {
+  lang: 'es' | 'en';
+  switchHref: string;
+}
+
+const { lang, switchHref } = Astro.props;
+const copy = lang === 'es'
+  ? { home: 'inicio', archive: 'notas', switchLabel: 'Read in English', switchText: 'EN' }
+  : { home: 'home', archive: 'notes', switchLabel: 'Leer en español', switchText: 'ES' };
+---
+
+<nav class="notes-nav" aria-label={lang === 'es' ? 'Navegación de notas' : 'Notes navigation'}>
+  <a class="notes-nav__mark" href="/" aria-label="Lucas Henry — home">
+    <span aria-hidden="true">[</span>LH<span aria-hidden="true">]</span>
+  </a>
+  <div class="notes-nav__links">
+    <a href="/">{copy.home}</a>
+    <span aria-hidden="true">/</span>
+    <a href={lang === 'es' ? '/es/notas/' : '/en/notes/'} aria-current="page">{copy.archive}</a>
+  </div>
+  <a class="notes-nav__language" href={switchHref} hreflang={lang === 'es' ? 'en' : 'es'} aria-label={copy.switchLabel}>
+    {copy.switchText}<span aria-hidden="true"> ↗</span>
+  </a>
+</nav>
+
+<style>
+  .notes-nav {
+    width: min(1120px, calc(100% - 2rem));
+    margin: 0 auto;
+    min-height: 76px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 1px solid var(--glass-border);
+    font-family: var(--font-terminal);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+  }
+
+  .notes-nav__mark {
+    justify-self: start;
+    color: var(--accent-cream);
+    font-weight: 600;
+  }
+
+  .notes-nav__mark span { color: var(--accent-amber); }
+
+  .notes-nav__links {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: var(--text-muted);
+  }
+
+  .notes-nav__links a:hover,
+  .notes-nav__language:hover { color: var(--accent-cream); }
+
+  .notes-nav__language {
+    justify-self: end;
+    padding: 0.45rem 0.65rem;
+    border: 1px solid var(--glass-border);
+    color: var(--accent-amber);
+  }
+
+  @media (max-width: 520px) {
+    .notes-nav { grid-template-columns: auto 1fr auto; }
+    .notes-nav__links span,
+    .notes-nav__links a:first-child { display: none; }
+  }
+</style>
