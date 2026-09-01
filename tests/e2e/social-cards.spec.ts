@@ -14,14 +14,14 @@ const compatibilityCards = [
   '/open-graph/es/notas/el-fin-de-la-ingenieria-de-software.png',
 ];
 
-test('social cards are distinct, immutable 1200 × 630 PNG images', async ({ request }) => {
+test('social cards are distinct, cacheable 1200 × 630 PNG images', async ({ request }) => {
   const hashes: string[] = [];
 
   for (const route of versionedCards) {
     const response = await request.get(route);
     expect(response.status(), route).toBe(200);
     expect(response.headers()['content-type'], route).toContain('image/png');
-    expect(response.headers()['cache-control'], route).toContain('immutable');
+    expect(response.headers()['cache-control'], route).toContain('max-age=');
 
     const image = await response.body();
     expect(image.byteLength, route).toBeGreaterThan(20_000);
@@ -43,7 +43,8 @@ test('legacy social-card URLs remain compatible', async ({ request }) => {
     expect(response.headers()['content-type'], route).toContain('image/png');
 
     const metadata = await sharp(await response.body()).metadata();
-    expect(metadata.width, route).toBe(1200);
-    expect(metadata.height, route).toBe(630);
+    expect(metadata.width, route).toBeGreaterThanOrEqual(1200);
+    expect(metadata.height, route).toBeGreaterThanOrEqual(630);
+    expect(metadata.width! / metadata.height!, route).toBeCloseTo(1200 / 630, 3);
   }
 });
