@@ -11,6 +11,7 @@ interface Props {
   canonicalPath?: string;
   ogType?: 'website' | 'article';
   ogImage?: string;
+  ogImageAlt?: string;
   alternateLanguages?: Array<{ lang: 'es' | 'en'; href: string }>;
   jsonLd?: Record<string, unknown>;
   robots?: string;
@@ -23,7 +24,8 @@ const {
   lang = 'en',
   canonicalPath = '/',
   ogType = 'website',
-  ogImage = '/og.png',
+  ogImage = '/open-graph/v2/home.png',
+  ogImageAlt = 'Lucas Henry — Tech Team Lead for Customer and Seller Self Service, and builder of agentic systems.',
   alternateLanguages = [],
   robots = 'index, follow',
   jsonLd = {
@@ -83,6 +85,8 @@ const ogImageUrl = new URL(ogImage, site).toString();
   <meta property="og:type" content={ogType} />
   <meta property="og:url" content={canonicalUrl} />
   <meta property="og:image" content={ogImageUrl} />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content={ogImageAlt} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
@@ -91,6 +95,7 @@ const ogImageUrl = new URL(ogImage, site).toString();
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={ogImageUrl} />
+  <meta name="twitter:image:alt" content={ogImageAlt} />
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="/favicon.png" />

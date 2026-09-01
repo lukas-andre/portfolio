@@ -100,6 +100,9 @@ test('localized diagrams, share cards, and missing routes behave correctly', asy
 
     const shareCard = await page.locator('meta[property="og:image"]').getAttribute('content');
     expect(shareCard).toBeTruthy();
+    expect(shareCard).toContain('/open-graph/v2/');
+    await expect(page.locator('meta[property="og:image:alt"]')).not.toHaveAttribute('content', '');
+    await expect(page.locator('meta[name="twitter:image:alt"]')).not.toHaveAttribute('content', '');
     const response = await request.get(new URL(shareCard!).pathname);
     expect(response.status()).toBe(200);
     expect(response.headers()['content-type']).toContain('image/png');

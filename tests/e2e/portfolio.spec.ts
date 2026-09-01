@@ -29,6 +29,14 @@ test('home communicates the current role, scope, and honest agent-system states'
   const jsonLd = JSON.parse((await page.locator('script[type="application/ld+json"]').textContent()) ?? '{}');
   expect(jsonLd.jobTitle).toBe('Tech Team Lead — Customer & Seller Self Service');
 
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+    'content',
+    'https://lucashenry.dev/open-graph/v2/home.png',
+  );
+  await expect(page.locator('meta[property="og:image:type"]')).toHaveAttribute('content', 'image/png');
+  await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute('content', /Lucas Henry/);
+  await expect(page.locator('meta[name="twitter:image:alt"]')).toHaveAttribute('content', /Lucas Henry/);
+
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(1);
   expect(errors).toEqual([]);

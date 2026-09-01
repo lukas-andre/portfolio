@@ -1,37 +1,83 @@
-import { OGImageRoute } from 'astro-og-canvas';
-import type { APIRoute } from 'astro';
+import type { APIRoute, GetStaticPaths } from 'astro';
+import { profile } from '../../data/profile';
 import { getVisibleNotes, localSlug, localeConfig } from '../../lib/notes';
+import {
+  renderSocialCard,
+  socialCardResponse,
+  type SocialCardInput,
+} from '../../lib/social-card';
 
-const entries = await getVisibleNotes();
-const pages = Object.fromEntries(entries.map((entry) => {
-  const segment = localeConfig[entry.data.lang].segment;
-  return [`${entry.data.lang}/${segment}/${localSlug(entry)}`, entry.data];
-}));
+type SocialCardRouteProps = { card: SocialCardInput };
 
-const imageRoute = OGImageRoute({
-  param: 'route',
-  pages,
-  getImageOptions: (_path, page) => ({
-    title: page.title,
-    description: page.description,
-    bgGradient: [[13, 13, 11], [30, 30, 26]],
-    border: { color: [212, 165, 116], width: 12, side: 'inline-start' },
-    padding: 72,
-    font: {
-      title: { color: [245, 242, 235], weight: 'SemiBold', size: 64, lineHeight: 1.05 },
-      description: { color: [201, 196, 184], weight: 'Normal', size: 28, lineHeight: 1.35 },
+function profileCard(): SocialCardInput {
+  return {
+    kind: 'profile',
+    name: profile.name,
+    role: profile.role,
+    domain: profile.domain,
+    headline: profile.headline,
+    capabilities: profile.scope.capabilities,
+    teams: profile.scope.teams,
+    people: profile.scope.people,
+    portraitPath: '/images/profile.jpeg',
+  };
+}
+
+function noteDate(entry: Awaited<ReturnType<typeof getVisibleNotes>>[number]) {
+  return entry.data.publishedAt ?? entry.data.updatedAt ?? new Date('2026-01-01');
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const entries = await getVisibleNotes();
+  const translationDates = new Map<string, number>();
+
+  for (const entry of entries) {
+    const timestamp = noteDate(entry).getTime();
+    const existing = translationDates.get(entry.data.translationKey);
+    translationDates.set(entry.data.translationKey, existing === undefined ? timestamp : Math.min(existing, timestamp));
+  }
+
+  const issueByTranslation = new Map(
+    [...translationDates.entries()]
+      .sort((a, b) => a[1] - b[1])
+      .map(([translationKey], index) => [translationKey, index + 1]),
+  );
+
+  const paths: Array<{ params: { route: string }; props: SocialCardRouteProps }> = [
+    {
+      params: { route: 'v2/home.png' },
+      props: { card: profileCard() },
     },
-  }),
-});
+  ];
 
-export const getStaticPaths = imageRoute.getStaticPaths;
-export const GET: APIRoute = async (context) => {
-  const response = await imageRoute.GET(context);
-  const headers = new Headers(response.headers);
-  if (response.ok) headers.set('Content-Type', 'image/png');
-  return new Response(response.body, {
-    status: response.status,
-    statusText: response.statusText,
-    headers,
-  });
+  for (const entry of entries) {
+    const segment = localeConfig[entry.data.lang].segment;
+    const localPath = `${entry.data.lang}/${segment}/${localSlug(entry)}`;
+    const date = noteDate(entry);
+    const card: SocialCardInput = {
+      kind: 'note',
+      title: entry.data.title,
+      lang: entry.data.lang,
+      issue: issueByTranslation.get(entry.data.translationKey) ?? 1,
+      dateLabel: new Intl.DateTimeFormat(entry.data.lang, {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+        timeZone: 'UTC',
+      }).format(date),
+      tags: entry.data.tags,
+      diagramPath: entry.data.diagrams[0].src,
+    };
+
+    paths.push(
+      { params: { route: `${localPath}.png` }, props: { card } },
+      { params: { route: `v2/${localPath}.png` }, props: { card } },
+    );
+  }
+
+  return paths;
 };
+
+export const GET: APIRoute<SocialCardRouteProps> = async ({ props }) => (
+  socialCardResponse(await renderSocialCard(props.card))
+);
