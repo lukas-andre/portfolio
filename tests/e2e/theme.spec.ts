@@ -19,11 +19,13 @@ test('light is the default and the theme persists across the full portfolio', as
   await page.goto('/');
   await expect(root).toHaveAttribute('data-theme', 'dark');
   await expect.poll(() => root.evaluate((node) => getComputedStyle(node).getPropertyValue('--bg-void').trim())).toBe('#0d0d0b');
+  await expect(page.getByRole('complementary', { name: 'Latest research note' })).toBeVisible();
 
   const homeToggle = page.getByRole('button', { name: 'Switch to light theme' });
   await expect(homeToggle).toHaveAttribute('aria-pressed', 'true');
   await homeToggle.click();
   await expect(root).toHaveAttribute('data-theme', 'light');
+  await expect(page.getByRole('complementary', { name: 'Latest research note' })).toBeVisible();
 
   await page.goto('/en/notes/the-end-of-software-engineering/');
   await expect(root).toHaveAttribute('data-theme', 'light');

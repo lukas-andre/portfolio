@@ -155,10 +155,25 @@ const copy = lang === 'es'
   }
 
   @media (max-width: 520px) {
-    .theme-toggle { min-height: 40px; }
+    .theme-toggle {
+      width: 42px;
+      min-height: 42px;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .theme-toggle__prompt,
     .theme-toggle__command,
-    .theme-toggle__separator { display: none; }
-    .theme-toggle__value { min-width: 2.5rem; }
+    .theme-toggle__separator,
+    .theme-toggle__value { display: none; }
+
+    .theme-toggle__glyph {
+      width: 1.45rem;
+      margin-left: 0;
+      border-left: 0;
+    }
+
+    .theme-toggle svg { margin-left: 0; }
   }
 
   @media (prefers-reduced-motion: reduce) {

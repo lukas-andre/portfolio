@@ -1,7 +1,6 @@
 ---
 import CinematicReveal from './ui/CinematicReveal.tsx';
-import Counter from './ui/Counter.tsx';
-import Icon from './ui/Icon.tsx';
+import { profile } from '../data/profile';
 ---
 
 <section id="about" class="section about">
@@ -57,29 +56,29 @@ import Icon from './ui/Icon.tsx';
             <p class="config-line">
               <span class="config-key">role</span>
               <span class="config-eq">=</span>
-              <span class="config-string">"Tech Lead"</span>
+              <span class="config-string">"{profile.role}"</span>
             </p>
             <p class="config-line">
               <span class="config-key">company</span>
               <span class="config-eq">=</span>
-              <span class="config-string">"Falabella"</span>
+              <span class="config-string">"{profile.company}"</span>
             </p>
             <p class="config-line">
               <span class="config-key">location</span>
               <span class="config-eq">=</span>
-              <span class="config-string">"Santiago, Chile"</span>
+              <span class="config-string">"{profile.location}"</span>
             </p>
 
             <p class="config-comment"># Specialization</p>
             <p class="config-line">
               <span class="config-key">focus</span>
               <span class="config-eq">=</span>
-              <span class="config-string">"E-commerce & Distributed Systems"</span>
+              <span class="config-string">"{profile.domain}"</span>
             </p>
             <p class="config-line">
-              <span class="config-key">architecture</span>
+              <span class="config-key">scope</span>
               <span class="config-eq">=</span>
-              <span class="config-string">"Monorepo Systems at Scale"</span>
+              <span class="config-string">"7 capabilities / 3 teams / ~30 people"</span>
             </p>
 
             <p class="config-comment"># Languages</p>
@@ -97,14 +96,14 @@ import Icon from './ui/Icon.tsx';
 
             <p class="config-comment"># AI Integration</p>
             <p class="config-line">
-              <span class="config-key">ai_native</span>
+              <span class="config-key">harness_engineering</span>
               <span class="config-eq">=</span>
               <span class="config-bool">true</span>
             </p>
             <p class="config-line">
               <span class="config-key">ai_tools</span>
               <span class="config-eq">=</span>
-              <span class="config-array">["Claude Code", "Codex", "Perplexity"]</span>
+              <span class="config-array">["Herdr", "Claude Code", "Codex", "Oh My Pi", "Vercel AI SDK"]</span>
             </p>
           </div>
         </div>
@@ -119,27 +118,23 @@ import Icon from './ui/Icon.tsx';
           <div class="stats-grid">
             <div class="stat-item">
               <span class="stat-icon active"></span>
-              <span class="stat-key">uptime</span>
-              <span class="stat-value">
-                <Counter client:load value={6} suffix="+ years" />
-              </span>
+              <span class="stat-key">capabilities</span>
+              <span class="stat-value">7</span>
             </div>
             <div class="stat-item">
               <span class="stat-icon active"></span>
-              <span class="stat-key">ai_exp</span>
-              <span class="stat-value">
-                <Counter client:load value={2} suffix="+ years" />
-              </span>
+              <span class="stat-key">teams</span>
+              <span class="stat-value">3</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-icon active"></span>
+              <span class="stat-key">people</span>
+              <span class="stat-value highlight">~30</span>
             </div>
             <div class="stat-item">
               <span class="stat-icon active"></span>
               <span class="stat-key">english</span>
-              <span class="stat-value highlight">C1</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-icon active"></span>
-              <span class="stat-key">status</span>
-              <span class="stat-value status">ACTIVE</span>
+              <span class="stat-value status">C1</span>
             </div>
           </div>
         </div>
@@ -197,7 +192,7 @@ import Icon from './ui/Icon.tsx';
   <CinematicReveal client:load delay={0.6}>
     <div class="philosophy-block">
       <span class="philosophy-prompt">echo $PHILOSOPHY</span>
-      <p class="philosophy-text">"Build systems that enhance human capability."</p>
+      <p class="philosophy-text">"Build systems where people and agents can ship with evidence."</p>
     </div>
   </CinematicReveal>
 </section>

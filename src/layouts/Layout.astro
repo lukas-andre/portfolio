@@ -1,6 +1,7 @@
 ---
 import BootScreen from '../components/ui/BootScreen.tsx';
 import ThemeToggle from '../components/ThemeToggle.astro';
+import { profile } from '../data/profile';
 
 interface Props {
   title: string;
@@ -17,7 +18,7 @@ interface Props {
 
 const {
   title,
-  description = "Tech Lead & Software Engineer specializing in TypeScript, Go, and AI-native development. Building exceptional digital experiences at Falabella.",
+  description = profile.summary,
   showBoot = true,
   lang = 'en',
   canonicalPath = '/',
@@ -29,7 +30,7 @@ const {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: 'Lucas Andre Henry Diaz',
-    jobTitle: 'Tech Lead',
+    jobTitle: 'Tech Team Lead — Customer & Seller Self Service',
     url: 'https://lucashenry.dev',
     image: 'https://lucashenry.dev/images/profile.jpeg',
     sameAs: [
@@ -37,7 +38,7 @@ const {
       'https://github.com/lukas-andre',
     ],
     worksFor: { '@type': 'Organization', name: 'Falabella' },
-    knowsAbout: ['TypeScript', 'Go', 'React', 'AI', 'Microfrontends', 'E-commerce'],
+    knowsAbout: ['Self Service', 'Engineering Leadership', 'Harness Engineering', 'Multi-Agent Orchestration', 'TypeScript', 'Go', 'React', 'E-commerce'],
   },
 } = Astro.props;
 
@@ -64,7 +65,7 @@ const ogImageUrl = new URL(ogImage, site).toString();
   </script>
   <meta name="description" content={description} />
   <meta name="author" content="Lucas Andre Henry Diaz" />
-  <meta name="keywords" content="Tech Lead, Software Engineer, TypeScript, Go, React, AI, Santiago Chile, Falabella, Microfrontends" />
+  <meta name="keywords" content="Tech Team Lead, Self Service, Engineering Leadership, Harness Engineering, Agentic Systems, Vercel AI SDK, Herdr, TypeScript, Go, React, Falabella, Chile" />
   <meta name="robots" content={robots} />
   <meta name="googlebot" content={robots} />
   <!-- Canonical -->

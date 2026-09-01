@@ -10,9 +10,19 @@ import AISection from '../components/AISection.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
 import NeuralCanvas from '../components/ui/NeuralCanvas';
+import { getTranslation, getVisibleNotes } from '../lib/notes';
+import { profile } from '../data/profile';
+
+const publishedNotes = (await getVisibleNotes('en')).filter((note) => !note.data.draft);
+const [latestNote] = publishedNotes;
+const latestTranslation = latestNote ? await getTranslation(latestNote) : undefined;
 ---
 
-<Layout title="Lucas Henry | Tech Lead & AI-Native Engineer" showBoot={false}>
+<Layout
+  title="Lucas Henry | Tech Team Lead & Agentic Systems"
+  description={profile.summary}
+  showBoot={false}
+>
   <!-- Neural Network Background -->
   <NeuralCanvas client:load />
 
@@ -21,7 +31,11 @@ import NeuralCanvas from '../components/ui/NeuralCanvas';
 
   <!-- Main Content -->
   <main>
-    <Hero />
+    <Hero
+      latestNote={latestNote}
+      latestTranslation={latestTranslation}
+      latestNoteNumber={publishedNotes.length}
+    />
     <About />
     <Skills />
     <Experience />

@@ -1,0 +1,221 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { profile } from '../../data/profile';
+
+const engineeringGroups = profile.capabilityGroups.slice(1);
+---
+
+<Layout
+  title="Lucas Henry — Resume | Tech Team Lead"
+  description={`Resume of ${profile.fullName}, ${profile.role} for ${profile.domain} at ${profile.company}.`}
+  canonicalPath="/resume/"
+  showBoot={false}
+>
+  <main class="resume-page">
+    <div class="resume-actions" aria-label="Resume actions">
+      <a href="/">← portfolio</a>
+      <button type="button" id="print-resume">print / save PDF</button>
+    </div>
+
+    <article class="resume-sheet">
+      <header class="resume-header">
+        <div>
+          <p class="eyebrow">LUCAS@ARCH / RESUME</p>
+          <h1>{profile.name}</h1>
+          <p class="headline">{profile.headline}</p>
+        </div>
+        <address>
+          <span>{profile.location}</span>
+          <a href={`mailto:${profile.email}`}>{profile.email}</a>
+          <a href={profile.links.linkedin}>linkedin.com/in/lucas-henryd</a>
+          <a href={profile.links.github}>github.com/lukas-andre</a>
+          <a href="https://lucashenry.dev">lucashenry.dev</a>
+        </address>
+      </header>
+
+      <section class="summary">
+        <h2>Profile</h2>
+        <p>{profile.summary}</p>
+      </section>
+
+      <section class="current-scope">
+        <div class="scope-heading">
+          <span>CURRENT SCOPE</span>
+          <strong>{profile.company} · since {profile.since}</strong>
+        </div>
+        <div class="scope-stats">
+          <div><b>{profile.scope.capabilities}</b><span>capabilities</span></div>
+          <div><b>{profile.scope.teams}</b><span>engineering teams</span></div>
+          <div><b>{profile.scope.people}</b><span>people</span></div>
+        </div>
+        <div class="scope-domains">
+          <div>
+            <h3>Customer</h3>
+            <p>{profile.scope.customer.join(' · ')}</p>
+          </div>
+          <div>
+            <h3>Seller</h3>
+            <p>{profile.scope.seller.join(' · ')}</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="resume-columns">
+        <div class="main-column">
+          <section>
+            <h2>Experience</h2>
+            <div class="experience-list">
+              {profile.experiences.map((experience) => (
+                <article class:list={['experience-item', { current: experience.current }]}>
+                  <div class="experience-title">
+                    <div>
+                      <h3>{experience.role}</h3>
+                      <p>{experience.company}</p>
+                    </div>
+                    <time>{experience.period}</time>
+                  </div>
+                  <p class="experience-description">{experience.description}</p>
+                  <ul>
+                    {experience.highlights.map((highlight) => <li>{highlight}</li>)}
+                  </ul>
+                </article>
+              ))}
+            </div>
+          </section>
+        </div>
+
+        <aside>
+          <section>
+            <h2>Agentic practice</h2>
+            <p class="aside-intro">I build the harness around agents—not just prompts.</p>
+            <div class="system-card">
+              <span>PERSONAL OS · IN USE</span>
+              <p>Obsidian / Lucas Brain → Herdr → Claude Code, Codex & Oh My Pi → tests, evals & human verification.</p>
+            </div>
+            <div class="system-card building">
+              <span>CORPORATE COWORK · BUILDING</span>
+              <p>Vercel AI SDK, shared context and tools, durable workflows, observability and approval gates.</p>
+            </div>
+          </section>
+
+          <section>
+            <h2>Capabilities</h2>
+            {engineeringGroups.map((group) => (
+              <div class="capability-group">
+                <h3>{group.title}</h3>
+                <p>{group.items.map((item) => item.name).join(' · ')}</p>
+              </div>
+            ))}
+          </section>
+
+          <section>
+            <h2>Languages</h2>
+            <p>Spanish — native</p>
+            <p>English — C1 Advanced</p>
+          </section>
+
+          <section>
+            <h2>Certifications</h2>
+            <p>EF SET English Certificate — C1</p>
+            <p>Scrum Foundations Professional Certificate</p>
+          </section>
+        </aside>
+      </div>
+    </article>
+  </main>
+
+  <script>
+    document.getElementById('print-resume')?.addEventListener('click', () => window.print());
+  </script>
+</Layout>
+
+<style>
+  .resume-page { position: relative; z-index: 2; min-height: 100vh; padding: 6rem 1.25rem 4rem; }
+  .resume-actions { display: flex; justify-content: space-between; max-width: 1040px; margin: 0 auto 1rem; color: var(--text-muted); font: .72rem var(--font-terminal); }
+  .resume-actions a, .resume-actions button { padding: .55rem .8rem; border: 1px solid var(--glass-border); border-radius: var(--radius-sm); background: var(--bg-card); color: var(--text-secondary); }
+  .resume-actions a:hover, .resume-actions button:hover { border-color: var(--accent-amber); color: var(--accent-amber); }
+  .resume-sheet { max-width: 1040px; margin: 0 auto; padding: clamp(1.5rem, 4vw, 3.5rem); border: 1px solid var(--glass-border); background: var(--bg-elevated); box-shadow: var(--shadow-card); }
+  .resume-header { display: flex; justify-content: space-between; gap: 2rem; padding-bottom: 1.5rem; border-bottom: 3px solid var(--text-primary); }
+  .eyebrow { margin-bottom: .4rem; color: var(--accent-amber); font: .66rem var(--font-terminal); letter-spacing: .14em; }
+  h1 { color: var(--text-primary); font-size: clamp(2.5rem, 7vw, 4.5rem); line-height: .95; letter-spacing: -.05em; }
+  .headline { max-width: 620px; margin-top: .8rem; color: var(--text-secondary); font-size: clamp(.95rem, 2vw, 1.15rem); font-weight: 500; }
+  address { display: flex; flex-direction: column; gap: .25rem; align-items: flex-end; justify-content: flex-end; color: var(--text-muted); font: normal .68rem/1.45 var(--font-terminal); text-align: right; }
+  address a:hover { color: var(--accent-amber); }
+  section > h2, .summary h2 { margin-bottom: .8rem; color: var(--accent-amber); font: 600 .72rem var(--font-terminal); letter-spacing: .13em; text-transform: uppercase; }
+  .summary { display: grid; grid-template-columns: 140px 1fr; gap: 1rem; padding: 1.4rem 0; border-bottom: 1px solid var(--glass-border); }
+  .summary p { color: var(--text-secondary); font-size: .93rem; }
+  .current-scope { padding: 1.4rem 0; border-bottom: 1px solid var(--glass-border); }
+  .scope-heading { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; font: .65rem var(--font-terminal); }
+  .scope-heading span { color: var(--accent-amber); letter-spacing: .12em; }
+  .scope-heading strong { color: var(--text-muted); font-weight: 400; }
+  .scope-stats { display: grid; grid-template-columns: repeat(3, 1fr); margin-bottom: 1rem; border: 1px solid var(--glass-border); }
+  .scope-stats div { display: flex; gap: .5rem; align-items: baseline; padding: .65rem .8rem; }
+  .scope-stats div + div { border-left: 1px solid var(--glass-border); }
+  .scope-stats b { color: var(--text-primary); font: 600 1.25rem var(--font-terminal); }
+  .scope-stats span { color: var(--text-muted); font: .62rem var(--font-terminal); }
+  .scope-domains { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .scope-domains h3 { color: var(--accent-sage); font: .62rem var(--font-terminal); text-transform: uppercase; }
+  .scope-domains p { margin-top: .25rem; color: var(--text-secondary); font-size: .78rem; }
+  .resume-columns { display: grid; grid-template-columns: minmax(0, 2fr) minmax(230px, .9fr); gap: 2.5rem; padding-top: 1.6rem; }
+  .experience-item { position: relative; padding: 0 0 1.3rem 1.1rem; border-left: 1px solid var(--glass-border); break-inside: avoid; }
+  .experience-item::before { position: absolute; top: .25rem; left: -4px; width: 7px; height: 7px; border-radius: 50%; background: var(--accent-sage); content: ''; }
+  .experience-item.current::before { background: var(--accent-amber); box-shadow: 0 0 0 3px var(--glass-active); }
+  .experience-title { display: flex; justify-content: space-between; gap: 1rem; }
+  .experience-title h3 { color: var(--text-primary); font-size: .9rem; line-height: 1.3; }
+  .experience-title p { color: var(--accent-amber); font: .65rem var(--font-terminal); }
+  time { flex: 0 0 auto; color: var(--text-muted); font: .61rem var(--font-terminal); }
+  .experience-description { margin: .5rem 0; color: var(--text-secondary); font-size: .76rem; }
+  .experience-item ul { padding-left: .95rem; }
+  .experience-item li { margin: .18rem 0; color: var(--text-muted); font-size: .7rem; list-style: square; }
+  aside { padding-left: 1.5rem; border-left: 1px solid var(--glass-border); }
+  aside section { margin-bottom: 1.5rem; break-inside: avoid; }
+  .aside-intro, aside section > p { margin-bottom: .35rem; color: var(--text-muted); font-size: .72rem; }
+  .system-card { margin-bottom: .65rem; padding: .7rem; border-left: 2px solid var(--accent-sage); background: var(--bg-secondary); }
+  .system-card.building { border-color: var(--accent-amber); }
+  .system-card span { color: var(--accent-sage); font: 600 .56rem var(--font-terminal); letter-spacing: .06em; }
+  .system-card.building span { color: var(--accent-amber); }
+  .system-card p { margin-top: .35rem; color: var(--text-secondary); font-size: .67rem; }
+  .capability-group { margin-bottom: .8rem; }
+  .capability-group h3 { color: var(--text-primary); font: 600 .65rem var(--font-terminal); text-transform: uppercase; }
+  .capability-group p { margin-top: .2rem; color: var(--text-muted); font-size: .67rem; }
+  @media (max-width: 760px) {
+    .resume-header { flex-direction: column; }
+    address { align-items: flex-start; text-align: left; }
+    .summary { grid-template-columns: 1fr; gap: 0; }
+    .resume-columns { grid-template-columns: 1fr; }
+    aside { padding: 1.5rem 0 0; border-top: 1px solid var(--glass-border); border-left: 0; }
+  }
+  @media (max-width: 520px) {
+    .resume-page { padding-inline: .65rem; }
+    .resume-sheet { padding: 1.1rem; }
+    .scope-stats { grid-template-columns: 1fr; }
+    .scope-stats div + div { border-top: 1px solid var(--glass-border); border-left: 0; }
+    .scope-domains { grid-template-columns: 1fr; }
+    .experience-title { flex-direction: column; gap: .25rem; }
+  }
+  @media print {
+    :global(html), :global(html[data-theme='dark']) {
+      color-scheme: light !important;
+      --bg-void: #fff !important;
+      --bg-primary: #fff !important;
+      --bg-secondary: #f7f5ef !important;
+      --bg-tertiary: #eeeae0 !important;
+      --bg-elevated: #fff !important;
+      --bg-card: #fff !important;
+      --text-primary: #151515 !important;
+      --text-secondary: #3f403a !important;
+      --text-muted: #66665f !important;
+      --text-dim: #8d8b82 !important;
+      --accent-amber: #7a4618 !important;
+      --accent-sage: #4f6048 !important;
+      --glass-border: rgba(30, 30, 25, .18) !important;
+    }
+    :global(body) { background: #fff !important; color: #151515 !important; }
+    :global(.theme-toggle), :global(.scanlines), :global(.noise), :global(.scroll-progress) { display: none !important; }
+    .resume-page { padding: 0; }
+    .resume-actions { display: none; }
+    .resume-sheet { max-width: none; padding: 0; border: 0; background: #fff; box-shadow: none; }
+    .experience-item, aside section, .current-scope { break-inside: avoid; }
+    @page { size: A4; margin: 12mm; }
+  }
+</style>

@@ -2,9 +2,28 @@
 import GlitchText from './ui/GlitchText.tsx';
 import TypeWriter from './ui/TypeWriter.tsx';
 import CinematicReveal from './ui/CinematicReveal.tsx';
+import { notePath, readingMinutes, type NoteEntry } from '../lib/notes';
+import { profile } from '../data/profile';
+
+interface Props {
+  latestNote?: NoteEntry;
+  latestTranslation?: NoteEntry;
+  latestNoteNumber?: number;
+}
+
+const { latestNote, latestTranslation, latestNoteNumber = 1 } = Astro.props;
+const latestDate = latestNote?.data.publishedAt ?? latestNote?.data.updatedAt;
+const latestDateLabel = latestDate
+  ? new Intl.DateTimeFormat('en', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+      timeZone: 'UTC',
+    }).format(latestDate).toUpperCase()
+  : undefined;
 ---
 
-<section id="hero" class="hero">
+<section id="hero" class:list={['hero', { 'hero--with-note': latestNote }]}>
   <div class="hero-content">
     <CinematicReveal client:load delay={0.3}>
       <div class="hero-terminal-line">
@@ -38,11 +57,11 @@ import CinematicReveal from './ui/CinematicReveal.tsx';
 
     <CinematicReveal client:load delay={0.9}>
       <div class="hero-roles">
-        <span class="role-badge primary">Tech Lead</span>
+        <span class="role-badge primary">{profile.role}</span>
         <span class="role-separator">//</span>
-        <span class="role-badge">Software Engineer</span>
+        <span class="role-badge">Self Service</span>
         <span class="role-separator">//</span>
-        <span class="role-badge highlight">AI Native</span>
+        <span class="role-badge highlight">Agentic Systems</span>
       </div>
     </CinematicReveal>
 
@@ -51,22 +70,22 @@ import CinematicReveal from './ui/CinematicReveal.tsx';
         <p class="output-line">
           <span class="output-key">company</span>
           <span class="output-colon">:</span>
-          <span class="output-value company">"Falabella"</span>
+          <span class="output-value company">"{profile.company}"</span>
         </p>
         <p class="output-line">
-          <span class="output-key">focus</span>
+          <span class="output-key">domain</span>
           <span class="output-colon">:</span>
-          <span class="output-value">"E-commerce & Distributed Systems"</span>
+          <span class="output-value">"{profile.domain}"</span>
         </p>
         <p class="output-line">
-          <span class="output-key">stack</span>
+          <span class="output-key">scope</span>
           <span class="output-colon">:</span>
-          <span class="output-value">["TypeScript", "Go", "React", "AI"]</span>
+          <span class="output-value">"7 capabilities · 3 teams · ~30 people"</span>
         </p>
         <p class="output-line">
-          <span class="output-key">status</span>
+          <span class="output-key">practice</span>
           <span class="output-colon">:</span>
-          <span class="output-value status">"Open to opportunities"</span>
+          <span class="output-value status">"Harness Engineering"</span>
         </p>
       </div>
     </CinematicReveal>
@@ -79,28 +98,72 @@ import CinematicReveal from './ui/CinematicReveal.tsx';
             <path d="M5 12h14M12 5l7 7-7 7"/>
           </svg>
         </a>
-        <a href="#demos" class="btn btn-secondary">
-          <span>ls ~/projects</span>
+        <a href="/resume/" class="btn btn-secondary">
+          <span>open ~/resume</span>
         </a>
       </div>
     </CinematicReveal>
   </div>
 
-  <!-- Floating code decoration -->
-  <div class="hero-decoration">
-    <CinematicReveal client:load delay={1.6}>
-      <div class="code-block">
-        <pre><code><span class="code-comment">// lucas.config.ts</span>
-<span class="code-keyword">export const</span> <span class="code-var">lucas</span> = {'{'}
-  <span class="code-prop">role</span>: <span class="code-string">"Tech Lead"</span>,
-  <span class="code-prop">company</span>: <span class="code-string">"Falabella"</span>,
-  <span class="code-prop">ai_native</span>: <span class="code-bool">true</span>,
-  <span class="code-prop">years_exp</span>: <span class="code-number">6</span>,
-{'}'} <span class="code-keyword">as const</span>;
-</code></pre>
+  {latestNote && (
+    <aside class="hero-latest" aria-label="Latest research note">
+      <div class="latest-note__header">
+        <span class="latest-note__label"><i></i> Latest / research note</span>
+        <span class="latest-note__number">Nº {String(latestNoteNumber).padStart(2, '0')}</span>
       </div>
-    </CinematicReveal>
-  </div>
+
+      <a
+        class="latest-note__primary"
+        href={notePath(latestNote)}
+        aria-label={`Read research note: ${latestNote.data.title}`}
+      >
+        <figure class="latest-note__visual">
+          <img
+            src={latestNote.data.diagrams[0].src}
+            alt={latestNote.data.diagrams[0].alt}
+            loading="eager"
+            decoding="async"
+          />
+          <figcaption>
+            <span>FIG. 01</span>
+            <span>Inside the note ↗</span>
+          </figcaption>
+        </figure>
+
+        <div class="latest-note__meta">
+          {latestDate && latestDateLabel && (
+            <time datetime={latestDate.toISOString()}>{latestDateLabel}</time>
+          )}
+          <span aria-hidden="true">·</span>
+          <span>{readingMinutes(latestNote)} min read</span>
+        </div>
+
+        <h2 id="latest-note-title">{latestNote.data.title}</h2>
+        <span class="latest-note__open">
+          Read the visual note
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </span>
+      </a>
+
+      <div class="latest-note__footer">
+        <ul aria-label="Topics">
+          {latestNote.data.tags.slice(0, 2).map((tag) => <li>#{tag}</li>)}
+        </ul>
+        {latestTranslation && (
+          <a
+            class="latest-note__language"
+            href={notePath(latestTranslation)}
+            hreflang={latestTranslation.data.lang}
+            aria-label="Leer esta nota en español"
+          >
+            ES <span aria-hidden="true">↗</span>
+          </a>
+        )}
+      </div>
+    </aside>
+  )}
 
   <!-- Scroll indicator -->
   <div class="scroll-indicator">
@@ -119,6 +182,14 @@ import CinematicReveal from './ui/CinematicReveal.tsx';
     padding: 8rem 5% 4rem;
     position: relative;
     overflow: hidden;
+    width: min(100%, 1600px);
+    margin: 0 auto;
+  }
+
+  .hero--with-note {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(330px, 420px);
+    gap: clamp(3rem, 7vw, 8rem);
   }
 
   .hero-content {
@@ -338,33 +409,200 @@ import CinematicReveal from './ui/CinematicReveal.tsx';
     flex-wrap: wrap;
   }
 
-  /* Decoration */
-  .hero-decoration {
+  /* Latest research note — an editorial margin, not another app window */
+  .hero-latest {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 400px;
+    justify-self: end;
+    padding-left: clamp(1rem, 2.4vw, 2rem);
+    animation: latest-note-in 900ms 350ms var(--ease-out-expo) both;
+  }
+
+  .hero-latest::before {
+    content: '';
     position: absolute;
-    right: 8%;
-    top: 50%;
-    transform: translateY(-50%) rotate(2deg);
-    opacity: 0.25;
+    inset: 0 auto 0 0;
+    width: 1px;
+    background: linear-gradient(180deg, var(--accent-amber), color-mix(in srgb, var(--accent-amber) 22%, transparent) 72%, transparent);
+  }
+
+  @keyframes latest-note-in {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .latest-note__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--glass-border);
+    font-family: var(--font-terminal);
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .latest-note__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: var(--accent-amber);
+  }
+
+  .latest-note__label i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-amber) 11%, transparent);
+  }
+
+  .latest-note__number {
+    color: var(--text-dim);
+  }
+
+  .latest-note__primary {
+    display: block;
+    padding-top: 1rem;
+  }
+
+  .latest-note__visual {
+    position: relative;
+    aspect-ratio: 1.9;
+    overflow: hidden;
+    background: var(--diagram-surface);
+    border: 1px solid color-mix(in srgb, var(--accent-cream) 18%, transparent);
+    box-shadow: 0 16px 34px color-mix(in srgb, var(--text-primary) 13%, transparent);
+  }
+
+  .latest-note__visual::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid color-mix(in srgb, var(--accent-amber) 0%, transparent);
+    transition: border-color var(--transition-medium);
     pointer-events: none;
   }
 
-  .code-block {
-    background: var(--bg-secondary);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius-md);
-    padding: 1.5rem;
-    font-family: var(--font-terminal);
-    font-size: 0.8rem;
-    line-height: 1.6;
+  .latest-note__visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.82) contrast(1.02);
+    transition: transform 650ms var(--ease-out-expo), filter var(--transition-medium);
   }
 
-  .code-comment { color: var(--text-dim); font-style: italic; }
-  .code-keyword { color: var(--accent-amber); }
-  .code-var { color: var(--accent-cream); }
-  .code-prop { color: var(--text-secondary); }
-  .code-string { color: var(--accent-sage); }
-  .code-bool { color: var(--accent-gold); }
-  .code-number { color: var(--accent-ember, #e07b4a); }
+  .latest-note__visual figcaption {
+    position: absolute;
+    inset: auto 0 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.8rem 0.75rem 0.55rem;
+    background: linear-gradient(transparent, rgba(13, 13, 11, 0.9));
+    font-family: var(--font-terminal);
+    font-size: 0.55rem;
+    color: #f5f2eb;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .latest-note__primary:hover .latest-note__visual img {
+    transform: scale(1.025);
+    filter: saturate(1) contrast(1.05);
+  }
+
+  .latest-note__primary:hover .latest-note__visual::after {
+    border-color: color-mix(in srgb, var(--accent-amber) 68%, transparent);
+  }
+
+  .latest-note__meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0 0.6rem;
+    font-family: var(--font-terminal);
+    font-size: 0.59rem;
+    color: var(--text-muted);
+    letter-spacing: 0.055em;
+  }
+
+  .latest-note__primary h2 {
+    margin: 0;
+    font-family: var(--font-editorial);
+    font-size: clamp(1.7rem, 2.35vw, 2.15rem);
+    font-weight: 450;
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+    transition: color var(--transition-fast);
+  }
+
+  .latest-note__primary:hover h2 {
+    color: var(--accent-cream);
+  }
+
+  .latest-note__open {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-top: 0.85rem;
+    font-family: var(--font-terminal);
+    font-size: 0.64rem;
+    font-weight: 500;
+    color: var(--accent-amber);
+    letter-spacing: 0.04em;
+  }
+
+  .latest-note__open svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    transition: transform var(--transition-fast);
+  }
+
+  .latest-note__primary:hover .latest-note__open svg {
+    transform: translateX(4px);
+  }
+
+  .latest-note__footer,
+  .latest-note__footer ul {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .latest-note__footer {
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--glass-border);
+    font-family: var(--font-terminal);
+    font-size: 0.56rem;
+    letter-spacing: 0.045em;
+  }
+
+  .latest-note__footer ul {
+    gap: 0.7rem;
+    color: var(--accent-sage);
+  }
+
+  .latest-note__language {
+    color: var(--accent-amber);
+  }
+
+  .latest-note__language:hover {
+    color: var(--accent-cream);
+  }
 
   /* Scroll indicator */
   .scroll-indicator {
@@ -410,8 +648,21 @@ import CinematicReveal from './ui/CinematicReveal.tsx';
   }
 
   /* Responsive */
-  @media (max-width: 1024px) {
-    .hero-decoration {
+  @media (max-width: 1100px) {
+    .hero--with-note {
+      grid-template-columns: minmax(0, 750px);
+      align-content: center;
+      justify-content: start;
+      gap: 4rem;
+      padding-bottom: 7rem;
+    }
+
+    .hero-latest {
+      max-width: 560px;
+      justify-self: start;
+    }
+
+    .scroll-indicator {
       display: none;
     }
   }
@@ -419,6 +670,10 @@ import CinematicReveal from './ui/CinematicReveal.tsx';
   @media (max-width: 768px) {
     .hero {
       padding-top: 6rem;
+    }
+
+    .hero--with-note {
+      gap: 3rem;
     }
 
     .hero-identity {
@@ -452,5 +707,22 @@ import CinematicReveal from './ui/CinematicReveal.tsx';
       width: 100%;
       justify-content: center;
     }
+
+    .hero-latest {
+      padding-left: 0.9rem;
+    }
+
+    .latest-note__primary h2 {
+      font-size: clamp(1.7rem, 7.2vw, 2.1rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-latest {
+      animation: none;
+    }
+
+    .latest-note__visual img,
+    .latest-note__open svg { transition: none; }
   }
 </style>

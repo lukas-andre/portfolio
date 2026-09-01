@@ -7,6 +7,28 @@ function collectRuntimeErrors(page: Page) {
   return errors;
 }
 
+test('home hero promotes the latest published note in both languages', async ({ page }) => {
+  const errors = collectRuntimeErrors(page);
+  await page.goto('/');
+
+  const latest = page.getByRole('complementary', { name: 'Latest research note' });
+  await expect(latest).toBeVisible();
+  await expect(latest.getByRole('heading', { level: 2 })).toHaveText('The End of Software Engineering? Not Quite.');
+  await expect(latest.getByRole('link', { name: /Read research note:/ })).toHaveAttribute(
+    'href',
+    '/en/notes/the-end-of-software-engineering/',
+  );
+  await expect(latest.getByRole('link', { name: 'Leer esta nota en español' })).toHaveAttribute(
+    'href',
+    '/es/notas/el-fin-de-la-ingenieria-de-software/',
+  );
+  await expect(latest).toContainText(/\d+ min read/);
+
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(1);
+  expect(errors).toEqual([]);
+});
+
 test('Spanish notes index opens the published article', async ({ page }) => {
   const errors = collectRuntimeErrors(page);
   await page.goto('/es/notas/');
