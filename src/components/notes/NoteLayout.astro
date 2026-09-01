@@ -13,7 +13,7 @@ const translationPath = translation ? notePath(translation) : (isSpanish ? '/en/
 const localizedEntries = [note, ...(translation ? [translation] : [])].sort((a, b) => a.data.lang === 'es' ? -1 : b.data.lang === 'es' ? 1 : 0);
 const alternates = localizedEntries.map((entry) => ({ lang: entry.data.lang, href: notePath(entry) }));
 const date = note.data.publishedAt ?? note.data.updatedAt;
-const ogImage = `/open-graph/v2${canonicalPath.slice(0, -1)}.png`;
+const ogImage = `/open-graph/v3${canonicalPath.slice(0, -1)}.png`;
 const ogImageAlt = isSpanish
   ? `Portada editorial de la nota “${note.data.title}”, por Lucas Henry.`
   : `Editorial cover for “${note.data.title}”, a research note by Lucas Henry.`;

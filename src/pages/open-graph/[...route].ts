@@ -48,6 +48,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
       params: { route: 'v2/home.png' },
       props: { card: profileCard() },
     },
+    {
+      params: { route: 'v3/home.png' },
+      props: { card: profileCard() },
+    },
   ];
 
   for (const entry of entries) {
@@ -72,6 +76,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths.push(
       { params: { route: `${localPath}.png` }, props: { card } },
       { params: { route: `v2/${localPath}.png` }, props: { card } },
+      { params: { route: `v3/${localPath}.png` }, props: { card } },
     );
   }
 

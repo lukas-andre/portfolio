@@ -31,7 +31,7 @@ test('home communicates the current role, scope, and honest agent-system states'
 
   await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
     'content',
-    'https://lucashenry.dev/open-graph/v2/home.png',
+    'https://lucashenry.dev/open-graph/v3/home.png',
   );
   await expect(page.locator('meta[property="og:image:type"]')).toHaveAttribute('content', 'image/png');
   await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute('content', /Lucas Henry/);
