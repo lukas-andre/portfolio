@@ -1,6 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getNoteSources, notePath, readingMinutes, type NoteEntry } from '../../lib/notes';
+import { getEntry } from 'astro:content';
+import { noteSocialCardPath } from '../../lib/diagrams';
+import { getNoteSources, getRelatedNotes, noteMarkdownPath, notePath, readingMinutes, type NoteEntry } from '../../lib/notes';
 import NotesNav from './NotesNav.astro';
 
 interface Props { note: NoteEntry; translation?: NoteEntry; }
@@ -9,24 +11,43 @@ const isSpanish = note.data.lang === 'es';
 const sources = await getNoteSources(note);
 const sourceRows = note.data.sources.map(({ ref, role }) => ({ source: sources.find((item) => item.id === ref.id), role }));
 const canonicalPath = notePath(note);
+const markdownPath = noteMarkdownPath(note);
 const translationPath = translation ? notePath(translation) : (isSpanish ? '/en/notes/' : '/es/notas/');
 const localizedEntries = [note, ...(translation ? [translation] : [])].sort((a, b) => a.data.lang === 'es' ? -1 : b.data.lang === 'es' ? 1 : 0);
 const alternates = localizedEntries.map((entry) => ({ lang: entry.data.lang, href: notePath(entry) }));
 const date = note.data.publishedAt ?? note.data.updatedAt;
-const ogImage = `/open-graph/v4${canonicalPath.slice(0, -1)}.png`;
+const featuredVisual = await getEntry('diagrams', note.data.featuredVisual);
+if (!featuredVisual) throw new Error(`Missing featured visual ${note.data.featuredVisual}`);
+const ogImage = noteSocialCardPath(note, featuredVisual);
+const relatedNotes = await getRelatedNotes(note);
 const ogImageAlt = isSpanish
   ? `Portada editorial de la nota “${note.data.title}”, por Lucas Henry.`
   : `Editorial cover for “${note.data.title}”, a research note by Lucas Henry.`;
 const site = Astro.site ?? new URL('https://lucashenry.dev');
+const canonicalUrl = new URL(canonicalPath, site).toString();
+const translationUrl = translation ? new URL(notePath(translation), site).toString() : undefined;
+const kindLabel = note.data.kind === 'essay'
+  ? (isSpanish ? 'ENSAYO' : 'ESSAY')
+  : note.data.kind === 'synthesis'
+    ? (isSpanish ? 'SÍNTESIS' : 'SYNTHESIS')
+    : (isSpanish ? 'PAPER, EXPLICADO' : 'PAPER, EXPLAINED');
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
+  '@id': `${canonicalUrl}#article`,
   headline: note.data.title,
   description: note.data.description,
   inLanguage: note.data.lang,
-  url: new URL(canonicalPath, site).toString(),
+  url: canonicalUrl,
+  mainEntityOfPage: { '@id': canonicalUrl },
+  isPartOf: { '@type': 'Blog', '@id': new URL(isSpanish ? '/es/notas/' : '/en/notes/', site).toString() },
   image: new URL(ogImage, site).toString(),
-  author: { '@type': 'Person', name: 'Lucas Henry', url: 'https://lucashenry.dev' },
+  author: { '@type': 'Person', '@id': 'https://lucashenry.dev/#lucas', name: 'Lucas Henry', url: 'https://lucashenry.dev' },
+  keywords: [...note.data.tags, ...note.data.topics],
+  about: note.data.topics.map((topic) => ({ '@type': 'Thing', name: topic })),
+  citation: sourceRows.flatMap(({ source }) => source ? [source.data.url] : []),
+  ...(translationUrl && isSpanish ? { workTranslation: { '@id': `${translationUrl}#article` } } : {}),
+  ...(translationUrl && !isSpanish ? { translationOfWork: { '@id': `${translationUrl}#article` } } : {}),
   ...(note.data.publishedAt ? { datePublished: note.data.publishedAt.toISOString() } : {}),
   ...(note.data.updatedAt ? { dateModified: note.data.updatedAt.toISOString() } : {}),
 };
@@ -44,6 +65,8 @@ const jsonLd = {
   alternateLanguages={alternates}
   jsonLd={jsonLd}
   robots={note.data.draft ? 'noindex, nofollow' : 'index, follow'}
+  markdownPath={markdownPath}
+  describedByPath="/llms.txt"
 >
   <a class="skip-link" href="#article-body">{isSpanish ? 'Saltar al artículo' : 'Skip to article'}</a>
   <NotesNav lang={note.data.lang} switchHref={translationPath} />
@@ -51,7 +74,7 @@ const jsonLd = {
     <article class="note-article">
       <header class="note-header">
         <div class="note-header__meta">
-          <span>{note.data.kind === 'single' ? (isSpanish ? 'PAPER, EXPLICADO' : 'PAPER, EXPLAINED') : (isSpanish ? 'SÍNTESIS' : 'SYNTHESIS')}</span>
+          <span>{kindLabel}</span>
           <span aria-hidden="true">/</span>
           <span>{readingMinutes(note)} MIN</span>
           {note.data.draft && <span class="note-header__draft">{isSpanish ? 'BORRADOR' : 'DRAFT'}</span>}
@@ -61,6 +84,19 @@ const jsonLd = {
         <div class="note-header__byline">
           <span>Lucas Henry</span>
           {date && <time datetime={date.toISOString()}>{new Intl.DateTimeFormat(note.data.lang, { dateStyle: 'long', timeZone: 'UTC' }).format(date)}</time>}
+        </div>
+        <div class="note-header__actions" aria-label={isSpanish ? 'Formatos del artículo' : 'Article formats'}>
+          <button
+            type="button"
+            class="note-copy-markdown"
+            data-markdown-path={markdownPath}
+            data-idle={isSpanish ? 'Copiar Markdown' : 'Copy Markdown'}
+            data-loading={isSpanish ? 'Copiando…' : 'Copying…'}
+            data-success={isSpanish ? 'Markdown copiado' : 'Markdown copied'}
+            data-error={isSpanish ? 'No se pudo copiar' : 'Copy failed'}
+          ><span aria-hidden="true">⌘</span><span>{isSpanish ? 'Copiar Markdown' : 'Copy Markdown'}</span></button>
+          <a href={markdownPath}><span aria-hidden="true">↗</span>{isSpanish ? 'Ver .md' : 'View .md'}</a>
+          <span class="note-copy-status sr-only" aria-live="polite"></span>
         </div>
       </header>
 
@@ -85,13 +121,95 @@ const jsonLd = {
             ? 'Este artículo fue investigado y redactado con asistencia de IA. Lucas definió el ángulo, verificó las fuentes y conserva la responsabilidad editorial.'
             : 'This article was researched and drafted with AI assistance. Lucas set the angle, verified the sources, and retains editorial responsibility.'}</p>
         </aside>
+        {relatedNotes.length > 0 && (
+          <section class="related-notes" aria-labelledby="related-notes-title">
+            <p class="note-end__eyebrow">{isSpanish ? 'SIGUE EL HILO' : 'FOLLOW THE THREAD'}</p>
+            <h2 id="related-notes-title">{isSpanish ? 'Notas relacionadas' : 'Related notes'}</h2>
+            <ul>
+              {relatedNotes.map((related) => (
+                <li><a href={notePath(related)}><span>{related.data.issue}</span>{related.data.title}</a></li>
+              ))}
+            </ul>
+          </section>
+        )}
         <a class="back-link" href={isSpanish ? '/es/notas/' : '/en/notes/'}>← {isSpanish ? 'Volver a todas las notas' : 'Back to all notes'}</a>
       </footer>
     </article>
   </main>
 </Layout>
 
+<script>
+  function clipboardFallback(value: string) {
+    const textarea = document.createElement('textarea');
+    textarea.value = value;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.append(textarea);
+    textarea.select();
+    const copied = document.execCommand('copy');
+    textarea.remove();
+    if (!copied) throw new Error('Copy failed');
+  }
+
+  async function copyText(value: string) {
+    if (navigator.clipboard?.writeText) {
+      try {
+        await navigator.clipboard.writeText(value);
+        return;
+      } catch {
+        // Safari and embedded browsers can expose the API but reject the write.
+      }
+    }
+    clipboardFallback(value);
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('.note-copy-markdown').forEach((button) => {
+    const path = button.dataset.markdownPath;
+    let markdownPromise: Promise<string> | undefined;
+    const loadMarkdown = () => {
+      if (!path) return Promise.reject(new Error('Missing Markdown path'));
+      markdownPromise ??= fetch(path).then((response) => {
+        if (!response.ok) throw new Error(`Markdown returned ${response.status}`);
+        return response.text();
+      });
+      return markdownPromise;
+    };
+    void loadMarkdown().catch(() => undefined);
+
+    button.addEventListener('click', async () => {
+      const label = button.querySelector('span:last-child');
+      const status = button.parentElement?.querySelector<HTMLElement>('.note-copy-status');
+      if (!label || !path) return;
+      label.textContent = button.dataset.loading ?? 'Copying…';
+      button.disabled = true;
+      try {
+        const markdown = await loadMarkdown();
+        await copyText(markdown);
+        const message = button.dataset.success ?? 'Copied';
+        label.textContent = message;
+        if (status) status.textContent = message;
+        window.setTimeout(() => {
+          label.textContent = button.dataset.idle ?? 'Copy Markdown';
+          if (status) status.textContent = '';
+        }, 1800);
+      } catch {
+        const message = button.dataset.error ?? 'Copy failed';
+        label.textContent = message;
+        if (status) status.textContent = message;
+        window.setTimeout(() => {
+          label.textContent = button.dataset.idle ?? 'Copy Markdown';
+          if (status) status.textContent = '';
+        }, 2200);
+      } finally {
+        button.disabled = false;
+      }
+    });
+  });
+</script>
+
 <style is:global>
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
   .skip-link { position: fixed; top: -100px; left: 1rem; z-index: 1000; padding: .7rem 1rem; background: var(--accent-cream); color: var(--bg-void); }
   .skip-link:focus { top: 1rem; }
   .note-article { overflow: clip; }
@@ -101,6 +219,10 @@ const jsonLd = {
   .note-header h1 { max-width: 950px; margin: 1.25rem auto 1.5rem; font-family: var(--font-editorial); font-size: clamp(3.1rem, 9vw, 7rem); font-weight: 450; line-height: .94; letter-spacing: -.055em; text-wrap: balance; }
   .note-header__description { max-width: 66ch; margin: 0 auto 2rem; font-size: clamp(1.05rem, 2.2vw, 1.3rem); text-wrap: balance; }
   .note-header__byline span:first-child { color: var(--accent-cream); }
+  .note-header__actions { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: .55rem; margin-top: 1.35rem; }
+  .note-header__actions button, .note-header__actions a { display: inline-flex; align-items: center; gap: .45rem; min-height: 2.5rem; padding: .58rem .82rem; border: 1px solid var(--glass-border); background: transparent; color: var(--text-muted); font: 600 .64rem/1 var(--font-terminal); cursor: pointer; }
+  .note-header__actions button:hover, .note-header__actions a:hover, .note-header__actions button:focus-visible, .note-header__actions a:focus-visible { border-color: var(--accent-amber); color: var(--accent-cream); }
+  .note-header__actions button:disabled { cursor: wait; opacity: .7; }
   .note-prose { width: min(72ch, calc(100% - 2rem)); margin: 0 auto; font-family: var(--font-editorial); font-size: clamp(1.08rem, 2.1vw, 1.24rem); line-height: 1.75; color: var(--text-secondary); }
   .note-prose > p { margin: 0 0 1.45rem; font: inherit; color: inherit; }
   .note-prose > p:first-child { font-size: clamp(1.25rem, 2.6vw, 1.55rem); color: var(--accent-cream); }
@@ -125,6 +247,13 @@ const jsonLd = {
   .ai-note { display: flex; gap: .8rem; margin: 2.5rem 0; padding: 1rem; border: 1px solid var(--glass-border); }
   .ai-note span { color: var(--accent-amber); }
   .ai-note p { font: .72rem/1.65 var(--font-terminal); color: var(--text-muted); }
+  .related-notes { margin: 3rem 0; }
+  .related-notes h2 { margin: .7rem 0 1.2rem; font-family: var(--font-editorial); font-size: 2.2rem; }
+  .related-notes ul { margin: 0; list-style: none; }
+  .related-notes li { border-top: 1px solid var(--glass-border); }
+  .related-notes a { display: grid; grid-template-columns: 3rem 1fr; gap: .8rem; padding: 1rem 0; color: var(--accent-cream); font-family: var(--font-editorial); font-size: 1.12rem; }
+  .related-notes a span { color: var(--accent-amber); font: .65rem/1.6 var(--font-terminal); }
+  .related-notes a:hover { color: var(--accent-amber); }
   .back-link { font: .72rem/1.5 var(--font-terminal); color: var(--accent-amber); }
   @media (max-width: 600px) { .source-list li { grid-template-columns: 1fr; gap: .35rem; } }
   @media (prefers-reduced-motion: reduce) { .main-content { transition: none !important; transform: none !important; } }

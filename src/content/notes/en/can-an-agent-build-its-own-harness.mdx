@@ -1,0 +1,129 @@
+---
+translationKey: agents-building-their-own-harness
+lang: en
+title: Can an Agent Build the Harness That Governs It?
+description: >-
+  Yes: an agent can write tools, rules, and even its next harness. The problem
+  begins when it also controls the evaluator, permissions, and evidence that
+  decide whether its change was actually an improvement.
+updatedAt: '2026-09-02'
+tags:
+  - agents
+  - harness
+  - guardrails
+  - evaluation
+aiAssisted: true
+---
+
+import Cite from '../../../components/notes/Cite.astro';
+import Callout from '../../../components/notes/Callout.astro';
+import MyTake from '../../../components/notes/MyTake.astro';
+import NoteFigure from '../../../components/notes/NoteFigure.astro';
+
+The question sounds like a science-fiction joke: can an agent build the cage that contains it? In software, it is painfully concrete. A harness is code, prompts, tools, memory, permissions, evaluators, and loops. If an agent can already write code, why could it not write all of those too?
+
+The short answer is **yes**. The useful answer needs a second sentence: it can build the next harness; it should not simultaneously be its only author, its only judge, and the root authority that decides what is allowed.
+
+<MyTake title="The experience behind the question">
+  I tried to build a harness with Claude Code and repeatedly ran into friction. The same ambition moved forward when I switched to Codex. That is a real observation from my experience, but it is not a causal experiment: permissions, tool visibility, context, execution mode, or each product's interpretation of authority may also have changed. Blaming “Claude's guardrails” would be tidy. The evidence does not isolate that cause.
+</MyTake>
+
+<Callout kind="thesis" label="The thesis">
+  Harness authorship can be heavily automated. Harness authority cannot. A safe design separates the agent that proposes changes from the system that executes, evaluates, promotes, and can roll them back.
+</Callout>
+
+## First: a “no” does not come from one place
+
+When an agent says it cannot do something, we tend to anthropomorphize the refusal: “the model refused.” But a software agent is a chain of at least five walls:
+
+1. **Model and instructions.** The model interprets intent and proposes a response or tool call.
+2. **Policy and permissions.** The runtime decides whether that class of action is authorized.
+3. **Tools.** The call may not exist, may be poorly specified, or may require data the model lacks.
+4. **Environment.** The process may not have network access, files, credentials, or reach beyond its workspace.
+5. **Evaluation.** The action runs, but tests, verifiers, or external review reject the result.
+
+OpenAI’s explanation of the Codex loop makes explicit a boundary that interfaces often hide: the **model requests** a tool call; the harness executes it and returns the result for the next inference. The text that proposes an action and the process authorized to perform it are not the same thing. <Cite source="openai-unrolling-codex-agent-loop-2026" locator="‘The agent loop,’ tool calls, and harness execution" />
+
+<NoteFigure id="agents-building-their-own-harness/anatomy-of-no" />
+
+Claude Code auto mode offers a concrete example. Reads and safe operations pass through allowlists; edits inside the project are allowed because version control makes them reviewable; shell, web, subagent, and outside-project operations reach a classifier. After repeated denials, the system escalates to a person, and in headless mode it terminates the process. <Cite source="anthropic-claude-code-auto-mode-2026" locator="‘How permission decisions work’ and ‘Deny-and-continue’" />
+
+If a “build the harness” task tries to alter the permission mechanism governing the current session, the resulting friction does not prove a lack of programming ability. It may be a deliberate authority boundary. And when another product completes the task, that does not automatically prove its model is smarter; its runtime may simply draw the boundary somewhere else.
+
+## Which parts of the harness can an agent write?
+
+Nearly all of the visible surface is ordinary software:
+
+- instructions and tool descriptions;
+- wrappers, CLIs, and MCP servers;
+- context, memory, and compaction strategies;
+- setup scripts, tests, linters, and observability;
+- planners, workers, evaluators, and handoff protocols;
+- navigable documentation and error messages that teach the repair.
+
+OpenAI reported an internal experiment in which Codex wrote every line of a product: application code, tests, CI, documentation, observability, and tooling. It even generated the initial scaffold and the `AGENTS.md` that directed future agents. Humans prioritized work, translated feedback into acceptance criteria, and validated outcomes. <Cite source="openai-harness-engineering-2026" locator="‘We started with an empty git repository’ and ‘What the agent-generated repository contains’" />
+
+That is strong evidence of possibility and weak evidence of universality. It is an internal case, inside a repository intentionally made legible to Codex, with heavy investment in tools and feedback loops. The article itself warns that the behavior should not be assumed to generalize without similar structure. <Cite source="openai-harness-engineering-2026" locator="‘What this unlocks’ and the generalization caveat" />
+
+Anthropic describes a narrower case: using Claude Code to analyze transcripts, refactor implementations, and improve internal tools. Promotion did not depend on the agent praising its own work; the team used evaluation tasks and held-out sets to detect overfitting. <Cite source="anthropic-writing-tools-for-agents-2025" locator="‘Collaborating with agents’ and held-out test sets" />
+
+The rule is already visible: **the agent may help write the exam; it should not know every answer on the exam that promotes it**.
+
+## The root that does not edit itself
+
+If “harness” includes everything around the model, allowing the model to rewrite all of it creates obvious shortcuts. A candidate could improve its score by disabling the verifier, switching to a more expensive model, raising its budget, hiding errors, or granting itself broader permissions. It would have optimized the metric and destroyed the meaning of the test.
+
+That is why two zones matter.
+
+The **editable surface** contains what we want to learn: prompts, tools, middleware, memory, recovery, and coordination strategies. The **root of trust** contains what keeps the experiment honest: evaluator, credentials, cost ceilings, permission policy, regression suite, immutable logs, and rollback.
+
+<NoteFigure id="agents-building-their-own-harness/editable-surface-root" />
+
+Anthropic’s long-running application architecture applies this separation even among roles powered by the same model. A planner expands the goal; a generator implements it; an evaluator uses Playwright and sprint contracts to try to falsify that the work is done. Yet the author watched the evaluator find a legitimate bug and then talk itself into approving the work anyway. Separate prompts help, but they do not magically make the model an independent judge. <Cite source="anthropic-harness-design-long-running-apps-2026" locator="‘The architecture’ and evaluator-tuning sections" />
+
+Meaningful independence is not a collection of role names. It requires **separate information, incentives, and authority**.
+
+## Three experiments already attempting the bootstrap
+
+In 2026, research moved beyond asking whether an agent could edit a prompt and began treating the full harness as a versioned object.
+
+**Meta-Harness** uses a coding agent as an external proposer. It receives a filesystem containing the code, scores, and traces of all prior candidates; the agent chooses what to inspect and proposes the next version. On online text classification, the authors report a 7.7-point gain over another context-management system while using four times fewer context tokens. On TerminalBench-2, it also finds competitive harnesses. These are task-specific results, not a guarantee of general improvement. <Cite source="arxiv-2603.28052v1" locator="Abstract, §3, and tables 2 and 7" />
+
+**Self-Harness** takes the more uncomfortable step: the same model operating under the current harness proposes bounded changes to that harness. The model and evaluator stay fixed; failures are clustered, every proposal names the mechanism it targets, and a candidate is promoted only when it avoids regression on the gated splits. Across three models and three benchmarks, all nine final combinations improve on held-in and held-out tasks. The maximum 132% is a relative gain in one AppWorld configuration, not a universal 132% uplift. <Cite source="arxiv-2606.09498v3" locator="§3, table 1, and §5 Limitations" />
+
+**Agentic Harness Engineering (AHE)** expands the editable surface to tools, middleware, and memory. It reports that ten iterations raise pass@1 from 69.7% to 77.0% on Terminal-Bench 2. The decisive detail for this question is permissioning: the evolve agent can write only inside the harness workspace, while the runs directory, tracer, verifier, and LLM configuration remain read-only; even the seed prompt is non-deletable. <Cite source="arxiv-2604.25850v1" locator="§3.1 ‘controllability’ and §4.2" />
+
+<NoteFigure id="agents-building-their-own-harness/evidence-map" />
+
+<Callout kind="evidence" label="What the evidence supports">
+  Current agents can write and improve substantial parts of a harness—even with the same model acting as proposer—when changes are bounded, runs are observable, and promotion depends on external or protected evaluation.
+</Callout>
+
+<Callout kind="limit" label="What it does not establish">
+  These cases do not demonstrate open-ended self-improvement, safety in high-impact systems, or the ability to redefine root policy. They optimize declared surfaces against benchmarks and verifiers whose quality remains a human premise.
+</Callout>
+
+## Building H(t+1) without handing over the keys to H(t)
+
+A safe pattern does not rewrite the harness sustaining the current session. It treats every change as a versioned transition:
+
+1. **Observe.** Run H(t) on real tasks and retain traces, outcomes, and costs.
+2. **Diagnose.** Cluster repeated failures and distinguish model, tool, permission, environment, and evaluation causes.
+3. **Propose.** Let one or more agents create minimal changes inside an isolated copy.
+4. **Challenge.** Use deterministic tests, held-out cases, and—when judgment matters—another role or model trying to disprove the improvement.
+5. **Promote.** Apply H(t+1) only when it clears criteria set before the result was known, with a person authorizing high-risk changes.
+6. **Preserve lineage.** Logs, diff, the previous version, and rollback must survive the candidate.
+
+<NoteFigure id="agents-building-their-own-harness/safe-bootstrap-loop" />
+
+<MyTake title="How I would operate it">
+  In a personal system like mine, the split is simple: one agent explores and writes; another reviews architecture or risk; scripts and tests verify mechanical facts; the Brain preserves decisions and evidence; I remain the gate for credentials, deployment, spending, and irreversible actions. Switching from Claude to Codex may unblock one phase, but the lesson should not remain attached to a model name. The architecture must let me replace proposers without replacing the root of trust.
+</MyTake>
+
+## Yes, it can build the cage
+
+The intuitive fear is that an agent modifying its harness will escape. Today’s likelier failure is less cinematic: it optimizes a poor metric, overfits visible cases, accidentally disables a check, or confuses technical permission with human authorization.
+
+The answer is not to forbid it from building. That would discard one of the strongest levers in agent engineering: turning every failure into a reusable improvement to the environment. The answer is a minimal constitution that also governs the act of changing the constitution.
+
+The agent can build the cage. It may even propose a better one. What it should not hold is the only key.

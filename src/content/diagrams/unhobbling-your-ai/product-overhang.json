@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "translationKey": "unhobbling-your-ai",
+  "kind": "layers",
+  "claimRefs": [
+    "claim-01",
+    "claim-02"
+  ],
+  "model": {
+    "items": [
+      {
+        "id": "capability",
+        "tone": "sage"
+      },
+      {
+        "id": "surface",
+        "tone": "amber"
+      },
+      {
+        "id": "gap",
+        "tone": "rust"
+      }
+    ]
+  },
+  "copy": {
+    "es": {
+      "title": "Product overhang",
+      "question": "¿Qué capacidad está atrapando el producto?",
+      "takeaway": "El product overhang es la distancia entre lo que el modelo ya puede hacer y lo que nuestro producto, sus herramientas y permisos dejan expresar.",
+      "alt": "Dos contornos muestran que la capacidad real del modelo puede ser mayor que la superficie que el producto le permite usar.",
+      "caption": "El product overhang es la distancia entre lo que el modelo ya puede hacer y lo que nuestro producto, sus herramientas y permisos dejan expresar.",
+      "labels": {
+        "capability": {
+          "title": "Capacidad real del modelo",
+          "detail": "Razonar, escribir, navegar, usar herramientas y sostener un loop."
+        },
+        "surface": {
+          "title": "Superficie del producto",
+          "detail": "UI, tools, permisos y contexto que puede utilizar."
+        },
+        "gap": {
+          "title": "Product overhang",
+          "detail": "Capacidad pagada que la interfaz todavía mantiene atrapada."
+        }
+      }
+    },
+    "en": {
+      "title": "Product overhang",
+      "question": "What capability is the product trapping?",
+      "takeaway": "Product overhang is the gap between what the model can already do and what our product, tools, and permissions allow it to express.",
+      "alt": "Two outlines show that a model's actual capability can be larger than the surface the product allows it to use.",
+      "caption": "Product overhang is the gap between what the model can already do and what our product, tools, and permissions allow it to express.",
+      "labels": {
+        "capability": {
+          "title": "Actual model capability",
+          "detail": "Reason, write, navigate, use tools, and sustain a loop."
+        },
+        "surface": {
+          "title": "Product surface",
+          "detail": "UI, tools, permissions, and context it can use."
+        },
+        "gap": {
+          "title": "Product overhang",
+          "detail": "Paid-for capability that the interface still traps."
+        }
+      }
+    }
+  },
+  "presentation": {
+    "direction": "auto",
+    "density": "normal"
+  },
+  "artwork": {
+    "es": "/images/notes/unhobbling-your-ai/es/01-product-overhang.svg",
+    "en": "/images/notes/unhobbling-your-ai/en/01-product-overhang.svg"
+  }
+}

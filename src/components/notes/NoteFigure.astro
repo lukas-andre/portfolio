@@ -1,16 +1,332 @@
 ---
-interface Props { src: string; alt: string; caption: string; }
-const { src, alt, caption } = Astro.props;
+import { getEntry } from 'astro:content';
+import {
+  diagramDimensions,
+  diagramMermaidBlock,
+  diagramPngPath,
+  diagramSvgPath,
+  type DiagramLanguage,
+} from '../../lib/diagrams';
+
+interface Props { id: string; }
+const { id } = Astro.props;
+const diagram = await getEntry('diagrams', id);
+if (!diagram) throw new Error(`Unknown DiagramSpec: ${id}`);
+
+const lang: DiagramLanguage = Astro.url.pathname.startsWith('/es/') ? 'es' : 'en';
+const copy = diagram.data.copy[lang];
+const svgPath = diagramSvgPath(diagram, lang);
+const pngPath = diagramPngPath(diagram, lang);
+const dimensions = diagramDimensions(diagram, lang);
+const mermaid = diagramMermaidBlock(diagram, lang);
+const titleId = `diagram-title-${diagram.id.replace(/[^a-z0-9]/gi, '-')}`;
+const descriptionId = `${titleId}-description`;
+const kindLabel = {
+  comparison: lang === 'es' ? 'COMPARACIÓN' : 'COMPARISON',
+  layers: lang === 'es' ? 'CAPAS' : 'LAYERS',
+  steps: lang === 'es' ? 'SECUENCIA' : 'SEQUENCE',
+  loop: 'LOOP',
+  matrix: lang === 'es' ? 'MATRIZ' : 'MATRIX',
+  timeline: 'TIMELINE',
+  graph: lang === 'es' ? 'RELACIONES' : 'RELATIONSHIPS',
+  chart: lang === 'es' ? 'DATOS' : 'DATA',
+}[diagram.data.kind];
 ---
 
-<figure class="note-figure">
-  <div class="note-figure__frame"><img src={src} alt={alt} loading="lazy" decoding="async" /></div>
-  <figcaption>{caption}</figcaption>
+<figure
+  class="note-diagram"
+  data-diagram-id={diagram.id}
+  aria-labelledby={titleId}
+  aria-describedby={descriptionId}
+>
+  <div class="note-diagram__plate">
+    <header class="note-diagram__chrome" aria-hidden="true">
+      <span><i></i> FIG. / {kindLabel}</span>
+      <span>CURATED SVG · MERMAID SOURCE</span>
+    </header>
+    <div class="note-diagram__viewport" tabindex="0" aria-label={copy.alt}>
+      <img
+        src={svgPath}
+        alt={copy.alt}
+        width={dimensions.width}
+        height={dimensions.height}
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+    <p class="note-diagram__pan-hint" aria-hidden="true">
+      <span>↔</span>{lang === 'es' ? 'Desliza para recorrer' : 'Swipe to explore'}
+    </p>
+  </div>
+
+  <div class="note-diagram__below">
+    <figcaption>
+      <strong id={titleId}>{copy.title}</strong>
+      <span id={descriptionId}>{copy.caption}</span>
+    </figcaption>
+    <div class="note-diagram__actions" aria-label={lang === 'es' ? 'Acciones del diagrama' : 'Diagram actions'}>
+      <button
+        type="button"
+        class="diagram-copy-button"
+        data-copy-label={lang === 'es' ? 'Copiar Mermaid' : 'Copy Mermaid'}
+        data-copied-label={lang === 'es' ? 'Mermaid copiado' : 'Mermaid copied'}
+        data-error-label={lang === 'es' ? 'No se pudo copiar' : 'Copy failed'}
+      >
+        <span aria-hidden="true">{'{}'}</span>
+        <span class="diagram-copy-button__label">{lang === 'es' ? 'Copiar Mermaid' : 'Copy Mermaid'}</span>
+      </button>
+      <a href={svgPath} target="_blank" rel="noreferrer">
+        <span aria-hidden="true">↗</span>{lang === 'es' ? 'Abrir grande' : 'Open large'}
+      </a>
+      <a href={svgPath} download>
+        <span aria-hidden="true">↓</span>SVG
+      </a>
+      <a href={pngPath} download>
+        <span aria-hidden="true">↓</span>PNG
+      </a>
+      <span class="sr-only diagram-copy-status" aria-live="polite"></span>
+    </div>
+  </div>
+  <textarea class="diagram-copy-source" tabindex="-1" aria-hidden="true" readonly>{mermaid}</textarea>
 </figure>
 
+<script>
+  function legacyCopy(value: string) {
+    const textarea = document.createElement('textarea');
+    textarea.value = value;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.append(textarea);
+    textarea.select();
+    const copied = document.execCommand('copy');
+    textarea.remove();
+    if (!copied) throw new Error('Copy command failed');
+  }
+
+  async function copyText(value: string) {
+    if (navigator.clipboard?.writeText) {
+      try {
+        await navigator.clipboard.writeText(value);
+        return;
+      } catch {
+        // The API may exist while writes are blocked by browser policy.
+      }
+    }
+    legacyCopy(value);
+  }
+
+  document.addEventListener('click', async (event) => {
+    const button = (event.target as HTMLElement).closest<HTMLButtonElement>('.diagram-copy-button');
+    if (!button) return;
+    const figure = button.closest<HTMLElement>('.note-diagram');
+    const source = figure?.querySelector<HTMLTextAreaElement>('.diagram-copy-source');
+    const label = button.querySelector<HTMLElement>('.diagram-copy-button__label');
+    const status = figure?.querySelector<HTMLElement>('.diagram-copy-status');
+    if (!source || !label) return;
+
+    try {
+      await copyText(source.value);
+      const original = button.dataset.copyLabel ?? label.textContent ?? '';
+      const copied = button.dataset.copiedLabel ?? 'Copied';
+      label.textContent = copied;
+      if (status) status.textContent = copied;
+      window.setTimeout(() => {
+        label.textContent = original;
+        if (status) status.textContent = '';
+      }, 1600);
+    } catch {
+      const original = button.dataset.copyLabel ?? label.textContent ?? '';
+      const error = button.dataset.errorLabel ?? 'Copy failed';
+      label.textContent = error;
+      if (status) status.textContent = error;
+      window.setTimeout(() => {
+        label.textContent = original;
+        if (status) status.textContent = '';
+      }, 2200);
+    }
+  });
+</script>
+
 <style>
-  .note-figure { width: min(1080px, calc(100vw - 2rem)); margin: 3rem 50%; transform: translateX(-50%); }
-  .note-figure__frame { padding: clamp(.6rem, 2vw, 1rem); border: 1px solid var(--glass-border); background: var(--diagram-surface); box-shadow: var(--shadow-terminal); }
-  img { width: 100%; }
-  figcaption { max-width: 75ch; margin: .8rem auto 0; text-align: center; font: .72rem/1.6 var(--font-terminal); color: var(--text-muted); }
+  .note-diagram {
+    width: min(1180px, calc(100vw - 2rem));
+    margin: clamp(3.75rem, 8vw, 6.5rem) 50%;
+    transform: translateX(-50%);
+  }
+
+  .note-diagram__plate {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--accent-amber) 34%, var(--glass-border));
+    border-radius: 1.05rem;
+    background: #10110f;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, .09) inset,
+      0 28px 80px rgba(8, 9, 7, .22),
+      0 7px 24px rgba(8, 9, 7, .16);
+  }
+
+  .note-diagram__plate::after {
+    content: '';
+    position: absolute;
+    inset: 2.35rem 0 auto;
+    height: 7rem;
+    pointer-events: none;
+    background: linear-gradient(110deg, rgba(255,255,255,.035), transparent 46%);
+  }
+
+  .note-diagram__chrome {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 2.35rem;
+    padding: 0 .9rem;
+    border-bottom: 1px solid rgba(234, 223, 202, .12);
+    color: #7f7d75;
+    font: 600 .58rem/1 var(--font-terminal);
+    letter-spacing: .12em;
+  }
+
+  .note-diagram__chrome span:first-child { color: #b8ad9d; }
+  .note-diagram__chrome i {
+    display: inline-block;
+    width: .42rem;
+    height: .42rem;
+    margin-right: .5rem;
+    border-radius: 50%;
+    background: #d4a574;
+    box-shadow: 0 0 0 4px rgba(212,165,116,.09);
+  }
+
+  .note-diagram__viewport {
+    position: relative;
+    z-index: 1;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: thin;
+    scrollbar-color: #6f5942 #171813;
+  }
+
+  .note-diagram__viewport:focus-visible {
+    outline: 2px solid var(--accent-amber);
+    outline-offset: -3px;
+  }
+
+  .note-diagram__viewport img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .note-diagram__pan-hint {
+    display: none;
+    position: absolute;
+    right: .65rem;
+    bottom: .65rem;
+    z-index: 3;
+    align-items: center;
+    gap: .4rem;
+    margin: 0;
+    padding: .42rem .6rem;
+    border: 1px solid rgba(234,223,202,.16);
+    border-radius: 999px;
+    background: rgba(16,17,15,.86);
+    color: #b8ad9d;
+    font: 600 .55rem/1 var(--font-terminal);
+    letter-spacing: .05em;
+    backdrop-filter: blur(8px);
+  }
+  .note-diagram__pan-hint span { color: #d4a574; }
+
+  .note-diagram__below {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 1rem 2rem;
+    margin-top: .9rem;
+  }
+
+  figcaption { display: grid; gap: .2rem; max-width: 68ch; }
+  figcaption strong {
+    color: var(--accent-cream);
+    font: 500 .92rem/1.35 var(--font-editorial);
+  }
+  figcaption span {
+    color: var(--text-muted);
+    font: .7rem/1.55 var(--font-terminal);
+  }
+
+  .note-diagram__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: .45rem;
+  }
+
+  .note-diagram__actions button,
+  .note-diagram__actions a {
+    display: inline-flex;
+    align-items: center;
+    gap: .42rem;
+    min-height: 2.25rem;
+    padding: .45rem .68rem;
+    border: 1px solid var(--glass-border);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--bg-secondary) 76%, transparent);
+    color: var(--text-muted);
+    font: 600 .59rem/1 var(--font-terminal);
+    letter-spacing: .02em;
+    cursor: pointer;
+    transition: color .18s ease, border-color .18s ease, transform .18s ease;
+  }
+  .note-diagram__actions button:hover,
+  .note-diagram__actions a:hover,
+  .note-diagram__actions button:focus-visible,
+  .note-diagram__actions a:focus-visible {
+    border-color: var(--accent-amber);
+    color: var(--accent-cream);
+    transform: translateY(-1px);
+  }
+  .note-diagram__actions button span:first-child,
+  .note-diagram__actions a span { color: var(--accent-amber); }
+
+  .diagram-copy-source {
+    position: fixed;
+    left: -200vw;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (max-width: 720px) {
+    .note-diagram { width: calc(100vw - 1rem); }
+    .note-diagram__plate { border-radius: .75rem; }
+    .note-diagram__chrome { padding-inline: .7rem; }
+    .note-diagram__chrome span:last-child { display: none; }
+    .note-diagram__viewport img { width: 720px; max-width: none; }
+    .note-diagram__pan-hint { display: flex; }
+    .note-diagram__below { grid-template-columns: 1fr; padding-inline: .25rem; }
+    .note-diagram__actions { justify-content: flex-start; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .note-diagram__actions button,
+    .note-diagram__actions a { transition: none; }
+  }
 </style>

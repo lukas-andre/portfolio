@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" role="img" aria-labelledby="title desc">
+  <title id="title">A harness ablation loop</title>
+  <desc id="desc">Five stages cover baseline, removing one component, fixed tasks, failure analysis, and promote-or-rollback, with safety fixed in the center.</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b0c0a"/><stop offset="1" stop-color="#1b1d18"/></linearGradient><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#fff" stroke-opacity=".025"/></pattern><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3 0 6Z" fill="#d4a574"/></marker></defs>
+  <rect width="1200" height="640" rx="24" fill="url(#bg)"/><rect width="1200" height="640" rx="24" fill="url(#grid)"/>
+  <text x="64" y="58" fill="#d4a574" font-family="monospace" font-size="15" letter-spacing="3">ABLATION ≠ INTUITIVE CLEANUP</text>
+  <text x="64" y="103" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="34" font-weight="700">Change one variable. Preserve the test.</text>
+
+  <path d="M279 234C383 145 535 137 643 195" fill="none" stroke="#d4a574" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M767 229C858 285 884 381 828 449" fill="none" stroke="#d4a574" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M725 490C609 550 451 538 361 465" fill="none" stroke="#d4a574" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M260 414C200 357 201 284 249 237" fill="none" stroke="#d4a574" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <g transform="translate(94 174)"><rect width="230" height="110" rx="18" fill="#171813" stroke="#57564d"/><text x="22" y="30" fill="#d4a574" font-family="monospace" font-size="12">01 · BASELINE</text><text x="22" y="61" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="19" font-weight="700">Measure H₀</text><text x="22" y="87" fill="#88847a" font-family="Arial, sans-serif" font-size="14">quality · cost · risk</text></g>
+  <g transform="translate(486 142)"><rect width="230" height="110" rx="18" fill="#211713" stroke="#8b4d34"/><text x="22" y="30" fill="#d4a574" font-family="monospace" font-size="12">02 · REMOVE</text><text x="22" y="61" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="19" font-weight="700">One component</text><text x="22" y="87" fill="#9b8173" font-family="Arial, sans-serif" font-size="14">prompt · tool · middleware</text></g>
+  <g transform="translate(848 250)"><rect width="258" height="110" rx="18" fill="#171813" stroke="#526149"/><text x="22" y="30" fill="#a9c48c" font-family="monospace" font-size="12">03 · RUN</text><text x="22" y="61" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="19" font-weight="700">Fixed tasks and gates</text><text x="22" y="87" fill="#858d80" font-family="Arial, sans-serif" font-size="14">same cases · same budget</text></g>
+  <g transform="translate(706 431)"><rect width="277" height="110" rx="18" fill="#171813" stroke="#78879a"/><text x="22" y="30" fill="#9eafc3" font-family="monospace" font-size="12">04 · DIAGNOSE</text><text x="22" y="61" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="19" font-weight="700">Repeated failures</text><text x="22" y="87" fill="#858b94" font-family="Arial, sans-serif" font-size="14">pattern and attribution</text></g>
+  <g transform="translate(161 405)"><rect width="278" height="122" rx="18" fill="#1b1b16" stroke="#d4a574"/><text x="22" y="30" fill="#d4a574" font-family="monospace" font-size="12">05 · DECIDE</text><text x="22" y="61" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="19" font-weight="700">Promote or rollback</text><text x="22" y="88" fill="#a9c48c" font-family="Arial, sans-serif" font-size="14">whole system better → H(1)</text><text x="22" y="108" fill="#a36f52" font-family="Arial, sans-serif" font-size="14">regression → restore</text></g>
+
+  <circle cx="600" cy="340" r="102" fill="#141510" stroke="#d4a574" stroke-width="2" stroke-dasharray="6 8"/>
+  <path d="M570 327V307C570 289 584 277 600 277S630 289 630 307V327" fill="none" stroke="#a9c48c" stroke-width="5"/><rect x="558" y="324" width="84" height="66" rx="12" fill="#1c2119" stroke="#a9c48c"/>
+  <text x="600" y="350" text-anchor="middle" fill="#a9c48c" font-family="monospace" font-size="11">FIXED</text><text x="600" y="374" text-anchor="middle" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="15" font-weight="700">safety</text>
+  <text x="600" y="593" text-anchor="middle" fill="#8f8a7f" font-family="monospace" font-size="13" letter-spacing="1.5">CHANGE EVERYTHING AT ONCE AND YOU LEARN NOTHING</text>
+</svg>

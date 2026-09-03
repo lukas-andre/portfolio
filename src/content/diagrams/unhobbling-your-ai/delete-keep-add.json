@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "translationKey": "unhobbling-your-ai",
+  "kind": "matrix",
+  "claimRefs": [
+    "claim-03",
+    "claim-04",
+    "claim-06"
+  ],
+  "model": {
+    "items": [
+      {
+        "id": "delete",
+        "tone": "rust"
+      },
+      {
+        "id": "keep",
+        "tone": "ink"
+      },
+      {
+        "id": "add",
+        "tone": "sage"
+      }
+    ]
+  },
+  "copy": {
+    "es": {
+      "title": "Borrar, conservar o añadir",
+      "question": "¿Qué función cumple cada pieza del harness?",
+      "takeaway": "La pregunta útil no es cuánto prompt borrar, sino qué función cumple cada pieza y qué evidencia demuestra que todavía la necesitamos.",
+      "alt": "Matriz de auditoría con tres columnas para borrar deuda, conservar límites de seguridad y añadir capacidades que el agente todavía no posee.",
+      "caption": "La pregunta útil no es cuánto prompt borrar, sino qué función cumple cada pieza y qué evidencia demuestra que todavía la necesitamos.",
+      "labels": {
+        "delete": {
+          "title": "Borrar deuda",
+          "detail": "Workarounds heredados, reglas contradictorias y duplicación sin efecto."
+        },
+        "keep": {
+          "title": "Conservar límites",
+          "detail": "Permisos, sandbox, schemas, presupuesto y condición de salida."
+        },
+        "add": {
+          "title": "Añadir capacidad",
+          "detail": "Logs, tools agent-native, estado durable y evaluator independiente."
+        }
+      }
+    },
+    "en": {
+      "title": "Delete, keep, or add",
+      "question": "What function does each harness component serve?",
+      "takeaway": "The useful question is not how much prompt to delete, but what job each piece performs and what evidence says it is still needed.",
+      "alt": "An audit matrix has columns for deleting debt, keeping safety boundaries, and adding capabilities the agent still lacks.",
+      "caption": "The useful question is not how much prompt to delete, but what job each piece performs and what evidence says it is still needed.",
+      "labels": {
+        "delete": {
+          "title": "Delete debt",
+          "detail": "Legacy workarounds, conflicting rules, and duplication without effect."
+        },
+        "keep": {
+          "title": "Keep boundaries",
+          "detail": "Permissions, sandbox, schemas, budget, and exit condition."
+        },
+        "add": {
+          "title": "Add capability",
+          "detail": "Logs, agent-native tools, durable state, and independent evaluator."
+        }
+      }
+    }
+  },
+  "presentation": {
+    "direction": "auto",
+    "density": "normal"
+  },
+  "artwork": {
+    "es": "/images/notes/unhobbling-your-ai/es/03-borrar-conservar-anadir.svg",
+    "en": "/images/notes/unhobbling-your-ai/en/03-delete-keep-add.svg"
+  }
+}

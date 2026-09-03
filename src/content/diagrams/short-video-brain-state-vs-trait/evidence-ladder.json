@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "translationKey": "short-video-brain-state-vs-trait",
+  "kind": "layers",
+  "claimRefs": [
+    "claim-03"
+  ],
+  "model": {
+    "items": [
+      {
+        "id": "observed",
+        "tone": "sage"
+      },
+      {
+        "id": "plausible",
+        "tone": "amber"
+      },
+      {
+        "id": "unknown",
+        "tone": "rust"
+      }
+    ]
+  },
+  "copy": {
+    "es": {
+      "title": "Escalera de evidencia",
+      "question": "¿Hasta dónde permiten subir los datos?",
+      "takeaway": "La lectura responsable termina donde termina el diseño: observamos un estado y asociaciones; el daño causal y duradero sigue sin establecerse.",
+      "alt": "Escalera de evidencia con tres niveles: observado, interpretación plausible y afirmaciones no establecidas por los dos estudios.",
+      "caption": "La lectura responsable termina donde termina el diseño: observamos un estado y asociaciones; el daño causal y duradero sigue sin establecerse.",
+      "labels": {
+        "observed": {
+          "title": "Observado",
+          "detail": "Señal BOLD durante clips y diferencias entre grupos."
+        },
+        "plausible": {
+          "title": "Interpretación plausible",
+          "detail": "Inmersión de bajo esfuerzo o vulnerabilidad en algunas personas."
+        },
+        "unknown": {
+          "title": "No establecido",
+          "detail": "Daño causado, química alterada por el video o diagnóstico individual."
+        }
+      }
+    },
+    "en": {
+      "title": "Evidence ladder",
+      "question": "How far do the data let us climb?",
+      "takeaway": "Responsible interpretation stops where the designs stop: we observe a state and associations, while causal and durable damage is unestablished.",
+      "alt": "An evidence ladder with observed findings, plausible interpretation, and claims that the two studies have not established.",
+      "caption": "Responsible interpretation stops where the designs stop: we observe a state and associations, while causal and durable damage is unestablished.",
+      "labels": {
+        "observed": {
+          "title": "Observed",
+          "detail": "BOLD signal during clips and differences between groups."
+        },
+        "plausible": {
+          "title": "Plausible interpretation",
+          "detail": "Lower-effort immersion or vulnerability in some people."
+        },
+        "unknown": {
+          "title": "Not established",
+          "detail": "Caused damage, video-driven chemistry change, or individual diagnosis."
+        }
+      }
+    }
+  },
+  "presentation": {
+    "direction": "auto",
+    "density": "normal"
+  },
+  "artwork": {
+    "es": "/images/notes/short-video-brain-state/es/04-escalera-de-evidencia.svg",
+    "en": "/images/notes/short-video-brain-state/en/04-evidence-ladder.svg"
+  }
+}

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+  <title id="title">Results under a comparable context budget</title>
+  <desc id="desc">Warehouse score at horizons 10, 25, 50, and 100. SKILL.state stays between 1 and 0.94 while capped summary, sliding window, and LLMLingua decline. Full ReAct is shown as an unbounded reference.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b0c0a"/><stop offset="1" stop-color="#1b1d18"/></linearGradient>
+    <linearGradient id="area" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#d4a574" stop-opacity=".18"/><stop offset="1" stop-color="#d4a574" stop-opacity="0"/></linearGradient>
+  </defs>
+  <rect width="1200" height="680" rx="24" fill="url(#bg)"/>
+  <text x="60" y="60" fill="#d4a574" font-family="monospace" font-size="15" letter-spacing="3">WAREHOUSE · GEMINI-3-FLASH · v2</text>
+  <text x="60" y="104" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="32" font-weight="700">Short is not enough. The right relation must survive.</text>
+  <rect x="59" y="128" width="748" height="32" rx="7" fill="#d4a574" fill-opacity=".08" stroke="#d4a574" stroke-opacity=".28"/>
+  <text x="75" y="149" fill="#cfc8bc" font-family="monospace" font-size="12">COMPRESSED METHODS + SKILL.STATE: TARGET BUDGET ≈ 1,800 TOKENS</text>
+
+  <g stroke="#34352f" stroke-width="1">
+    <line x1="104" y1="198" x2="820" y2="198"/><line x1="104" y1="282" x2="820" y2="282" stroke-dasharray="4 7"/><line x1="104" y1="366" x2="820" y2="366" stroke-dasharray="4 7"/><line x1="104" y1="450" x2="820" y2="450" stroke-dasharray="4 7"/><line x1="104" y1="534" x2="820" y2="534"/><line x1="104" y1="198" x2="104" y2="534"/>
+  </g>
+  <g fill="#77736a" font-family="monospace" font-size="12" text-anchor="end"><text x="90" y="202">1.00</text><text x="90" y="286">0.75</text><text x="90" y="370">0.50</text><text x="90" y="454">0.25</text><text x="90" y="538">0</text></g>
+  <g fill="#8c887d" font-family="monospace" font-size="12" text-anchor="middle"><text x="140" y="563">10</text><text x="350" y="563">25</text><text x="560" y="563">50</text><text x="770" y="563">100 STEPS</text></g>
+
+  <path d="M140 198L350 198L560 211L770 218L770 534H140Z" fill="url(#area)"/>
+  <path d="M140 198L350 198L560 211L770 218" fill="none" stroke="#d4a574" stroke-width="5"/>
+  <path d="M140 225L350 279L560 319L770 359" fill="none" stroke="#9aa889" stroke-width="2.5" stroke-dasharray="8 6"/>
+  <path d="M140 232L350 326L560 416L770 474" fill="none" stroke="#8f6f61" stroke-width="2.5" stroke-dasharray="5 7"/>
+  <path d="M140 238L350 332L560 406L770 460" fill="none" stroke="#6f7d82" stroke-width="2.5" stroke-dasharray="2 7"/>
+  <path d="M140 232L350 225L560 238L770 252" fill="none" stroke="#b7b4ab" stroke-width="2.5"/>
+  <g fill="#d4a574" stroke="#0b0c0a" stroke-width="3"><circle cx="140" cy="198" r="6"/><circle cx="350" cy="198" r="6"/><circle cx="560" cy="211" r="6"/><circle cx="770" cy="218" r="7"/></g>
+  <g fill="#f5f2eb" font-family="Arial, sans-serif" font-size="14" font-weight="700" text-anchor="middle"><text x="140" y="181">1.00</text><text x="350" y="181">1.00</text><text x="560" y="194">0.96</text><text x="770" y="201">0.94</text></g>
+
+  <g transform="translate(862 188)">
+    <text x="0" y="0" fill="#8b877c" font-family="monospace" font-size="12" letter-spacing="1.5">REPORTED SCORE</text>
+    <g transform="translate(0 30)"><line x1="0" y1="8" x2="34" y2="8" stroke="#d4a574" stroke-width="5"/><text x="48" y="13" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="15" font-weight="700">SKILL.state</text></g>
+    <g transform="translate(0 72)"><line x1="0" y1="8" x2="34" y2="8" stroke="#9aa889" stroke-width="2.5" stroke-dasharray="8 6"/><text x="48" y="13" fill="#c9c5ba" font-family="Arial, sans-serif" font-size="15">Capped summary</text></g>
+    <g transform="translate(0 114)"><line x1="0" y1="8" x2="34" y2="8" stroke="#8f6f61" stroke-width="2.5" stroke-dasharray="5 7"/><text x="48" y="13" fill="#c9c5ba" font-family="Arial, sans-serif" font-size="15">Sliding window</text></g>
+    <g transform="translate(0 156)"><line x1="0" y1="8" x2="34" y2="8" stroke="#6f7d82" stroke-width="2.5" stroke-dasharray="2 7"/><text x="48" y="13" fill="#c9c5ba" font-family="Arial, sans-serif" font-size="15">LLMLingua</text></g>
+    <g transform="translate(0 198)"><line x1="0" y1="8" x2="34" y2="8" stroke="#b7b4ab" stroke-width="2.5"/><text x="48" y="13" fill="#c9c5ba" font-family="Arial, sans-serif" font-size="15">Full ReAct*</text></g>
+    <rect x="0" y="244" width="278" height="74" rx="10" fill="#171813" stroke="#3d3e36"/>
+    <text x="16" y="270" fill="#d4a574" font-family="monospace" font-size="12">* UNBOUNDED REFERENCE</text>
+    <text x="16" y="294" fill="#8c887d" font-family="Arial, sans-serif" font-size="13">It does not share the target budget.</text>
+  </g>
+  <rect x="104" y="596" width="1036" height="42" rx="8" fill="#171813"/>
+  <text x="622" y="622" text-anchor="middle" fill="#aaa69b" font-family="monospace" font-size="12">SOURCE: TABLE 11 · MEAN SCORE OVER 5 SEEDS · AUTHORS ALSO REPORT STANDARD DEVIATION</text>
+</svg>

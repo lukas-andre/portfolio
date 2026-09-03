@@ -1,5 +1,7 @@
 import type { APIRoute, GetStaticPaths } from 'astro';
+import { getEntry } from 'astro:content';
 import { profile } from '../../data/profile';
+import { noteSocialCardPath } from '../../lib/diagrams';
 import { getVisibleNotes, localSlug, localeConfig } from '../../lib/notes';
 import {
   renderSocialCard,
@@ -7,7 +9,7 @@ import {
   type SocialCardInput,
 } from '../../lib/social-card';
 
-type SocialCardRouteProps = { card: SocialCardInput };
+type SocialCardRouteProps = { card: SocialCardInput; immutable: boolean };
 
 function profileCard(): SocialCardInput {
   return {
@@ -29,59 +31,49 @@ function noteDate(entry: Awaited<ReturnType<typeof getVisibleNotes>>[number]) {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const entries = await getVisibleNotes();
-  const translationDates = new Map<string, number>();
-
-  for (const entry of entries) {
-    const timestamp = noteDate(entry).getTime();
-    const existing = translationDates.get(entry.data.translationKey);
-    translationDates.set(entry.data.translationKey, existing === undefined ? timestamp : Math.min(existing, timestamp));
-  }
-
-  const issueByTranslation = new Map(
-    [...translationDates.entries()]
-      .sort((a, b) => a[1] - b[1])
-      .map(([translationKey], index) => [translationKey, index + 1]),
-  );
-
+  const profileInput = profileCard();
   const paths: Array<{ params: { route: string }; props: SocialCardRouteProps }> = [
-    {
-      params: { route: 'v2/home.png' },
-      props: { card: profileCard() },
-    },
-    {
-      params: { route: 'v3/home.png' },
-      props: { card: profileCard() },
-    },
-    {
-      params: { route: 'v4/home.png' },
-      props: { card: profileCard() },
-    },
+    { params: { route: 'v2/home.png' }, props: { card: profileInput, immutable: false } },
+    { params: { route: 'v3/home.png' }, props: { card: profileInput, immutable: false } },
+    { params: { route: 'v4/home.png' }, props: { card: profileInput, immutable: false } },
   ];
 
   for (const entry of entries) {
-    const segment = localeConfig[entry.data.lang].segment;
-    const localPath = `${entry.data.lang}/${segment}/${localSlug(entry)}`;
-    const date = noteDate(entry);
+    const featured = await getEntry('diagrams', entry.data.featuredVisual);
+    if (!featured) throw new Error(`Missing featured visual ${entry.data.featuredVisual}`);
+    const copy = featured.data.copy[entry.data.lang];
     const card: SocialCardInput = {
       kind: 'note',
+      noteKind: entry.data.kind,
       title: entry.data.title,
       lang: entry.data.lang,
-      issue: issueByTranslation.get(entry.data.translationKey) ?? 1,
+      issue: Number(entry.data.issue),
       dateLabel: new Intl.DateTimeFormat(entry.data.lang, {
         day: '2-digit',
         month: 'short',
         year: 'numeric',
         timeZone: 'UTC',
-      }).format(date),
+      }).format(noteDate(entry)),
       tags: entry.data.tags,
-      diagramPath: entry.data.diagrams[0].src,
+      visual: {
+        title: copy.title,
+        takeaway: copy.takeaway,
+        items: featured.data.model.items.map((item) => ({
+          title: copy.labels[item.id]?.title ?? item.id,
+          tone: item.tone,
+        })),
+      },
     };
 
+    const segment = localeConfig[entry.data.lang].segment;
+    const localPath = `${entry.data.lang}/${segment}/${localSlug(entry)}`;
+    const immutableRoute = noteSocialCardPath(entry, featured).replace(/^\/open-graph\//, '');
     paths.push(
-      { params: { route: `${localPath}.png` }, props: { card } },
-      { params: { route: `v2/${localPath}.png` }, props: { card } },
-      { params: { route: `v3/${localPath}.png` }, props: { card } },
-      { params: { route: `v4/${localPath}.png` }, props: { card } },
+      { params: { route: immutableRoute }, props: { card, immutable: true } },
+      { params: { route: `${localPath}.png` }, props: { card, immutable: false } },
+      { params: { route: `v2/${localPath}.png` }, props: { card, immutable: false } },
+      { params: { route: `v3/${localPath}.png` }, props: { card, immutable: false } },
+      { params: { route: `v4/${localPath}.png` }, props: { card, immutable: false } },
     );
   }
 
@@ -89,5 +81,5 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const GET: APIRoute<SocialCardRouteProps> = async ({ props }) => (
-  socialCardResponse(await renderSocialCard(props.card))
+  socialCardResponse(await renderSocialCard(props.card), props.immutable)
 );

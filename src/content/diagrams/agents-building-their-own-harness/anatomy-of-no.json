@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "translationKey": "agents-building-their-own-harness",
+  "kind": "steps",
+  "claimRefs": [
+    "claim-01"
+  ],
+  "model": {
+    "items": [
+      {
+        "id": "model",
+        "tone": "amber"
+      },
+      {
+        "id": "policy",
+        "tone": "ink"
+      },
+      {
+        "id": "tools",
+        "tone": "sage"
+      },
+      {
+        "id": "environment",
+        "tone": "muted"
+      },
+      {
+        "id": "verifier",
+        "tone": "rust"
+      }
+    ]
+  },
+  "copy": {
+    "es": {
+      "title": "Anatomía del “no”",
+      "question": "¿Qué capa produjo realmente la fricción?",
+      "takeaway": "Un “no puedo” no identifica la causa: puede venir del modelo o de cualquiera de las capas que ejecutan, limitan y juzgan sus acciones.",
+      "alt": "Un pedido atraviesa modelo, política, herramientas, entorno y verificador, mostrando cinco lugares distintos donde puede aparecer un rechazo.",
+      "caption": "Un “no puedo” no identifica la causa: puede venir del modelo o de cualquiera de las capas que ejecutan, limitan y juzgan sus acciones.",
+      "labels": {
+        "model": {
+          "title": "Modelo",
+          "detail": "Interpreta la intención y propone una acción."
+        },
+        "policy": {
+          "title": "Política",
+          "detail": "Autoriza según permiso y riesgo."
+        },
+        "tools": {
+          "title": "Tools",
+          "detail": "Convierten intención en una llamada posible."
+        },
+        "environment": {
+          "title": "Entorno",
+          "detail": "Ejecuta con red, filesystem y credenciales."
+        },
+        "verifier": {
+          "title": "Verifier",
+          "detail": "Juzga tests, contrato y resultado."
+        }
+      }
+    },
+    "en": {
+      "title": "Anatomy of “no”",
+      "question": "Which layer actually produced the friction?",
+      "takeaway": "“I can't” does not identify its cause: the model or any layer that executes, constrains, and judges its actions may have produced the boundary.",
+      "alt": "A request crosses the model, policy, tools, environment, and verifier, revealing five different places where a refusal can emerge.",
+      "caption": "“I can't” does not identify its cause: the model or any layer that executes, constrains, and judges its actions may have produced the boundary.",
+      "labels": {
+        "model": {
+          "title": "Model",
+          "detail": "Interprets intent and proposes an action."
+        },
+        "policy": {
+          "title": "Policy",
+          "detail": "Authorizes according to permission and risk."
+        },
+        "tools": {
+          "title": "Tools",
+          "detail": "Turn intent into an available call."
+        },
+        "environment": {
+          "title": "Environment",
+          "detail": "Executes with network, filesystem, and credentials."
+        },
+        "verifier": {
+          "title": "Verifier",
+          "detail": "Judges tests, contract, and outcome."
+        }
+      }
+    }
+  },
+  "presentation": {
+    "direction": "auto",
+    "density": "normal"
+  },
+  "artwork": {
+    "es": "/images/notes/agents-building-their-own-harness/es/01-anatomia-del-no.svg",
+    "en": "/images/notes/agents-building-their-own-harness/en/01-anatomy-of-no.svg"
+  }
+}

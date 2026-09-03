@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "translationKey": "skill-state-long-horizon-agents",
+  "kind": "steps",
+  "claimRefs": [
+    "claim-01"
+  ],
+  "model": {
+    "items": [
+      {
+        "id": "input",
+        "tone": "ink"
+      },
+      {
+        "id": "reason",
+        "tone": "muted"
+      },
+      {
+        "id": "patch",
+        "tone": "amber"
+      },
+      {
+        "id": "action",
+        "tone": "sage"
+      },
+      {
+        "id": "persist",
+        "tone": "ink"
+      }
+    ]
+  },
+  "copy": {
+    "es": {
+      "title": "Qué sobrevive al turno",
+      "question": "¿Qué información cruza al siguiente paso?",
+      "takeaway": "El razonamiento sirve dentro del turno, pero la continuidad depende de un parche validado y no de volver a leer la cadena de pensamiento.",
+      "alt": "Secuencia de un turno de SKILL.state: el modelo razona, propone un parche y una acción, el runtime valida y solo el estado actualizado sobrevive.",
+      "caption": "El razonamiento sirve dentro del turno, pero la continuidad depende de un parche validado y no de volver a leer la cadena de pensamiento.",
+      "labels": {
+        "input": {
+          "title": "Entrada acotada",
+          "detail": "Procedimiento, estado y observación."
+        },
+        "reason": {
+          "title": "Razonamiento temporal",
+          "detail": "Sirve dentro del turno y luego se descarta."
+        },
+        "patch": {
+          "title": "Parche estructurado",
+          "detail": "El runtime valida schema e invariantes."
+        },
+        "action": {
+          "title": "Acción",
+          "detail": "Se ejecuta contra el entorno."
+        },
+        "persist": {
+          "title": "Nuevo estado",
+          "detail": "Solo el estado validado cruza al siguiente turno."
+        }
+      }
+    },
+    "en": {
+      "title": "What survives the turn",
+      "question": "What information crosses into the next step?",
+      "takeaway": "Reasoning is useful within a turn, but continuity comes from a validated patch rather than a replayed chain of thought.",
+      "alt": "One SKILL.state turn: the model reasons and proposes a patch and action, the runtime validates them, and only updated state survives to the next step.",
+      "caption": "Reasoning is useful within a turn, but continuity comes from a validated patch rather than a replayed chain of thought.",
+      "labels": {
+        "input": {
+          "title": "Bounded input",
+          "detail": "Procedure, state, and observation."
+        },
+        "reason": {
+          "title": "Temporary reasoning",
+          "detail": "Useful within the turn, then discarded."
+        },
+        "patch": {
+          "title": "Structured patch",
+          "detail": "The runtime validates schema and invariants."
+        },
+        "action": {
+          "title": "Action",
+          "detail": "Executed against the environment."
+        },
+        "persist": {
+          "title": "New state",
+          "detail": "Only validated state crosses into the next turn."
+        }
+      }
+    }
+  },
+  "presentation": {
+    "direction": "auto",
+    "density": "normal"
+  },
+  "artwork": {
+    "es": "/images/notes/skill-state-long-horizon-agents/es/02-que-sobrevive.svg",
+    "en": "/images/notes/skill-state-long-horizon-agents/en/02-what-survives.svg"
+  }
+}

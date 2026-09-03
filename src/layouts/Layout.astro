@@ -15,6 +15,8 @@ interface Props {
   alternateLanguages?: Array<{ lang: 'es' | 'en'; href: string }>;
   jsonLd?: Record<string, unknown>;
   robots?: string;
+  markdownPath?: string;
+  describedByPath?: string;
 }
 
 const {
@@ -42,6 +44,8 @@ const {
     worksFor: { '@type': 'Organization', name: 'Falabella' },
     knowsAbout: ['Self Service', 'Engineering Leadership', 'Harness Engineering', 'Multi-Agent Orchestration', 'TypeScript', 'Go', 'React', 'E-commerce'],
   },
+  markdownPath,
+  describedByPath = '/llms.txt',
 } = Astro.props;
 
 const site = Astro.site ?? new URL('https://lucashenry.dev');
@@ -78,6 +82,14 @@ const ogImageUrl = new URL(ogImage, site).toString();
   {alternateLanguages.length > 0 && (
     <link rel="alternate" hreflang="x-default" href={new URL(alternateLanguages[0].href, site).toString()} />
   )}
+  {markdownPath && <link rel="alternate" type="text/markdown" href={new URL(markdownPath, site).toString()} />}
+  {describedByPath && <link rel="describedby" href={new URL(describedByPath, site).toString()} />}
+  <link
+    rel="alternate"
+    type="application/rss+xml"
+    title={lang === 'es' ? 'Notas de Lucas Henry' : 'Lucas Henry’s Notes'}
+    href={new URL(lang === 'es' ? '/es/notas/feed.xml' : '/en/notes/feed.xml', site).toString()}
+  />
 
   <!-- Open Graph -->
   <meta property="og:title" content={title} />

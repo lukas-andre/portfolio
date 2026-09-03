@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+  <title id="title">Acute state is not a causal line to structural differences</title>
+  <desc id="desc">On the left is temporary deactivation during video viewing. On the right are differences associated with problematic use. Between them is a missing bridge: no follow-up, shared baseline, or longitudinal intervention.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b0c0a"/><stop offset="1" stop-color="#191b16"/></linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity=".025"/></pattern>
+  </defs>
+  <rect width="1200" height="680" rx="24" fill="url(#bg)"/>
+  <rect width="1200" height="680" rx="24" fill="url(#grid)"/>
+  <text x="62" y="57" fill="#d4a574" font-family="monospace" font-size="15" letter-spacing="3">THE ARROW THESE PAPERS DO NOT DRAW</text>
+  <text x="62" y="101" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="33" font-weight="700">State, association, and cause are different things.</text>
+
+  <g transform="translate(62 154)">
+    <rect width="397" height="352" rx="18" fill="#1d1813" stroke="#d4a574" stroke-width="1.5"/>
+    <text x="26" y="42" fill="#d4a574" font-family="monospace" font-size="13" letter-spacing="1.7">OBSERVED · 2026</text>
+    <text x="26" y="87" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="28" font-weight="700">Acute state</text>
+    <text x="26" y="116" fill="#9a958a" font-family="Arial, sans-serif" font-size="15">While consumption is happening</text>
+    <g transform="translate(26 151)">
+      <circle cx="40" cy="40" r="38" fill="#11120f" stroke="#a36f52"/>
+      <text x="40" y="48" text-anchor="middle" fill="#e4a47a" font-family="Arial, sans-serif" font-size="26" font-weight="700">↓</text>
+      <text x="95" y="33" fill="#e8e3d8" font-family="Arial, sans-serif" font-size="18" font-weight="700">dACC + dlPFC</text>
+      <text x="95" y="57" fill="#89857b" font-family="Arial, sans-serif" font-size="14">Lower BOLD in completed clips</text>
+    </g>
+    <line x1="26" y1="245" x2="371" y2="245" stroke="#453c34"/>
+    <text x="26" y="278" fill="#d4a574" font-family="Arial, sans-serif" font-size="17" font-weight="700">56 people · 12 minutes</text>
+    <text x="26" y="309" fill="#8d887e" font-family="monospace" font-size="12">SAME SESSION · SAME PERSON</text>
+  </g>
+
+  <g transform="translate(741 154)">
+    <rect width="397" height="352" rx="18" fill="#171c16" stroke="#8a9a7c" stroke-width="1.5"/>
+    <text x="26" y="42" fill="#a9c48c" font-family="monospace" font-size="13" letter-spacing="1.7">OBSERVED · 2020</text>
+    <text x="26" y="87" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="28" font-weight="700">Group association</text>
+    <text x="26" y="116" fill="#9a958a" font-family="Arial, sans-serif" font-size="15">One cross-sectional snapshot</text>
+    <g transform="translate(26 151)">
+      <circle cx="40" cy="40" r="38" fill="#11120f" stroke="#8a9a7c"/>
+      <text x="40" y="48" text-anchor="middle" fill="#b9d19f" font-family="Arial, sans-serif" font-size="26" font-weight="700">≠</text>
+      <text x="95" y="33" fill="#e8e3d8" font-family="Arial, sans-serif" font-size="18" font-weight="700">Volume + resting state</text>
+      <text x="95" y="57" fill="#89857b" font-family="Arial, sans-serif" font-size="14">Differences between two groups</text>
+    </g>
+    <line x1="26" y1="245" x2="371" y2="245" stroke="#364137"/>
+    <text x="26" y="278" fill="#a9c48c" font-family="Arial, sans-serif" font-size="17" font-weight="700">22 problematic use · 26 control</text>
+    <text x="26" y="309" fill="#8d887e" font-family="monospace" font-size="12">NO TEMPORAL ORDER</text>
+  </g>
+
+  <g transform="translate(484 180)">
+    <path d="M0 142H64" stroke="#d4a574" stroke-width="3" stroke-dasharray="7 8"/>
+    <path d="M168 142H232" stroke="#8a9a7c" stroke-width="3" stroke-dasharray="7 8"/>
+    <path d="M81 116l70 52M151 116l-70 52" stroke="#a85a32" stroke-width="5"/>
+    <rect x="48" y="0" width="136" height="86" rx="12" fill="#12130f" stroke="#a85a32"/>
+    <text x="116" y="31" text-anchor="middle" fill="#e08b65" font-family="monospace" font-size="12" letter-spacing="1.3">NOT OBSERVED</text>
+    <text x="116" y="59" text-anchor="middle" fill="#f0eae0" font-family="Arial, sans-serif" font-size="17" font-weight="700">The transition</text>
+    <g transform="translate(31 208)" font-family="monospace" font-size="11">
+      <rect width="170" height="119" rx="10" fill="#11120f" stroke="#3b3c35"/>
+      <text x="85" y="26" text-anchor="middle" fill="#77736a">MISSING</text>
+      <text x="85" y="52" text-anchor="middle" fill="#c5c0b5">shared baseline</text>
+      <text x="85" y="75" text-anchor="middle" fill="#c5c0b5">follow-up</text>
+      <text x="85" y="98" text-anchor="middle" fill="#c5c0b5">alternatives</text>
+    </g>
+  </g>
+
+  <g transform="translate(62 556)">
+    <rect width="1076" height="83" rx="12" fill="#12130f" stroke="#373831"/>
+    <text x="24" y="32" fill="#a85a32" font-family="monospace" font-size="12" letter-spacing="1.2">INVALID CONCLUSION</text>
+    <text x="24" y="59" fill="#e7e2d8" font-family="Arial, sans-serif" font-size="18" font-weight="700">“Repeating the deactivation causes structural differences.”</text>
+    <text x="1038" y="48" text-anchor="end" fill="#8d887e" font-family="monospace" font-size="12">NOT TESTED</text>
+  </g>
+</svg>

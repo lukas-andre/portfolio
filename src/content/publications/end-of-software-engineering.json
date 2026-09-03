@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "kind": "single",
+  "issue": "001",
+  "topics": [
+    "agentic-systems",
+    "software-engineering",
+    "harness-engineering"
+  ],
+  "related": [
+    "skill-state-long-horizon-agents",
+    "unhobbling-your-ai",
+    "agents-building-their-own-harness"
+  ],
+  "sourceRoles": [
+    {
+      "ref": "arxiv-2606.05608v1",
+      "role": "primary"
+    }
+  ],
+  "editions": {
+    "es": {
+      "slug": "el-fin-de-la-ingenieria-de-software"
+    },
+    "en": {
+      "slug": "the-end-of-software-engineering"
+    }
+  },
+  "visuals": [
+    "end-of-software-engineering/center-of-gravity",
+    "end-of-software-engineering/ephemeral-and-durable",
+    "end-of-software-engineering/compounding-reliability",
+    "end-of-software-engineering/paper-roadmap"
+  ],
+  "featuredVisual": "end-of-software-engineering/center-of-gravity",
+  "researchPacket": "brain://library/paper-to-portfolio/works/end-of-software-engineering.json",
+  "researchDigest": "6d4035ea5850a7d689e70f3d90a6f17fd02d8affc9db2b9149d68a3f61af63c4",
+  "angleApproval": {
+    "approvedAt": "2026-09-01",
+    "approvedBy": "Lucas",
+    "readerPromise": "Entender qué cambia cuando parte de la lógica se decide durante la ejecución y qué infraestructura sigue siendo durable.",
+    "thesis": "Los agentes desplazan el centro de gravedad de la ingeniería desde producir código hacia diseñar contexto, evidencia y control.",
+    "counterpoint": "La evidencia disponible muestra capacidad en tareas acotadas, no el fin de la ingeniería ni autonomía prolongada confiable."
+  },
+  "visibility": "published",
+  "publishedAt": "2026-09-01",
+  "releaseApproval": {
+    "digest": "fb82d4093d81907309b7bdf1979af6e017ddf7bc5af7e9d6d12316446ef48a5f",
+    "approvedAt": "2026-09-03",
+    "approvedBy": "Lucas"
+  }
+}

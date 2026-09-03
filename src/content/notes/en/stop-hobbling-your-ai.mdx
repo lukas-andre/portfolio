@@ -1,0 +1,118 @@
+---
+translationKey: unhobbling-your-ai
+lang: en
+title: Stop Hobbling Your AI
+description: >-
+  Unhobbling does not mean deleting the rules and hoping for the best. It means
+  finding out which parts of the system unlock the current model—and which
+  merely preserve the limitations of an earlier one.
+updatedAt: '2026-09-02'
+tags:
+  - agents
+  - unhobbling
+  - prompts
+  - harness
+aiAssisted: true
+---
+
+import Cite from '../../../components/notes/Cite.astro';
+import Callout from '../../../components/notes/Callout.astro';
+import MyTake from '../../../components/notes/MyTake.astro';
+import NoteFigure from '../../../components/notes/NoteFigure.astro';
+
+There is an irresistible version of this story: Anthropic released a new model, deleted roughly 80% of Claude Code’s system prompt, and the product got better. The lesson seems obvious. Erase your `CLAUDE.md`, loosen the permissions, and let the intelligence breathe.
+
+It is also the most dangerous way to understand the story.
+
+The interesting part of **unhobbling**—removing what keeps a model from using its abilities—is not the drama of pressing Delete. It is learning to separate three things that often end up tangled in the same file: capabilities the model needs, corrections for an old weakness, and boundaries that protect the user even when the model is excellent.
+
+<Callout kind="thesis" label="The thesis">
+  Unhobbling an AI is not freedom by intuition. It means treating the harness as a hypothesis: measure what unlocks the model, remove what no longer helps, and preserve a safety root that the experiment itself cannot bargain away.
+</Callout>
+
+## The model you bought is not the product you are using
+
+In 2024, Leopold Aschenbrenner used *unhobbling* for changes that unlocked latent capabilities in a base model: RLHF, chain of thought, tools, and scaffolding. This was not a story about subtracting things. Often, you had to **add** an interface, a reasoning loop, or access to the world before a capable chatbot could become a useful agent. <Cite source="situational-awareness-unhobbling-2024" locator="‘Unhobbling’ section and post-GPT-4 improvement list" />
+
+Two years later, Boris Cherny described the other side of the same problem. In a Y Combinator conversation about Claude Code, he called *product overhang* everything a current model can already do that no product lets it express. The model occupies one envelope; its interface, tools, and permissions draw a smaller one. The space caught between them is capability you paid for but cannot use. <Cite source="yc-boris-cherny-building-claude-code-2026" locator="10:51–12:28, product overhang and Claude Code’s origin" />
+
+<NoteFigure id="unhobbling-your-ai/product-overhang" />
+
+The original Claude Code story fits inside that gap. Coding products offered autocomplete or read-only chat when Sonnet 3.5 could already write whole functions and files. The breakthrough was not a cleverer request for code. It was a terminal and a loop simple enough to let the model act. <Cite source="yc-boris-cherny-building-claude-code-2026" locator="12:28–15:12, Sonnet 3.5 and the initial harness" />
+
+But a product envelope can also be too large in exactly the wrong places. An ambiguous tool, an overbroad permission, or a contradictory instruction does not release intelligence; it expands the surface where intelligence can fail. Anthropic frames an agent as four components—model, harness, tools, and environment—and says each one is both a source of capability and a point of oversight. <Cite source="anthropic-trustworthy-agents-2026" locator="‘An agent is built from four components’ section" />
+
+Unhobbling, then, is not about maximizing freedom. It is about **matching the envelopes**.
+
+## Yesterday’s medicine becomes today’s drag
+
+System prompts rarely begin as nonsense. A line appears because an earlier model failed to verify its work, created unnecessary files, or stopped too soon. The team sees a failure, adds an instruction, and gets a better result. Then it adds another. Eventually the file becomes the medical history of models no longer in production.
+
+That is instruction debt: locally sensible rules whose cost is paid on every turn, long after the behavior they corrected has disappeared.
+
+Cherny said that while preparing Claude Code for Opus 5, the team removed roughly 80% of its system prompt. He also described *simple mode*, an internal ablation that strips system and tool prompts so the team can compare behavior. His striking observation was that, in some tests, the model appeared slightly more intelligent without them. <Cite source="yc-boris-cherny-building-claude-code-2026" locator="3:53–6:14, prompt reduction, simple mode, and ablation" />
+
+That number needs two asterisks. First, it is testimony from the product’s builder, not a public experiment with reproducible prompt counts, tasks, and scores. Second, the same conversation makes clear that the product was not left empty: most of the remaining harness concerns safety, permissions, static analysis, and UI. <Cite source="yc-boris-cherny-building-claude-code-2026" locator="6:14–6:45, what remains in the harness" />
+
+<NoteFigure id="unhobbling-your-ai/add-and-remove" />
+
+There is no contradiction between 2024 and 2026. A terminal can unlock one model; an instruction written to teach that model how to use the terminal can obstruct the next generation. The unit of analysis is not “more prompt versus less prompt.” It is **current model × task × harness**.
+
+The official Opus 5 prompting guidance reflects that shift. It recommends retiring legacy workarounds and language that pushes excessive verification when the newer behavior is already native. At the same time, it still recommends explicit boundaries for task scope, effort budgets, and subagent use. <Cite source="anthropic-prompting-claude-opus-5" locator="‘Task scope and over-verification’ and ‘Controlling subagent spawning’" />
+
+## Delete, keep, or add
+
+A useful audit sorts components by function, not by how irritating they feel.
+
+**Delete debt** when an instruction duplicates stable model behavior, conflicts with another rule, prescribes a workaround for an older generation, or consumes attention without changing outcomes. If nobody can name the failure it prevents, it belongs in an ablation.
+
+**Keep boundaries** when they protect assets, define authority, or make results verifiable: permissions, sandboxes, input schemas, tests, policies, budgets, and exit conditions. They do not exist because the model is stupid. They exist because capability and authorization are different questions.
+
+**Add affordances** when the agent cannot perceive or act on something essential: queryable logs, a browser, a better-named tool, durable state, navigable documentation, or an independent evaluator. Telling a model to “reason harder” cannot replace a missing interface.
+
+<NoteFigure id="unhobbling-your-ai/delete-keep-add" />
+
+Anthropic’s work on applications built over long-running sessions shows why “less harness” is not a law either. In one comparison, a solo agent spent about $9 and finished in twenty minutes; the full system spent roughly $200 over six hours. The latter produced a substantially more complete, usable application because planners, sprint contracts, and an evaluator sustained the work. This was an exploratory comparison on one app, not a general benchmark, but it demonstrates that expensive scaffolding can buy real quality when it separates useful responsibilities. <Cite source="anthropic-harness-design-long-running-apps-2026" locator="‘Full harness vs. solo agent’ and results review" />
+
+The question is not whether a harness is large. It is whether every layer **earns its cost**.
+
+## Running longer is not the same as being right
+
+Cherny also described a newer capability: models that can keep going for days or weeks in auto mode with less scaffolding. <Cite source="yc-boris-cherny-building-claude-code-2026" locator="1:19–3:32, long-running execution and auto mode" /> That expands the product horizon, but three metrics must stay separate:
+
+- **duration:** how long the agent keeps acting;
+- **autonomy:** how many decisions it makes without asking;
+- **reliability:** how often it reaches the intended outcome without harm or degradation.
+
+An agent that never stops may be impressive or catastrophic. The same talk grounds the difference by recommending verifiable outcomes, guardrails, and exit criteria: do not ask it to “grow my startup”; specify the result, the boundaries, and the condition that ends the loop. <Cite source="yc-boris-cherny-building-claude-code-2026" locator="15:12–20:40, outcomes, guardrails, exit criteria, and verification" />
+
+<Callout kind="limit" label="The boundary that matters">
+  Greater capability changes what an agent can do. It does not decide who has the right to authorize it, which risks are acceptable, or what evidence turns “done” into a trustworthy result.
+</Callout>
+
+## Ablation as a discipline
+
+The best part of Cherny’s advice is not “delete your `CLAUDE.md` every six months.” It is what follows: use the system, watch for repeated failures, and restore an instruction only when behavior proves it is necessary. <Cite source="yc-boris-cherny-building-claude-code-2026" locator="6:45–10:25, piece-by-piece reconstruction and evals" />
+
+A sober protocol looks like this:
+
+1. **Freeze tasks and gates.** Choose real cases, verifiable outcomes, costs, and safety boundaries before changing anything.
+2. **Measure the baseline.** Track quality, time, tokens, human interventions, denied permissions, and regressions.
+3. **Remove one piece at a time.** A prompt, tool description, middleware layer, or permission—always in a branch or recoverable environment.
+4. **Look for patterns, not anecdotes.** A single failure may be noise; a repeatable and attributable one deserves a correction.
+5. **Reintroduce the smallest intervention.** Prefer a test, schema, or tool for structural problems; use prose when the problem truly is a behavioral rule.
+6. **Promote only when the whole system improves.** Do not trade safety for a smoother demo, or cost for a metric that does not represent the user.
+
+<NoteFigure id="unhobbling-your-ai/ablation-loop" />
+
+<MyTake title="My take">
+  In my own agent system, the most expensive mistake has not been too many rules or too few. It has been not knowing which layer caused the friction. If I change the model, permissions, tools, and prompt at once, every improvement becomes superstition. Unhobbling is harness hygiene: everything should justify its existence, while safety and evidence should not have to audition again at every release.
+</MyTake>
+
+## Getting out of the way still requires knowing where to stand
+
+The phrase will survive because it names something real: we are wrapping new models in interfaces and habits designed for old ones. Part of building agentic products is discovering what was already possible and what we simply had not allowed to happen.
+
+But a good builder worships neither scaffolding nor emptiness. Sometimes the model needs a terminal. Sometimes it needs most inherited instructions removed. Sometimes it needs an evaluator, a sandbox, or an exit condition that reduces local freedom in order to increase safe autonomy.
+
+Stop hobbling your AI does not mean stepping away. It means standing in the right place: outside every microdecision, but still responsible for the experiment, its boundaries, and its proof.

@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "translationKey": "end-of-software-engineering",
+  "kind": "timeline",
+  "claimRefs": [
+    "claim-06"
+  ],
+  "model": {
+    "items": [
+      {
+        "id": "tools",
+        "tone": "sage"
+      },
+      {
+        "id": "tasks",
+        "tone": "amber"
+      },
+      {
+        "id": "teams",
+        "tone": "amber"
+      },
+      {
+        "id": "ecosystem",
+        "tone": "rust"
+      }
+    ]
+  },
+  "copy": {
+    "es": {
+      "title": "Roadmap del paper",
+      "question": "¿Qué está observado y qué sigue siendo hipótesis?",
+      "takeaway": "El roadmap mezcla presente observado y futuro especulativo; conviene leerlo como hipótesis, no como calendario.",
+      "alt": "Roadmap de cuatro etapas desde copilotos hasta ecosistemas autoevolutivos, con evidencia decreciente hacia el futuro.",
+      "caption": "El roadmap mezcla presente observado y futuro especulativo; conviene leerlo como hipótesis, no como calendario.",
+      "labels": {
+        "tools": {
+          "title": "2023–2025 · Herramienta aumentada",
+          "detail": "Copilotos que completan código y resuelven issues."
+        },
+        "tasks": {
+          "title": "2025–2027 · Tarea autónoma",
+          "detail": "De especificación a pull request."
+        },
+        "teams": {
+          "title": "2026–2029 · Equipos multiagente",
+          "detail": "Roles coordinados durante el ciclo."
+        },
+        "ecosystem": {
+          "title": "2028+ · Ecosistema autoevolutivo",
+          "detail": "Escenario especulativo, no predicción validada."
+        }
+      }
+    },
+    "en": {
+      "title": "The paper's roadmap",
+      "question": "What is observed, and what remains a hypothesis?",
+      "takeaway": "The roadmap blends an observed present with a speculative future; read it as a hypothesis, not a calendar.",
+      "alt": "Four-stage roadmap from copilots to self-evolving ecosystems with evidence decreasing toward the future.",
+      "caption": "The roadmap blends an observed present with a speculative future; read it as a hypothesis, not a calendar.",
+      "labels": {
+        "tools": {
+          "title": "2023–2025 · Augmented tool",
+          "detail": "Copilots complete code and resolve issues."
+        },
+        "tasks": {
+          "title": "2025–2027 · Autonomous task",
+          "detail": "From specification to pull request."
+        },
+        "teams": {
+          "title": "2026–2029 · Multi-agent teams",
+          "detail": "Coordinated roles across the lifecycle."
+        },
+        "ecosystem": {
+          "title": "2028+ · Self-evolving ecosystem",
+          "detail": "A speculative scenario, not a validated forecast."
+        }
+      }
+    }
+  },
+  "presentation": {
+    "direction": "auto",
+    "density": "normal"
+  },
+  "artwork": {
+    "es": "/images/notes/end-of-software-engineering/es/04-roadmap.svg",
+    "en": "/images/notes/end-of-software-engineering/en/04-roadmap.svg"
+  }
+}

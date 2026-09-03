@@ -1,7 +1,9 @@
 ---
+import { getEntry } from 'astro:content';
 import GlitchText from './ui/GlitchText.tsx';
 import TypeWriter from './ui/TypeWriter.tsx';
 import CinematicReveal from './ui/CinematicReveal.tsx';
+import { diagramPngPath } from '../lib/diagrams';
 import { notePath, readingMinutes, type NoteEntry } from '../lib/notes';
 import { profile } from '../data/profile';
 
@@ -12,6 +14,10 @@ interface Props {
 }
 
 const { latestNote, latestTranslation, latestNoteNumber = 1 } = Astro.props;
+const latestVisual = latestNote?.data.featuredVisual
+  ? await getEntry('diagrams', latestNote.data.featuredVisual)
+  : undefined;
+const latestVisualCopy = latestVisual?.data.copy[latestNote?.data.lang ?? 'en'];
 const latestDate = latestNote?.data.publishedAt ?? latestNote?.data.updatedAt;
 const latestDateLabel = latestDate
   ? new Intl.DateTimeFormat('en', {
@@ -117,10 +123,10 @@ const latestDateLabel = latestDate
         href={notePath(latestNote)}
         aria-label={`Read research note: ${latestNote.data.title}`}
       >
-        <figure class="latest-note__visual">
+        {latestVisual && latestVisualCopy && <figure class="latest-note__visual">
           <img
-            src={latestNote.data.diagrams[0].src}
-            alt={latestNote.data.diagrams[0].alt}
+            src={diagramPngPath(latestVisual, latestNote.data.lang)}
+            alt={latestVisualCopy.alt}
             loading="eager"
             decoding="async"
           />
@@ -128,7 +134,7 @@ const latestDateLabel = latestDate
             <span>FIG. 01</span>
             <span>Inside the note ↗</span>
           </figcaption>
-        </figure>
+        </figure>}
 
         <div class="latest-note__meta">
           {latestDate && latestDateLabel && (

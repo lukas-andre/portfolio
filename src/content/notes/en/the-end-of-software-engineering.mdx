@@ -1,54 +1,18 @@
 ---
 translationKey: end-of-software-engineering
 lang: en
-kind: single
 title: The End of Software Engineering? Not Quite.
 description: >-
   A paper argues that agents turn code into ephemeral material. The idea
   matters, but its evidence points to a shift in the center of gravity—not an
   extinction.
-draft: false
 updatedAt: '2026-09-01'
 tags:
   - agents
   - software
   - artificial-intelligence
   - engineering
-sources:
-  - ref: arxiv-2606.05608v1
-    role: primary
 aiAssisted: true
-diagrams:
-  - src: /images/notes/end-of-software-engineering/en/01-center-of-gravity.svg
-    alt: >-
-      Comparison between traditional software with decisions fixed in code and
-      an agent deciding inside an execution loop.
-    caption: >-
-      The paper's central shift: from executing pre-coded decisions to choosing
-      the next step while the task is running.
-  - src: /images/notes/end-of-software-engineering/en/02-two-layers.svg
-    alt: >-
-      Layer diagram separating temporary task code from the durable
-      infrastructure required to control it.
-    caption: >-
-      Making some code disposable does not make the system that runs, observes,
-      and governs it disposable.
-  - src: >-
-      /images/notes/end-of-software-engineering/en/03-compounding-reliability.svg
-    alt: >-
-      Illustrative curve where a chain of reliable steps loses total success
-      probability as it becomes longer.
-    caption: >-
-      Illustrative model: at 95 percent success per step, twenty perfect steps
-      together fall to roughly 36 percent.
-  - src: /images/notes/end-of-software-engineering/en/04-roadmap.svg
-    alt: >-
-      Four-stage roadmap from copilots to self-evolving ecosystems with evidence
-      decreasing toward the future.
-    caption: >-
-      The roadmap blends an observed present with a speculative future; read it
-      as a hypothesis, not a calendar.
-publishedAt: '2026-09-01'
 ---
 
 import Cite from '../../../components/notes/Cite.astro';
@@ -70,11 +34,7 @@ Think of traditional software as an exhaustive recipe book. Before the restauran
 
 An agent is closer to a cook with a goal, a pantry, and food-safety rules. It observes the request, decides what to do, uses a tool, inspects the result, and corrects course. The paper formalizes that difference with four parts: a reasoning model, executable tools, memory, and a policy that governs action selection. <Cite source="arxiv-2606.05608v1" locator="§2.3" />
 
-<NoteFigure
-  src="/images/notes/end-of-software-engineering/en/01-center-of-gravity.svg"
-  alt="Comparison between traditional software with decisions fixed in code and an agent deciding inside an execution loop."
-  caption="The paper's central shift: from executing pre-coded decisions to choosing the next step while the task is running."
-/>
+<NoteFigure id="end-of-software-engineering/center-of-gravity" />
 
 The agent is not software-free. The model runs on software; the tools are software; so are its sandbox, connectors, memory, and tests. What changes is that some task-specific logic can appear *just in time* instead of remaining frozen inside an application.
 
@@ -94,11 +54,7 @@ A durable substrate remains underneath:
 - budgets, limits, and rollback;
 - rules for human intervention.
 
-<NoteFigure
-  src="/images/notes/end-of-software-engineering/en/02-two-layers.svg"
-  alt="Layer diagram separating temporary task code from the durable infrastructure required to control it."
-  caption="Making some code disposable does not make the system that runs, observes, and governs it disposable."
-/>
+<NoteFigure id="end-of-software-engineering/ephemeral-and-durable" />
 
 <MyTake title="My take">
   The asset is neither the isolated prompt nor the code produced once. The asset is the **harness**: the environment that provides context, capabilities, feedback, and boundaries. If generation gets cheaper, designing evidence and control becomes more important, not less.
@@ -141,11 +97,7 @@ The more important signal is the contrast. Summarizing EvoClaw, the paper says s
 
 Errors compound across a chain. If each independent step had a 95% chance of being correct, the illustrative probability that twenty steps were all correct would be `0.95^20`, roughly 36%. Independence rarely holds in a real agent, but the model is useful: **a per-step rate that looks excellent can still create a fragile trajectory**.
 
-<NoteFigure
-  src="/images/notes/end-of-software-engineering/en/03-compounding-reliability.svg"
-  alt="Illustrative curve where a chain of reliable steps loses total success probability as it becomes longer."
-  caption="Illustrative model: at 95 percent success per step, twenty perfect steps together fall to roughly 36 percent."
-/>
+<NoteFigure id="end-of-software-engineering/compounding-reliability" />
 
 When generating a solution is cheap, distinguishing the correct one from one that merely looks correct dominates the cost. Agentic systems need evaluations independent of the agent's confidence: executed tests, reproducible queries, invariant checks, security review, and human approval where potential harm is high.
 
@@ -167,11 +119,7 @@ Issue resolution measures issue resolution. A coordination pilot measures that p
 
 Its four stages move from tool augmentation (2023–2025), to autonomous tasks (2025–2027), multi-agent teams (2026–2029), and self-evolving ecosystems (2028+). The fourth explicitly lists its representative systems as “prospective.” <Cite source="arxiv-2606.05608v1" locator="§6, table 3" /> These dates describe a proposed trajectory, not experimental results.
 
-<NoteFigure
-  src="/images/notes/end-of-software-engineering/en/04-roadmap.svg"
-  alt="Four-stage roadmap from copilots to self-evolving ecosystems with evidence decreasing toward the future."
-  caption="The roadmap blends an observed present with a speculative future; read it as a hypothesis, not a calendar."
-/>
+<NoteFigure id="end-of-software-engineering/paper-roadmap" />
 
 ## What I would do now
 

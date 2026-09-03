@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "translationKey": "agents-building-their-own-harness",
+  "kind": "matrix",
+  "claimRefs": [
+    "claim-01",
+    "claim-03",
+    "claim-05",
+    "claim-07"
+  ],
+  "model": {
+    "items": [
+      {
+        "id": "openai",
+        "tone": "ink"
+      },
+      {
+        "id": "anthropic",
+        "tone": "sage"
+      },
+      {
+        "id": "meta",
+        "tone": "amber"
+      },
+      {
+        "id": "self",
+        "tone": "amber"
+      },
+      {
+        "id": "ahe",
+        "tone": "rust"
+      }
+    ]
+  },
+  "copy": {
+    "es": {
+      "title": "Mapa de evidencia",
+      "question": "¿Qué construyen ya los agentes y qué sigue protegido?",
+      "takeaway": "La evidencia converge en cambios acotados y evaluados; ningún caso serio entrega al proponente control irrestricto sobre su propia prueba.",
+      "alt": "Mapa que ordena casos de OpenAI y Anthropic junto a Meta-Harness, Self-Harness y AHE según autoría, evaluación y nivel de autonomía.",
+      "caption": "La evidencia converge en cambios acotados y evaluados; ningún caso serio entrega al proponente control irrestricto sobre su propia prueba.",
+      "labels": {
+        "openai": {
+          "title": "OpenAI",
+          "detail": "Repo, CI, AGENTS y evals; humanos y CI conservan el gate."
+        },
+        "anthropic": {
+          "title": "Anthropic tools",
+          "detail": "Tools, schemas y descripciones con held-out y revisión."
+        },
+        "meta": {
+          "title": "Meta-Harness",
+          "detail": "Código del harness evaluado en tareas externas."
+        },
+        "self": {
+          "title": "Self-Harness",
+          "detail": "Edits acotados con held-in y held-out."
+        },
+        "ahe": {
+          "title": "AHE",
+          "detail": "Tools, middleware y memoria; verifier y traces protegidos."
+        }
+      }
+    },
+    "en": {
+      "title": "Evidence map",
+      "question": "What do agents already build, and what remains protected?",
+      "takeaway": "The evidence converges on bounded, evaluated changes; no serious case gives the proposer unrestricted control over its own test.",
+      "alt": "A map positions OpenAI and Anthropic cases beside Meta-Harness, Self-Harness, and AHE by authorship, evaluation, and autonomy.",
+      "caption": "The evidence converges on bounded, evaluated changes; no serious case gives the proposer unrestricted control over its own test.",
+      "labels": {
+        "openai": {
+          "title": "OpenAI",
+          "detail": "Repo, CI, AGENTS, and evals; humans and CI retain the gate."
+        },
+        "anthropic": {
+          "title": "Anthropic tools",
+          "detail": "Tools, schemas, and descriptions with held-out review."
+        },
+        "meta": {
+          "title": "Meta-Harness",
+          "detail": "Harness source evaluated on external tasks."
+        },
+        "self": {
+          "title": "Self-Harness",
+          "detail": "Bounded edits with held-in and held-out tests."
+        },
+        "ahe": {
+          "title": "AHE",
+          "detail": "Tools, middleware, and memory; verifier and traces protected."
+        }
+      }
+    }
+  },
+  "presentation": {
+    "direction": "auto",
+    "density": "normal"
+  },
+  "artwork": {
+    "es": "/images/notes/agents-building-their-own-harness/es/03-mapa-de-evidencia.svg",
+    "en": "/images/notes/agents-building-their-own-harness/en/03-evidence-map.svg"
+  }
+}

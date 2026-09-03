@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "kind": "synthesis",
+  "issue": "003",
+  "topics": [
+    "neuroscience",
+    "media",
+    "cognitive-control",
+    "evidence-literacy"
+  ],
+  "related": [],
+  "sourceRoles": [
+    {
+      "ref": "doi-10-1016-j-neuroimage-2026-121722",
+      "role": "primary"
+    },
+    {
+      "ref": "doi-10-1016-j-addbeh-2020-106334",
+      "role": "primary"
+    }
+  ],
+  "editions": {
+    "es": {
+      "slug": "el-scroll-no-derrite-tu-cerebro"
+    },
+    "en": {
+      "slug": "short-form-video-doesnt-melt-your-brain"
+    }
+  },
+  "visuals": [
+    "short-video-brain-state-vs-trait/two-studies-two-clocks",
+    "short-video-brain-state-vs-trait/while-you-watch",
+    "short-video-brain-state-vs-trait/not-a-causal-line",
+    "short-video-brain-state-vs-trait/evidence-ladder"
+  ],
+  "featuredVisual": "short-video-brain-state-vs-trait/two-studies-two-clocks",
+  "researchPacket": "brain://library/paper-to-portfolio/works/short-video-brain-state-vs-trait.json",
+  "researchDigest": "aaf139d55c9708aa18769a1a76670f8bb449c9b4bf03a4b5c7e119f22592cf71",
+  "angleApproval": {
+    "approvedAt": "2026-09-01",
+    "approvedBy": "Lucas",
+    "readerPromise": "Entender qué pueden decir dos estudios de neuroimagen sin convertir estado, asociación y causalidad en una sola historia alarmista.",
+    "thesis": "Los estudios observan escalas temporales distintas: un estado agudo durante clips y asociaciones transversales de uso problemático.",
+    "counterpoint": "Ninguno establece que el scroll cause daño cerebral, cambio estructural o pérdida duradera de control cognitivo."
+  },
+  "visibility": "draft"
+}

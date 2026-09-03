@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+  <title id="title">What survives a SKILL.state turn</title>
+  <desc id="desc">The specification, state, and observation enter the model. It produces reasoning, a patch, and an action. The runtime validates the patch: invalid patches retry, while valid patches update state and execute the action. Reasoning is discarded.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b0c0a"/><stop offset="1" stop-color="#1b1d18"/></linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0l10 5-10 5z" fill="#d4a574"/></marker>
+    <marker id="arrowMuted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0l10 5-10 5z" fill="#77736a"/></marker>
+  </defs>
+  <rect width="1200" height="680" rx="24" fill="url(#bg)"/>
+  <text x="60" y="60" fill="#d4a574" font-family="monospace" font-size="15" letter-spacing="3">ONE TURN · TWO DESTINATIONS</text>
+  <text x="60" y="104" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="32" font-weight="700">Only validated state crosses into the next step.</text>
+
+  <g transform="translate(60 158)">
+    <text x="0" y="0" fill="#888379" font-family="monospace" font-size="12" letter-spacing="1.5">INPUT</text>
+    <rect x="0" y="20" width="136" height="78" rx="10" fill="#191a15" stroke="#4a4b42"/>
+    <text x="18" y="48" fill="#d4a574" font-family="monospace" font-size="13">P</text><text x="18" y="73" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="15" font-weight="700">Specification</text>
+    <rect x="150" y="20" width="136" height="78" rx="10" fill="#20221b" stroke="#a9c48c"/>
+    <text x="168" y="48" fill="#a9c48c" font-family="monospace" font-size="13">Σt</text><text x="168" y="73" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="15" font-weight="700">State</text>
+    <rect x="300" y="20" width="136" height="78" rx="10" fill="#191a15" stroke="#4a4b42"/>
+    <text x="318" y="48" fill="#d4a574" font-family="monospace" font-size="13">Ot</text><text x="318" y="73" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="15" font-weight="700">Observation</text>
+  </g>
+
+  <path d="M502 218H554" fill="none" stroke="#d4a574" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <g transform="translate(570 158)">
+    <text x="0" y="0" fill="#888379" font-family="monospace" font-size="12" letter-spacing="1.5">MODEL</text>
+    <rect x="0" y="20" width="178" height="154" rx="18" fill="#24231d" stroke="#d4a574" stroke-width="1.5"/>
+    <circle cx="89" cy="66" r="22" fill="#d4a574" fill-opacity=".15" stroke="#d4a574"/>
+    <path d="M79 66h20M89 56v20" stroke="#d4a574" stroke-width="2"/>
+    <text x="89" y="112" text-anchor="middle" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="18" font-weight="700">Reasons</text>
+    <text x="89" y="138" text-anchor="middle" fill="#89857a" font-family="Arial, sans-serif" font-size="13">inside this turn</text>
+  </g>
+  <path d="M748 218H800" fill="none" stroke="#d4a574" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <g transform="translate(816 158)">
+    <text x="0" y="0" fill="#888379" font-family="monospace" font-size="12" letter-spacing="1.5">PROPOSED OUTPUT</text>
+    <rect x="0" y="20" width="324" height="154" rx="16" fill="#171813" stroke="#4a4b42"/>
+    <g transform="translate(18 42)"><rect width="82" height="82" rx="10" fill="#22221c"/><text x="14" y="29" fill="#d4a574" font-family="monospace" font-size="13">Rt</text><text x="14" y="54" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="14" font-weight="700">Reason</text><text x="14" y="72" fill="#817d73" font-family="Arial, sans-serif" font-size="11">temporary</text></g>
+    <g transform="translate(110 42)"><rect width="92" height="82" rx="10" fill="#22251d" stroke="#667856"/><text x="14" y="29" fill="#a9c48c" font-family="monospace" font-size="13">ΔΣt</text><text x="14" y="54" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="14" font-weight="700">Patch</text><text x="14" y="72" fill="#817d73" font-family="Arial, sans-serif" font-size="11">structured</text></g>
+    <g transform="translate(212 42)"><rect width="94" height="82" rx="10" fill="#22221c"/><text x="14" y="29" fill="#d4a574" font-family="monospace" font-size="13">at</text><text x="14" y="54" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="14" font-weight="700">Action</text><text x="14" y="72" fill="#817d73" font-family="Arial, sans-serif" font-size="11">to execute</text></g>
+  </g>
+
+  <path d="M978 332V382" fill="none" stroke="#d4a574" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <g transform="translate(828 398)">
+    <polygon points="150,0 288,68 150,136 12,68" fill="#24231d" stroke="#d4a574" stroke-width="1.5"/>
+    <text x="150" y="59" text-anchor="middle" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="17" font-weight="700">Valid patch?</text>
+    <text x="150" y="83" text-anchor="middle" fill="#8c877c" font-family="monospace" font-size="12">SCHEMA + INVARIANTS</text>
+  </g>
+
+  <path d="M840 466H724C700 466 688 446 688 426V382" fill="none" stroke="#9a6a55" stroke-width="2" stroke-dasharray="6 6" marker-end="url(#arrowMuted)"/>
+  <text x="710" y="450" fill="#c78c70" font-family="monospace" font-size="12">NO · ROLLBACK / RETRY</text>
+  <path d="M978 534V574H638" fill="none" stroke="#a9c48c" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="994" y="560" fill="#a9c48c" font-family="monospace" font-size="12">YES</text>
+  <g transform="translate(330 536)">
+    <rect width="292" height="94" rx="14" fill="#20241c" stroke="#a9c48c" stroke-width="1.5"/>
+    <text x="22" y="31" fill="#a9c48c" font-family="monospace" font-size="13">PERSISTS</text>
+    <text x="22" y="60" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="18" font-weight="700">Σt+1 + action result</text>
+    <text x="22" y="81" fill="#89857a" font-family="Arial, sans-serif" font-size="13">compact input for the next turn</text>
+  </g>
+
+  <path d="M875 302C795 346 724 391 622 466" fill="none" stroke="#6d6a61" stroke-width="1.8" stroke-dasharray="5 7" marker-end="url(#arrowMuted)"/>
+  <g transform="translate(420 405)">
+    <rect width="190" height="78" rx="12" fill="#171713" stroke="#4b4942"/>
+    <text x="18" y="28" fill="#817d73" font-family="monospace" font-size="12">DISCARDED</text>
+    <text x="18" y="55" fill="#d1ccc0" font-family="Arial, sans-serif" font-size="16" font-weight="700">Reasoning Rt</text>
+    <path d="M158 22l14 14m0-14l-14 14" stroke="#a66d59" stroke-width="2"/>
+  </g>
+  <text x="60" y="652" fill="#77736a" font-family="monospace" font-size="12">AN AUDIT LOG CAN RETAIN THE TRACE OUTSIDE THE PROMPT · PRODUCTION INTERPRETATION</text>
+</svg>

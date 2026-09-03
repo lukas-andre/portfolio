@@ -1,53 +1,18 @@
 ---
 translationKey: end-of-software-engineering
 lang: es
-kind: single
 title: ¿El fin de la ingeniería de software? No exactamente.
 description: >-
   Un paper propone que los agentes convierten el código en material efímero. La
   idea importa, pero su evidencia apunta a un cambio de centro de gravedad, no a
   una extinción.
-draft: false
 updatedAt: '2026-09-01'
 tags:
   - agentes
   - software
   - inteligencia-artificial
   - ingeniería
-sources:
-  - ref: arxiv-2606.05608v1
-    role: primary
 aiAssisted: true
-diagrams:
-  - src: /images/notes/end-of-software-engineering/es/01-centro-de-gravedad.svg
-    alt: >-
-      Comparación entre software tradicional, con decisiones fijadas en código,
-      y un agente que decide dentro de un ciclo de ejecución.
-    caption: >-
-      El cambio central del paper: de ejecutar decisiones ya codificadas a
-      decidir el siguiente paso durante la tarea.
-  - src: /images/notes/end-of-software-engineering/es/02-dos-capas.svg
-    alt: >-
-      Diagrama por capas que separa código temporal de una tarea y la
-      infraestructura durable que permite controlarlo.
-    caption: >-
-      Que parte del código sea descartable no vuelve descartable al sistema que
-      lo ejecuta, observa y gobierna.
-  - src: /images/notes/end-of-software-engineering/es/03-fiabilidad-compuesta.svg
-    alt: >-
-      Curva ilustrativa donde una cadena de pasos confiables pierde probabilidad
-      de éxito total a medida que se alarga.
-    caption: >-
-      Modelo ilustrativo: con 95 por ciento de éxito por paso, veinte pasos
-      perfectos juntos bajan a cerca de 36 por ciento.
-  - src: /images/notes/end-of-software-engineering/es/04-roadmap.svg
-    alt: >-
-      Roadmap de cuatro etapas desde copilotos hasta ecosistemas autoevolutivos,
-      con evidencia decreciente hacia el futuro.
-    caption: >-
-      El roadmap mezcla presente observado y futuro especulativo; conviene
-      leerlo como hipótesis, no como calendario.
-publishedAt: '2026-09-01'
 ---
 
 import Cite from '../../../components/notes/Cite.astro';
@@ -69,11 +34,7 @@ Imagina un software tradicional como un recetario exhaustivo. Antes de abrir el 
 
 Un agente se parece más a un cocinero con una meta, una despensa y reglas sanitarias. Observa el pedido, decide qué hacer, usa una herramienta, mira el resultado y corrige. El paper formaliza esa diferencia con cuatro piezas: un modelo como motor de razonamiento, herramientas ejecutables, memoria y una política que gobierna la elección de acciones. <Cite source="arxiv-2606.05608v1" locator="§2.3" />
 
-<NoteFigure
-  src="/images/notes/end-of-software-engineering/es/01-centro-de-gravedad.svg"
-  alt="Comparación entre software tradicional, con decisiones fijadas en código, y un agente que decide dentro de un ciclo de ejecución."
-  caption="El cambio central del paper: de ejecutar decisiones ya codificadas a decidir el siguiente paso durante la tarea."
-/>
+<NoteFigure id="end-of-software-engineering/center-of-gravity" />
 
 La diferencia no es que el agente carezca de software. El modelo corre en software; las herramientas son software; el sandbox, los conectores, la memoria y los tests también. Lo nuevo es que una parte de la lógica específica de la tarea puede aparecer *just in time* en vez de quedar congelada en una aplicación.
 
@@ -93,11 +54,7 @@ Debajo sigue existiendo una base durable:
 - presupuestos, límites y rollback;
 - reglas para pedir intervención humana.
 
-<NoteFigure
-  src="/images/notes/end-of-software-engineering/es/02-dos-capas.svg"
-  alt="Diagrama por capas que separa código temporal de una tarea y la infraestructura durable que permite controlarlo."
-  caption="Que parte del código sea descartable no vuelve descartable al sistema que lo ejecuta, observa y gobierna."
-/>
+<NoteFigure id="end-of-software-engineering/ephemeral-and-durable" />
 
 <MyTake title="Mi lectura">
   El activo no es el prompt aislado y tampoco el código que el agente produce una vez. El activo es el **harness**: el entorno que le entrega contexto, capacidades, feedback y límites. Si generar se abarata, diseñar evidencia y control se vuelve más importante, no menos.
@@ -140,11 +97,7 @@ La señal más importante está en el contraste. El paper resume EvoClaw: al pas
 
 En una cadena, los errores se componen. Si cada paso independiente tuviera 95% de probabilidad de ser correcto, la probabilidad ilustrativa de que veinte pasos sean todos correctos sería `0,95^20`, cerca de 36%. La independencia casi nunca se cumple en un agente real, pero el modelo mental sirve: **una tasa por paso que parece excelente puede producir una trayectoria frágil**.
 
-<NoteFigure
-  src="/images/notes/end-of-software-engineering/es/03-fiabilidad-compuesta.svg"
-  alt="Curva ilustrativa donde una cadena de pasos confiables pierde probabilidad de éxito total a medida que se alarga."
-  caption="Modelo ilustrativo: con 95 por ciento de éxito por paso, veinte pasos perfectos juntos bajan a cerca de 36 por ciento."
-/>
+<NoteFigure id="end-of-software-engineering/compounding-reliability" />
 
 Cuando producir una solución cuesta poco, distinguir la correcta de la que solo parece correcta pasa a dominar el costo. Los sistemas agénticos necesitan evaluaciones que no dependan de la confianza del propio agente: tests ejecutados, consultas reproducibles, comparación contra invariantes, revisión de seguridad y aprobación humana donde el daño potencial es alto.
 
@@ -166,11 +119,7 @@ Resolver un issue mide resolución de issues. Un piloto coordinado mide ese pilo
 
 Las cuatro etapas van desde herramientas aumentadas (2023–2025), a tareas autónomas (2025–2027), equipos multiagente (2026–2029) y ecosistemas autoevolutivos (2028+). La cuarta se describe explícitamente con sistemas representativos «prospectivos». <Cite source="arxiv-2606.05608v1" locator="§6, tabla 3" /> Las fechas expresan una trayectoria propuesta, no resultados experimentales.
 
-<NoteFigure
-  src="/images/notes/end-of-software-engineering/es/04-roadmap.svg"
-  alt="Roadmap de cuatro etapas desde copilotos hasta ecosistemas autoevolutivos, con evidencia decreciente hacia el futuro."
-  caption="El roadmap mezcla presente observado y futuro especulativo; conviene leerlo como hipótesis, no como calendario."
-/>
+<NoteFigure id="end-of-software-engineering/paper-roadmap" />
 
 ## Qué haría hoy
 

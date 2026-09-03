@@ -6,11 +6,16 @@ interface Props { note: NoteEntry; }
 const { note } = Astro.props;
 const isSpanish = note.data.lang === 'es';
 const date = note.data.publishedAt ?? note.data.updatedAt;
+const kindLabel = note.data.kind === 'essay'
+  ? (isSpanish ? 'ENSAYO' : 'ESSAY')
+  : note.data.kind === 'synthesis'
+    ? (isSpanish ? 'SÍNTESIS' : 'SYNTHESIS')
+    : (isSpanish ? 'LECTURA' : 'READING');
 ---
 
 <article class="note-card">
   <div class="note-card__meta">
-    <span>{note.data.kind === 'single' ? (isSpanish ? 'LECTURA' : 'READING') : (isSpanish ? 'SÍNTESIS' : 'SYNTHESIS')}</span>
+    <span>{kindLabel}</span>
     <span aria-hidden="true">·</span>
     <span>{readingMinutes(note)} min</span>
     {note.data.draft && <span class="note-card__draft">{isSpanish ? 'BORRADOR' : 'DRAFT'}</span>}

@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "translationKey": "unhobbling-your-ai",
+  "kind": "loop",
+  "claimRefs": [
+    "claim-03"
+  ],
+  "model": {
+    "items": [
+      {
+        "id": "baseline",
+        "tone": "ink"
+      },
+      {
+        "id": "remove",
+        "tone": "amber"
+      },
+      {
+        "id": "run",
+        "tone": "sage"
+      },
+      {
+        "id": "diagnose",
+        "tone": "amber"
+      },
+      {
+        "id": "decide",
+        "tone": "rust"
+      }
+    ]
+  },
+  "copy": {
+    "es": {
+      "title": "Loop de ablación",
+      "question": "¿Cómo retirar deuda sin perder la prueba?",
+      "takeaway": "La ablación convierte una limpieza intuitiva en ingeniería: cambiar una variable, medir conducta y promover únicamente lo que supera los gates.",
+      "alt": "Bucle experimental donde se mide una línea base, se retira una pieza, se observan fallas repetidas y solo se recuperan restricciones justificadas.",
+      "caption": "La ablación convierte una limpieza intuitiva en ingeniería: cambiar una variable, medir conducta y promover únicamente lo que supera los gates.",
+      "labels": {
+        "baseline": {
+          "title": "Medir baseline",
+          "detail": "Calidad, costo y riesgo de H₀."
+        },
+        "remove": {
+          "title": "Retirar una pieza",
+          "detail": "Cambiar solo prompt, tool o middleware."
+        },
+        "run": {
+          "title": "Ejecutar casos fijos",
+          "detail": "Mismas tareas, gates y presupuesto."
+        },
+        "diagnose": {
+          "title": "Diagnosticar",
+          "detail": "Buscar fallas repetidas y atribuibles."
+        },
+        "decide": {
+          "title": "Promover o rollback",
+          "detail": "Conservar H₁ solo si mejora el sistema completo."
+        }
+      }
+    },
+    "en": {
+      "title": "Ablation loop",
+      "question": "How do you remove debt without losing the test?",
+      "takeaway": "Ablation turns intuitive cleanup into engineering: change one variable, measure behavior, and promote only what passes the gates.",
+      "alt": "An experimental loop measures a baseline, removes one element, observes repeated failures, and restores only justified constraints.",
+      "caption": "Ablation turns intuitive cleanup into engineering: change one variable, measure behavior, and promote only what passes the gates.",
+      "labels": {
+        "baseline": {
+          "title": "Measure baseline",
+          "detail": "Quality, cost, and risk for H₀."
+        },
+        "remove": {
+          "title": "Remove one component",
+          "detail": "Change only a prompt, tool, or middleware."
+        },
+        "run": {
+          "title": "Run fixed cases",
+          "detail": "Same tasks, gates, and budget."
+        },
+        "diagnose": {
+          "title": "Diagnose",
+          "detail": "Find repeated, attributable failures."
+        },
+        "decide": {
+          "title": "Promote or roll back",
+          "detail": "Keep H₁ only if the whole system improves."
+        }
+      }
+    }
+  },
+  "presentation": {
+    "direction": "auto",
+    "density": "normal"
+  },
+  "artwork": {
+    "es": "/images/notes/unhobbling-your-ai/es/04-loop-ablation.svg",
+    "en": "/images/notes/unhobbling-your-ai/en/04-ablation-loop.svg"
+  }
+}

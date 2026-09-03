@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" role="img" aria-labelledby="title desc">
+  <title id="title">A matrix for auditing a harness</title>
+  <desc id="desc">Three columns distinguish debt to delete, boundaries to keep, and missing capabilities to add.</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b0c0a"/><stop offset="1" stop-color="#1b1d18"/></linearGradient><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#fff" stroke-opacity=".025"/></pattern></defs>
+  <rect width="1200" height="640" rx="24" fill="url(#bg)"/><rect width="1200" height="640" rx="24" fill="url(#grid)"/>
+  <text x="64" y="58" fill="#d4a574" font-family="monospace" font-size="15" letter-spacing="3">HARNESS AUDIT</text>
+  <text x="64" y="103" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="34" font-weight="700">Every component must earn its place.</text>
+
+  <g transform="translate(64 146)">
+    <rect width="330" height="392" rx="20" fill="#211713" stroke="#8b4d34"/>
+    <circle cx="38" cy="42" r="19" fill="#8b3d24"/><path d="M28 42H48" stroke="#fff" stroke-width="3"/>
+    <text x="70" y="49" fill="#e6b59e" font-family="monospace" font-size="15" letter-spacing="2">DELETE DEBT</text>
+    <text x="28" y="91" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="20" font-weight="700">Corrects a model now gone</text>
+    <g fill="#c8b4a8" font-family="Arial, sans-serif" font-size="16"><text x="28" y="137">• legacy workaround</text><text x="28" y="172">• conflicting rules</text><text x="28" y="207">• duplicate tool</text><text x="28" y="242">• micromanagement</text></g>
+    <line x1="28" y1="278" x2="302" y2="278" stroke="#5d3d30"/>
+    <text x="28" y="310" fill="#aa7a64" font-family="monospace" font-size="11" letter-spacing="1">QUESTION</text>
+    <text x="28" y="340" fill="#e8ddd5" font-family="Arial, sans-serif" font-size="16">Which repeated failure?</text>
+    <text x="28" y="368" fill="#8f847d" font-family="Arial, sans-serif" font-size="14">No answer? Ablate it.</text>
+  </g>
+  <g transform="translate(435 146)">
+    <rect width="330" height="392" rx="20" fill="#201c15" stroke="#9b7449"/>
+    <circle cx="38" cy="42" r="19" fill="#92551d"/><path d="M28 42L35 49 49 33" fill="none" stroke="#fff" stroke-width="3"/>
+    <text x="70" y="49" fill="#e7bd92" font-family="monospace" font-size="15" letter-spacing="2">KEEP BOUNDARIES</text>
+    <text x="28" y="91" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="20" font-weight="700">Defines authority and proof</text>
+    <g fill="#d0c0ad" font-family="Arial, sans-serif" font-size="16"><text x="28" y="137">• permissions and sandbox</text><text x="28" y="172">• tests and schemas</text><text x="28" y="207">• budget and policy</text><text x="28" y="242">• exit condition</text></g>
+    <line x1="28" y1="278" x2="302" y2="278" stroke="#59472f"/>
+    <text x="28" y="310" fill="#b58a5c" font-family="monospace" font-size="11" letter-spacing="1">QUESTION</text>
+    <text x="28" y="340" fill="#e8e0d5" font-family="Arial, sans-serif" font-size="16">Does it protect an asset?</text>
+    <text x="28" y="368" fill="#91877a" font-family="Arial, sans-serif" font-size="14">Intelligence is not authority.</text>
+  </g>
+  <g transform="translate(806 146)">
+    <rect width="330" height="392" rx="20" fill="#171e16" stroke="#5f7953"/>
+    <circle cx="38" cy="42" r="19" fill="#526149"/><path d="M28 42H48M38 32V52" stroke="#fff" stroke-width="3"/>
+    <text x="70" y="49" fill="#b9d19f" font-family="monospace" font-size="15" letter-spacing="2">ADD CAPABILITY</text>
+    <text x="28" y="91" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="20" font-weight="700">Makes the world legible</text>
+    <g fill="#becbb6" font-family="Arial, sans-serif" font-size="16"><text x="28" y="137">• queryable logs</text><text x="28" y="172">• agent-native tools</text><text x="28" y="207">• durable state</text><text x="28" y="242">• independent evaluator</text></g>
+    <line x1="28" y1="278" x2="302" y2="278" stroke="#354a31"/>
+    <text x="28" y="310" fill="#84a176" font-family="monospace" font-size="11" letter-spacing="1">QUESTION</text>
+    <text x="28" y="340" fill="#e1eadb" font-family="Arial, sans-serif" font-size="16">Can it perceive or act?</text>
+    <text x="28" y="368" fill="#879181" font-family="Arial, sans-serif" font-size="14">A prompt is not an interface.</text>
+  </g>
+  <text x="600" y="581" text-anchor="middle" fill="#8f8a7f" font-family="monospace" font-size="13" letter-spacing="1.5">DON'T COUNT LINES · IDENTIFY FUNCTIONS · MEASURE OUTCOMES</text>
+</svg>

@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+  <title id="title">Qué cambia mientras miras un video completado</title>
+  <desc id="desc">Un teléfono envía estímulos a la corteza visual, cuya señal aumenta. La señal BOLD baja en dACC y dlPFC, mientras ambas regiones mantienen coordinación funcional por encima del baseline.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b0c0a"/><stop offset="1" stop-color="#191b16"/></linearGradient>
+    <radialGradient id="screen"><stop stop-color="#d4a574" stop-opacity=".35"/><stop offset="1" stop-color="#d4a574" stop-opacity=".04"/></radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity=".025"/></pattern>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#d4a574"/></marker>
+  </defs>
+  <rect width="1200" height="680" rx="24" fill="url(#bg)"/>
+  <rect width="1200" height="680" rx="24" fill="url(#grid)"/>
+  <text x="62" y="57" fill="#d4a574" font-family="monospace" font-size="15" letter-spacing="3">HONG ET AL. · 2026 · SEÑAL BOLD VS REPOSO</text>
+  <text x="62" y="101" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="33" font-weight="700">El cerebro no se apaga. Redistribuye el trabajo.</text>
+
+  <g transform="translate(78 164)">
+    <rect x="0" y="0" width="210" height="350" rx="32" fill="#0e0f0c" stroke="#6d675d" stroke-width="2"/>
+    <rect x="16" y="31" width="178" height="272" rx="18" fill="url(#screen)" stroke="#d4a574" stroke-opacity=".6"/>
+    <rect x="78" y="12" width="54" height="6" rx="3" fill="#4c4a43"/>
+    <circle cx="105" cy="327" r="10" fill="none" stroke="#4c4a43"/>
+    <circle cx="58" cy="112" r="28" fill="#d4a574" fill-opacity=".18"/>
+    <path d="M99 86l55 32-55 32z" fill="#d4a574"/>
+    <rect x="35" y="194" width="140" height="7" rx="3.5" fill="#a9c48c" fill-opacity=".75"/>
+    <rect x="35" y="218" width="94" height="7" rx="3.5" fill="#8b867b"/>
+    <text x="105" y="273" text-anchor="middle" fill="#e7e2d8" font-family="monospace" font-size="12">CLIP COMPLETADO</text>
+  </g>
+
+  <path d="M320 337H425" fill="none" stroke="#d4a574" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="372" y="321" text-anchor="middle" fill="#8d887e" font-family="monospace" font-size="11">ESTÍMULO</text>
+
+  <g transform="translate(442 164)">
+    <rect width="278" height="350" rx="18" fill="#12130f" stroke="#3e4038"/>
+    <text x="24" y="38" fill="#8f8a80" font-family="monospace" font-size="12" letter-spacing="1.4">ACTIVIDAD REGIONAL</text>
+    <g transform="translate(24 70)">
+      <rect width="230" height="68" rx="10" fill="#182017" stroke="#8a9a7c"/>
+      <text x="18" y="29" fill="#a9c48c" font-family="monospace" font-size="12">CORTEZA VISUAL</text>
+      <text x="202" y="47" text-anchor="end" fill="#b9d19f" font-family="Arial, sans-serif" font-size="34" font-weight="700">↑</text>
+      <text x="18" y="52" fill="#e5e0d5" font-family="Arial, sans-serif" font-size="16" font-weight="700">La imagen entra</text>
+    </g>
+    <g transform="translate(24 156)">
+      <rect width="230" height="68" rx="10" fill="#201814" stroke="#a36f52"/>
+      <text x="18" y="29" fill="#d4a574" font-family="monospace" font-size="12">dACC · MONITOREO</text>
+      <text x="202" y="47" text-anchor="end" fill="#e4a47a" font-family="Arial, sans-serif" font-size="34" font-weight="700">↓</text>
+      <text x="18" y="52" fill="#e5e0d5" font-family="Arial, sans-serif" font-size="16" font-weight="700">Menos señal BOLD</text>
+    </g>
+    <g transform="translate(24 242)">
+      <rect width="230" height="68" rx="10" fill="#201814" stroke="#a36f52"/>
+      <text x="18" y="29" fill="#d4a574" font-family="monospace" font-size="12">dlPFC · CONTROL</text>
+      <text x="202" y="47" text-anchor="end" fill="#e4a47a" font-family="Arial, sans-serif" font-size="34" font-weight="700">↓</text>
+      <text x="18" y="52" fill="#e5e0d5" font-family="Arial, sans-serif" font-size="16" font-weight="700">Menos señal BOLD</text>
+    </g>
+  </g>
+
+  <g transform="translate(758 164)">
+    <rect width="364" height="350" rx="18" fill="#12130f" stroke="#3e4038"/>
+    <text x="24" y="38" fill="#8f8a80" font-family="monospace" font-size="12" letter-spacing="1.4">RED DE CONTROL</text>
+    <circle cx="113" cy="157" r="67" fill="#1f1914" stroke="#d4a574" stroke-width="2"/>
+    <circle cx="251" cy="157" r="67" fill="#1b1e18" stroke="#8a9a7c" stroke-width="2"/>
+    <path d="M180 142C202 119 213 119 225 142M180 172C202 195 213 195 225 172" fill="none" stroke="#d4a574" stroke-width="3" stroke-dasharray="5 7"/>
+    <text x="113" y="152" text-anchor="middle" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="23" font-weight="700">dACC</text>
+    <text x="113" y="177" text-anchor="middle" fill="#9d978b" font-family="monospace" font-size="11">MONITOREA</text>
+    <text x="251" y="152" text-anchor="middle" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="23" font-weight="700">dlPFC</text>
+    <text x="251" y="177" text-anchor="middle" fill="#9d978b" font-family="monospace" font-size="11">EJECUTA</text>
+    <text x="182" y="254" text-anchor="middle" fill="#d4a574" font-family="Arial, sans-serif" font-size="18" font-weight="700">Coordinación sobre baseline</text>
+    <text x="182" y="281" text-anchor="middle" fill="#858177" font-family="Arial, sans-serif" font-size="14">Menor actividad no significa desconexión.</text>
+  </g>
+
+  <g transform="translate(62 564)">
+    <rect width="1076" height="73" rx="12" fill="#12130f" stroke="#373831"/>
+    <text x="24" y="31" fill="#d4a574" font-family="monospace" font-size="12" letter-spacing="1.3">LECTURA SEGURA</text>
+    <text x="24" y="55" fill="#e5e0d5" font-family="Arial, sans-serif" font-size="17" font-weight="700">Modo inmersivo de bajo esfuerzo · no pérdida demostrada de capacidad</text>
+    <text x="1038" y="44" text-anchor="end" fill="#77736a" font-family="monospace" font-size="12">ACTIVIDAD ≠ HABILIDAD</text>
+  </g>
+</svg>

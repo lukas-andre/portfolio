@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+  <title id="title">Evidence ladder for interpreting both studies</title>
+  <desc id="desc">Three levels separate direct observations, plausible author interpretations, and claims that remain unestablished, such as causal brain damage or individual diagnosis.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b0c0a"/><stop offset="1" stop-color="#191b16"/></linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity=".025"/></pattern>
+  </defs>
+  <rect width="1200" height="680" rx="24" fill="url(#bg)"/>
+  <rect width="1200" height="680" rx="24" fill="url(#grid)"/>
+  <text x="62" y="57" fill="#d4a574" font-family="monospace" font-size="15" letter-spacing="3">HOW TO READ A BRAIN IMAGE WITHOUT SKIPPING RUNGS</text>
+  <text x="62" y="101" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="33" font-weight="700">Three levels. Only the first was measured directly.</text>
+
+  <g transform="translate(62 157)">
+    <rect width="1076" height="123" rx="16" fill="#182017" stroke="#8a9a7c" stroke-width="1.5"/>
+    <circle cx="64" cy="61" r="34" fill="#a9c48c"/>
+    <text x="64" y="70" text-anchor="middle" fill="#0d0e0b" font-family="Arial, sans-serif" font-size="26" font-weight="700">1</text>
+    <text x="119" y="45" fill="#a9c48c" font-family="monospace" font-size="13" letter-spacing="1.8">OBSERVED</text>
+    <text x="119" y="78" fill="#f2ede3" font-family="Arial, sans-serif" font-size="22" font-weight="700">BOLD signal ↓ during clips · volume/ALFF differences between groups</text>
+    <rect x="895" y="37" width="145" height="48" rx="24" fill="#11120f" stroke="#8a9a7c"/>
+    <text x="967" y="67" text-anchor="middle" fill="#b9d19f" font-family="monospace" font-size="12">DATA</text>
+  </g>
+
+  <g transform="translate(122 309)">
+    <rect width="1016" height="123" rx="16" fill="#211b14" stroke="#d4a574" stroke-width="1.5"/>
+    <circle cx="64" cy="61" r="34" fill="#d4a574"/>
+    <text x="64" y="70" text-anchor="middle" fill="#16130f" font-family="Arial, sans-serif" font-size="26" font-weight="700">2</text>
+    <text x="119" y="45" fill="#d4a574" font-family="monospace" font-size="13" letter-spacing="1.8">PLAUSIBLE INTERPRETATION</text>
+    <text x="119" y="78" fill="#f2ede3" font-family="Arial, sans-serif" font-size="22" font-weight="700">Lower-effort immersion · vulnerability in some people</text>
+    <rect x="835" y="37" width="145" height="48" rx="24" fill="#11120f" stroke="#d4a574"/>
+    <text x="907" y="67" text-anchor="middle" fill="#e7b98d" font-family="monospace" font-size="12">HYPOTHESIS</text>
+  </g>
+
+  <g transform="translate(182 461)">
+    <rect width="956" height="123" rx="16" fill="#241713" stroke="#a85a32" stroke-width="1.5"/>
+    <circle cx="64" cy="61" r="34" fill="#a85a32"/>
+    <text x="64" y="70" text-anchor="middle" fill="#fff4eb" font-family="Arial, sans-serif" font-size="26" font-weight="700">3</text>
+    <text x="119" y="45" fill="#e08b65" font-family="monospace" font-size="13" letter-spacing="1.8">NOT ESTABLISHED</text>
+    <text x="119" y="76" fill="#f2ede3" font-family="Arial, sans-serif" font-size="18" font-weight="700">Caused damage · video-driven chemistry change</text>
+    <text x="119" y="99" fill="#b9b3a8" font-family="Arial, sans-serif" font-size="16">Individual diagnosis from one image</text>
+    <rect x="775" y="37" width="145" height="48" rx="24" fill="#11120f" stroke="#a85a32"/>
+    <text x="847" y="67" text-anchor="middle" fill="#e08b65" font-family="monospace" font-size="12">LEAP</text>
+  </g>
+
+  <path d="M92 279v30M152 431v30" stroke="#6c685f" stroke-width="2" stroke-dasharray="4 6"/>
+  <text x="62" y="630" fill="#807b72" font-family="monospace" font-size="12" letter-spacing="1.2">RULE: THE HEADLINE CANNOT BE MORE CAUSAL THAN THE DESIGN.</text>
+</svg>

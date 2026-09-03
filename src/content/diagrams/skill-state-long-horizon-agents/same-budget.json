@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "translationKey": "skill-state-long-horizon-agents",
+  "kind": "chart",
+  "claimRefs": [
+    "claim-04"
+  ],
+  "model": {
+    "items": [
+      {
+        "id": "skill-state",
+        "tone": "sage",
+        "value": 94
+      },
+      {
+        "id": "summary",
+        "tone": "amber",
+        "value": 52
+      },
+      {
+        "id": "window",
+        "tone": "rust",
+        "value": 18
+      },
+      {
+        "id": "llmlingua",
+        "tone": "rust",
+        "value": 22
+      }
+    ],
+    "maxValue": 100
+  },
+  "copy": {
+    "es": {
+      "title": "Mismo presupuesto, distinta estructura",
+      "question": "¿Ser corto basta para sostener una tarea larga?",
+      "takeaway": "Entre los métodos cercanos al objetivo de 1.800 tokens, mantener relaciones explícitas resiste el horizonte mejor que recortar o comprimir texto.",
+      "alt": "Gráfico de score por horizonte que compara SKILL.state, resumen acotado, ventana truncada, LLMLingua y ReAct completo con datos reportados en v2.",
+      "caption": "Entre los métodos cercanos al objetivo de 1.800 tokens, mantener relaciones explícitas resiste el horizonte mejor que recortar o comprimir texto.",
+      "labels": {
+        "skill-state": {
+          "title": "SKILL.state",
+          "detail": "Relaciones explícitas preservadas por schema.",
+          "valueLabel": "0,94"
+        },
+        "summary": {
+          "title": "Resumen acotado",
+          "detail": "Prosa comprimida dentro del mismo presupuesto.",
+          "valueLabel": "0,52"
+        },
+        "window": {
+          "title": "Ventana truncada",
+          "detail": "Pierde identificadores tempranos todavía necesarios.",
+          "valueLabel": "0,18"
+        },
+        "llmlingua": {
+          "title": "LLMLingua",
+          "detail": "Compresión estadística del texto.",
+          "valueLabel": "0,22"
+        }
+      },
+      "note": "Los valores son reportados o ilustrativos según se indica en el artículo."
+    },
+    "en": {
+      "title": "Same budget, different structure",
+      "question": "Is being short enough to sustain a long task?",
+      "takeaway": "Among methods near the 1,800-token target, explicit relations survive the horizon better than truncated or statistically compressed text.",
+      "alt": "A score-by-horizon chart comparing SKILL.state, capped summary, sliding window, LLMLingua, and full ReAct using results reported in version two.",
+      "caption": "Among methods near the 1,800-token target, explicit relations survive the horizon better than truncated or statistically compressed text.",
+      "labels": {
+        "skill-state": {
+          "title": "SKILL.state",
+          "detail": "Explicit relations preserved by schema.",
+          "valueLabel": "0.94"
+        },
+        "summary": {
+          "title": "Capped summary",
+          "detail": "Compressed prose under the same budget.",
+          "valueLabel": "0.52"
+        },
+        "window": {
+          "title": "Sliding window",
+          "detail": "Drops early identifiers that remain necessary.",
+          "valueLabel": "0.18"
+        },
+        "llmlingua": {
+          "title": "LLMLingua",
+          "detail": "Statistical text compression.",
+          "valueLabel": "0.22"
+        }
+      },
+      "note": "Values are reported or illustrative as stated in the article."
+    }
+  },
+  "presentation": {
+    "direction": "auto",
+    "density": "normal"
+  },
+  "artwork": {
+    "es": "/images/notes/skill-state-long-horizon-agents/es/03-presupuesto-igual.svg",
+    "en": "/images/notes/skill-state-long-horizon-agents/en/03-same-budget.svg"
+  }
+}

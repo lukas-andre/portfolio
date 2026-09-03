@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "kind": "single",
+  "issue": "002",
+  "topics": [
+    "agentic-systems",
+    "execution-state",
+    "memory",
+    "harness-engineering"
+  ],
+  "related": [
+    "end-of-software-engineering",
+    "unhobbling-your-ai",
+    "agents-building-their-own-harness"
+  ],
+  "sourceRoles": [
+    {
+      "ref": "arxiv-2608.26263v2",
+      "role": "primary"
+    }
+  ],
+  "editions": {
+    "es": {
+      "slug": "tu-agente-no-necesita-recordar-todo"
+    },
+    "en": {
+      "slug": "your-agent-doesnt-need-to-remember-everything"
+    }
+  },
+  "visuals": [
+    "skill-state-long-horizon-agents/diary-vs-dashboard",
+    "skill-state-long-horizon-agents/what-survives",
+    "skill-state-long-horizon-agents/same-budget"
+  ],
+  "featuredVisual": "skill-state-long-horizon-agents/diary-vs-dashboard",
+  "researchPacket": "brain://library/paper-to-portfolio/works/skill-state-long-horizon-agents.json",
+  "researchDigest": "a0f1d379cc890b22c8383c4220e5b0e6dff1cfedb94ef9a231cb63fee8df9978",
+  "angleApproval": {
+    "approvedAt": "2026-09-01",
+    "approvedBy": "Lucas",
+    "readerPromise": "Entender por qué el estado explícito puede reemplazar un historial creciente sin confundir memoria, estado y audit log.",
+    "thesis": "Un agente de larga duración necesita una representación validada del presente, no releer su biografía completa en cada turno.",
+    "counterpoint": "El ahorro solo es seguro si el schema conserva todo lo que podría importar; la pérdida de información se vuelve una decisión de arquitectura."
+  },
+  "visibility": "draft"
+}

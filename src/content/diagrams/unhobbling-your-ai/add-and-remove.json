@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "translationKey": "unhobbling-your-ai",
+  "kind": "comparison",
+  "claimRefs": [
+    "claim-01",
+    "claim-03"
+  ],
+  "model": {
+    "items": [
+      {
+        "id": "add",
+        "tone": "sage"
+      },
+      {
+        "id": "remove",
+        "tone": "amber"
+      }
+    ]
+  },
+  "copy": {
+    "es": {
+      "title": "Añadir y retirar",
+      "question": "¿Desbloquear siempre significa quitar?",
+      "takeaway": "Unhobbling no tiene una dirección fija: primero puede exigir añadir una capacidad y, tras cambiar el modelo, retirar la corrección que envejeció.",
+      "alt": "Línea temporal que contrasta el unhobbling de 2024, basado en añadir herramientas y razonamiento, con el de 2026, que retira andamiaje obsoleto.",
+      "caption": "Unhobbling no tiene una dirección fija: primero puede exigir añadir una capacidad y, tras cambiar el modelo, retirar la corrección que envejeció.",
+      "labels": {
+        "add": {
+          "title": "2024 · Añadir capacidad",
+          "detail": "Razonamiento, herramientas, feedback y scaffolding convierten chatbot en agente."
+        },
+        "remove": {
+          "title": "2026 · Retirar deuda",
+          "detail": "Reglas heredadas, tools redundantes y microgestión sobreviven a la falla."
+        }
+      }
+    },
+    "en": {
+      "title": "Add and remove",
+      "question": "Does unlocking always mean removing?",
+      "takeaway": "Unhobbling has no fixed direction: it may first require a new capability, then require removing the correction after the model changes.",
+      "alt": "A timeline contrasts 2024 unhobbling through added tools and reasoning with 2026 unhobbling through the removal of stale scaffolding.",
+      "caption": "Unhobbling has no fixed direction: it may first require a new capability, then require removing the correction after the model changes.",
+      "labels": {
+        "add": {
+          "title": "2024 · Add capability",
+          "detail": "Reasoning, tools, feedback, and scaffolding turn chatbot into agent."
+        },
+        "remove": {
+          "title": "2026 · Remove debt",
+          "detail": "Legacy rules, redundant tools, and micromanagement outlive the failure."
+        }
+      }
+    }
+  },
+  "presentation": {
+    "direction": "auto",
+    "density": "normal"
+  },
+  "artwork": {
+    "es": "/images/notes/unhobbling-your-ai/es/02-anadir-y-retirar.svg",
+    "en": "/images/notes/unhobbling-your-ai/en/02-add-and-remove.svg"
+  }
+}

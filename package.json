@@ -8,7 +8,11 @@
   "scripts": {
     "dev": "astro dev",
     "start": "node server.js",
+    "prebuild": "node scripts/notes/validate.mjs --tier release --published-only",
     "build": "astro build",
+    "postbuild": "node scripts/notes/prune-dist.mjs",
+    "build:drafts": "INCLUDE_DRAFTS=true astro build",
+    "postbuild:drafts": "INCLUDE_DRAFTS=true node scripts/notes/prune-dist.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "check": "astro check",
@@ -17,7 +21,16 @@
     "test:e2e": "playwright test",
     "verify": "npm run validate:notes && npm run check && npm run test:unit && npm run build",
     "notes:new": "node scripts/notes/new.mjs",
-    "notes:publish": "node scripts/notes/publish.mjs"
+    "notes:context": "node scripts/notes/context.mjs",
+    "notes:status": "node scripts/notes/status.mjs",
+    "notes:sync-research": "node scripts/notes/sync-research.mjs",
+    "notes:validate": "node scripts/notes/validate.mjs",
+    "notes:approve-angle": "node scripts/notes/approve-angle.mjs",
+    "notes:approve-release": "node scripts/notes/approve-release.mjs",
+    "notes:publish": "node scripts/notes/publish.mjs",
+    "notes:preview": "node scripts/notes/preview.mjs",
+    "notes:smoke": "node scripts/notes/smoke.mjs",
+    "notes:metrics": "node scripts/notes/metrics.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^3.1.9",
@@ -28,6 +41,7 @@
     "@resvg/resvg-js": "^2.6.2",
     "astro": "^4.16.0",
     "astro-og-canvas": "^0.7.2",
+    "beautiful-mermaid": "^1.1.3",
     "dejavu-fonts-ttf": "^2.37.3",
     "framer-motion": "^11.11.0",
     "lucide-react": "^0.460.0",
@@ -42,6 +56,11 @@
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
     "gray-matter": "^4.0.3",
-    "typescript": "^5.6.0"
+    "remark-gfm": "^4.0.1",
+    "remark-mdx": "^3.1.1",
+    "remark-parse": "^11.0.0",
+    "remark-stringify": "^11.0.0",
+    "typescript": "^5.6.0",
+    "unified": "^11.0.5"
   }
 }

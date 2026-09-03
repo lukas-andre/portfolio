@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "translationKey": "agents-building-their-own-harness",
+  "kind": "layers",
+  "claimRefs": [
+    "claim-08"
+  ],
+  "model": {
+    "items": [
+      {
+        "id": "editable",
+        "tone": "sage"
+      },
+      {
+        "id": "candidate",
+        "tone": "amber"
+      },
+      {
+        "id": "root",
+        "tone": "ink"
+      }
+    ]
+  },
+  "copy": {
+    "es": {
+      "title": "Superficie y raíz",
+      "question": "¿Qué puede editar el agente sin controlar su propia verdad?",
+      "takeaway": "El agente puede rediseñar una superficie amplia sin recibir autoridad para cambiar el mecanismo que decide si ese rediseño es seguro y mejor.",
+      "alt": "Capas editables del harness rodean una raíz de confianza separada con permisos, evaluador, secretos, presupuesto y capacidad de rollback.",
+      "caption": "El agente puede rediseñar una superficie amplia sin recibir autoridad para cambiar el mecanismo que decide si ese rediseño es seguro y mejor.",
+      "labels": {
+        "editable": {
+          "title": "Superficie editable",
+          "detail": "Prompts, tools, memoria y middleware dentro de un workspace aislado."
+        },
+        "candidate": {
+          "title": "Candidato Hₙ₊₁",
+          "detail": "Un diff acotado que todavía no es el activo."
+        },
+        "root": {
+          "title": "Raíz de confianza",
+          "detail": "Evaluator, permisos, secretos, budget, regresiones y rollback."
+        }
+      }
+    },
+    "en": {
+      "title": "Surface and root",
+      "question": "What can the agent edit without controlling its own truth?",
+      "takeaway": "An agent can redesign a broad surface without gaining authority to change the mechanism that decides whether the redesign is safe and better.",
+      "alt": "Editable harness layers surround a separate root of trust containing permissions, the evaluator, secrets, budgets, and rollback authority.",
+      "caption": "An agent can redesign a broad surface without gaining authority to change the mechanism that decides whether the redesign is safe and better.",
+      "labels": {
+        "editable": {
+          "title": "Editable surface",
+          "detail": "Prompts, tools, memory, and middleware inside an isolated workspace."
+        },
+        "candidate": {
+          "title": "Candidate Hₙ₊₁",
+          "detail": "A bounded diff that is not yet the active system."
+        },
+        "root": {
+          "title": "Root of trust",
+          "detail": "Evaluator, permissions, secrets, budget, regressions, and rollback."
+        }
+      }
+    }
+  },
+  "presentation": {
+    "direction": "auto",
+    "density": "normal"
+  },
+  "artwork": {
+    "es": "/images/notes/agents-building-their-own-harness/es/02-superficie-y-raiz.svg",
+    "en": "/images/notes/agents-building-their-own-harness/en/02-surface-and-root.svg"
+  }
+}

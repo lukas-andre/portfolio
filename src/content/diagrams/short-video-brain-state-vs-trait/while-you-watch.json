@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "translationKey": "short-video-brain-state-vs-trait",
+  "kind": "graph",
+  "claimRefs": [
+    "claim-01"
+  ],
+  "model": {
+    "items": [
+      {
+        "id": "stimulus",
+        "tone": "ink"
+      },
+      {
+        "id": "visual",
+        "tone": "sage"
+      },
+      {
+        "id": "dacc",
+        "tone": "amber"
+      },
+      {
+        "id": "dlpfc",
+        "tone": "amber"
+      }
+    ],
+    "edges": [
+      {
+        "from": "stimulus",
+        "to": "visual"
+      },
+      {
+        "from": "stimulus",
+        "to": "dacc"
+      },
+      {
+        "from": "stimulus",
+        "to": "dlpfc"
+      }
+    ]
+  },
+  "copy": {
+    "es": {
+      "title": "Mientras miras",
+      "question": "¿Qué cambia durante un clip completado?",
+      "takeaway": "Durante clips completados la visión trabaja, mientras dos regiones de control reducen su actividad frente al reposo y a clips descartados.",
+      "alt": "Esquema del cerebro durante videos completados: corteza visual activa, menor actividad en dACC y dlPFC y coordinación entre ambas regiones.",
+      "caption": "Durante clips completados la visión trabaja, mientras dos regiones de control reducen su actividad frente al reposo y a clips descartados.",
+      "labels": {
+        "stimulus": {
+          "title": "Clip completado",
+          "detail": "Estímulo audiovisual durante la sesión."
+        },
+        "visual": {
+          "title": "Corteza visual ↑",
+          "detail": "La señal visual aumenta."
+        },
+        "dacc": {
+          "title": "dACC ↓",
+          "detail": "Menor señal BOLD de monitoreo."
+        },
+        "dlpfc": {
+          "title": "dlPFC ↓",
+          "detail": "Menor señal BOLD de control."
+        }
+      }
+    },
+    "en": {
+      "title": "While you watch",
+      "question": "What changes during a completed clip?",
+      "takeaway": "During completed clips vision remains active while two control regions reduce activity relative to rest and to clips that were discarded.",
+      "alt": "Brain diagram during completed videos showing active visual cortex, lower dACC and dlPFC activity, and coordination between both regions.",
+      "caption": "During completed clips vision remains active while two control regions reduce activity relative to rest and to clips that were discarded.",
+      "labels": {
+        "stimulus": {
+          "title": "Completed clip",
+          "detail": "Audiovisual stimulus during the session."
+        },
+        "visual": {
+          "title": "Visual cortex ↑",
+          "detail": "Visual signal increases."
+        },
+        "dacc": {
+          "title": "dACC ↓",
+          "detail": "Lower monitoring-related BOLD signal."
+        },
+        "dlpfc": {
+          "title": "dlPFC ↓",
+          "detail": "Lower control-related BOLD signal."
+        }
+      }
+    }
+  },
+  "presentation": {
+    "direction": "auto",
+    "density": "normal"
+  },
+  "artwork": {
+    "es": "/images/notes/short-video-brain-state/es/02-mientras-miras.svg",
+    "en": "/images/notes/short-video-brain-state/en/02-while-you-watch.svg"
+  }
+}

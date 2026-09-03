@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" role="img" aria-labelledby="title desc">
+  <title id="title">Matriz para auditar un harness</title>
+  <desc id="desc">Tres columnas distinguen deuda que conviene borrar, límites que deben conservarse y capacidades ausentes que se deben añadir.</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b0c0a"/><stop offset="1" stop-color="#1b1d18"/></linearGradient><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#fff" stroke-opacity=".025"/></pattern></defs>
+  <rect width="1200" height="640" rx="24" fill="url(#bg)"/><rect width="1200" height="640" rx="24" fill="url(#grid)"/>
+  <text x="64" y="58" fill="#d4a574" font-family="monospace" font-size="15" letter-spacing="3">AUDITORÍA DEL HARNESS</text>
+  <text x="64" y="103" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="34" font-weight="700">Cada pieza tiene que ganar su lugar.</text>
+
+  <g transform="translate(64 146)">
+    <rect width="330" height="392" rx="20" fill="#211713" stroke="#8b4d34"/>
+    <circle cx="38" cy="42" r="19" fill="#8b3d24"/><path d="M28 42H48" stroke="#fff" stroke-width="3"/>
+    <text x="70" y="49" fill="#e6b59e" font-family="monospace" font-size="15" letter-spacing="2">BORRAR DEUDA</text>
+    <text x="28" y="91" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="20" font-weight="700">Corrige un modelo que ya no existe</text>
+    <g fill="#c8b4a8" font-family="Arial, sans-serif" font-size="16"><text x="28" y="137">• workaround heredado</text><text x="28" y="172">• reglas contradictorias</text><text x="28" y="207">• tool duplicada</text><text x="28" y="242">• microgestión sin efecto</text></g>
+    <line x1="28" y1="278" x2="302" y2="278" stroke="#5d3d30"/>
+    <text x="28" y="310" fill="#aa7a64" font-family="monospace" font-size="11" letter-spacing="1">PREGUNTA</text>
+    <text x="28" y="340" fill="#e8ddd5" font-family="Arial, sans-serif" font-size="16">¿Qué falla repetida evita?</text>
+    <text x="28" y="368" fill="#8f847d" font-family="Arial, sans-serif" font-size="14">Si nadie sabe, ablación.</text>
+  </g>
+  <g transform="translate(435 146)">
+    <rect width="330" height="392" rx="20" fill="#201c15" stroke="#9b7449"/>
+    <circle cx="38" cy="42" r="19" fill="#92551d"/><path d="M28 42L35 49 49 33" fill="none" stroke="#fff" stroke-width="3"/>
+    <text x="70" y="49" fill="#e7bd92" font-family="monospace" font-size="15" letter-spacing="2">CONSERVAR LÍMITES</text>
+    <text x="28" y="91" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="20" font-weight="700">Define autoridad y evidencia</text>
+    <g fill="#d0c0ad" font-family="Arial, sans-serif" font-size="16"><text x="28" y="137">• permisos y sandbox</text><text x="28" y="172">• tests y schemas</text><text x="28" y="207">• presupuesto y políticas</text><text x="28" y="242">• condición de salida</text></g>
+    <line x1="28" y1="278" x2="302" y2="278" stroke="#59472f"/>
+    <text x="28" y="310" fill="#b58a5c" font-family="monospace" font-size="11" letter-spacing="1">PREGUNTA</text>
+    <text x="28" y="340" fill="#e8e0d5" font-family="Arial, sans-serif" font-size="16">¿Protege algo irremplazable?</text>
+    <text x="28" y="368" fill="#91877a" font-family="Arial, sans-serif" font-size="14">No depende de inteligencia.</text>
+  </g>
+  <g transform="translate(806 146)">
+    <rect width="330" height="392" rx="20" fill="#171e16" stroke="#5f7953"/>
+    <circle cx="38" cy="42" r="19" fill="#526149"/><path d="M28 42H48M38 32V52" stroke="#fff" stroke-width="3"/>
+    <text x="70" y="49" fill="#b9d19f" font-family="monospace" font-size="15" letter-spacing="2">AÑADIR CAPACIDAD</text>
+    <text x="28" y="91" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="20" font-weight="700">Vuelve el mundo legible</text>
+    <g fill="#becbb6" font-family="Arial, sans-serif" font-size="16"><text x="28" y="137">• logs consultables</text><text x="28" y="172">• tools bien diseñadas</text><text x="28" y="207">• estado durable</text><text x="28" y="242">• evaluator independiente</text></g>
+    <line x1="28" y1="278" x2="302" y2="278" stroke="#354a31"/>
+    <text x="28" y="310" fill="#84a176" font-family="monospace" font-size="11" letter-spacing="1">PREGUNTA</text>
+    <text x="28" y="340" fill="#e1eadb" font-family="Arial, sans-serif" font-size="16">¿Puede percibirlo o actuar?</text>
+    <text x="28" y="368" fill="#879181" font-family="Arial, sans-serif" font-size="14">Un prompt no crea una interfaz.</text>
+  </g>
+  <text x="600" y="581" text-anchor="middle" fill="#8f8a7f" font-family="monospace" font-size="13" letter-spacing="1.5">NO CUENTES LÍNEAS · IDENTIFICA FUNCIONES · MIDE RESULTADOS</text>
+</svg>

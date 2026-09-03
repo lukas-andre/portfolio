@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" role="img" aria-labelledby="title desc">
+  <title id="title">Unhobbling puede añadir o retirar</title>
+  <desc id="desc">En 2024 se añaden capacidades para convertir un chatbot en agente. En 2026 se retiran correcciones que quedaron obsoletas tras una nueva generación del modelo.</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b0c0a"/><stop offset="1" stop-color="#1b1d18"/></linearGradient><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#fff" stroke-opacity=".025"/></pattern><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3 0 6Z" fill="#d4a574"/></marker></defs>
+  <rect width="1200" height="640" rx="24" fill="url(#bg)"/><rect width="1200" height="640" rx="24" fill="url(#grid)"/>
+  <text x="64" y="58" fill="#d4a574" font-family="monospace" font-size="15" letter-spacing="3">MISMO PRINCIPIO · DOS MOVIMIENTOS</text>
+  <text x="64" y="103" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="34" font-weight="700">Desbloquear no siempre significa quitar.</text>
+
+  <rect x="64" y="150" width="470" height="355" rx="22" fill="#141510" stroke="#46513e"/>
+  <text x="96" y="190" fill="#a9c48c" font-family="monospace" font-size="14" letter-spacing="2">2024 · AÑADIR CAPACIDAD</text>
+  <text x="96" y="225" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="24" font-weight="700">Del chatbot al agente</text>
+  <g font-family="Arial, sans-serif" font-size="16">
+    <g transform="translate(96 261)"><rect width="174" height="58" rx="12" fill="#1c2119" stroke="#526149"/><text x="87" y="35" text-anchor="middle" fill="#d8e3cd">razonamiento</text></g>
+    <g transform="translate(288 261)"><rect width="174" height="58" rx="12" fill="#1c2119" stroke="#526149"/><text x="87" y="35" text-anchor="middle" fill="#d8e3cd">herramientas</text></g>
+    <g transform="translate(96 337)"><rect width="174" height="58" rx="12" fill="#1c2119" stroke="#526149"/><text x="87" y="35" text-anchor="middle" fill="#d8e3cd">feedback</text></g>
+    <g transform="translate(288 337)"><rect width="174" height="58" rx="12" fill="#1c2119" stroke="#526149"/><text x="87" y="35" text-anchor="middle" fill="#d8e3cd">scaffolding</text></g>
+  </g>
+  <path d="M151 444H438" stroke="#a9c48c" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="96" y="478" fill="#878379" font-family="monospace" font-size="12">FALTA UNA INTERFAZ PARA ACTUAR</text>
+
+  <rect x="666" y="150" width="470" height="355" rx="22" fill="#141510" stroke="#654637"/>
+  <text x="698" y="190" fill="#d4a574" font-family="monospace" font-size="14" letter-spacing="2">2026 · RETIRAR DEUDA</text>
+  <text x="698" y="225" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="24" font-weight="700">Del workaround al modelo</text>
+  <g font-family="Arial, sans-serif" font-size="16">
+    <g transform="translate(698 261)"><rect width="174" height="58" rx="12" fill="#241a15" stroke="#79513d"/><text x="87" y="28" text-anchor="middle" fill="#dfc2ae">regla heredada</text><path d="M25 38H149" stroke="#a36f52" stroke-width="2"/></g>
+    <g transform="translate(890 261)"><rect width="174" height="58" rx="12" fill="#241a15" stroke="#79513d"/><text x="87" y="28" text-anchor="middle" fill="#dfc2ae">tool redundante</text><path d="M25 38H149" stroke="#a36f52" stroke-width="2"/></g>
+    <g transform="translate(698 337)"><rect width="174" height="58" rx="12" fill="#241a15" stroke="#79513d"/><text x="87" y="28" text-anchor="middle" fill="#dfc2ae">sobreverificar</text><path d="M25 38H149" stroke="#a36f52" stroke-width="2"/></g>
+    <g transform="translate(890 337)"><rect width="174" height="58" rx="12" fill="#241a15" stroke="#79513d"/><text x="87" y="28" text-anchor="middle" fill="#dfc2ae">microgestión</text><path d="M25 38H149" stroke="#a36f52" stroke-width="2"/></g>
+  </g>
+  <path d="M753 444H1040" stroke="#d4a574" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="698" y="478" fill="#878379" font-family="monospace" font-size="12">LA CORRECCIÓN SOBREVIVIÓ A LA FALLA</text>
+
+  <circle cx="600" cy="330" r="52" fill="#1d1d18" stroke="#d4a574" stroke-width="2"/>
+  <text x="600" y="320" text-anchor="middle" fill="#d4a574" font-family="monospace" font-size="12">NUEVO</text><text x="600" y="342" text-anchor="middle" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="16" font-weight="700">MODELO</text>
+  <path d="M542 330H556M644 330H658" stroke="#d4a574" stroke-width="2"/>
+
+  <rect x="64" y="540" width="1072" height="56" rx="12" fill="#151610" stroke="#34352f"/>
+  <text x="92" y="575" fill="#8f8a7f" font-family="monospace" font-size="13">LA DIRECCIÓN CAMBIA</text>
+  <text x="1110" y="576" text-anchor="end" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="19" font-weight="700">la prueba sigue siendo empírica</text>
+</svg>

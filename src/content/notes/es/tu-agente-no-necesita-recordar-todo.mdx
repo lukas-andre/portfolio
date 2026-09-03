@@ -1,0 +1,134 @@
+---
+translationKey: skill-state-long-horizon-agents
+lang: es
+title: Tu agente no necesita recordar todo. Necesita saber dónde está.
+description: >-
+  Un paper reemplaza el historial creciente de los agentes por estado de
+  ejecución explícito. Escala mejor, pero convierte qué recordar en una decisión
+  de arquitectura.
+updatedAt: '2026-09-01'
+tags:
+  - agentes
+  - estado
+  - memoria
+  - arquitectura
+aiAssisted: true
+---
+
+import Cite from '../../../components/notes/Cite.astro';
+import Callout from '../../../components/notes/Callout.astro';
+import MyTake from '../../../components/notes/MyTake.astro';
+import NoteFigure from '../../../components/notes/NoteFigure.astro';
+
+Imagina que contratas a alguien para administrar una bodega de 500 estantes. Cada vez que llega un pedido, esa persona vuelve a leer desde el principio un diario con todo lo que ha ocurrido: qué caja entró, qué pensó al verla, dónde la dejó, qué error cometió y cómo lo corrigió. Al comienzo funciona. Después de cien movimientos, encontrar la ubicación actual de una caja exige distinguir hechos vigentes de páginas que ya quedaron obsoletas.
+
+Eso se parece mucho a cómo ejecutamos agentes hoy. Para que “recuerden”, acumulamos instrucciones, observaciones, llamadas a herramientas, respuestas y razonamientos dentro de una conversación que crece en cada paso. El paper **SKILL.state** propone cambiar la unidad de continuidad: en vez de entregarle al modelo el diario completo, mostrarle un tablero con el estado actual. <Cite source="arxiv-2608.26263v2" locator="Resumen y §1" />
+
+<Callout kind="thesis" label="La tesis, en simple">
+  Un agente de larga duración no debería reconstruir el presente leyendo todo su pasado. Debería recibir una representación explícita y validada de dónde está ahora.
+</Callout>
+
+La idea parece obvia porque el software tradicional lleva décadas usando bases de datos, máquinas de estado y eventos. Lo menos obvio es aplicarla al contexto de un LLM: dejar que el razonamiento sea temporal, pero exigir que todo lo necesario para continuar se proyecte a una estructura durable.
+
+## El diario no es el presente
+
+En un runtime conversacional, el turno nuevo hereda observaciones viejas, acciones ejecutadas y explicaciones que quizá ya no describen el mundo. Cuando un archivo cambió, una orden fue cancelada o alguien movió una caja por fuera del agente, el contexto conserva simultáneamente la versión antigua y la corrección. El modelo debe decidir cuál creer.
+
+Los sistemas de memoria suelen resumir o recuperar fragmentos relevantes. Eso reduce presión, pero todavía representa el presente como texto reconstruido desde el pasado. SKILL.state hace otra cosa: vuelve el estado de ejecución una pieza de primera clase del runtime. <Cite source="arxiv-2608.26263v2" locator="§1 y §2.2" />
+
+<NoteFigure id="skill-state-long-horizon-agents/diary-vs-dashboard" />
+
+La ganancia no viene de que el modelo “recuerde mejor”. Viene de que el sistema deja de pedirle que haga de base de datos cada vez que necesita actuar.
+
+## Un tablero con tres piezas
+
+En el paso `t`, el agente recibe solamente:
+
+- `P`: la especificación inmutable del procedimiento, sus herramientas y reglas;
+- `Σt`: el estado de ejecución estructurado en ese momento;
+- `Ot`: la observación más reciente del entorno.
+
+El estado no es un párrafo escrito libremente. Tiene un schema definido para el dominio. En los 100 desafíos de InterCode CTF, por ejemplo, los autores reutilizan cinco campos: flags descubiertas, hipótesis probadas, archivos activos, directorio de trabajo y resumen de comandos. <Cite source="arxiv-2608.26263v2" locator="§3 y §3.1" />
+
+Ante esa entrada, el modelo produce tres cosas: razonamiento temporal `Rt`, un parche `ΔΣt` y una acción `at`. El runtime valida el parche, lo mezcla con el estado anterior, ejecuta la acción y descarta el razonamiento. El siguiente turno ve el nuevo estado, no la cadena de pensamiento anterior. <Cite source="arxiv-2608.26263v2" locator="§3.2, ecuaciones 3–4 y algoritmo 1" />
+
+<NoteFigure id="skill-state-long-horizon-agents/what-survives" />
+
+Aquí hay una distinción importante: **descartar el razonamiento del prompt futuro no significa borrar la historia del sistema**. Un producto puede conservar logs completos para auditoría o debugging sin reenviarlos al modelo en cada paso. El paper estudia qué entra al contexto de ejecución, no una prohibición de observar el sistema.
+
+## Por qué cambia la curva
+
+Si cada turno agrega texto al historial, el prompt del paso `t` crece aproximadamente con `t`. Sumado durante `T` pasos, el consumo acumulado crece como `O(T²)`. SKILL.state mantiene por paso solo `P + Σ + O`; si esas tres piezas permanecen acotadas, el prompt deja de depender del número de turnos y el consumo acumulado pasa a `O(T)`. <Cite source="arxiv-2608.26263v2" locator="§3.3, ecuaciones 5–7" />
+
+Ese **si** importa. Un estado que incorpora una lista nueva en cada turno también puede crecer. La afirmación correcta no es “usar JSON vuelve constante cualquier agente”, sino “un estado suficiente y acotado evita arrastrar la trayectoria completa”.
+
+## La evidencia fuerte: horizonte largo
+
+El benchmark controlado simula dos entornos: una bodega con 500 estantes y un repositorio de software con branches, commits, pull requests y CI. Ambos tienen transiciones verificables, lo que permite saber si la acción del agente corresponde al estado real. <Cite source="arxiv-2608.26263v2" locator="§4.1" />
+
+En Warehouse con Gemini-3-Flash, a 100 pasos SKILL.state reporta `0,94` de score con `65.408` tokens totales. El baseline que combina estado estructurado con historial completo logra `0,91` usando `1.062.387` tokens: `16,2×` más. A 200 pasos, SKILL.state conserva `0,94` con `122.384` tokens; el baseline de memoria llega a `0,84` usando más de `6,1 millones`. <Cite source="arxiv-2608.26263v2" locator="Tabla 1 y §5.2" />
+
+<Callout kind="evidence" label="Lo que esta prueba sí establece">
+  En tareas procedurales cuyo presente cabe en un schema conocido, alimentar estado estructurado puede mantener o mejorar el desempeño usando una fracción del contexto acumulado por los baselines evaluados.
+</Callout>
+
+## Cortar texto no equivale a conservar estado
+
+La objeción obvia es: “claro que usa menos tokens; también podríamos truncar o resumir el historial”. La versión `v2` fortalece justamente ese punto con un control donde los métodos reciben un presupuesto cercano a 1.800 tokens.
+
+A 100 pasos, la ventana truncada cae a `0,18`, LLMLingua a `0,22` y el resumen acotado a `0,52`. SKILL.state llega a `0,94`. Los compresores eliminan identificadores que parecen redundantes como texto, pero siguen siendo relaciones esenciales para ubicar objetos. <Cite source="arxiv-2608.26263v2" locator="§5.6, tabla 5 y apéndice D.2, tabla 11" />
+
+<NoteFigure id="skill-state-long-horizon-agents/same-budget" />
+
+La frase útil es: **comprimir decide qué texto parece prescindible; un schema decide qué relación debe sobrevivir**.
+
+## La señal se sostiene fuera del laboratorio, con matices
+
+En benchmarks públicos, el paper reporta el mejor resultado de sus cuatro configuraciones: `54,2%` pass@1 en InterCode CTF, `58,3%` en τ-Bench Retail y `32,4%` en τ-Bench Airline. También reduce tokens frente a ReAct y al baseline stateful. <Cite source="arxiv-2608.26263v2" locator="Tabla 4 y §5.5" />
+
+Es una señal prometedora, no una victoria total. Un `32,4%` en Airline sigue significando que la mayoría de los casos no termina correctamente. El paper demuestra una mejor arquitectura de contexto dentro de esos benchmarks; no demuestra operación autónoma segura, menor costo total en producción ni confiabilidad durante meses.
+
+Tampoco conviene leer “Stateful (LangGraph-style)” como si LangGraph obligara a conservar historial. Ese es el nombre de una configuración experimental que inyecta estado **junto con** el transcript completo. La comparación aísla esa decisión de contexto, no una incapacidad esencial del framework. <Cite source="arxiv-2608.26263v2" locator="§5.1 y apéndice A.3" />
+
+## El schema decide qué puede olvidarse
+
+Todo el enfoque depende de que `Σt` sea una “estadística suficiente” del pasado: que contenga cada cosa antigua capaz de cambiar una decisión futura. El propio paper reconoce tres situaciones donde esa premisa falla: cuando el schema todavía debe descubrirse, cuando una observación cobra importancia después de haber sido descartada y cuando la trayectoria histórica es el resultado buscado —por ejemplo, para auditoría, provenance o explicación. <Cite source="arxiv-2608.26263v2" locator="§7 Limitations" />
+
+<Callout kind="limit" label="El límite central">
+  Un estado explícito no elimina la pérdida de información. Convierte esa pérdida en una decisión de diseño: alguien debe anticipar qué merece sobrevivir.
+</Callout>
+
+La validación tampoco vuelve verdadero al estado. Puede rechazar JSON roto, tipos incorrectos o claves prohibidas; no siempre detecta que el modelo borró un hecho válido. En Gemma a 100 pasos, `68%` de los fallos analizados corresponde precisamente a sobrescrituras o eliminaciones prematuras. Con modelos pequeños, la ventaja de accuracy casi desaparece al horizonte más largo. <Cite source="arxiv-2608.26263v2" locator="§5.7 y apéndice D, tablas 7–8" />
+
+Y queda una frontera abierta: los experimentos son single-agent. Un estado compartido por varios agentes necesita ownership, control de concurrencia y una semántica determinística para resolver patches incompatibles. Los autores lo dejan como trabajo futuro. <Cite source="arxiv-2608.26263v2" locator="§7 Limitations" />
+
+## Mi lectura: estado, memoria y log no son sinónimos
+
+<MyTake title="Cómo lo conecto con mi stack">
+  En mi sistema, Lucas Brain conserva conocimiento y decisiones reutilizables entre trabajos. Herdr mantiene continuidad y control sobre sesiones de agentes. Ninguna de esas dos cosas sustituye automáticamente un estado tipado dentro de cada workflow. Y el audit log cumple una cuarta función: dejar evidencia completa sin obligar al modelo a releerla siempre.
+</MyTake>
+
+No estoy diciendo que Brain + Herdr ya implementen SKILL.state de punta a punta. La consecuencia práctica es otra: cuando diseño un harness, debo decidir explícitamente cuatro superficies.
+
+1. **Especificación:** qué resultado, herramientas y restricciones no cambian durante el run.
+2. **Estado de ejecución:** qué hechos compactos necesita el siguiente paso.
+3. **Memoria durable:** qué aprendizaje vale la pena reutilizar en otros runs.
+4. **Audit log:** qué trayectoria completa necesito conservar para explicar o depurar.
+
+Mezclarlas produce dos extremos malos. Si todo se vuelve prompt, el agente se ahoga en su biografía. Si todo se resume en cinco campos, el sistema puede olvidar justo la excepción que mañana importará.
+
+## Qué implementaría hoy
+
+- Diseñar un schema por workflow, no un “memory.json” universal.
+- Usar patches parciales con merge determinístico; nunca pedir al modelo que reescriba todo el estado sin protección.
+- Validar invariantes de dominio, no solo sintaxis y tipos.
+- Conservar un event log append-only fuera del prompt.
+- Crear un campo o escalamiento para hechos que no caben en el schema esperado.
+- Medir omisiones y borrados semánticos, además de tokens y JSON válido.
+- Definir ownership y resolución de conflictos antes de compartir estado entre agentes.
+
+<MyTake title="Conclusión">
+  Los agentes largos no necesitan una memoria fotográfica. Necesitan una buena representación del presente, una memoria separada para lo reusable y un registro completo para rendir cuentas. SKILL.state demuestra que esa separación puede ahorrar muchísimo contexto; también nos recuerda que decidir qué sobrevive es una de las decisiones más delicadas del sistema.
+</MyTake>
+
+Si recuerdas cinco cosas: historial no es estado; corto no significa estructurado; la ventaja de tokens es más fuerte que la de éxito absoluto; el schema puede olvidar; y los logs pueden quedarse fuera del prompt sin desaparecer.

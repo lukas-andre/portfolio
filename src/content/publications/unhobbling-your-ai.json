@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "kind": "essay",
+  "issue": "004",
+  "topics": [
+    "agentic-systems",
+    "harness-engineering",
+    "prompting",
+    "evaluation"
+  ],
+  "related": [
+    "agents-building-their-own-harness",
+    "end-of-software-engineering",
+    "skill-state-long-horizon-agents"
+  ],
+  "sourceRoles": [
+    {
+      "ref": "yc-boris-cherny-building-claude-code-2026",
+      "role": "primary"
+    },
+    {
+      "ref": "situational-awareness-unhobbling-2024",
+      "role": "context"
+    },
+    {
+      "ref": "anthropic-prompting-claude-opus-5",
+      "role": "supporting"
+    },
+    {
+      "ref": "anthropic-harness-design-long-running-apps-2026",
+      "role": "supporting"
+    },
+    {
+      "ref": "anthropic-trustworthy-agents-2026",
+      "role": "context"
+    }
+  ],
+  "editions": {
+    "es": {
+      "slug": "deja-de-estorbarle-a-tu-ia"
+    },
+    "en": {
+      "slug": "stop-hobbling-your-ai"
+    }
+  },
+  "visuals": [
+    "unhobbling-your-ai/product-overhang",
+    "unhobbling-your-ai/add-and-remove",
+    "unhobbling-your-ai/delete-keep-add",
+    "unhobbling-your-ai/ablation-loop"
+  ],
+  "featuredVisual": "unhobbling-your-ai/product-overhang",
+  "researchPacket": "brain://library/paper-to-portfolio/works/unhobbling-your-ai.json",
+  "researchDigest": "d715c7d0b000a43eca7a7610a18e657283cc3723271778dadc00bc63788325f0",
+  "angleApproval": {
+    "approvedAt": "2026-09-02",
+    "approvedBy": "Lucas",
+    "readerPromise": "Distinguir cuándo desbloquear un modelo exige retirar deuda, conservar límites o añadir una capacidad que todavía falta.",
+    "thesis": "Unhobbling trata cada componente del harness como una hipótesis que debe ganar su costo frente al modelo y la tarea actuales.",
+    "counterpoint": "Borrar reglas no es una estrategia universal: capacidad, autorización y seguridad siguen siendo problemas diferentes."
+  },
+  "visibility": "draft"
+}

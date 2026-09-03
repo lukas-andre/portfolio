@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "translationKey": "skill-state-long-horizon-agents",
+  "kind": "comparison",
+  "claimRefs": [
+    "claim-01",
+    "claim-02"
+  ],
+  "model": {
+    "items": [
+      {
+        "id": "history",
+        "tone": "muted"
+      },
+      {
+        "id": "state",
+        "tone": "amber"
+      }
+    ]
+  },
+  "copy": {
+    "es": {
+      "title": "Diario versus tablero",
+      "question": "¿Releer todo el pasado o representar el presente?",
+      "takeaway": "El historial obliga a reconstruir el presente desde el pasado; el estado explícito entrega una vista compacta de dónde está el agente ahora.",
+      "alt": "Comparación entre un agente que relee un historial cada vez más largo y otro que consulta una especificación, un tablero de estado y la última observación.",
+      "caption": "El historial obliga a reconstruir el presente desde el pasado; el estado explícito entrega una vista compacta de dónde está el agente ahora.",
+      "labels": {
+        "history": {
+          "title": "El diario",
+          "detail": "Reconstruye el presente leyendo observaciones, razones y acciones acumuladas."
+        },
+        "state": {
+          "title": "El tablero",
+          "detail": "Combina procedimiento fijo, estado actual y última observación."
+        }
+      }
+    },
+    "en": {
+      "title": "Diary versus dashboard",
+      "question": "Reread the whole past, or represent the present?",
+      "takeaway": "History reconstructs the present from the past; explicit state gives the agent a compact view of where it is now.",
+      "alt": "A comparison between an agent that rereads an ever-growing history and one that inspects a specification, an execution-state dashboard, and the latest observation.",
+      "caption": "History reconstructs the present from the past; explicit state gives the agent a compact view of where it is now.",
+      "labels": {
+        "history": {
+          "title": "The diary",
+          "detail": "Reconstructs the present from accumulated observations, reasons, and actions."
+        },
+        "state": {
+          "title": "The dashboard",
+          "detail": "Combines fixed procedure, current state, and latest observation."
+        }
+      }
+    }
+  },
+  "presentation": {
+    "direction": "auto",
+    "density": "normal"
+  },
+  "artwork": {
+    "es": "/images/notes/skill-state-long-horizon-agents/es/01-diario-vs-tablero.svg",
+    "en": "/images/notes/skill-state-long-horizon-agents/en/01-diary-vs-dashboard.svg"
+  }
+}

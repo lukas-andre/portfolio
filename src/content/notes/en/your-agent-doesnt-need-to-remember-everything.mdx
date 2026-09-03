@@ -1,0 +1,133 @@
+---
+translationKey: skill-state-long-horizon-agents
+lang: en
+title: Your Agent Doesn’t Need to Remember Everything. It Needs to Know Where It Is.
+description: >-
+  A paper replaces growing agent histories with explicit execution state. It
+  scales better, but turns what to remember into an architecture decision.
+updatedAt: '2026-09-01'
+tags:
+  - agents
+  - state
+  - memory
+  - architecture
+aiAssisted: true
+---
+
+import Cite from '../../../components/notes/Cite.astro';
+import Callout from '../../../components/notes/Callout.astro';
+import MyTake from '../../../components/notes/MyTake.astro';
+import NoteFigure from '../../../components/notes/NoteFigure.astro';
+
+Imagine hiring someone to run a warehouse with 500 shelves. Whenever an order arrives, they reread a diary from page one: every box received, every thought about where to put it, every move, every mistake, and every correction. It works at first. After a hundred moves, finding one box means separating the facts that are still true from pages the world has already made obsolete.
+
+That is surprisingly close to how many agents maintain continuity today. To help them “remember,” we accumulate instructions, observations, tool calls, responses, and reasoning in a conversation that grows at every step. **SKILL.state** proposes a different unit of continuity: stop handing the model the entire diary and give it a dashboard of the current execution state. <Cite source="arxiv-2608.26263v2" locator="Abstract and §1" />
+
+<Callout kind="thesis" label="The thesis, without the jargon">
+  A long-running agent should not reconstruct the present by rereading its entire past. It should receive an explicit, validated representation of where it is now.
+</Callout>
+
+The idea sounds familiar because ordinary software has used databases, state machines, and event logs for decades. The less obvious move is applying the same discipline to an LLM context: let reasoning be temporary, but require everything needed for continuity to land in a durable structure.
+
+## A diary is not the present
+
+In a conversational runtime, a new turn inherits old observations, actions, and explanations that may no longer describe the world. If a file changed, an order was canceled, or another actor moved a box, the prompt can contain both the stale fact and its correction. The model must decide which one wins.
+
+Memory systems often summarize the transcript or retrieve a relevant fragment. That relieves context pressure, but the present is still represented as prose reconstructed from the past. SKILL.state instead makes execution state a first-class runtime object. <Cite source="arxiv-2608.26263v2" locator="§1 and §2.2" />
+
+<NoteFigure id="skill-state-long-horizon-agents/diary-vs-dashboard" />
+
+The gain does not come from making the model “remember better.” It comes from no longer asking the model to impersonate a database every time it acts.
+
+## A dashboard with three inputs
+
+At step `t`, the agent receives only:
+
+- `P`: the immutable procedure, tools, and rules;
+- `Σt`: the structured execution state at that moment;
+- `Ot`: the latest observation from the environment.
+
+State is not a free-form paragraph. It follows a domain schema. Across all 100 InterCode CTF challenges, for example, the authors reuse five fields: discovered flags, tested hypotheses, active files, working directory, and a command summary. <Cite source="arxiv-2608.26263v2" locator="§3 and §3.1" />
+
+Given those inputs, the model produces temporary reasoning `Rt`, a state patch `ΔΣt`, and an action `at`. The runtime validates and merges the patch, executes the action, and discards the reasoning. The next turn sees the new state—not the previous chain of thought. <Cite source="arxiv-2608.26263v2" locator="§3.2, equations 3–4, and algorithm 1" />
+
+<NoteFigure id="skill-state-long-horizon-agents/what-survives" />
+
+One distinction matters here: **removing reasoning from future prompts does not mean erasing the system’s history**. A production system can retain complete logs for audit and debugging without resending those logs to the model at every step. The paper studies execution context, not a ban on observability.
+
+## Why the curve changes
+
+When every turn appends more text, the prompt at step `t` grows roughly with `t`. Across `T` steps, cumulative context consumption grows as `O(T²)`. SKILL.state keeps only `P + Σ + O` at each step. If those three inputs remain bounded, prompt size stops depending on the number of previous turns and cumulative consumption becomes `O(T)`. <Cite source="arxiv-2608.26263v2" locator="§3.3, equations 5–7" />
+
+That **if** is doing real work. A state object that adds a new record on every turn can grow too. The defensible claim is not “JSON makes every agent constant-size.” It is that a sufficient, bounded state avoids carrying the full trajectory.
+
+## The strongest evidence: long horizons
+
+The controlled benchmark simulates two environments: a warehouse with 500 shelves and a software repository with branches, commits, pull requests, and CI. Both have verifiable transitions, so the evaluator knows whether an action matches the real state. <Cite source="arxiv-2608.26263v2" locator="§4.1" />
+
+On Warehouse with Gemini-3-Flash at 100 steps, SKILL.state reports a `0.94` score using `65,408` total tokens. The baseline that combines structured state with full history scores `0.91` using `1,062,387` tokens—`16.2×` as many. At 200 steps, SKILL.state holds `0.94` with `122,384` tokens, while the memory baseline reaches `0.84` using more than `6.1 million`. <Cite source="arxiv-2608.26263v2" locator="Table 1 and §5.2" />
+
+<Callout kind="evidence" label="What this experiment establishes">
+  In procedural tasks whose present fits a known schema, structured execution state can match or improve performance while using a fraction of the accumulated context consumed by the evaluated baselines.
+</Callout>
+
+## Cutting text is not the same as preserving state
+
+The obvious objection is: “Of course it uses fewer tokens. Why not just truncate or summarize the history?” Version `v2` directly strengthens this part of the paper with controls near a 1,800-token target.
+
+At 100 steps, the sliding window falls to `0.18`, LLMLingua to `0.22`, and the capped summary to `0.52`. SKILL.state reaches `0.94`. Text compressors remove identifiers that look redundant statistically but still encode essential relationships between objects and locations. <Cite source="arxiv-2608.26263v2" locator="§5.6, table 5, and appendix D.2, table 11" />
+
+<NoteFigure id="skill-state-long-horizon-agents/same-budget" />
+
+The useful distinction is: **compression decides which text looks expendable; a schema decides which relationship must survive**.
+
+## The signal travels beyond the lab—with caveats
+
+On public benchmarks, the paper reports the best result among its four configurations: `54.2%` pass@1 on InterCode CTF, `58.3%` on τ-Bench Retail, and `32.4%` on τ-Bench Airline. It also reduces total tokens relative to ReAct and the stateful baseline. <Cite source="arxiv-2608.26263v2" locator="Table 4 and §5.5" />
+
+That is promising, not conclusive. A `32.4%` Airline pass rate still means most cases do not finish correctly. The paper supports a better context architecture inside these evaluations. It does not establish safe autonomous operation, lower total production cost, or reliability over months.
+
+Nor should “Stateful (LangGraph-style)” be read as proof that LangGraph requires full history. That is the name of an experimental configuration that injects structured state **alongside** the complete transcript. The comparison isolates a context-management choice, not a fundamental limitation of the framework. <Cite source="arxiv-2608.26263v2" locator="§5.1 and appendix A.3" />
+
+## The schema decides what may be forgotten
+
+The entire approach relies on `Σt` acting as a “sufficient statistic” of the past: every old fact that could change a future decision must already be represented there. The paper names three cases where this breaks: the relevant schema must be discovered during execution; an observation becomes important only after it was discarded; or the historical trajectory itself is the desired output, as in audit, provenance, debugging, or explanation. <Cite source="arxiv-2608.26263v2" locator="§7 Limitations" />
+
+<Callout kind="limit" label="The central limit">
+  Explicit state does not eliminate information loss. It turns that loss into a design decision: someone must anticipate what deserves to survive.
+</Callout>
+
+Validation does not make the state true, either. It can reject malformed JSON, invalid types, or forbidden keys; it may not catch a model deleting a valid fact. At 100 steps with Gemma, `68%` of the analyzed failures are premature overwrites or deletions. On smaller models, the accuracy advantage nearly disappears at the longest horizon. <Cite source="arxiv-2608.26263v2" locator="§5.7 and appendix D, tables 7–8" />
+
+One more boundary remains open: the experiments are single-agent. State shared by multiple agents needs ownership, concurrency control, and deterministic semantics for conflicting patches. The authors leave that for future work. <Cite source="arxiv-2608.26263v2" locator="§7 Limitations" />
+
+## My take: state, memory, and logs are not synonyms
+
+<MyTake title="How this maps to my stack">
+  In my system, Lucas Brain retains knowledge and decisions worth reusing across jobs. Herdr preserves continuity and control across agent sessions. Neither automatically replaces typed state inside a workflow. An audit log serves yet another purpose: retaining complete evidence without forcing the model to reread it every time.
+</MyTake>
+
+I am not claiming that Brain + Herdr already implement SKILL.state end to end. The practical consequence is that a harness should name four separate surfaces.
+
+1. **Specification:** the outcome, tools, and constraints that remain fixed during the run.
+2. **Execution state:** the compact facts the next step needs.
+3. **Durable memory:** the learning worth carrying into other runs.
+4. **Audit log:** the full trajectory needed to explain or debug what happened.
+
+Conflating them creates two bad extremes. If everything becomes prompt, the agent drowns in its biography. If everything is reduced to five fields, the system may discard the exception that matters tomorrow.
+
+## What I would implement now
+
+- Design one schema per workflow, not a universal `memory.json`.
+- Apply partial patches with deterministic merge semantics; never ask the model to rewrite the entire state without protection.
+- Validate domain invariants, not only syntax and types.
+- Retain an append-only event log outside the prompt.
+- Add an explicit escape hatch for facts that do not fit the expected schema.
+- Measure semantic omissions and deletions alongside token count and JSON validity.
+- Define ownership and conflict resolution before multiple agents share mutable state.
+
+<MyTake title="Conclusion">
+  Long-running agents do not need photographic memory. They need a good representation of the present, separate memory for reusable knowledge, and a complete record for accountability. SKILL.state shows how much context that separation can save. It also reminds us that deciding what survives is one of the most consequential choices in the system.
+</MyTake>
+
+Five things to keep: history is not state; short is not the same as structured; the token result is stronger than the absolute success result; schemas can forget; and logs can remain outside the prompt without disappearing.

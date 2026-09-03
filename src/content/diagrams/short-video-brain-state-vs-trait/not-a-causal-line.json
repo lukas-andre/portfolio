@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "translationKey": "short-video-brain-state-vs-trait",
+  "kind": "steps",
+  "claimRefs": [
+    "claim-01",
+    "claim-02",
+    "claim-03"
+  ],
+  "model": {
+    "items": [
+      {
+        "id": "acute",
+        "tone": "amber"
+      },
+      {
+        "id": "association",
+        "tone": "sage"
+      },
+      {
+        "id": "transition",
+        "tone": "rust"
+      }
+    ]
+  },
+  "copy": {
+    "es": {
+      "title": "La flecha que no existe",
+      "question": "¿Por qué estado y asociación no forman una causa?",
+      "takeaway": "Una respuesta durante el consumo y una diferencia entre grupos no demuestran que repetir la primera produzca la segunda.",
+      "alt": "Dos columnas separan el estado momentáneo al mirar videos de las diferencias asociadas al uso problemático, con una flecha causal rota.",
+      "caption": "Una respuesta durante el consumo y una diferencia entre grupos no demuestran que repetir la primera produzca la segunda.",
+      "labels": {
+        "acute": {
+          "title": "Estado agudo observado",
+          "detail": "Menor BOLD durante clips completados en la misma sesión."
+        },
+        "association": {
+          "title": "Asociación de grupo observada",
+          "detail": "Diferencias de volumen y reposo en una fotografía transversal."
+        },
+        "transition": {
+          "title": "Transición no observada",
+          "detail": "Faltan baseline común, seguimiento y alternativas causales."
+        }
+      }
+    },
+    "en": {
+      "title": "The arrow that is not there",
+      "question": "Why do state and association not form a cause?",
+      "takeaway": "A response during consumption and a difference between groups do not establish that repeating the first produces the second.",
+      "alt": "Two columns separate the temporary viewing state from differences linked to problematic use, with a broken causal arrow between them.",
+      "caption": "A response during consumption and a difference between groups do not establish that repeating the first produces the second.",
+      "labels": {
+        "acute": {
+          "title": "Observed acute state",
+          "detail": "Lower BOLD during completed clips in the same session."
+        },
+        "association": {
+          "title": "Observed group association",
+          "detail": "Volume and resting-state differences in a cross-sectional snapshot."
+        },
+        "transition": {
+          "title": "Unobserved transition",
+          "detail": "A shared baseline, follow-up, and causal alternatives are missing."
+        }
+      }
+    }
+  },
+  "presentation": {
+    "direction": "auto",
+    "density": "normal"
+  },
+  "artwork": {
+    "es": "/images/notes/short-video-brain-state/es/03-no-es-una-linea-causal.svg",
+    "en": "/images/notes/short-video-brain-state/en/03-not-a-causal-line.svg"
+  }
+}

@@ -1,5 +1,4 @@
 import { readFile } from 'node:fs/promises';
-import { createRequire } from 'node:module';
 import { extname, resolve, sep } from 'node:path';
 import type { ReactNode } from 'react';
 import satori from 'satori';
@@ -22,12 +21,17 @@ type ProfileSocialCard = {
 
 type NoteSocialCard = {
   kind: 'note';
+  noteKind: 'single' | 'synthesis' | 'essay';
   title: string;
   lang: 'es' | 'en';
   issue: number;
   dateLabel: string;
   tags: readonly string[];
-  diagramPath: string;
+  visual: {
+    title: string;
+    takeaway: string;
+    items: Array<{ title: string; tone?: string }>;
+  };
 };
 
 export type SocialCardInput = ProfileSocialCard | NoteSocialCard;
@@ -49,11 +53,7 @@ const colors = {
 
 const projectRoot = process.cwd();
 const publicRoot = resolve(projectRoot, 'public');
-const { Resvg } = createRequire(import.meta.url)('@resvg/resvg-js') as typeof import('@resvg/resvg-js');
 const fontFiles = {
-  diagramSansRegular: resolve(projectRoot, 'node_modules/dejavu-fonts-ttf/ttf/DejaVuSans.ttf'),
-  diagramSansBold: resolve(projectRoot, 'node_modules/dejavu-fonts-ttf/ttf/DejaVuSans-Bold.ttf'),
-  diagramMonoRegular: resolve(projectRoot, 'node_modules/dejavu-fonts-ttf/ttf/DejaVuSansMono.ttf'),
   jetbrainsMonoMedium: resolve(projectRoot, 'node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-500-normal.woff'),
   newsreaderSemibold: resolve(projectRoot, 'node_modules/@fontsource/newsreader/files/newsreader-latin-600-normal.woff'),
 };
@@ -93,25 +93,6 @@ async function assetDataUri(assetPath: string) {
   const absolutePath = publicAssetPath(assetPath);
   const data = await readFile(absolutePath);
   return `data:${mimeType(absolutePath)};base64,${data.toString('base64')}`;
-}
-
-async function diagramDataUri(assetPath: string) {
-  const absolutePath = publicAssetPath(assetPath);
-  if (extname(absolutePath).toLowerCase() !== '.svg') return assetDataUri(assetPath);
-
-  const source = await readFile(absolutePath);
-  const diagram = new Resvg(source, {
-    fitTo: { mode: 'width', value: 1200 },
-    font: {
-      fontFiles: [fontFiles.diagramSansRegular, fontFiles.diagramSansBold, fontFiles.diagramMonoRegular],
-      loadSystemFonts: false,
-      defaultFontFamily: 'DejaVu Sans',
-      sansSerifFamily: 'DejaVu Sans',
-      monospaceFamily: 'DejaVu Sans Mono',
-    },
-  });
-
-  return `data:image/png;base64,${Buffer.from(diagram.render().asPng()).toString('base64')}`;
 }
 
 function Grid() {
@@ -242,9 +223,23 @@ function titleFontSize(title: string) {
   return 66;
 }
 
-function NoteCard({ card, diagram }: { card: NoteSocialCard; diagram: string }) {
+function visualTone(tone?: string) {
+  if (tone === 'sage') return colors.sage;
+  if (tone === 'rust') return colors.rust;
+  if (tone === 'amber') return colors.amber;
+  if (tone === 'muted') return colors.faint;
+  return colors.ink;
+}
+
+function NoteCard({ card }: { card: NoteSocialCard }) {
   const isSpanish = card.lang === 'es';
   const issue = String(card.issue).padStart(3, '0');
+  const noteLabel = card.noteKind === 'essay'
+    ? (isSpanish ? 'ENSAYO / INVESTIGACIÓN' : 'ESSAY / RESEARCH')
+    : card.noteKind === 'synthesis'
+      ? (isSpanish ? 'SÍNTESIS / EVIDENCIA' : 'SYNTHESIS / EVIDENCE')
+      : (isSpanish ? 'PAPER / EXPLICADO' : 'PAPER / EXPLAINED');
+  const notebookLabel = isSpanish ? 'investigación · sistemas · evidencia' : 'research · systems · evidence';
   return (
     <Frame>
       <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', padding: '54px 58px 50px 76px' }}>
@@ -259,7 +254,7 @@ function NoteCard({ card, diagram }: { card: NoteSocialCard; diagram: string }) 
 
           <div style={{ marginTop: 47, display: 'flex', flexDirection: 'column' }}>
             <span style={{ fontFamily: 'JetBrains Mono', fontSize: 13, color: colors.sage, letterSpacing: 1.3, textTransform: 'uppercase' }}>
-              PAPER / {isSpanish ? 'EXPLICADO' : 'EXPLAINED'}
+              {noteLabel}
             </span>
             <h1 style={{ margin: '18px 0 0', fontFamily: 'Newsreader', fontSize: titleFontSize(card.title), fontWeight: 600, lineHeight: 0.94, letterSpacing: -2.5, color: colors.ink }}>
               {card.title}
@@ -284,8 +279,19 @@ function NoteCard({ card, diagram }: { card: NoteSocialCard; diagram: string }) 
         <div style={{ flex: 1, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
           <div style={{ position: 'absolute', right: 0, top: 44, width: 430, height: 396, backgroundColor: '#cfb287', border: `2px solid ${colors.amber}` }} />
           <div style={{ position: 'absolute', right: 17, top: 27, width: 430, height: 396, display: 'flex', flexDirection: 'column', padding: 15, backgroundColor: colors.night, border: `7px solid ${colors.paperBright}`, boxShadow: '0 24px 45px rgba(42,33,21,.25)' }}>
-            <div style={{ width: '100%', height: 223, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', backgroundColor: colors.night }}>
-              <img src={diagram} width="400" height="214" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+            <div style={{ width: '100%', height: 223, display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: '14px 16px', backgroundColor: '#f3f0e8' }}>
+              <span style={{ fontFamily: 'JetBrains Mono', fontSize: 9, color: colors.sage, letterSpacing: 1.2 }}>{card.visual.title.toUpperCase()}</span>
+              <div style={{ flex: 1, display: 'flex', alignItems: 'stretch', margin: '12px -4px 0' }}>
+                {card.visual.items.slice(0, 4).map((item, index) => (
+                  <div key={`${item.title}-${index}`} style={{ flex: 1, display: 'flex', padding: '0 4px' }}>
+                    <div style={{ width: '100%', display: 'flex', flexDirection: 'column', padding: '11px 9px', border: `1px solid ${colors.paperDeep}`, borderTop: `4px solid ${visualTone(item.tone)}`, backgroundColor: colors.paperBright }}>
+                      <span style={{ fontFamily: 'JetBrains Mono', fontSize: 8, color: colors.faint }}>{String(index + 1).padStart(2, '0')}</span>
+                      <strong style={{ marginTop: 12, fontFamily: 'Newsreader', fontSize: card.visual.items.length > 3 ? 16 : 19, lineHeight: 1.05, color: colors.ink }}>{item.title}</strong>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <span style={{ marginTop: 9, fontFamily: 'JetBrains Mono', fontSize: 8, lineHeight: 1.3, color: colors.muted }}>{card.visual.takeaway}</span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 15, paddingTop: 12, borderTop: '1px solid #3c3a34', fontFamily: 'JetBrains Mono', fontSize: 10, color: '#d4a574', letterSpacing: 1.2 }}>
               <span>FIG. 01</span>
@@ -295,7 +301,7 @@ function NoteCard({ card, diagram }: { card: NoteSocialCard; diagram: string }) 
               <div style={{ width: 58, height: 58, borderRadius: 99, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #d4a574', color: '#f5f2eb', fontFamily: 'Newsreader', fontSize: 25 }}>{issue}</div>
               <div style={{ marginLeft: 15, display: 'flex', flexDirection: 'column', fontFamily: 'JetBrains Mono' }}>
                 <span style={{ fontSize: 10, color: '#7a756a', letterSpacing: 1 }}>FIELD NOTES</span>
-                <span style={{ marginTop: 5, fontSize: 12, color: '#c9c4b8' }}>software · agents · evidence</span>
+                <span style={{ marginTop: 5, fontSize: 12, color: '#c9c4b8' }}>{notebookLabel}</span>
               </div>
             </div>
           </div>
@@ -310,7 +316,7 @@ export async function renderSocialCard(card: SocialCardInput) {
   const [newsreader, jetbrainsMono] = await loadFonts();
   const element = card.kind === 'profile'
     ? <ProfileCard card={card} portrait={await assetDataUri(card.portraitPath)} />
-    : <NoteCard card={card} diagram={await diagramDataUri(card.diagramPath)} />;
+    : <NoteCard card={card} />;
 
   const svg = await satori(element, {
     width: SOCIAL_CARD_WIDTH,
@@ -326,11 +332,13 @@ export async function renderSocialCard(card: SocialCardInput) {
     .toBuffer();
 }
 
-export function socialCardResponse(image: Buffer) {
+export function socialCardResponse(image: Buffer, immutable = true) {
   return new Response(new Uint8Array(image), {
     headers: {
       'Content-Type': 'image/png',
-      'Cache-Control': 'public, max-age=31536000, immutable',
+      'Cache-Control': immutable
+        ? 'public, max-age=31536000, immutable'
+        : 'public, max-age=3600, must-revalidate',
     },
   });
 }

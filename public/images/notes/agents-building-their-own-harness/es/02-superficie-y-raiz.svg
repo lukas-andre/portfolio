@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" role="img" aria-labelledby="title desc">
+  <title id="title">Superficie editable y raíz de confianza</title>
+  <desc id="desc">El agente puede editar prompts, tools, memoria y middleware en una zona aislada. Evaluador, permisos, secretos, presupuesto y rollback permanecen protegidos.</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b0c0a"/><stop offset="1" stop-color="#1b1d18"/></linearGradient><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#fff" stroke-opacity=".025"/></pattern><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3 0 6Z" fill="#a9c48c"/></marker></defs>
+  <rect width="1200" height="640" rx="24" fill="url(#bg)"/><rect width="1200" height="640" rx="24" fill="url(#grid)"/>
+  <text x="64" y="58" fill="#d4a574" font-family="monospace" font-size="15" letter-spacing="3">AUTORÍA AMPLIA · AUTORIDAD ACOTADA</text>
+  <text x="64" y="103" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="34" font-weight="700">Puede editar el harness. No su verdad.</text>
+
+  <rect x="64" y="145" width="1072" height="250" rx="22" fill="#151811" stroke="#526149" stroke-dasharray="7 7"/>
+  <text x="92" y="180" fill="#a9c48c" font-family="monospace" font-size="13" letter-spacing="2">SUPERFICIE EDITABLE · WORKSPACE AISLADO</text>
+  <g font-family="Arial, sans-serif">
+    <g transform="translate(92 211)"><rect width="210" height="104" rx="14" fill="#1c2119" stroke="#526149"/><text x="20" y="31" fill="#8ba57d" font-family="monospace" font-size="11">01</text><text x="20" y="61" fill="#f5f2eb" font-size="20" font-weight="700">Prompts</text><text x="20" y="84" fill="#8d9688" font-size="13">reglas y contexto</text></g>
+    <g transform="translate(320 211)"><rect width="210" height="104" rx="14" fill="#1c2119" stroke="#526149"/><text x="20" y="31" fill="#8ba57d" font-family="monospace" font-size="11">02</text><text x="20" y="61" fill="#f5f2eb" font-size="20" font-weight="700">Tools</text><text x="20" y="84" fill="#8d9688" font-size="13">schemas y wrappers</text></g>
+    <g transform="translate(548 211)"><rect width="210" height="104" rx="14" fill="#1c2119" stroke="#526149"/><text x="20" y="31" fill="#8ba57d" font-family="monospace" font-size="11">03</text><text x="20" y="61" fill="#f5f2eb" font-size="20" font-weight="700">Memoria</text><text x="20" y="84" fill="#8d9688" font-size="13">estado y retrieval</text></g>
+    <g transform="translate(776 211)"><rect width="210" height="104" rx="14" fill="#1c2119" stroke="#526149"/><text x="20" y="31" fill="#8ba57d" font-family="monospace" font-size="11">04</text><text x="20" y="61" fill="#f5f2eb" font-size="20" font-weight="700">Middleware</text><text x="20" y="84" fill="#8d9688" font-size="13">loops y recovery</text></g>
+  </g>
+  <path d="M1005 263H1082" stroke="#a9c48c" stroke-width="2" marker-end="url(#arrow)"/><text x="1044" y="245" text-anchor="middle" fill="#a9c48c" font-family="monospace" font-size="11">CANDIDATO</text><text x="1094" y="274" fill="#f5f2eb" font-family="monospace" font-size="15">H(t+1)</text>
+
+  <line x1="64" y1="424" x2="1136" y2="424" stroke="#a36f52" stroke-width="2"/>
+  <rect x="64" y="447" width="1072" height="130" rx="20" fill="#211714" stroke="#8b4d34"/>
+  <path d="M91 498V480C91 463 104 452 120 452S149 463 149 480V498" fill="none" stroke="#d39173" stroke-width="5"/><rect x="82" y="494" width="76" height="58" rx="11" fill="#2b1a15" stroke="#d39173"/>
+  <text x="184" y="479" fill="#d39173" font-family="monospace" font-size="13" letter-spacing="2">RAÍZ DE CONFIANZA · READ-ONLY</text>
+  <g fill="#f5f2eb" font-family="Arial, sans-serif" font-size="16"><text x="184" y="522">evaluador</text><text x="338" y="522">permisos</text><text x="486" y="522">secretos</text><text x="620" y="522">presupuesto</text><text x="795" y="522">regresiones</text><text x="973" y="522">rollback</text></g>
+  <g fill="#8e7469" font-family="monospace" font-size="11"><text x="184" y="550">¿MEJORÓ?</text><text x="338" y="550">¿PUEDE?</text><text x="486" y="550">¿ACCEDE?</text><text x="620" y="550">¿CUÁNTO?</text><text x="795" y="550">¿ROMPIÓ?</text><text x="973" y="550">¿VUELVE?</text></g>
+  <text x="1136" y="615" text-anchor="end" fill="#8f8a7f" font-family="monospace" font-size="12">EL CANDIDATO NO CAMBIA EL EXAMEN QUE LO PROMUEVE</text>
+</svg>

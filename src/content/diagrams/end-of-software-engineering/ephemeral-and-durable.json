@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "translationKey": "end-of-software-engineering",
+  "kind": "layers",
+  "claimRefs": [
+    "claim-01"
+  ],
+  "model": {
+    "items": [
+      {
+        "id": "ephemeral",
+        "tone": "amber"
+      },
+      {
+        "id": "durable",
+        "tone": "ink"
+      }
+    ]
+  },
+  "copy": {
+    "es": {
+      "title": "Dos capas, dos ritmos",
+      "question": "¿Qué puede ser descartable y qué debe durar?",
+      "takeaway": "Que parte del código sea descartable no vuelve descartable al sistema que lo ejecuta, observa y gobierna.",
+      "alt": "Diagrama por capas que separa código temporal de una tarea y la infraestructura durable que permite controlarlo.",
+      "caption": "Que parte del código sea descartable no vuelve descartable al sistema que lo ejecuta, observa y gobierna.",
+      "labels": {
+        "ephemeral": {
+          "title": "Capa efímera",
+          "detail": "Scripts, consultas, transformaciones y planes generados para una tarea."
+        },
+        "durable": {
+          "title": "Sustrato durable",
+          "detail": "Runtime, herramientas, permisos, memoria, trazas, tests y gobierno."
+        }
+      }
+    },
+    "en": {
+      "title": "Two layers, two timescales",
+      "question": "What may be disposable, and what must last?",
+      "takeaway": "Making some code disposable does not make the system that runs, observes, and governs it disposable.",
+      "alt": "Layer diagram separating temporary task code from the durable infrastructure required to control it.",
+      "caption": "Making some code disposable does not make the system that runs, observes, and governs it disposable.",
+      "labels": {
+        "ephemeral": {
+          "title": "Ephemeral layer",
+          "detail": "Scripts, queries, transformations, and plans generated for one task."
+        },
+        "durable": {
+          "title": "Durable substrate",
+          "detail": "Runtime, tools, permissions, memory, traces, tests, and governance."
+        }
+      }
+    }
+  },
+  "presentation": {
+    "direction": "auto",
+    "density": "normal"
+  },
+  "artwork": {
+    "es": "/images/notes/end-of-software-engineering/es/02-dos-capas.svg",
+    "en": "/images/notes/end-of-software-engineering/en/02-two-layers.svg"
+  }
+}

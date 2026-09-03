@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "kind": "essay",
+  "issue": "005",
+  "topics": [
+    "agentic-systems",
+    "harness-engineering",
+    "evaluation",
+    "safety"
+  ],
+  "related": [
+    "unhobbling-your-ai",
+    "end-of-software-engineering",
+    "skill-state-long-horizon-agents"
+  ],
+  "sourceRoles": [
+    {
+      "ref": "openai-harness-engineering-2026",
+      "role": "primary"
+    },
+    {
+      "ref": "openai-unrolling-codex-agent-loop-2026",
+      "role": "supporting"
+    },
+    {
+      "ref": "anthropic-writing-tools-for-agents-2025",
+      "role": "primary"
+    },
+    {
+      "ref": "anthropic-claude-code-auto-mode-2026",
+      "role": "supporting"
+    },
+    {
+      "ref": "anthropic-harness-design-long-running-apps-2026",
+      "role": "supporting"
+    },
+    {
+      "ref": "arxiv-2603.28052v1",
+      "role": "primary"
+    },
+    {
+      "ref": "arxiv-2606.09498v3",
+      "role": "primary"
+    },
+    {
+      "ref": "arxiv-2604.25850v1",
+      "role": "primary"
+    }
+  ],
+  "editions": {
+    "es": {
+      "slug": "puede-un-agente-construir-su-propio-harness"
+    },
+    "en": {
+      "slug": "can-an-agent-build-its-own-harness"
+    }
+  },
+  "visuals": [
+    "agents-building-their-own-harness/anatomy-of-no",
+    "agents-building-their-own-harness/editable-surface-root",
+    "agents-building-their-own-harness/evidence-map",
+    "agents-building-their-own-harness/safe-bootstrap-loop"
+  ],
+  "featuredVisual": "agents-building-their-own-harness/anatomy-of-no",
+  "researchPacket": "brain://library/paper-to-portfolio/works/agents-building-their-own-harness.json",
+  "researchDigest": "676f7dd50d2594ac6cb33368ce25b8cd6ae5f52844f3a11601ee10c7aced55d2",
+  "angleApproval": {
+    "approvedAt": "2026-09-02",
+    "approvedBy": "Lucas",
+    "readerPromise": "Entender qué parte de un harness puede construir un agente y qué autoridad debe permanecer fuera de su superficie editable.",
+    "thesis": "Un agente puede proponer Hₙ₊₁, pero no debería controlar simultáneamente el examen, los permisos y la promoción que certifican su cambio.",
+    "counterpoint": "Los casos actuales demuestran optimización acotada bajo evaluadores protegidos, no autogobierno abierto ni mejora segura universal."
+  },
+  "visibility": "draft"
+}

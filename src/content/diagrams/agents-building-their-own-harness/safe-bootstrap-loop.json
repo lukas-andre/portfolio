@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "translationKey": "agents-building-their-own-harness",
+  "kind": "loop",
+  "claimRefs": [
+    "claim-08"
+  ],
+  "model": {
+    "items": [
+      {
+        "id": "active",
+        "tone": "ink"
+      },
+      {
+        "id": "traces",
+        "tone": "muted"
+      },
+      {
+        "id": "propose",
+        "tone": "amber"
+      },
+      {
+        "id": "candidate",
+        "tone": "sage"
+      },
+      {
+        "id": "gate",
+        "tone": "rust"
+      },
+      {
+        "id": "promote",
+        "tone": "ink"
+      }
+    ]
+  },
+  "copy": {
+    "es": {
+      "title": "Bootstrap seguro",
+      "question": "¿Cómo construir Hₙ₊₁ sin soltar Hₙ?",
+      "takeaway": "Hacer bootstrap del harness es una transición H(t) a H(t+1), no una reescritura en vivo: propuesta, evidencia, gate externo, promoción y rollback.",
+      "alt": "Un ciclo seguro crea una variante aislada, ejecuta tareas y regresiones, exige aprobación externa y conserva la versión anterior para rollback.",
+      "caption": "Hacer bootstrap del harness es una transición H(t) a H(t+1), no una reescritura en vivo: propuesta, evidencia, gate externo, promoción y rollback.",
+      "labels": {
+        "active": {
+          "title": "Hₙ activo",
+          "detail": "Versión estable y recuperable."
+        },
+        "traces": {
+          "title": "Preservar evidencia",
+          "detail": "Trace, output, score y costo."
+        },
+        "propose": {
+          "title": "Proponer diff mínimo",
+          "detail": "El agente trabaja desde fallas observadas."
+        },
+        "candidate": {
+          "title": "Hₙ₊₁ aislado",
+          "detail": "Branch o sandbox sin secretos raíz."
+        },
+        "gate": {
+          "title": "Gate externo",
+          "detail": "Held-out, regresiones, costo, permisos y revisión."
+        },
+        "promote": {
+          "title": "Promover o rollback",
+          "detail": "El lineage conserva trace, diff, score y decisión."
+        }
+      }
+    },
+    "en": {
+      "title": "Safe bootstrap",
+      "question": "How do you build Hₙ₊₁ without releasing Hₙ?",
+      "takeaway": "Bootstrapping a harness is an H(t)-to-H(t+1) transition, not a live rewrite: proposal, evidence, external gate, promotion, and rollback.",
+      "alt": "A safe cycle creates an isolated variant, runs tasks and regressions, requires external approval, and preserves the previous version for rollback.",
+      "caption": "Bootstrapping a harness is an H(t)-to-H(t+1) transition, not a live rewrite: proposal, evidence, external gate, promotion, and rollback.",
+      "labels": {
+        "active": {
+          "title": "Active Hₙ",
+          "detail": "Stable, recoverable version."
+        },
+        "traces": {
+          "title": "Preserve evidence",
+          "detail": "Trace, output, score, and cost."
+        },
+        "propose": {
+          "title": "Propose minimal diff",
+          "detail": "The agent works from observed failures."
+        },
+        "candidate": {
+          "title": "Isolated Hₙ₊₁",
+          "detail": "Branch or sandbox without root secrets."
+        },
+        "gate": {
+          "title": "External gate",
+          "detail": "Held-out, regressions, cost, permissions, and review."
+        },
+        "promote": {
+          "title": "Promote or roll back",
+          "detail": "Lineage retains trace, diff, score, and decision."
+        }
+      }
+    }
+  },
+  "presentation": {
+    "direction": "auto",
+    "density": "compact"
+  },
+  "artwork": {
+    "es": "/images/notes/agents-building-their-own-harness/es/04-loop-bootstrap-seguro.svg",
+    "en": "/images/notes/agents-building-their-own-harness/en/04-safe-bootstrap-loop.svg"
+  }
+}

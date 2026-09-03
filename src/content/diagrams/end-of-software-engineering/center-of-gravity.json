@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "translationKey": "end-of-software-engineering",
+  "kind": "comparison",
+  "claimRefs": [
+    "claim-01"
+  ],
+  "model": {
+    "items": [
+      {
+        "id": "traditional",
+        "tone": "ink"
+      },
+      {
+        "id": "agentic",
+        "tone": "amber"
+      }
+    ]
+  },
+  "copy": {
+    "es": {
+      "title": "Cambio de centro de gravedad",
+      "question": "¿Dónde viven las decisiones?",
+      "takeaway": "El cambio central del paper: de ejecutar decisiones ya codificadas a decidir el siguiente paso durante la tarea.",
+      "alt": "Comparación entre software tradicional, con decisiones fijadas en código, y un agente que decide dentro de un ciclo de ejecución.",
+      "caption": "El cambio central del paper: de ejecutar decisiones ya codificadas a decidir el siguiente paso durante la tarea.",
+      "labels": {
+        "traditional": {
+          "title": "Software tradicional",
+          "detail": "Las decisiones quedan fijadas en código antes de ejecutar."
+        },
+        "agentic": {
+          "title": "Sistema agéntico",
+          "detail": "Parte de la siguiente acción se decide en runtime desde meta, límites y estado."
+        }
+      }
+    },
+    "en": {
+      "title": "Shift in the center of gravity",
+      "question": "Where do decisions live?",
+      "takeaway": "The paper's central shift: from executing pre-coded decisions to choosing the next step while the task is running.",
+      "alt": "Comparison between traditional software with decisions fixed in code and an agent deciding inside an execution loop.",
+      "caption": "The paper's central shift: from executing pre-coded decisions to choosing the next step while the task is running.",
+      "labels": {
+        "traditional": {
+          "title": "Traditional software",
+          "detail": "Decisions are fixed in code before execution."
+        },
+        "agentic": {
+          "title": "Agentic system",
+          "detail": "Part of the next action is chosen at runtime from goal, bounds, and state."
+        }
+      }
+    }
+  },
+  "presentation": {
+    "direction": "auto",
+    "density": "normal"
+  },
+  "artwork": {
+    "es": "/images/notes/end-of-software-engineering/es/01-centro-de-gravedad.svg",
+    "en": "/images/notes/end-of-software-engineering/en/01-center-of-gravity.svg"
+  }
+}

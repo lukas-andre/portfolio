@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "translationKey": "end-of-software-engineering",
+  "kind": "chart",
+  "claimRefs": [
+    "claim-05"
+  ],
+  "model": {
+    "items": [
+      {
+        "id": "step-1",
+        "tone": "sage",
+        "value": 95
+      },
+      {
+        "id": "step-5",
+        "tone": "sage",
+        "value": 77
+      },
+      {
+        "id": "step-10",
+        "tone": "amber",
+        "value": 60
+      },
+      {
+        "id": "step-15",
+        "tone": "rust",
+        "value": 46
+      },
+      {
+        "id": "step-20",
+        "tone": "rust",
+        "value": 36
+      }
+    ],
+    "maxValue": 100
+  },
+  "copy": {
+    "es": {
+      "title": "Fiabilidad compuesta",
+      "question": "¿Por qué una cadena larga sigue siendo frágil?",
+      "takeaway": "Modelo ilustrativo: con 95 por ciento de éxito por paso, veinte pasos perfectos juntos bajan a cerca de 36 por ciento.",
+      "alt": "Curva ilustrativa donde una cadena de pasos confiables pierde probabilidad de éxito total a medida que se alarga.",
+      "caption": "Modelo ilustrativo: con 95 por ciento de éxito por paso, veinte pasos perfectos juntos bajan a cerca de 36 por ciento.",
+      "labels": {
+        "step-1": {
+          "title": "1 paso",
+          "detail": "Probabilidad ilustrativa de trayectoria completa.",
+          "valueLabel": "95%"
+        },
+        "step-5": {
+          "title": "5 pasos",
+          "detail": "La confiabilidad compuesta ya cae.",
+          "valueLabel": "77%"
+        },
+        "step-10": {
+          "title": "10 pasos",
+          "detail": "Un buen paso no garantiza una buena trayectoria.",
+          "valueLabel": "60%"
+        },
+        "step-15": {
+          "title": "15 pasos",
+          "detail": "Los errores se acumulan.",
+          "valueLabel": "46%"
+        },
+        "step-20": {
+          "title": "20 pasos",
+          "detail": "Solo cerca de un tercio de las trayectorias sería perfecta.",
+          "valueLabel": "36%"
+        }
+      },
+      "note": "Los valores son reportados o ilustrativos según se indica en el artículo."
+    },
+    "en": {
+      "title": "Compounding reliability",
+      "question": "Why does a long chain remain fragile?",
+      "takeaway": "Illustrative model: at 95 percent success per step, twenty perfect steps together fall to roughly 36 percent.",
+      "alt": "Illustrative curve where a chain of reliable steps loses total success probability as it becomes longer.",
+      "caption": "Illustrative model: at 95 percent success per step, twenty perfect steps together fall to roughly 36 percent.",
+      "labels": {
+        "step-1": {
+          "title": "1 step",
+          "detail": "Illustrative probability of a fully correct trajectory.",
+          "valueLabel": "95%"
+        },
+        "step-5": {
+          "title": "5 steps",
+          "detail": "Compound reliability already drops.",
+          "valueLabel": "77%"
+        },
+        "step-10": {
+          "title": "10 steps",
+          "detail": "A good step does not guarantee a good trajectory.",
+          "valueLabel": "60%"
+        },
+        "step-15": {
+          "title": "15 steps",
+          "detail": "Errors accumulate.",
+          "valueLabel": "46%"
+        },
+        "step-20": {
+          "title": "20 steps",
+          "detail": "Only roughly a third of trajectories would be perfect.",
+          "valueLabel": "36%"
+        }
+      },
+      "note": "Values are reported or illustrative as stated in the article."
+    }
+  },
+  "presentation": {
+    "direction": "auto",
+    "density": "normal"
+  },
+  "artwork": {
+    "es": "/images/notes/end-of-software-engineering/es/03-fiabilidad-compuesta.svg",
+    "en": "/images/notes/end-of-software-engineering/en/03-compounding-reliability.svg"
+  }
+}

@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" role="img" aria-labelledby="title desc">
+  <title id="title">Anatomía de un no</title>
+  <desc id="desc">Un pedido atraviesa modelo, política, herramientas, entorno y verificador. Cada capa puede bloquearlo por una razón distinta.</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b0c0a"/><stop offset="1" stop-color="#1b1d18"/></linearGradient><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#fff" stroke-opacity=".025"/></pattern><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3 0 6Z" fill="#77776d"/></marker></defs>
+  <rect width="1200" height="640" rx="24" fill="url(#bg)"/><rect width="1200" height="640" rx="24" fill="url(#grid)"/>
+  <text x="64" y="58" fill="#d4a574" font-family="monospace" font-size="15" letter-spacing="3">FRICCIÓN ≠ FALTA DE INTELIGENCIA</text>
+  <text x="64" y="103" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="34" font-weight="700">¿Quién dijo “no”?</text>
+  <rect x="64" y="134" width="1072" height="54" rx="12" fill="#151610" stroke="#34352f"/>
+  <text x="89" y="167" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="17" font-weight="700">PEDIDO</text><text x="189" y="167" fill="#8f8a7f" font-family="Arial, sans-serif" font-size="16">“construye el harness que sostiene esta sesión”</text>
+
+  <g transform="translate(64 229)">
+    <rect width="190" height="235" rx="18" fill="#191a15" stroke="#d4a574"/>
+    <text x="20" y="32" fill="#d4a574" font-family="monospace" font-size="12">01 · MODELO</text>
+    <text x="20" y="68" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="20" font-weight="700">Propone</text>
+    <text x="20" y="96" fill="#969187" font-family="Arial, sans-serif" font-size="14">interpreta intención</text><text x="20" y="118" fill="#969187" font-family="Arial, sans-serif" font-size="14">y elige una acción</text>
+    <line x1="20" y1="149" x2="170" y2="149" stroke="#414139"/>
+    <rect x="20" y="169" width="52" height="30" rx="15" fill="#49271c"/><text x="46" y="190" text-anchor="middle" fill="#e6a98c" font-family="monospace" font-size="11">NO</text>
+    <text x="82" y="188" fill="#b4aea2" font-family="Arial, sans-serif" font-size="13">rechazo</text><text x="82" y="207" fill="#7f7a72" font-family="Arial, sans-serif" font-size="12">del modelo</text>
+  </g>
+  <path d="M258 346H274" stroke="#77776d" stroke-width="2" marker-end="url(#arrow)"/>
+  <g transform="translate(282 229)">
+    <rect width="190" height="235" rx="18" fill="#1d1914" stroke="#9b7449"/>
+    <text x="20" y="32" fill="#d4a574" font-family="monospace" font-size="12">02 · POLÍTICA</text>
+    <text x="20" y="68" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="20" font-weight="700">Autoriza</text>
+    <text x="20" y="96" fill="#969187" font-family="Arial, sans-serif" font-size="14">interpreta permisos</text><text x="20" y="118" fill="#969187" font-family="Arial, sans-serif" font-size="14">y riesgo</text>
+    <line x1="20" y1="149" x2="170" y2="149" stroke="#4b4031"/>
+    <rect x="20" y="169" width="52" height="30" rx="15" fill="#49271c"/><text x="46" y="190" text-anchor="middle" fill="#e6a98c" font-family="monospace" font-size="11">NO</text>
+    <text x="82" y="188" fill="#b4aea2" font-family="Arial, sans-serif" font-size="13">sin autoridad</text><text x="82" y="207" fill="#7f7a72" font-family="Arial, sans-serif" font-size="12">o alto riesgo</text>
+  </g>
+  <path d="M476 346H492" stroke="#77776d" stroke-width="2" marker-end="url(#arrow)"/>
+  <g transform="translate(500 229)">
+    <rect width="190" height="235" rx="18" fill="#171d16" stroke="#526149"/>
+    <text x="20" y="32" fill="#a9c48c" font-family="monospace" font-size="12">03 · TOOLS</text>
+    <text x="20" y="68" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="20" font-weight="700">Expresan</text>
+    <text x="20" y="96" fill="#969187" font-family="Arial, sans-serif" font-size="14">convierten intención</text><text x="20" y="118" fill="#969187" font-family="Arial, sans-serif" font-size="14">en una llamada</text>
+    <line x1="20" y1="149" x2="170" y2="149" stroke="#354532"/>
+    <rect x="20" y="169" width="52" height="30" rx="15" fill="#49271c"/><text x="46" y="190" text-anchor="middle" fill="#e6a98c" font-family="monospace" font-size="11">NO</text>
+    <text x="82" y="188" fill="#b4aea2" font-family="Arial, sans-serif" font-size="13">tool ausente</text><text x="82" y="207" fill="#7f7a72" font-family="Arial, sans-serif" font-size="12">o ambigua</text>
+  </g>
+  <path d="M694 346H710" stroke="#77776d" stroke-width="2" marker-end="url(#arrow)"/>
+  <g transform="translate(718 229)">
+    <rect width="190" height="235" rx="18" fill="#16191d" stroke="#657486"/>
+    <text x="20" y="32" fill="#9eafc3" font-family="monospace" font-size="12">04 · ENTORNO</text>
+    <text x="20" y="68" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="20" font-weight="700">Ejecuta</text>
+    <text x="20" y="96" fill="#969187" font-family="Arial, sans-serif" font-size="14">red, filesystem</text><text x="20" y="118" fill="#969187" font-family="Arial, sans-serif" font-size="14">y credenciales</text>
+    <line x1="20" y1="149" x2="170" y2="149" stroke="#36404b"/>
+    <rect x="20" y="169" width="52" height="30" rx="15" fill="#49271c"/><text x="46" y="190" text-anchor="middle" fill="#e6a98c" font-family="monospace" font-size="11">NO</text>
+    <text x="82" y="188" fill="#b4aea2" font-family="Arial, sans-serif" font-size="13">sin acceso</text><text x="82" y="207" fill="#7f7a72" font-family="Arial, sans-serif" font-size="12">o dependencia</text>
+  </g>
+  <path d="M912 346H928" stroke="#77776d" stroke-width="2" marker-end="url(#arrow)"/>
+  <g transform="translate(936 229)">
+    <rect width="200" height="235" rx="18" fill="#1d1716" stroke="#8b4d34"/>
+    <text x="20" y="32" fill="#d39173" font-family="monospace" font-size="12">05 · VERIFIER</text>
+    <text x="20" y="68" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="20" font-weight="700">Juzga</text>
+    <text x="20" y="96" fill="#969187" font-family="Arial, sans-serif" font-size="14">tests, contrato</text><text x="20" y="118" fill="#969187" font-family="Arial, sans-serif" font-size="14">y resultado</text>
+    <line x1="20" y1="149" x2="180" y2="149" stroke="#493431"/>
+    <rect x="20" y="169" width="52" height="30" rx="15" fill="#49271c"/><text x="46" y="190" text-anchor="middle" fill="#e6a98c" font-family="monospace" font-size="11">NO</text>
+    <text x="82" y="188" fill="#b4aea2" font-family="Arial, sans-serif" font-size="13">resultado</text><text x="82" y="207" fill="#7f7a72" font-family="Arial, sans-serif" font-size="12">no aprobado</text>
+  </g>
+  <rect x="64" y="510" width="1072" height="68" rx="12" fill="#151610" stroke="#34352f"/>
+  <text x="92" y="538" fill="#8f8a7f" font-family="monospace" font-size="12" letter-spacing="1.5">REGLA DE DIAGNÓSTICO</text>
+  <text x="92" y="564" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="18" font-weight="700">Antes de cambiar de modelo, identifica la pared.</text>
+  <text x="1110" y="554" text-anchor="end" fill="#d4a574" font-family="monospace" font-size="14">UN “NO” ≠ UNA CAUSA</text>
+</svg>

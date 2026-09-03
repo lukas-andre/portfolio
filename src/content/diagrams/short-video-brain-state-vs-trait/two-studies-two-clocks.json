@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "translationKey": "short-video-brain-state-vs-trait",
+  "kind": "comparison",
+  "claimRefs": [
+    "claim-01",
+    "claim-02"
+  ],
+  "model": {
+    "items": [
+      {
+        "id": "hong",
+        "tone": "amber"
+      },
+      {
+        "id": "horvath",
+        "tone": "sage"
+      }
+    ]
+  },
+  "copy": {
+    "es": {
+      "title": "Una pregunta, dos relojes",
+      "question": "¿Qué pregunta responde realmente cada estudio?",
+      "takeaway": "Los estudios se conectan por la pregunta, no por una secuencia causal: uno observa un estado agudo y el otro compara asociaciones entre grupos.",
+      "alt": "Comparación entre un experimento de doce minutos con 56 jóvenes y un estudio transversal de 22 personas con uso problemático y 26 controles.",
+      "caption": "Los estudios se conectan por la pregunta, no por una secuencia causal: uno observa un estado agudo y el otro compara asociaciones entre grupos.",
+      "labels": {
+        "hong": {
+          "title": "Hong et al. · 2026",
+          "detail": "56 jóvenes, dos bloques de video: mide un estado agudo mientras miran."
+        },
+        "horvath": {
+          "title": "Horvath et al. · 2020",
+          "detail": "22 casos y 26 controles: compara asociaciones estructurales y de reposo."
+        }
+      }
+    },
+    "en": {
+      "title": "One question, two clocks",
+      "question": "What question does each study actually answer?",
+      "takeaway": "The studies meet at the question, not in a causal sequence: one observes an acute state and the other compares associations between groups.",
+      "alt": "A comparison between a twelve-minute experiment with 56 young adults and a cross-sectional study of 22 problematic users and 26 controls.",
+      "caption": "The studies meet at the question, not in a causal sequence: one observes an acute state and the other compares associations between groups.",
+      "labels": {
+        "hong": {
+          "title": "Hong et al. · 2026",
+          "detail": "56 young adults, two video blocks: measures an acute state while watching."
+        },
+        "horvath": {
+          "title": "Horvath et al. · 2020",
+          "detail": "22 cases and 26 controls: compares structural and resting-state associations."
+        }
+      }
+    }
+  },
+  "presentation": {
+    "direction": "auto",
+    "density": "normal"
+  },
+  "artwork": {
+    "es": "/images/notes/short-video-brain-state/es/01-dos-estudios-dos-preguntas.svg",
+    "en": "/images/notes/short-video-brain-state/en/01-two-studies-two-questions.svg"
+  }
+}
