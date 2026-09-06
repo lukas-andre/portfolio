@@ -1,43 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" role="img" aria-labelledby="title desc">
-  <title id="title">Matriz para auditar un harness</title>
-  <desc id="desc">Tres columnas distinguen deuda que conviene borrar, límites que deben conservarse y capacidades ausentes que se deben añadir.</desc>
-  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b0c0a"/><stop offset="1" stop-color="#1b1d18"/></linearGradient><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#fff" stroke-opacity=".025"/></pattern></defs>
-  <rect width="1200" height="640" rx="24" fill="url(#bg)"/><rect width="1200" height="640" rx="24" fill="url(#grid)"/>
-  <text x="64" y="58" fill="#d4a574" font-family="monospace" font-size="15" letter-spacing="3">AUDITORÍA DEL HARNESS</text>
-  <text x="64" y="103" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="34" font-weight="700">Cada pieza tiene que ganar su lugar.</text>
-
-  <g transform="translate(64 146)">
-    <rect width="330" height="392" rx="20" fill="#211713" stroke="#8b4d34"/>
-    <circle cx="38" cy="42" r="19" fill="#8b3d24"/><path d="M28 42H48" stroke="#fff" stroke-width="3"/>
-    <text x="70" y="49" fill="#e6b59e" font-family="monospace" font-size="15" letter-spacing="2">BORRAR DEUDA</text>
-    <text x="28" y="91" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="20" font-weight="700">Corrige un modelo que ya no existe</text>
-    <g fill="#c8b4a8" font-family="Arial, sans-serif" font-size="16"><text x="28" y="137">• workaround heredado</text><text x="28" y="172">• reglas contradictorias</text><text x="28" y="207">• tool duplicada</text><text x="28" y="242">• microgestión sin efecto</text></g>
-    <line x1="28" y1="278" x2="302" y2="278" stroke="#5d3d30"/>
-    <text x="28" y="310" fill="#aa7a64" font-family="monospace" font-size="11" letter-spacing="1">PREGUNTA</text>
-    <text x="28" y="340" fill="#e8ddd5" font-family="Arial, sans-serif" font-size="16">¿Qué falla repetida evita?</text>
-    <text x="28" y="368" fill="#8f847d" font-family="Arial, sans-serif" font-size="14">Si nadie sabe, ablación.</text>
-  </g>
-  <g transform="translate(435 146)">
-    <rect width="330" height="392" rx="20" fill="#201c15" stroke="#9b7449"/>
-    <circle cx="38" cy="42" r="19" fill="#92551d"/><path d="M28 42L35 49 49 33" fill="none" stroke="#fff" stroke-width="3"/>
-    <text x="70" y="49" fill="#e7bd92" font-family="monospace" font-size="15" letter-spacing="2">CONSERVAR LÍMITES</text>
-    <text x="28" y="91" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="20" font-weight="700">Define autoridad y evidencia</text>
-    <g fill="#d0c0ad" font-family="Arial, sans-serif" font-size="16"><text x="28" y="137">• permisos y sandbox</text><text x="28" y="172">• tests y schemas</text><text x="28" y="207">• presupuesto y políticas</text><text x="28" y="242">• condición de salida</text></g>
-    <line x1="28" y1="278" x2="302" y2="278" stroke="#59472f"/>
-    <text x="28" y="310" fill="#b58a5c" font-family="monospace" font-size="11" letter-spacing="1">PREGUNTA</text>
-    <text x="28" y="340" fill="#e8e0d5" font-family="Arial, sans-serif" font-size="16">¿Protege algo irremplazable?</text>
-    <text x="28" y="368" fill="#91877a" font-family="Arial, sans-serif" font-size="14">No depende de inteligencia.</text>
-  </g>
-  <g transform="translate(806 146)">
-    <rect width="330" height="392" rx="20" fill="#171e16" stroke="#5f7953"/>
-    <circle cx="38" cy="42" r="19" fill="#526149"/><path d="M28 42H48M38 32V52" stroke="#fff" stroke-width="3"/>
-    <text x="70" y="49" fill="#b9d19f" font-family="monospace" font-size="15" letter-spacing="2">AÑADIR CAPACIDAD</text>
-    <text x="28" y="91" fill="#f5f2eb" font-family="Arial, sans-serif" font-size="20" font-weight="700">Vuelve el mundo legible</text>
-    <g fill="#becbb6" font-family="Arial, sans-serif" font-size="16"><text x="28" y="137">• logs consultables</text><text x="28" y="172">• tools bien diseñadas</text><text x="28" y="207">• estado durable</text><text x="28" y="242">• evaluator independiente</text></g>
-    <line x1="28" y1="278" x2="302" y2="278" stroke="#354a31"/>
-    <text x="28" y="310" fill="#84a176" font-family="monospace" font-size="11" letter-spacing="1">PREGUNTA</text>
-    <text x="28" y="340" fill="#e1eadb" font-family="Arial, sans-serif" font-size="16">¿Puede percibirlo o actuar?</text>
-    <text x="28" y="368" fill="#879181" font-family="Arial, sans-serif" font-size="14">Un prompt no crea una interfaz.</text>
-  </g>
-  <text x="600" y="581" text-anchor="middle" fill="#8f8a7f" font-family="monospace" font-size="13" letter-spacing="1.5">NO CUENTES LÍNEAS · IDENTIFICA FUNCIONES · MIDE RESULTADOS</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+<title id="title">Cada pieza necesita una razón</title><desc id="desc">Matriz de tres filas que relaciona observación, justificación y decisión: retirar un parche que ya no aporta, conservar una pieza útil o un límite de autoridad, añadir una capacidad necesaria que falta.</desc>
+<defs><marker id="sage" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#aec09c"/></marker><marker id="amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#dfb37b"/></marker><marker id="rust" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#df947d"/></marker><marker id="muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#c0b9aa"/></marker></defs>
+<rect x="0" y="0" width="1200" height="675" rx="0" fill="#171813" stroke="none" />
+<text x="56" y="44" fill="#dfb37b" font-family="DejaVu Sans Mono, monospace" font-size="14" font-weight="400" text-anchor="start">03 / AUDITAR POR FUNCIÓN</text>
+<text x="56" y="101" fill="#f6f0e4" font-family="Georgia, DejaVu Serif, serif" font-size="40" font-weight="400" text-anchor="start">Cada pieza necesita una razón</text>
+<text x="56" y="148" fill="#c0b9aa" font-family="DejaVu Sans, sans-serif" font-size="21" font-weight="400" text-anchor="start">La antigüedad de una regla no decide su destino. Su función y la evidencia, sí.</text><text x="104" y="204" fill="#969584" font-family="DejaVu Sans Mono, monospace" font-size="14" font-weight="400" text-anchor="start">OBSERVAS</text><text x="466" y="204" fill="#969584" font-family="DejaVu Sans Mono, monospace" font-size="14" font-weight="400" text-anchor="start">LO QUE JUSTIFICA EL CAMBIO</text><text x="967" y="204" fill="#969584" font-family="DejaVu Sans Mono, monospace" font-size="14" font-weight="400" text-anchor="start">DECISIÓN</text><line x1="56" y1="223" x2="1144" y2="223" stroke="#454639" stroke-width="1" /><text x="56" y="266" fill="#dfb37b" font-family="Georgia, DejaVu Serif, serif" font-size="22" font-weight="400" text-anchor="start">01</text><text x="104" y="263" fill="#f6f0e4" font-family="DejaVu Sans, sans-serif" font-size="23" font-weight="600" text-anchor="start">Un parche</text>
+<text x="104" y="292" fill="#f6f0e4" font-family="DejaVu Sans, sans-serif" font-size="23" font-weight="600" text-anchor="start">heredado</text><text x="466" y="264" fill="#c0b9aa" font-family="DejaVu Sans, sans-serif" font-size="19" font-weight="400" text-anchor="start">Sin él: igual calidad y límites,</text>
+<text x="466" y="293" fill="#c0b9aa" font-family="DejaVu Sans, sans-serif" font-size="19" font-weight="400" text-anchor="start">menos costo o complejidad.</text><path d="M875 274H938" fill="none" stroke="#dfb37b" stroke-width="2" marker-end="url(#amber)"/><text x="967" y="282" fill="#dfb37b" font-family="Georgia, DejaVu Serif, serif" font-size="27" font-weight="400" text-anchor="start">Retirar</text><line x1="56" y1="341" x2="1144" y2="341" stroke="#454639" stroke-width="1" /><text x="56" y="384" fill="#df947d" font-family="Georgia, DejaVu Serif, serif" font-size="22" font-weight="400" text-anchor="start">02</text><text x="104" y="381" fill="#f6f0e4" font-family="DejaVu Sans, sans-serif" font-size="23" font-weight="600" text-anchor="start">Una pieza útil</text>
+<text x="104" y="410" fill="#f6f0e4" font-family="DejaVu Sans, sans-serif" font-size="23" font-weight="600" text-anchor="start">o un límite</text><text x="466" y="382" fill="#c0b9aa" font-family="DejaVu Sans, sans-serif" font-size="19" font-weight="400" text-anchor="start">Evita una falla comprobada</text>
+<text x="466" y="411" fill="#c0b9aa" font-family="DejaVu Sans, sans-serif" font-size="19" font-weight="400" text-anchor="start">o define autoridad.</text><path d="M875 392H938" fill="none" stroke="#df947d" stroke-width="2" marker-end="url(#rust)"/><text x="967" y="400" fill="#df947d" font-family="Georgia, DejaVu Serif, serif" font-size="27" font-weight="400" text-anchor="start">Conservar</text><line x1="56" y1="459" x2="1144" y2="459" stroke="#454639" stroke-width="1" /><text x="56" y="502" fill="#aec09c" font-family="Georgia, DejaVu Serif, serif" font-size="22" font-weight="400" text-anchor="start">03</text><text x="104" y="499" fill="#f6f0e4" font-family="DejaVu Sans, sans-serif" font-size="23" font-weight="600" text-anchor="start">Una capacidad</text>
+<text x="104" y="528" fill="#f6f0e4" font-family="DejaVu Sans, sans-serif" font-size="23" font-weight="600" text-anchor="start">ausente</text><text x="466" y="500" fill="#c0b9aa" font-family="DejaVu Sans, sans-serif" font-size="19" font-weight="400" text-anchor="start">La tarea necesita evidencia</text>
+<text x="466" y="529" fill="#c0b9aa" font-family="DejaVu Sans, sans-serif" font-size="19" font-weight="400" text-anchor="start">o una acción que falta.</text><path d="M875 510H938" fill="none" stroke="#aec09c" stroke-width="2" marker-end="url(#sage)"/><text x="967" y="518" fill="#aec09c" font-family="Georgia, DejaVu Serif, serif" font-size="27" font-weight="400" text-anchor="start">Añadir</text>
+<line x1="56" y1="613" x2="1144" y2="613" stroke="#454639" stroke-width="1" />
+<text x="56" y="647" fill="#c0b9aa" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="400" text-anchor="start">Si no sabes para qué sirve, investiga antes de borrar. La autoridad no se amplía para hacer pasar la prueba.</text>
 </svg>

@@ -1,96 +1,156 @@
 {
   "schemaVersion": 1,
   "translationKey": "unhobbling-your-ai",
-  "kind": "loop",
+  "kind": "graph",
   "claimRefs": [
-    "claim-03"
+    "claim-03",
+    "claim-04"
   ],
   "model": {
     "items": [
       {
+        "id": "controls",
+        "tone": "muted"
+      },
+      {
         "id": "baseline",
+        "tone": "muted"
+      },
+      {
+        "id": "candidate",
+        "tone": "amber"
+      },
+      {
+        "id": "measure",
         "tone": "ink"
       },
       {
-        "id": "remove",
-        "tone": "amber"
+        "id": "decision",
+        "tone": "ink"
       },
       {
-        "id": "run",
+        "id": "promote",
         "tone": "sage"
       },
       {
-        "id": "diagnose",
-        "tone": "amber"
+        "id": "restore",
+        "tone": "rust"
+      }
+    ],
+    "edges": [
+      {
+        "from": "controls",
+        "to": "baseline"
       },
       {
-        "id": "decide",
-        "tone": "rust"
+        "from": "controls",
+        "to": "candidate"
+      },
+      {
+        "from": "baseline",
+        "to": "measure"
+      },
+      {
+        "from": "candidate",
+        "to": "measure"
+      },
+      {
+        "from": "measure",
+        "to": "decision"
+      },
+      {
+        "from": "decision",
+        "to": "promote"
+      },
+      {
+        "from": "decision",
+        "to": "restore"
+      },
+      {
+        "from": "restore",
+        "to": "candidate",
+        "kind": "dashed"
       }
     ]
   },
   "copy": {
     "es": {
-      "title": "Loop de ablación",
-      "question": "¿Cómo retirar deuda sin perder la prueba?",
-      "takeaway": "La ablación convierte una limpieza intuitiva en ingeniería: cambiar una variable, medir conducta y promover únicamente lo que supera los gates.",
-      "alt": "Bucle experimental donde se mide una línea base, se retira una pieza, se observan fallas repetidas y solo se recuperan restricciones justificadas.",
-      "caption": "La ablación convierte una limpieza intuitiva en ingeniería: cambiar una variable, medir conducta y promover únicamente lo que supera los gates.",
+      "title": "Una variable. La misma prueba.",
+      "question": "¿La retirada mejora el sistema o solo parece hacerlo?",
+      "takeaway": "Compara H₀ con H₁ = H₀ menos una pieza. Mantén fijos modelo, tareas, pruebas, presupuesto y permisos. Repite y decide con evidencia sobre calidad, costo y fallas; no por una sola ejecución favorable.",
+      "alt": "Un marco fijo alimenta dos variantes paralelas: el harness actual H₀ y H₁ sin una pieza. Ambas pasan por la misma evaluación. Si mejora sin degradar calidad ni límites, se adopta; si empeora o falta evidencia, se conserva H₀ y se prepara otro ensayo.",
+      "caption": "Protocolo propuesto a partir de la ablación reportada por Cherny, no un resultado experimental. Cambiar el modelo requiere una nueva línea base. Los permisos y las pruebas que certifican el cambio quedan fuera de la variable que se retira.",
       "labels": {
+        "controls": {
+          "title": "Marco fijo",
+          "detail": "Mismo modelo, tareas, pruebas de aceptación, presupuesto y permisos en ambas variantes."
+        },
         "baseline": {
-          "title": "Medir baseline",
-          "detail": "Calidad, costo y riesgo de H₀."
+          "title": "H₀ · Actual",
+          "detail": "Medir el harness antes del cambio."
         },
-        "remove": {
-          "title": "Retirar una pieza",
-          "detail": "Cambiar solo prompt, tool o middleware."
+        "candidate": {
+          "title": "H₁ · Candidato",
+          "detail": "H₀ menos una pieza: una instrucción, descripción de herramienta o capa de coordinación; no los controles fijos."
         },
-        "run": {
-          "title": "Ejecutar casos fijos",
-          "detail": "Mismas tareas, gates y presupuesto."
+        "measure": {
+          "title": "Repetir y medir",
+          "detail": "Comparar calidad, costo y fallas bajo la misma evaluación."
         },
-        "diagnose": {
-          "title": "Diagnosticar",
-          "detail": "Buscar fallas repetidas y atribuibles."
+        "decision": {
+          "title": "Decidir",
+          "detail": "¿Mejora el sistema sin regresión de calidad ni incumplimiento de límites?"
         },
-        "decide": {
-          "title": "Promover o rollback",
-          "detail": "Conservar H₁ solo si mejora el sistema completo."
+        "promote": {
+          "title": "Adoptar H₁",
+          "detail": "Solo si la evidencia justifica el cambio y supera las pruebas acordadas."
+        },
+        "restore": {
+          "title": "Conservar H₀",
+          "detail": "Si hay regresión o evidencia insuficiente, diagnosticar y preparar un ensayo más acotado."
         }
       }
     },
     "en": {
-      "title": "Ablation loop",
-      "question": "How do you remove debt without losing the test?",
-      "takeaway": "Ablation turns intuitive cleanup into engineering: change one variable, measure behavior, and promote only what passes the gates.",
-      "alt": "An experimental loop measures a baseline, removes one element, observes repeated failures, and restores only justified constraints.",
-      "caption": "Ablation turns intuitive cleanup into engineering: change one variable, measure behavior, and promote only what passes the gates.",
+      "title": "One variable. The same test.",
+      "question": "Does removal improve the system, or only seem to?",
+      "takeaway": "Compare H₀ with H₁ = H₀ minus one component. Hold model, tasks, tests, budget, and permissions fixed. Repeat and use evidence on quality, cost, and failures, not a single favorable run.",
+      "alt": "A fixed setup feeds two parallel variants: current harness H₀ and H₁ without one component. Both undergo the same evaluation. Adopt the change if the system improves without quality regression or boundary violations; otherwise keep H₀ and prepare another trial.",
+      "caption": "A proposed protocol based on Cherny’s reported ablation practice, not an experimental result. Changing the model requires a new baseline. Permissions and the tests certifying the change are not the variable being removed.",
       "labels": {
+        "controls": {
+          "title": "Fixed setup",
+          "detail": "Same model, tasks, acceptance tests, budget, and permissions in both variants."
+        },
         "baseline": {
-          "title": "Measure baseline",
-          "detail": "Quality, cost, and risk for H₀."
+          "title": "H₀ · Current",
+          "detail": "Measure the harness before the change."
         },
-        "remove": {
-          "title": "Remove one component",
-          "detail": "Change only a prompt, tool, or middleware."
+        "candidate": {
+          "title": "H₁ · Candidate",
+          "detail": "H₀ minus one component: an instruction, tool description, or coordination layer; not the fixed controls."
         },
-        "run": {
-          "title": "Run fixed cases",
-          "detail": "Same tasks, gates, and budget."
+        "measure": {
+          "title": "Repeat and measure",
+          "detail": "Compare quality, cost, and failures under the same evaluation."
         },
-        "diagnose": {
-          "title": "Diagnose",
-          "detail": "Find repeated, attributable failures."
+        "decision": {
+          "title": "Decide",
+          "detail": "Does the system improve without quality regression or boundary violations?"
         },
-        "decide": {
-          "title": "Promote or roll back",
-          "detail": "Keep H₁ only if the whole system improves."
+        "promote": {
+          "title": "Adopt H₁",
+          "detail": "Only if evidence supports the change and it passes the agreed tests."
+        },
+        "restore": {
+          "title": "Keep H₀",
+          "detail": "With regression or insufficient evidence, diagnose and prepare a more focused trial."
         }
       }
     }
   },
   "presentation": {
-    "direction": "auto",
+    "direction": "vertical",
     "density": "normal"
   },
   "artwork": {

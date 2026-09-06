@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "translationKey": "automation-and-repression",
+  "kind": "timeline",
+  "claimRefs": ["claim-02", "claim-03", "claim-04", "claim-05"],
+  "model": {
+    "items": [
+      { "id": "regulation", "tone": "sage" },
+      { "id": "redistribution", "tone": "sage" },
+      { "id": "market", "tone": "amber" },
+      { "id": "capital", "tone": "amber" },
+      { "id": "repression", "tone": "rust" }
+    ],
+    "edges": [
+      { "from": "regulation", "to": "redistribution" },
+      { "from": "redistribution", "to": "market" },
+      { "from": "market", "to": "capital" },
+      { "from": "capital", "to": "repression" }
+    ]
+  },
+  "copy": {
+    "es": {
+      "title": "Producir más y capturar más son objetivos distintos",
+      "question": "¿Cuánta automatización elige cada régimen del modelo?",
+      "takeaway": "Los capitalistas pueden preferir automatizar más allá del máximo productivo para capturar una parte mayor de una producción menor.",
+      "alt": "Escala cualitativa de cinco niveles: regulación sola, redistribución, mercado y máximo producto, máximo retorno al capital, y represión.",
+      "caption": "Orden formal de los niveles elegidos. Las distancias son visuales y no representan magnitudes medidas.",
+      "labels": {
+        "regulation": { "eyebrow": "I₀", "title": "Solo regulación", "detail": "Maximiza ingreso laboral para contener la revuelta." },
+        "redistribution": { "eyebrow": "Iₛ", "title": "Redistribución", "detail": "Permite automatizar algo más compensando a trabajadores." },
+        "market": { "eyebrow": "Iᵈ = Iʸ", "title": "Máximo producto", "detail": "Es el nivel elegido por el mercado." },
+        "capital": { "eyebrow": "Iᴷ", "title": "Máxima renta del capital", "detail": "Sin riesgo político: más participación, menos producto." },
+        "repression": { "eyebrow": "Iʳ", "title": "Represión", "detail": "Remueve el freno político y favorece el nivel más alto." }
+      },
+      "note": "Orden cualitativo del modelo: I₀ < Iₛ < Iᵈ = Iʸ < Iᴷ < Iʳ."
+    },
+    "en": {
+      "title": "Producing more and capturing more are different goals",
+      "question": "How much automation does each modeled regime choose?",
+      "takeaway": "Capitalists can prefer automation beyond the output maximum to capture a larger share of a smaller total.",
+      "alt": "Qualitative scale with five levels: regulation only, redistribution, market and maximum output, maximum return to capital, and repression.",
+      "caption": "Formal ordering of chosen levels. Visual distances do not represent measured magnitudes.",
+      "labels": {
+        "regulation": { "eyebrow": "I₀", "title": "Regulation only", "detail": "Maximizes labor income to contain revolt." },
+        "redistribution": { "eyebrow": "Iₛ", "title": "Redistribution", "detail": "Compensation allows somewhat more automation." },
+        "market": { "eyebrow": "Iᵈ = Iʸ", "title": "Maximum output", "detail": "The level chosen by the market." },
+        "capital": { "eyebrow": "Iᴷ", "title": "Maximum capital income", "detail": "Without political risk: a larger share, less output." },
+        "repression": { "eyebrow": "Iʳ", "title": "Repression", "detail": "Removing the political brake produces the highest level." }
+      },
+      "note": "Qualitative model ordering: I₀ < Iₛ < Iᵈ = Iʸ < Iᴷ < Iʳ."
+    }
+  },
+  "presentation": { "direction": "horizontal", "density": "compact", "emphasis": ["market", "repression"] },
+  "artwork": {
+    "es": "/images/notes/automation-and-repression/es/02-orden-automatizacion.svg",
+    "en": "/images/notes/automation-and-repression/en/02-automation-ordering.svg"
+  }
+}

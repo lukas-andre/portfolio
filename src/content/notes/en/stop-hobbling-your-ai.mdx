@@ -6,7 +6,7 @@ description: >-
   Unhobbling does not mean deleting the rules and hoping for the best. It means
   finding out which parts of the system unlock the current model—and which
   merely preserve the limitations of an earlier one.
-updatedAt: '2026-09-02'
+updatedAt: '2026-09-05'
 tags:
   - agents
   - unhobbling
@@ -98,7 +98,7 @@ A sober protocol looks like this:
 
 1. **Freeze tasks and gates.** Choose real cases, verifiable outcomes, costs, and safety boundaries before changing anything.
 2. **Measure the baseline.** Track quality, time, tokens, human interventions, denied permissions, and regressions.
-3. **Remove one piece at a time.** A prompt, tool description, middleware layer, or permission—always in a branch or recoverable environment.
+3. **Remove one piece at a time.** An instruction, tool description, or coordination layer—always in a branch or recoverable environment. Keep permissions and acceptance tests fixed so the experiment does not change the authority boundary or the definition of success.
 4. **Look for patterns, not anecdotes.** A single failure may be noise; a repeatable and attributable one deserves a correction.
 5. **Reintroduce the smallest intervention.** Prefer a test, schema, or tool for structural problems; use prose when the problem truly is a behavioral rule.
 6. **Promote only when the whole system improves.** Do not trade safety for a smoother demo, or cost for a metric that does not represent the user.

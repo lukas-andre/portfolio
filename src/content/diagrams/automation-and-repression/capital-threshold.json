@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "translationKey": "automation-and-repression",
+  "kind": "timeline",
+  "claimRefs": ["claim-06", "claim-07"],
+  "model": {
+    "items": [
+      { "id": "share-start", "tone": "sage" },
+      { "id": "share-end", "tone": "sage" },
+      { "id": "switch-start", "tone": "sage" },
+      { "id": "threshold", "tone": "amber" },
+      { "id": "switch-end", "tone": "rust" },
+      { "id": "repress-start", "tone": "rust" },
+      { "id": "repress-end", "tone": "rust" }
+    ],
+    "edges": [
+      { "from": "share-start", "to": "share-end" },
+      { "from": "switch-start", "to": "threshold" },
+      { "from": "threshold", "to": "switch-end" },
+      { "from": "repress-start", "to": "repress-end" }
+    ]
+  },
+  "copy": {
+    "es": {
+      "title": "Tres trayectorias, según las condiciones de partida",
+      "question": "¿Acumular capital siempre lleva a la represión?",
+      "takeaway": "El teorema incluye redistribución permanente, una transición al cruzar un umbral y represión desde el inicio; depende de los parámetros y del capital inicial.",
+      "alt": "Tres filas muestran capital creciente. La primera mantiene redistribución; la segunda cambia de redistribución a represión al cruzar un umbral teórico; la tercera mantiene represión. Todas dependen de la supervivencia del régimen y de los supuestos de acumulación del teorema.",
+      "caption": "La amenaza de revuelta es relativa a los costos y la eficacia de cada respuesta. El umbral dibujado es teórico, sin fecha ni valor estimado para un país.",
+      "labels": {
+        "share-start": { "eyebrow": "AMENAZA BAJA", "title": "Redistribución inicial", "detail": "La amenaza está por debajo del umbral de largo plazo." },
+        "share-end": { "title": "La redistribución continúa", "detail": "También se prefiere al acumular más capital." },
+        "switch-start": { "eyebrow": "AMENAZA INTERMEDIA", "title": "Redistribución inicial", "detail": "Compartir conviene con el capital inicial." },
+        "threshold": { "title": "Umbral de capital", "detail": "Cambia la preferencia del Estado." },
+        "switch-end": { "title": "Transición a represión", "detail": "Controlar pasa a ser más atractivo para el capital." },
+        "repress-start": { "eyebrow": "AMENAZA ALTA", "title": "Represión inicial", "detail": "Ya es preferida con el capital de partida." },
+        "repress-end": { "title": "La represión continúa", "detail": "Sigue siendo preferida al acumular capital." }
+      },
+      "note": "Theorem 1: condiciones iniciales admisibles, supervivencia del régimen y parámetros que permiten acumulación sostenida de capital."
+    },
+    "en": {
+      "title": "Three paths, depending on initial conditions",
+      "question": "Does accumulating capital always lead to repression?",
+      "takeaway": "The theorem allows continued redistribution, a switch at a threshold, or repression from the start; parameters and initial capital determine the path.",
+      "alt": "Three rows show growing capital. The first maintains redistribution; the second switches from redistribution to repression at a theoretical threshold; the third maintains repression. All depend on regime survival and the theorem's capital accumulation assumptions.",
+      "caption": "The threat of revolt is relative to the costs and effectiveness of each response. The threshold is theoretical, with no estimated date or value for a country.",
+      "labels": {
+        "share-start": { "eyebrow": "LOW THREAT", "title": "Initial redistribution", "detail": "The threat falls below the long-run threshold." },
+        "share-end": { "title": "Redistribution continues", "detail": "It remains preferred as capital accumulates." },
+        "switch-start": { "eyebrow": "INTERMEDIATE THREAT", "title": "Initial redistribution", "detail": "Sharing is preferred at the initial capital stock." },
+        "threshold": { "title": "Capital threshold", "detail": "The state's preference changes." },
+        "switch-end": { "title": "Switch to repression", "detail": "Control becomes more attractive to capital owners." },
+        "repress-start": { "eyebrow": "HIGH THREAT", "title": "Initial repression", "detail": "It is already preferred at the initial capital stock." },
+        "repress-end": { "title": "Repression continues", "detail": "It remains preferred as capital accumulates." }
+      },
+      "note": "Theorem 1: admissible initial conditions, regime survival, and parameters allowing sustained capital accumulation."
+    }
+  },
+  "presentation": { "direction": "horizontal", "density": "normal", "emphasis": ["threshold", "share-end"] },
+  "artwork": {
+    "es": "/images/notes/automation-and-repression/es/03-umbral-capital.svg",
+    "en": "/images/notes/automation-and-repression/en/03-capital-threshold.svg"
+  }
+}

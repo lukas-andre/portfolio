@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "translationKey": "automation-and-repression",
+  "kind": "loop",
+  "claimRefs": ["claim-01", "claim-04", "claim-05", "claim-06"],
+  "model": {
+    "items": [
+      { "id": "automation", "tone": "amber" },
+      { "id": "labor-share", "tone": "rust" },
+      { "id": "revolt-risk", "tone": "rust" },
+      { "id": "state-choice", "tone": "ink" },
+      { "id": "redistribution", "tone": "sage" },
+      { "id": "repression", "tone": "rust" }
+    ],
+    "edges": [
+      { "from": "automation", "to": "labor-share" },
+      { "from": "labor-share", "to": "revolt-risk" },
+      { "from": "revolt-risk", "to": "state-choice" },
+      { "from": "state-choice", "to": "redistribution" },
+      { "from": "state-choice", "to": "repression" },
+      { "from": "redistribution", "to": "automation", "kind": "dashed" },
+      { "from": "repression", "to": "automation" }
+    ]
+  },
+  "copy": {
+    "es": {
+      "title": "La cuenta política de automatizar",
+      "question": "¿Cómo puede la automatización volver más atractiva la represión?",
+      "takeaway": "La menor participación laboral eleva el riesgo político; redistribuir se encarece, mientras reprimir permite volver a automatizar más.",
+      "alt": "Circuito donde más automatización reduce la participación laboral, aumenta el incentivo de revuelta y lleva al Estado a elegir entre redistribución creciente o represión, que habilita más automatización.",
+      "caption": "El mecanismo central del modelo: la distribución del ingreso cambia el costo relativo de compartir y controlar.",
+      "labels": {
+        "automation": { "title": "Más tareas al capital", "detail": "La automatización desplaza tareas laborales." },
+        "labor-share": { "title": "Menor cuota laboral", "detail": "El trabajo recibe una parte menor del ingreso." },
+        "revolt-risk": { "title": "Riesgo de revuelta", "detail": "Importa lo que se pierde en relación con el premio." },
+        "state-choice": { "title": "El Estado elige", "detail": "Busca proteger la renta esperada del capital." },
+        "redistribution": { "title": "Redistribuir", "detail": "Una menor cuota laboral exige una tasa impositiva mayor." },
+        "repression": { "title": "Reprimir", "detail": "Fracción fija del producto; riesgo residual fijado." }
+      },
+      "note": "Relaciones cualitativas del modelo; no son efectos estimados con datos."
+    },
+    "en": {
+      "title": "The political calculation behind automation",
+      "question": "How can automation make repression more attractive?",
+      "takeaway": "A lower labor share raises political risk; redistribution grows costlier, while repression clears the way for further automation.",
+      "alt": "Loop where more automation lowers labor's income share, raises revolt incentives, and leads the state to choose between growing redistribution and repression, which enables more automation.",
+      "caption": "The model's central mechanism: income distribution changes the relative cost of sharing and controlling.",
+      "labels": {
+        "automation": { "title": "Tasks to capital", "detail": "Automation displaces labor from tasks." },
+        "labor-share": { "title": "Lower labor share", "detail": "Workers receive a smaller share of income." },
+        "revolt-risk": { "title": "Risk of revolt", "detail": "What workers stand to lose relative to the prize matters." },
+        "state-choice": { "title": "State choice", "detail": "It seeks to protect capital's expected income." },
+        "redistribution": { "title": "Redistribute", "detail": "A lower labor share requires a higher tax rate." },
+        "repression": { "title": "Repress", "detail": "Fixed fraction of output; fixed residual revolt risk." }
+      },
+      "note": "Qualitative relationships from the model, not effects estimated from data."
+    }
+  },
+  "presentation": { "direction": "horizontal", "density": "normal", "emphasis": ["automation", "repression"] },
+  "artwork": {
+    "es": "/images/notes/automation-and-repression/es/01-circuito-politico.svg",
+    "en": "/images/notes/automation-and-repression/en/01-political-loop.svg"
+  }
+}

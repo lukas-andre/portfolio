@@ -6,7 +6,7 @@ description: >-
   Unhobbling no significa borrar reglas y rezar. Significa descubrir, con
   evidencia, qué parte del sistema libera al modelo y cuál solo conserva las
   limitaciones de una generación anterior.
-updatedAt: '2026-09-02'
+updatedAt: '2026-09-05'
 tags:
   - agentes
   - unhobbling
@@ -98,7 +98,7 @@ Un protocolo sobrio se parece a esto:
 
 1. **Congela tareas y gates.** Elige casos reales, resultados verificables, costos y límites de seguridad antes de cambiar nada.
 2. **Mide la línea base.** Calidad, tiempo, tokens, intervenciones humanas, permisos denegados y regresiones.
-3. **Retira una pieza por vez.** Prompt, descripción de herramienta, middleware o permiso, siempre en una rama o entorno recuperable.
+3. **Retira una pieza por vez.** Una instrucción, descripción de herramienta o capa de coordinación, siempre en una rama o entorno recuperable. Conserva fijos los permisos y las pruebas de aceptación: el experimento no debe cambiar la frontera de autoridad ni la definición de éxito.
 4. **Busca patrones, no anécdotas.** Una falla única puede ser azar; una falla repetida y atribuible merece una corrección.
 5. **Reintroduce la mínima intervención.** Prefiere un test, schema o herramienta cuando el problema es estructural; usa prosa cuando realmente es una regla de conducta.
 6. **Promueve solo si mejora el sistema completo.** No cambies seguridad por una demo más fluida ni costo por una métrica que no representa al usuario.

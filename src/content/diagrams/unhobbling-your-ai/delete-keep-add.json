@@ -11,11 +11,11 @@
     "items": [
       {
         "id": "delete",
-        "tone": "rust"
+        "tone": "amber"
       },
       {
         "id": "keep",
-        "tone": "ink"
+        "tone": "rust"
       },
       {
         "id": "add",
@@ -25,50 +25,50 @@
   },
   "copy": {
     "es": {
-      "title": "Borrar, conservar o añadir",
-      "question": "¿Qué función cumple cada pieza del harness?",
-      "takeaway": "La pregunta útil no es cuánto prompt borrar, sino qué función cumple cada pieza y qué evidencia demuestra que todavía la necesitamos.",
-      "alt": "Matriz de auditoría con tres columnas para borrar deuda, conservar límites de seguridad y añadir capacidades que el agente todavía no posee.",
-      "caption": "La pregunta útil no es cuánto prompt borrar, sino qué función cumple cada pieza y qué evidencia demuestra que todavía la necesitamos.",
+      "title": "Cada pieza necesita una razón",
+      "question": "¿Qué evidencia justifica retirar, conservar o añadir?",
+      "takeaway": "La decisión sigue a la función y a la evidencia. Una pieza desconocida es candidata a investigar, no una orden de borrado; los límites de autoridad no se relajan para mejorar una métrica.",
+      "alt": "Matriz de tres filas que relaciona observación, justificación y decisión: retirar un parche que ya no aporta, conservar una pieza útil o un límite de autoridad, añadir una capacidad necesaria que falta.",
+      "caption": "Regla de auditoría propuesta: retirar exige comprobar que la pieza dejó de aportar; conservar incluye tanto funciones útiles como límites de autoridad; añadir responde a una carencia concreta. Si no hay evidencia, todavía no hay veredicto.",
       "labels": {
         "delete": {
-          "title": "Borrar deuda",
-          "detail": "Workarounds heredados, reglas contradictorias y duplicación sin efecto."
+          "title": "Retirar",
+          "detail": "Un ensayo sin el parche heredado mantiene calidad y límites y reduce costo o complejidad. La antigüedad por sí sola no basta."
         },
         "keep": {
-          "title": "Conservar límites",
-          "detail": "Permisos, sandbox, schemas, presupuesto y condición de salida."
+          "title": "Conservar",
+          "detail": "La pieza evita una falla comprobada o define una frontera de autoridad. No amplíes permisos para hacer pasar la prueba."
         },
         "add": {
-          "title": "Añadir capacidad",
-          "detail": "Logs, tools agent-native, estado durable y evaluator independiente."
+          "title": "Añadir",
+          "detail": "La tarea requiere evidencia o una acción que el entorno no ofrece. Añade la herramienta o el contexto mínimo y evalúa su efecto."
         }
       }
     },
     "en": {
-      "title": "Delete, keep, or add",
-      "question": "What function does each harness component serve?",
-      "takeaway": "The useful question is not how much prompt to delete, but what job each piece performs and what evidence says it is still needed.",
-      "alt": "An audit matrix has columns for deleting debt, keeping safety boundaries, and adding capabilities the agent still lacks.",
-      "caption": "The useful question is not how much prompt to delete, but what job each piece performs and what evidence says it is still needed.",
+      "title": "Every piece needs a reason",
+      "question": "What evidence justifies removing, keeping, or adding?",
+      "takeaway": "Function and evidence determine the decision. An unexplained component warrants investigation, not automatic deletion; authority boundaries are not relaxed to improve a metric.",
+      "alt": "Three rows connect observation to justification and decision: remove a workaround that no longer helps, keep a useful component or authority boundary, add a missing capability the task requires.",
+      "caption": "A proposed audit rule: removal requires evidence that a component no longer helps; keeping covers useful functions as well as authority boundaries; adding addresses a concrete gap. No evidence means no verdict yet.",
       "labels": {
         "delete": {
-          "title": "Delete debt",
-          "detail": "Legacy workarounds, conflicting rules, and duplication without effect."
+          "title": "Remove",
+          "detail": "A trial without the inherited workaround preserves quality and boundaries while reducing cost or complexity. Age alone is not sufficient."
         },
         "keep": {
-          "title": "Keep boundaries",
-          "detail": "Permissions, sandbox, schemas, budget, and exit condition."
+          "title": "Keep",
+          "detail": "The component prevents a demonstrated failure or defines an authority boundary. Do not broaden permissions to pass the test."
         },
         "add": {
-          "title": "Add capability",
-          "detail": "Logs, agent-native tools, durable state, and independent evaluator."
+          "title": "Add",
+          "detail": "The task requires evidence or an action the environment does not provide. Add the minimum tool or context and evaluate its effect."
         }
       }
     }
   },
   "presentation": {
-    "direction": "auto",
+    "direction": "vertical",
     "density": "normal"
   },
   "artwork": {

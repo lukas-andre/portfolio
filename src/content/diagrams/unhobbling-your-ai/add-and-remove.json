@@ -20,42 +20,42 @@
   },
   "copy": {
     "es": {
-      "title": "Añadir y retirar",
-      "question": "¿Desbloquear siempre significa quitar?",
-      "takeaway": "Unhobbling no tiene una dirección fija: primero puede exigir añadir una capacidad y, tras cambiar el modelo, retirar la corrección que envejeció.",
-      "alt": "Línea temporal que contrasta el unhobbling de 2024, basado en añadir herramientas y razonamiento, con el de 2026, que retira andamiaje obsoleto.",
-      "caption": "Unhobbling no tiene una dirección fija: primero puede exigir añadir una capacidad y, tras cambiar el modelo, retirar la corrección que envejeció.",
+      "title": "A veces falta. A veces sobra.",
+      "question": "¿Falta una herramienta o sobra una corrección?",
+      "takeaway": "Añadir y retirar son respuestas a fallas distintas, no etapas de una cronología. Pueden ser necesarias al mismo tiempo y ambas deben probar su utilidad.",
+      "alt": "Dos comparaciones antes y después. A la izquierda, un espacio vacío de acceso a logs se completa con una herramienta. A la derecha, se retira un guion rígido mientras el modelo, la tarea y una herramienta útil permanecen.",
+      "caption": "Ejemplos de diagnóstico, no resultados medidos: añadir acceso a logs cuando falta observación; ensayar la retirada de un guion heredado cuando podría ser redundante. No son dos épocas opuestas del unhobbling.",
       "labels": {
         "add": {
-          "title": "2024 · Añadir capacidad",
-          "detail": "Razonamiento, herramientas, feedback y scaffolding convierten chatbot en agente."
+          "title": "Añadir",
+          "detail": "Antes: el agente no ve los logs. Después: una herramienta le da acceso a esa evidencia. Comprobar si la tarea mejora."
         },
         "remove": {
-          "title": "2026 · Retirar deuda",
-          "detail": "Reglas heredadas, tools redundantes y microgestión sobreviven a la falla."
+          "title": "Retirar",
+          "detail": "Antes: un guion rígido acompaña al modelo y una herramienta útil. Después: ensayar sin el guion, manteniendo lo demás. Conservar el cambio solo si la evidencia lo justifica."
         }
       }
     },
     "en": {
-      "title": "Add and remove",
-      "question": "Does unlocking always mean removing?",
-      "takeaway": "Unhobbling has no fixed direction: it may first require a new capability, then require removing the correction after the model changes.",
-      "alt": "A timeline contrasts 2024 unhobbling through added tools and reasoning with 2026 unhobbling through the removal of stale scaffolding.",
-      "caption": "Unhobbling has no fixed direction: it may first require a new capability, then require removing the correction after the model changes.",
+      "title": "Sometimes missing. Sometimes excess.",
+      "question": "Is a tool missing, or is a workaround redundant?",
+      "takeaway": "Adding and removing address different failures, not successive eras. Both may be needed at once, and both must demonstrate their value.",
+      "alt": "Two before-and-after comparisons. On the left, a missing log-access slot is filled with a tool. On the right, a rigid script is removed while the model, task, and a useful tool remain.",
+      "caption": "Diagnostic examples, not measured results: add log access when observation is missing; test removing an inherited script when it may be redundant. These are not opposing eras of unhobbling.",
       "labels": {
         "add": {
-          "title": "2024 · Add capability",
-          "detail": "Reasoning, tools, feedback, and scaffolding turn chatbot into agent."
+          "title": "Add",
+          "detail": "Before: the agent cannot see logs. After: a tool exposes that evidence. Check whether task performance improves."
         },
         "remove": {
-          "title": "2026 · Remove debt",
-          "detail": "Legacy rules, redundant tools, and micromanagement outlive the failure."
+          "title": "Remove",
+          "detail": "Before: a rigid script accompanies the model and a useful tool. After: test without the script, holding the rest fixed. Keep the change only if evidence supports it."
         }
       }
     }
   },
   "presentation": {
-    "direction": "auto",
+    "direction": "horizontal",
     "density": "normal"
   },
   "artwork": {

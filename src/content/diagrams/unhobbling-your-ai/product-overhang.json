@@ -1,73 +1,152 @@
 {
   "schemaVersion": 1,
   "translationKey": "unhobbling-your-ai",
-  "kind": "layers",
+  "kind": "graph",
   "claimRefs": [
     "claim-01",
-    "claim-02"
+    "claim-06"
   ],
   "model": {
     "items": [
       {
-        "id": "capability",
-        "tone": "sage"
-      },
-      {
-        "id": "surface",
+        "id": "model",
         "tone": "amber"
       },
       {
-        "id": "gap",
-        "tone": "rust"
+        "id": "chat",
+        "tone": "muted"
+      },
+      {
+        "id": "tools",
+        "tone": "sage"
+      },
+      {
+        "id": "proposal",
+        "tone": "muted"
+      },
+      {
+        "id": "edit",
+        "tone": "sage"
+      },
+      {
+        "id": "test",
+        "tone": "sage"
+      },
+      {
+        "id": "feedback",
+        "tone": "sage"
+      }
+    ],
+    "edges": [
+      {
+        "from": "model",
+        "to": "chat"
+      },
+      {
+        "from": "chat",
+        "to": "proposal"
+      },
+      {
+        "from": "model",
+        "to": "tools"
+      },
+      {
+        "from": "tools",
+        "to": "edit"
+      },
+      {
+        "from": "edit",
+        "to": "test"
+      },
+      {
+        "from": "test",
+        "to": "feedback"
+      },
+      {
+        "from": "feedback",
+        "to": "edit",
+        "kind": "dashed"
       }
     ]
   },
   "copy": {
     "es": {
-      "title": "Product overhang",
-      "question": "¿Qué capacidad está atrapando el producto?",
-      "takeaway": "El product overhang es la distancia entre lo que el modelo ya puede hacer y lo que nuestro producto, sus herramientas y permisos dejan expresar.",
-      "alt": "Dos contornos muestran que la capacidad real del modelo puede ser mayor que la superficie que el producto le permite usar.",
-      "caption": "El product overhang es la distancia entre lo que el modelo ya puede hacer y lo que nuestro producto, sus herramientas y permisos dejan expresar.",
+      "title": "De proponer a comprobar",
+      "question": "¿Qué parte del trabajo permite hacer la interfaz?",
+      "takeaway": "Una interfaz de texto puede detenerse en una sugerencia. Edición, tests y feedback permiten intentar y comprobar la corrección sin exigir por sí solos otro modelo.",
+      "alt": "Un mismo modelo y una tarea, corregir un bug, se bifurcan en dos interfaces. La de texto termina en una propuesta que ejecuta la persona. Las herramientas habilitan un ciclo de editar, probar y leer el resultado.",
+      "caption": "Ejemplo conceptual de product overhang: la interfaz puede limitar el trabajo que llega a realizar el modelo. Habilitar un ciclo de trabajo no garantiza resolver la tarea ni justifica ampliar permisos.",
       "labels": {
-        "capability": {
-          "title": "Capacidad real del modelo",
-          "detail": "Razonar, escribir, navegar, usar herramientas y sostener un loop."
+        "model": {
+          "title": "Mismo modelo",
+          "detail": "Misma tarea: corregir un bug. Comparación conceptual, no un experimento medido."
         },
-        "surface": {
-          "title": "Superficie del producto",
-          "detail": "UI, tools, permisos y contexto que puede utilizar."
+        "chat": {
+          "title": "Solo texto",
+          "detail": "La interfaz recibe el problema y devuelve una respuesta."
         },
-        "gap": {
-          "title": "Product overhang",
-          "detail": "Capacidad pagada que la interfaz todavía mantiene atrapada."
+        "tools": {
+          "title": "Edición y tests",
+          "detail": "Edición y tests dentro del alcance autorizado."
+        },
+        "proposal": {
+          "title": "Proponer",
+          "detail": "La persona aplica el parche y trae de vuelta el resultado."
+        },
+        "edit": {
+          "title": "Editar",
+          "detail": "Aplicar una corrección en el entorno de trabajo."
+        },
+        "test": {
+          "title": "Probar",
+          "detail": "Ejecutar los tests disponibles."
+        },
+        "feedback": {
+          "title": "Leer resultado",
+          "detail": "Usar la salida para decidir si hace falta otra corrección; el éxito no está garantizado."
         }
       }
     },
     "en": {
-      "title": "Product overhang",
-      "question": "What capability is the product trapping?",
-      "takeaway": "Product overhang is the gap between what the model can already do and what our product, tools, and permissions allow it to express.",
-      "alt": "Two outlines show that a model's actual capability can be larger than the surface the product allows it to use.",
-      "caption": "Product overhang is the gap between what the model can already do and what our product, tools, and permissions allow it to express.",
+      "title": "From suggesting to checking",
+      "question": "How much of the work does the interface allow?",
+      "takeaway": "A text interface may stop at a suggestion. Editing, tests, and feedback let an agent attempt and check a fix without inherently requiring a different model.",
+      "alt": "The same model and task, fixing a bug, branch into two interfaces. Text ends in a proposal that a person executes. Tools enable a cycle of editing, testing, and reading the result.",
+      "caption": "A conceptual example of product overhang: an interface can limit the work a model gets to perform. Enabling a work loop neither guarantees success nor justifies broader permissions.",
       "labels": {
-        "capability": {
-          "title": "Actual model capability",
-          "detail": "Reason, write, navigate, use tools, and sustain a loop."
+        "model": {
+          "title": "Same model",
+          "detail": "Same task: fix a bug. A conceptual comparison, not a measured experiment."
         },
-        "surface": {
-          "title": "Product surface",
-          "detail": "UI, tools, permissions, and context it can use."
+        "chat": {
+          "title": "Text only",
+          "detail": "The interface receives a problem and returns a response."
         },
-        "gap": {
-          "title": "Product overhang",
-          "detail": "Paid-for capability that the interface still traps."
+        "tools": {
+          "title": "With tools",
+          "detail": "Editing and testing within the authorized scope."
+        },
+        "proposal": {
+          "title": "Suggest",
+          "detail": "A person applies the patch and brings back the result."
+        },
+        "edit": {
+          "title": "Edit",
+          "detail": "Apply a correction in the work environment."
+        },
+        "test": {
+          "title": "Test",
+          "detail": "Run the available tests."
+        },
+        "feedback": {
+          "title": "Read result",
+          "detail": "Use the output to decide whether another correction is needed; success is not guaranteed."
         }
       }
     }
   },
   "presentation": {
-    "direction": "auto",
+    "direction": "vertical",
     "density": "normal"
   },
   "artwork": {

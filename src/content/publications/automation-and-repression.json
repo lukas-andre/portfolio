@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "single",
+  "issue": "006",
+  "topics": [
+    "automation",
+    "political-economy",
+    "ai-governance"
+  ],
+  "related": [],
+  "sourceRoles": [
+    {
+      "ref": "mit-automation-repression-2026",
+      "role": "primary"
+    }
+  ],
+  "editions": {
+    "es": {
+      "slug": "automatizacion-y-represion"
+    },
+    "en": {
+      "slug": "automation-and-repression"
+    }
+  },
+  "visuals": [
+    "automation-and-repression/political-feedback-loop",
+    "automation-and-repression/automation-ordering",
+    "automation-and-repression/capital-threshold"
+  ],
+  "featuredVisual": "automation-and-repression/political-feedback-loop",
+  "researchPacket": "brain://library/paper-to-portfolio/works/automation-and-repression.json",
+  "researchDigest": "5d68c3d11d916450dd1f42f3e107444643bb2211c6aeebcf74ad46c1ea2f6b03",
+  "visibility": "draft",
+  "angleApproval": {
+    "approvedAt": "2026-09-04",
+    "approvedBy": "Lucas",
+    "readerPromise": "Entender cómo la distribución de las ganancias de la automatización cambia el costo político del consentimiento y dónde termina la advertencia formal del paper.",
+    "thesis": "La automatización no causa represión por sí sola; al desplazar ingreso del trabajo al capital puede encarecer la redistribución para las élites y volver relativamente más atractiva la coerción.",
+    "counterpoint": "Es un mecanismo teórico construido sobre un Estado que representa a los dueños del capital, una represión de costo favorable y una democracia estilizada; no es evidencia causal ni una predicción inevitable."
+  }
+}
