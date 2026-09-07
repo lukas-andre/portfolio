@@ -1,4 +1,17 @@
 import { expect, test, type Page } from '@playwright/test';
+import { readdirSync, readFileSync } from 'node:fs';
+import matter from 'gray-matter';
+
+// Read declared lifecycle state independently of the application's index builders.
+const publicationDir = new URL('../../src/content/publications/', import.meta.url);
+const publications = readdirSync(publicationDir).filter((file) => file.endsWith('.json')).map((file) => ({
+  id: file.slice(0, -5),
+  ...JSON.parse(readFileSync(new URL(file, publicationDir), 'utf8')),
+}));
+const published = publications.filter((work) => work.visibility === 'published');
+const newest = [...published].sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt))[0];
+const newestTitle = matter(readFileSync(new URL(`../../src/content/notes/en/${newest.editions.en.slug}.mdx`, import.meta.url), 'utf8')).data.title;
+
 
 function collectRuntimeErrors(page: Page) {
   const errors: string[] = [];
@@ -13,9 +26,9 @@ test('home promotes the latest published note with a thumbnail derived from its 
 
   const latest = page.getByRole('complementary', { name: 'Latest research note' });
   await expect(latest).toBeVisible();
-  await expect(latest.getByRole('heading', { level: 2 })).toHaveText('The End of Software Engineering? Not Quite.');
-  await expect(latest.getByRole('link', { name: /Read research note:/ })).toHaveAttribute('href', '/en/notes/the-end-of-software-engineering/');
-  await expect(latest.getByRole('link', { name: 'Leer esta nota en español' })).toHaveAttribute('href', '/es/notas/el-fin-de-la-ingenieria-de-software/');
+  await expect(latest.getByRole('heading', { level: 2 })).toHaveText(newestTitle);
+  await expect(latest.getByRole('link', { name: /Read research note:/ })).toHaveAttribute('href', `/en/notes/${newest.editions.en.slug}/`);
+  await expect(latest.getByRole('link', { name: 'Leer esta nota en español' })).toHaveAttribute('href', `/es/notas/${newest.editions.es.slug}/`);
   const thumbnail = latest.locator('img');
   await expect(thumbnail).toHaveAttribute('src', /\/images\/notes\/diagrams\/.+\/en-[a-f0-9]{12}\.png$/);
   await expect(thumbnail).not.toHaveAttribute('alt', '');
@@ -149,17 +162,32 @@ test('machine indexes expose published work only', async ({ request }) => {
   expect(enFeedResponse.headers()['content-type']).toContain('application/rss+xml');
 
   const llms = await llmsResponse.text();
-  expect(llms).toContain('/the-end-of-software-engineering/index.md');
-  expect(llms).not.toContain('stop-hobbling-your-ai');
-
+  const feeds = { es: await esFeedResponse.text(), en: await enFeedResponse.text() };
   const manifest = await manifestResponse.json();
   expect(manifest.schemaVersion).toBe(1);
-  expect(manifest.works).toHaveLength(1);
-  expect(manifest.works[0].editions.es.markdown).toContain('/index.md');
-  expect(manifest.works[0].diagrams.length).toBeGreaterThanOrEqual(2);
-  expect(manifest.works[0].diagrams[0].claimRefs[0]).toMatch(/^claim-\d{2}$/);
-  expect(manifest.works[0].diagrams[0].es.svg).toMatch(/\.svg$/);
-  expect(manifest.works[0].diagrams[0].es.mermaid).toContain('look: handDrawn');
+  expect(manifest.works.map((work: { id: string }) => work.id).sort()).toEqual(published.map((work) => work.id).sort());
+
+  for (const work of publications) {
+    for (const lang of ['es', 'en'] as const) {
+      const slug = work.editions[lang].slug;
+      const section = lang === 'es' ? 'notas' : 'notes';
+      const route = `/${lang}/${section}/${slug}/`;
+      if (work.visibility === 'published') {
+        expect(llms).toContain(`${route}index.md`);
+        expect(feeds[lang]).toContain(route);
+      } else {
+        expect(llms).not.toContain(route);
+        expect(feeds[lang]).not.toContain(route);
+      }
+    }
+  }
+  for (const work of manifest.works) {
+    expect(work.editions.es.markdown).toContain('/index.md');
+    expect(work.diagrams.length).toBeGreaterThanOrEqual(2);
+    expect(work.diagrams[0].claimRefs[0]).toMatch(/^claim-\d{2}$/);
+    expect(work.diagrams[0].es.svg).toMatch(/\.svg$/);
+    expect(work.diagrams[0].es.mermaid).toContain('look: handDrawn');
+  }
 });
 
 test('unknown routes return a real 404', async ({ request }) => {
