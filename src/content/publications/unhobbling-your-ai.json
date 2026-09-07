@@ -60,9 +60,10 @@
   },
   "visibility": "published",
   "releaseApproval": {
-    "digest": "4e1b4767943fe020b70ab31f61cb21ad11df0151735d803c44b1216a658a40da",
+    "digest": "e4fa2adb52575a3007cb63f0b247d3780013eda50b12e0eba88e2e8caf3f738b",
     "approvedAt": "2026-09-07",
     "approvedBy": "Lucas"
   },
-  "publishedAt": "2026-09-07"
+  "publishedAt": "2026-09-07",
+  "linkedinPostUrl": "https://www.linkedin.com/feed/update/urn:li:activity:7502754179820457985/"
 }

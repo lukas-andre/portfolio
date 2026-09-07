@@ -4,6 +4,7 @@ import { getEntry } from 'astro:content';
 import { noteSocialCardPath } from '../../lib/diagrams';
 import { getNoteSources, getRelatedNotes, noteMarkdownPath, notePath, readingMinutes, type NoteEntry } from '../../lib/notes';
 import NotesNav from './NotesNav.astro';
+import NoteShare from './NoteShare.astro';
 
 interface Props { note: NoteEntry; translation?: NoteEntry; }
 const { note, translation } = Astro.props;
@@ -85,6 +86,7 @@ const jsonLd = {
           <span>Lucas Henry</span>
           {date && <time datetime={date.toISOString()}>{new Intl.DateTimeFormat(note.data.lang, { dateStyle: 'long', timeZone: 'UTC' }).format(date)}</time>}
         </div>
+        {!note.data.draft && <NoteShare title={note.data.title} url={canonicalUrl} lang={note.data.lang} placement="header" />}
         <div class="note-header__actions" aria-label={isSpanish ? 'Formatos del artículo' : 'Article formats'}>
           <button
             type="button"
@@ -101,6 +103,19 @@ const jsonLd = {
       </header>
 
       <div id="article-body" class="note-prose"><slot /></div>
+
+      {!note.data.draft && (
+        <section class="note-reader-actions" aria-labelledby="note-reader-actions-title">
+          <h2 id="note-reader-actions-title">{isSpanish ? 'Comparte esta lectura' : 'Share this read'}</h2>
+          <NoteShare title={note.data.title} url={canonicalUrl} lang={note.data.lang} placement="footer" />
+          {note.publication.data.linkedinPostUrl && (
+            <a class="note-discussion" href={note.publication.data.linkedinPostUrl} target="_blank" rel="noopener noreferrer">
+              {isSpanish ? 'Conversar sobre este artículo en LinkedIn' : 'Discuss this article on LinkedIn'}
+              <span aria-hidden="true">↗</span>
+            </a>
+          )}
+        </section>
+      )}
 
       <footer class="note-end">
         <section class="source-list" aria-labelledby="source-list-title">
@@ -219,8 +234,8 @@ const jsonLd = {
   .note-header h1 { max-width: 950px; margin: 1.25rem auto 1.5rem; font-family: var(--font-editorial); font-size: clamp(3.1rem, 9vw, 7rem); font-weight: 450; line-height: .94; letter-spacing: -.055em; text-wrap: balance; }
   .note-header__description { max-width: 66ch; margin: 0 auto 2rem; font-size: clamp(1.05rem, 2.2vw, 1.3rem); text-wrap: balance; }
   .note-header__byline span:first-child { color: var(--accent-cream); }
-  .note-header__actions { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: .55rem; margin-top: 1.35rem; }
-  .note-header__actions button, .note-header__actions a { display: inline-flex; align-items: center; gap: .45rem; min-height: 2.5rem; padding: .58rem .82rem; border: 1px solid var(--glass-border); background: transparent; color: var(--text-muted); font: 600 .64rem/1 var(--font-terminal); cursor: pointer; }
+  .note-header__actions { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: .35rem; margin-top: .7rem; }
+  .note-header__actions button, .note-header__actions a { display: inline-flex; align-items: center; gap: .45rem; min-height: 2.5rem; padding: .45rem .65rem; border: 1px solid transparent; background: transparent; color: var(--text-muted); font: 500 .62rem/1 var(--font-terminal); cursor: pointer; }
   .note-header__actions button:hover, .note-header__actions a:hover, .note-header__actions button:focus-visible, .note-header__actions a:focus-visible { border-color: var(--accent-amber); color: var(--accent-cream); }
   .note-header__actions button:disabled { cursor: wait; opacity: .7; }
   .note-prose { width: min(72ch, calc(100% - 2rem)); margin: 0 auto; font-family: var(--font-editorial); font-size: clamp(1.08rem, 2.1vw, 1.24rem); line-height: 1.75; color: var(--text-secondary); }
@@ -236,6 +251,11 @@ const jsonLd = {
   .note-prose strong { color: var(--accent-cream); font-weight: 600; }
   .note-prose code { padding: .12em .3em; background: var(--bg-secondary); color: var(--accent-amber); font-size: .82em; }
   .note-prose blockquote { margin: 2.2rem 0; padding-left: 1.2rem; border-left: 1px solid var(--accent-amber); color: var(--accent-cream); font-size: 1.15em; }
+  .note-reader-actions { width: min(72ch, calc(100% - 2rem)); margin: 4rem auto 0; padding-top: 2rem; border-top: 1px solid var(--glass-border); font-size: clamp(1.08rem, 2.1vw, 1.24rem); }
+  .note-reader-actions h2 { margin: 0 0 1.2rem; color: var(--accent-cream); font: 450 1.85rem/1.2 var(--font-editorial); letter-spacing: -.025em; }
+  .note-discussion { display: inline-flex; align-items: center; gap: .7rem; margin-top: 1.3rem; min-height: 44px; color: var(--accent-amber); font: 500 .8rem/1.6 var(--font-display); text-decoration: underline; text-underline-offset: .25em; }
+  .note-discussion:focus-visible { outline: 2px solid var(--accent-amber); outline-offset: 4px; }
+  .note-reader-actions + .note-end { margin-top: 3rem; }
   .note-end { width: min(850px, calc(100% - 2rem)); margin: clamp(5rem, 12vw, 9rem) auto 0; padding: 3rem 0 5rem; border-top: 1px solid var(--glass-border); }
   .note-end__eyebrow { font: 600 .65rem/1 var(--font-terminal); color: var(--accent-amber); letter-spacing: .12em; }
   .source-list h2 { margin: .7rem 0 1.6rem; font-family: var(--font-editorial); font-size: 2.2rem; }

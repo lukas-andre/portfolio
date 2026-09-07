@@ -50,6 +50,9 @@ const publications = defineCollection({
       digest: z.string().regex(/^[a-f0-9]{64}$/),
       migratedFromPublishedState: z.boolean().optional(),
     }).optional(),
+    linkedinPostUrl: z.string().url().refine((value) => {
+      return /^https:\/\/(www\.)?linkedin\.com\/(posts\/|feed\/update\/)/.test(value);
+    }, 'Use the HTTPS URL of a LinkedIn post, not a profile or share composer.').optional(),
     visibility: z.enum(['draft', 'published']).default('draft'),
     publishedAt: z.coerce.date().optional(),
   }),
