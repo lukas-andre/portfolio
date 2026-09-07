@@ -4,7 +4,7 @@
   "kind": "graph",
   "claimRefs": [
     "claim-03",
-    "claim-04"
+    "claim-11"
   ],
   "model": {
     "items": [
@@ -65,86 +65,81 @@
       {
         "from": "decision",
         "to": "restore"
-      },
-      {
-        "from": "restore",
-        "to": "candidate",
-        "kind": "dashed"
       }
     ]
   },
   "copy": {
     "es": {
-      "title": "Una variable. La misma prueba.",
-      "question": "¿La retirada mejora el sistema o solo parece hacerlo?",
-      "takeaway": "Compara H₀ con H₁ = H₀ menos una pieza. Mantén fijos modelo, tareas, pruebas, presupuesto y permisos. Repite y decide con evidencia sobre calidad, costo y fallas; no por una sola ejecución favorable.",
-      "alt": "Un marco fijo alimenta dos variantes paralelas: el harness actual H₀ y H₁ sin una pieza. Ambas pasan por la misma evaluación. Si mejora sin degradar calidad ni límites, se adopta; si empeora o falta evidencia, se conserva H₀ y se prepara otro ensayo.",
-      "caption": "Protocolo propuesto a partir de la ablación reportada por Cherny, no un resultado experimental. Cambiar el modelo requiere una nueva línea base. Los permisos y las pruebas que certifican el cambio quedan fuera de la variable que se retira.",
+      "title": "Cambiar una cosa para aprender",
+      "question": "¿Esa instrucción todavía ayuda?",
+      "takeaway": "Dos versiones, una sola diferencia y los mismos criterios permiten evaluar mejor el efecto del cambio.",
+      "alt": "Una prueba fija compara A, configuración actual, con B, la misma sin una instrucción. Se repiten y comparan resultados. Se conserva el cambio si mejora sin perder calidad; si empeora o no está claro, se vuelve a A.",
+      "caption": "Procedimiento propuesto, no resultados medidos. Si cambia el modelo o la prueba, necesitas una nueva comparación.",
       "labels": {
         "controls": {
-          "title": "Marco fijo",
-          "detail": "Mismo modelo, tareas, pruebas de aceptación, presupuesto y permisos en ambas variantes."
+          "title": "La misma prueba",
+          "detail": "Mismo modelo, tareas, herramientas, permisos, presupuesto y criterios de aceptación."
         },
         "baseline": {
-          "title": "H₀ · Actual",
-          "detail": "Medir el harness antes del cambio."
+          "title": "A · Como está hoy",
+          "detail": "La configuración actual."
         },
         "candidate": {
-          "title": "H₁ · Candidato",
-          "detail": "H₀ menos una pieza: una instrucción, descripción de herramienta o capa de coordinación; no los controles fijos."
+          "title": "B · Sin una instrucción",
+          "detail": "Copia de A: retirar solo la instrucción que quieres evaluar."
         },
         "measure": {
-          "title": "Repetir y medir",
-          "detail": "Comparar calidad, costo y fallas bajo la misma evaluación."
+          "title": "Repetir y comparar",
+          "detail": "Errores, tiempo, consumo y ayuda humana en ambas versiones."
         },
         "decision": {
-          "title": "Decidir",
-          "detail": "¿Mejora el sistema sin regresión de calidad ni incumplimiento de límites?"
+          "title": "¿Hay una mejora clara?",
+          "detail": "Sin perder la calidad exigida ni incumplir límites."
         },
         "promote": {
-          "title": "Adoptar H₁",
-          "detail": "Solo si la evidencia justifica el cambio y supera las pruebas acordadas."
+          "title": "Conservar el cambio",
+          "detail": "Adoptar B si la evidencia lo justifica."
         },
         "restore": {
-          "title": "Conservar H₀",
-          "detail": "Si hay regresión o evidencia insuficiente, diagnosticar y preparar un ensayo más acotado."
+          "title": "Volver a la anterior",
+          "detail": "Si empeora o no está claro, conservar A e investigar."
         }
       }
     },
     "en": {
-      "title": "One variable. The same test.",
-      "question": "Does removal improve the system, or only seem to?",
-      "takeaway": "Compare H₀ with H₁ = H₀ minus one component. Hold model, tasks, tests, budget, and permissions fixed. Repeat and use evidence on quality, cost, and failures, not a single favorable run.",
-      "alt": "A fixed setup feeds two parallel variants: current harness H₀ and H₁ without one component. Both undergo the same evaluation. Adopt the change if the system improves without quality regression or boundary violations; otherwise keep H₀ and prepare another trial.",
-      "caption": "A proposed protocol based on Cherny’s reported ablation practice, not an experimental result. Changing the model requires a new baseline. Permissions and the tests certifying the change are not the variable being removed.",
+      "title": "Change one thing to learn",
+      "question": "Does that instruction still help?",
+      "takeaway": "Two versions, one difference, and the same criteria make the effect of the change easier to evaluate.",
+      "alt": "A fixed test compares A, the current configuration, with B, the same configuration minus one instruction. Results are repeated and compared. Keep a change if it improves results without losing quality; otherwise return to A.",
+      "caption": "Proposed procedure, not measured results. A new model or test requires a new comparison.",
       "labels": {
         "controls": {
-          "title": "Fixed setup",
-          "detail": "Same model, tasks, acceptance tests, budget, and permissions in both variants."
+          "title": "The same test",
+          "detail": "Same model, tasks, tools, permissions, budget, and acceptance criteria."
         },
         "baseline": {
-          "title": "H₀ · Current",
-          "detail": "Measure the harness before the change."
+          "title": "A · As it is today",
+          "detail": "The current configuration."
         },
         "candidate": {
-          "title": "H₁ · Candidate",
-          "detail": "H₀ minus one component: an instruction, tool description, or coordination layer; not the fixed controls."
+          "title": "B · One instruction removed",
+          "detail": "Copy A and remove only the instruction being evaluated."
         },
         "measure": {
-          "title": "Repeat and measure",
-          "detail": "Compare quality, cost, and failures under the same evaluation."
+          "title": "Repeat and compare",
+          "detail": "Errors, time, consumption, and human help for both versions."
         },
         "decision": {
-          "title": "Decide",
-          "detail": "Does the system improve without quality regression or boundary violations?"
+          "title": "A clear improvement?",
+          "detail": "Without losing required quality or violating boundaries."
         },
         "promote": {
-          "title": "Adopt H₁",
-          "detail": "Only if evidence supports the change and it passes the agreed tests."
+          "title": "Keep the change",
+          "detail": "Adopt B if supported by evidence."
         },
         "restore": {
-          "title": "Keep H₀",
-          "detail": "With regression or insufficient evidence, diagnose and prepare a more focused trial."
+          "title": "Return to the previous version",
+          "detail": "If worse or unclear, keep A and investigate."
         }
       }
     }

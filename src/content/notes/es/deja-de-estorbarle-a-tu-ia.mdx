@@ -2,16 +2,9 @@
 translationKey: unhobbling-your-ai
 lang: es
 title: Deja de estorbarle a tu IA
-description: >-
-  Unhobbling no significa borrar reglas y rezar. Significa descubrir, con
-  evidencia, qué parte del sistema libera al modelo y cuál solo conserva las
-  limitaciones de una generación anterior.
-updatedAt: '2026-09-05'
-tags:
-  - agentes
-  - unhobbling
-  - prompts
-  - harness
+description: "A veces la IA necesita una herramienta. Otras, dejar atrás una instrucción. Cómo distinguir qué añadir, qué retirar y qué conservar sin perder el control."
+updatedAt: '2026-09-07'
+tags: [agentes, unhobbling, instrucciones, evaluación]
 aiAssisted: true
 ---
 
@@ -20,99 +13,87 @@ import Callout from '../../../components/notes/Callout.astro';
 import MyTake from '../../../components/notes/MyTake.astro';
 import NoteFigure from '../../../components/notes/NoteFigure.astro';
 
-Hay una versión tentadora de esta historia: Anthropic lanzó un modelo nuevo, borró alrededor del 80% del system prompt de Claude Code y el producto mejoró. Entonces el consejo sería fácil: elimina tu `CLAUDE.md`, suelta los permisos y deja que la inteligencia respire.
+Imagina que le pides a una IA corregir una fórmula en una planilla. La fórmula que propone parece razonable, pero no puede abrir el archivo ni comprobar el resultado. Le repites que sea más cuidadosa. Le escribes instrucciones más largas. El problema sigue ahí: le falta una forma de probar lo que propone.
 
-Es también la forma más peligrosa de entenderla.
+Ahora imagina lo contrario. Ya puede trabajar sobre una copia de la planilla, pero conserva una lista de instrucciones que le exige explicar cada paso varias veces. Quizás ese procedimiento evitaba errores antes. Quizás hoy solo demora la tarea. Para saberlo, hay que comparar.
 
-Lo interesante de **unhobbling** —literalmente, quitarle las trabas a un modelo— no es la épica de presionar Delete. Es aprender a distinguir entre tres cosas que suelen vivir mezcladas en el mismo archivo: capacidades que el modelo necesita, correcciones que compensaban una debilidad antigua y límites que protegen al usuario aunque el modelo sea brillante.
+Estos ejemplos ilustran dos problemas distintos: **algo que falta y algo que podría sobrar**. Ambos pueden hacer que una IA capaz rinda por debajo de lo esperado.
 
-<Callout kind="thesis" label="La tesis">
-  Dejar de estorbarle a la IA no es darle libertad por intuición. Es tratar el harness como una hipótesis: medir qué habilita al modelo, retirar lo que ya no ayuda y conservar una raíz de seguridad que el propio experimento no puede negociar.
+<Callout kind="thesis" label="La idea en una frase">
+
+Un buen sistema le da a la IA lo que necesita para trabajar, comprueba qué instrucciones siguen ayudando y mantiene claros los límites de lo que puede hacer.
+
 </Callout>
 
-## El modelo que compraste no es el producto que estás usando
+## La IA también depende de lo que la rodea
 
-En 2024, Leopold Aschenbrenner usó *unhobbling* para describir mejoras que desbloqueaban capacidades latentes del modelo base: RLHF, chain of thought, herramientas y scaffolding. No hablaba de quitar cosas. Muchas veces había que **añadir** una interfaz, un ciclo de razonamiento o acceso al mundo para convertir un chatbot capaz en un agente útil. <Cite source="situational-awareness-unhobbling-2024" locator="§ ‘Unhobbling’ y lista de mejoras tras GPT-4" />
+El **modelo** es la parte de la IA que interpreta tu pedido y genera una respuesta. Un **agente** es un sistema que utiliza ese modelo para elegir acciones, usar herramientas y observar qué pasó antes de continuar. Por ejemplo: abrir una copia del archivo, cambiar una fórmula, calcular el resultado y decidir si necesita corregirla otra vez.
 
-Dos años después, Boris Cherny lo explicó desde el otro extremo. En una conversación de Y Combinator sobre Claude Code, llamó *product overhang* a todo lo que un modelo actual ya sabe hacer pero ningún producto le permite expresar. El modelo ocupa un contorno; la interfaz, las herramientas y los permisos dibujan otro más pequeño. Lo que queda atrapado entre ambos es capacidad pagada y no utilizada. <Cite source="yc-boris-cherny-building-claude-code-2026" locator="10:51–12:28, product overhang y origen de Claude Code" />
+Anthropic distingue cuatro componentes: modelo, instrucciones y controles, herramientas y entorno de ejecución. Al conjunto de instrucciones y controles lo llama *harness*. En este artículo basta con recordar algo más sencillo: lo que una IA consigue depende también de cómo está equipada y organizada. <Cite source="anthropic-trustworthy-agents-2026" locator="How agents work: modelo, harness, herramientas y entorno" />
 
 <NoteFigure id="unhobbling-your-ai/product-overhang" />
 
-La historia original de Claude Code cabe ahí. Los productos de programación ofrecían autocompletado o chat de solo lectura cuando Sonnet 3.5 ya podía escribir funciones y archivos completos. El salto no fue pedirle un código más bonito: fue darle una terminal y un loop suficientemente simple para actuar. <Cite source="yc-boris-cherny-building-claude-code-2026" locator="12:28–15:12, Sonnet 3.5 y el harness inicial" />
+Pedirle más cuidado no le da acceso a un archivo. Darle acceso tampoco garantiza que encuentre el error. Son intervenciones distintas y conviene evaluar cada una por lo que realmente permite hacer.
 
-Pero el contorno del producto también puede quedar grande en los lugares equivocados. Una herramienta ambigua, un permiso demasiado amplio o una instrucción contradictoria no liberan inteligencia; multiplican la superficie donde puede equivocarse. Anthropic propone pensar un agente como cuatro componentes —modelo, harness, herramientas y entorno— y advierte que cada uno es simultáneamente una fuente de capacidad y un punto de control. <Cite source="anthropic-trustworthy-agents-2026" locator="§ ‘An agent is built from four components’" />
+La palabra *unhobbling* significa quitar trabas. En su ensayo de 2024, Leopold Aschenbrenner la usó también para describir mejoras que **añaden** herramientas o formas de aprovechar las capacidades de un modelo. Quitar una traba puede consistir en poner algo que faltaba. <Cite source="situational-awareness-unhobbling-2024" locator="Unhobbling: herramientas y scaffolding" />
 
-Unhobbling, entonces, no significa maximizar libertad. Significa **hacer coincidir los contornos**.
+## Una instrucción útil puede dejar de serlo
 
-## La misma medicina puede convertirse en lastre
+Supongamos que una versión anterior de tu asistente cometía errores porque se saltaba un paso. Añadiste una instrucción para recordárselo y el resultado mejoró. Meses después cambias de modelo, pero conservas esa regla junto con todas las demás.
 
-Un system prompt rara vez nace absurdo. Una línea existe porque una versión anterior no verificaba, insistía en crear archivos innecesarios o se detenía demasiado pronto. Un equipo observa la falla, agrega una instrucción y ve una mejora. Después agrega otra. El archivo acumula la historia clínica de modelos que ya no están en producción.
+Es razonable preguntarse si todavía sirve. Su antigüedad no demuestra que sobre; el problema que resolvía puede seguir existiendo. Tampoco demuestra su utilidad que alguien la haya escrito por una buena razón hace un año.
 
-Eso es deuda de instrucciones: reglas localmente razonables cuyo costo se paga en todos los turnos, incluso cuando la conducta que corregían ya desapareció.
+Boris Cherny, creador de Claude Code, contó que su equipo eliminó alrededor del **80% de las instrucciones de sistema** —el texto que orienta el comportamiento general del asistente— al preparar el producto para Opus 5. También describió pruebas en las que retiran instrucciones y las reincorporan para observar su efecto. <Cite source="yc-boris-cherny-building-claude-code-2026" locator="Transcripción: reducción del system prompt, simple mode y ablación" />
 
-Cherny contó que, al preparar Claude Code para Opus 5, eliminaron alrededor del 80% del system prompt. También describió *simple mode*, una ablación interna que retira prompts de sistema y de herramientas para comparar la conducta. Su afirmación fue provocadora: en algunas pruebas el modelo parecía un poco más inteligente sin esas instrucciones. <Cite source="yc-boris-cherny-building-claude-code-2026" locator="3:53–6:14, reducción del prompt, simple mode y ablación" />
+Ese porcentaje es un testimonio sobre su producto, no una receta para borrar el 80% de nuestras reglas. La charla no aporta una comparación reproducible que permita trasladar ese número a cualquier agente. Cherny también explica que mantienen código dedicado a seguridad, permisos, revisión automática del código e interfaz. <Cite source="yc-boris-cherny-building-claude-code-2026" locator="Transcripción: qué conserva el harness de Claude Code" />
 
-El número merece dos asteriscos. Primero, es el testimonio de quien construye el producto, no un experimento público con conteos, tareas y resultados reproducibles. Segundo, la propia conversación explica que no dejaron el producto vacío: el harness restante se concentra en seguridad, permisos, análisis estático e interfaz. <Cite source="yc-boris-cherny-building-claude-code-2026" locator="6:14–6:45, qué permanece en el harness" />
+A retirar una pieza para estudiar su efecto se le llama **ablación**. El nombre es técnico; la pregunta es simple: ¿qué cambia cuando pruebo sin esto?
 
-<NoteFigure id="unhobbling-your-ai/add-and-remove" />
+## Tres decisiones: retirar, conservar o añadir
 
-No hay contradicción entre 2024 y 2026. Una terminal puede desbloquear a un modelo; una instrucción escrita para enseñarle a usar esa terminal puede estorbarle a la generación siguiente. La unidad de análisis no es “más versus menos prompt”. Es **modelo × tarea × harness actual**.
+Propongo ordenar la revisión con tres preguntas. Los ejemplos de la planilla son ilustrativos, no resultados de un experimento.
 
-Las guías oficiales para Opus 5 reflejan esa transición. Recomiendan retirar workarounds heredados y lenguaje que empuja verificación excesiva cuando la nueva conducta ya viene incorporada; a la vez, siguen recomendando límites explícitos para alcance, presupuesto de trabajo y uso de subagentes. <Cite source="anthropic-prompting-claude-opus-5" locator="§ ‘Task scope and over-verification’ y ‘Controlling subagent spawning’" />
+**¿Hay una instrucción que podría sobrar?** Prueba sin ella en una copia recuperable de la configuración. Si mantienes la calidad y reduces trabajo innecesario, tienes una razón para retirarla. Si empeora el resultado, esa regla todavía cumple una función.
 
-## Borrar, conservar o añadir
+**¿Hay una pieza que ayuda o define un límite?** Consérvala. Puede ser una comprobación que detecta errores o una regla que exige trabajar sobre una copia del archivo. Que la IA sepa modificar la planilla no significa que tenga permiso para enviársela a otra persona.
 
-Una auditoría útil separa las piezas por función, no por lo molestas que se sienten.
-
-**Borra deuda** cuando una instrucción duplica una conducta estable del modelo, contradice otra regla, prescribe un workaround de una versión antigua o consume atención sin cambiar resultados. Si nadie puede nombrar la falla que evita, es candidata a ablación.
-
-**Conserva límites** cuando protegen activos, definen autoridad o vuelven verificable el resultado: permisos, sandboxing, schemas de entrada, tests, políticas, presupuestos y condiciones de salida. No están ahí porque el modelo sea tonto; están porque capacidad y autorización son preguntas distintas.
-
-**Añade affordances** cuando el agente no puede percibir o actuar sobre algo esencial: logs consultables, un browser, una herramienta mejor nombrada, estado durable, documentación navegable o un evaluador independiente. Pedirle “razona mejor” no sustituye una interfaz que falta.
+**¿Falta algo necesario para la tarea?** Añade lo mínimo que permita comprobar esa hipótesis. En nuestro ejemplo, podría ser una herramienta para calcular la fórmula. Después observa si realmente mejora el resultado.
 
 <NoteFigure id="unhobbling-your-ai/delete-keep-add" />
 
-El estudio de Anthropic sobre aplicaciones construidas durante horas muestra por qué “menos harness” tampoco es una ley. En un caso, un agente solo consumió unos 9 dólares y terminó en veinte minutos; el sistema completo gastó cerca de 200 dólares durante seis horas. El segundo produjo una aplicación mucho más completa y funcional porque planner, contratos por sprint y evaluator sostuvieron el trabajo. Es una comparación exploratoria de una aplicación, no un benchmark general, pero demuestra que scaffolding costoso puede comprar calidad real cuando divide responsabilidades útiles. <Cite source="anthropic-harness-design-long-running-apps-2026" locator="§ ‘Full harness vs. solo agent’ y revisión de resultados" />
+Las propias guías de Opus 5 recomiendan retirar instrucciones que provocan revisiones excesivas y, al mismo tiempo, mantener explícito el alcance del pedido y acotar la delegación de trabajo. Es una recomendación específica de ese modelo. <Cite source="anthropic-prompting-claude-opus-5" locator="Task scope and over-verification; Controlling subagent spawning" />
 
-La pregunta no es si el harness es grande. Es si cada capa **gana su costo**.
+Aquí importa una distinción: pedir que repita una revisión una y otra vez es una estrategia de trabajo; exigir que el resultado cumpla lo acordado es el criterio de aceptación. Podemos cambiar la primera sin rebajar el segundo.
 
-## Durar más no es acertar más
+## A veces hace falta más apoyo
 
-Cherny también describió una capacidad nueva: modelos capaces de continuar durante días o semanas con auto mode y menos scaffolding. <Cite source="yc-boris-cherny-building-claude-code-2026" locator="1:19–3:32, ejecución prolongada y auto mode" /> Eso amplía el horizonte de producto, pero conviene no confundir tres métricas:
+Anthropic reportó dos intentos con Opus 4.5 de construir una aplicación para crear videojuegos: un agente solo gastó 9 dólares en 20 minutos; un sistema con planificación y revisión gastó 200 dólares en seis horas y produjo una aplicación más completa y funcional, aunque con defectos. <Cite source="anthropic-harness-design-long-running-apps-2026" locator="Running the harness: tabla Solo / Full harness y revisión de resultados" />
 
-- **duración:** cuánto tiempo sigue actuando;
-- **autonomía:** cuántas decisiones toma sin pedir ayuda;
-- **confiabilidad:** con qué frecuencia alcanza el objetivo sin daño ni degradación.
+La comparación también cambió tiempo, costo y alcance: el planificador amplió el pedido inicial. Es un caso exploratorio; no aísla cuánto aporta cada pieza ni demuestra que gastar más mejore cualquier tarea. Sí ofrece un contrapunto a la idea de que todo apoyo adicional sobra.
 
-Un agente que nunca se detiene puede ser admirable o catastrófico. La misma charla aterriza la diferencia al recomendar resultados verificables, guardrails y criterios de salida: no pedir “haz crecer mi startup”, sino definir el outcome, los límites y la condición bajo la cual el loop termina. <Cite source="yc-boris-cherny-building-claude-code-2026" locator="15:12–20:40, outcome, guardrails, exit criteria y verificación" />
+<Callout kind="limit" label="Qué conviene medir">
 
-<Callout kind="limit" label="El límite que importa">
-  Más capacidad cambia cuánto puede hacer el agente. No cambia quién tiene derecho a decidir, qué riesgo es aceptable ni qué evidencia convierte “terminé” en un resultado confiable.
+Una IA puede trabajar durante más tiempo sin resolver mejor el problema. Compara la calidad del resultado, el tiempo y el costo por separado, incluyendo las correcciones que todavía tiene que hacer una persona.
+
 </Callout>
 
-## La ablación como disciplina
+## Cómo probarlo sin engañarnos
 
-La mejor parte del consejo de Cherny no es “borra tu `CLAUDE.md` cada seis meses”. Es lo que viene después: usar el sistema, observar fallas repetidas y recuperar una instrucción solo cuando la conducta demuestra que hace falta. <Cite source="yc-boris-cherny-building-claude-code-2026" locator="6:45–10:25, reconstrucción pieza por pieza y evals" />
+Este es el procedimiento que usaría para evaluar una instrucción sospechosa de sobrar:
 
-Un protocolo sobrio se parece a esto:
-
-1. **Congela tareas y gates.** Elige casos reales, resultados verificables, costos y límites de seguridad antes de cambiar nada.
-2. **Mide la línea base.** Calidad, tiempo, tokens, intervenciones humanas, permisos denegados y regresiones.
-3. **Retira una pieza por vez.** Una instrucción, descripción de herramienta o capa de coordinación, siempre en una rama o entorno recuperable. Conserva fijos los permisos y las pruebas de aceptación: el experimento no debe cambiar la frontera de autoridad ni la definición de éxito.
-4. **Busca patrones, no anécdotas.** Una falla única puede ser azar; una falla repetida y atribuible merece una corrección.
-5. **Reintroduce la mínima intervención.** Prefiere un test, schema o herramienta cuando el problema es estructural; usa prosa cuando realmente es una regla de conducta.
-6. **Promueve solo si mejora el sistema completo.** No cambies seguridad por una demo más fluida ni costo por una métrica que no representa al usuario.
+1. **Elige tareas y define qué cuenta como éxito.** Para la planilla, podría ser calcular correctamente varios casos conocidos y conservar intacto el archivo original.
+2. **Prepara dos versiones.** Una con la configuración actual y otra sin una sola instrucción. Mantén iguales el modelo, los archivos, las herramientas, los permisos y el presupuesto disponible.
+3. **Prueba ambas varias veces.** Revisa los resultados con los mismos criterios. Anota errores, tiempo, consumo y ayuda humana necesaria. Una ejecución favorable puede ser casualidad.
+4. **Decide con lo que observaste.** Conserva el cambio si aporta una mejora sin perder lo que exigías al resultado. Si empeora o no está claro, vuelve a la versión anterior e investiga.
 
 <NoteFigure id="unhobbling-your-ai/ablation-loop" />
 
-<MyTake title="Mi lectura">
-  En mi propio sistema de agentes, el error más caro no ha sido tener demasiadas reglas o muy pocas. Ha sido no saber cuál capa estaba causando la fricción. Si cambio de modelo, permisos, herramientas y prompt al mismo tiempo, cualquier mejora se convierte en superstición. Unhobbling me sirve como higiene del harness: todo debe justificar su existencia, pero seguridad y evidencia no tienen que volver a concursar en cada release.
+Esto es una propuesta de evaluación, no un experimento que yo haya ejecutado aquí. Su utilidad está en poder atribuir una diferencia al cambio que estás probando. Si cambias de modelo, reescribes todas las instrucciones y añades herramientas a la vez, será mucho más difícil saber qué ayudó.
+
+<MyTake title="Mi criterio">
+
+Antes de escribir otra instrucción, quiero poder responder qué problema intento resolver y cómo sabré si mejoró. Si falta información, busco una forma de obtenerla. Si sospecho que una regla estorba, la pongo a prueba. Si protege una decisión que corresponde a la persona, la mantengo fuera de ese experimento.
+
 </MyTake>
 
-## Dejar de estorbar también exige saber cuándo intervenir
-
-La frase sobrevivirá porque captura algo real: estamos rodeando modelos nuevos con interfaces y hábitos diseñados para modelos viejos. Parte del trabajo de construir productos agénticos consiste en descubrir qué ya era posible y nosotros no estábamos dejando ocurrir.
-
-Pero el buen builder no idolatra ni el andamio ni el vacío. A veces desbloquea al modelo con una terminal. A veces elimina la mayor parte de las instrucciones heredadas. A veces añade un evaluator, un sandbox o una condición de salida que reduce libertad local para aumentar autonomía segura.
-
-Dejar de estorbarle a tu IA no es apartarte. Es moverte al lugar correcto: fuera de cada microdecisión, pero todavía a cargo del experimento, de los límites y de la prueba.
+Dejar de estorbarle a tu IA empieza por entender dónde se atasca. En la planilla, eso puede significar darle una herramienta para calcular, retirar una explicación repetida o conservar la obligación de trabajar sobre una copia. La mejor configuración será la que permita hacer bien el trabajo y comprobarlo.

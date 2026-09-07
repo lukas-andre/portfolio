@@ -45,13 +45,12 @@
   },
   "visuals": [
     "unhobbling-your-ai/product-overhang",
-    "unhobbling-your-ai/add-and-remove",
     "unhobbling-your-ai/delete-keep-add",
     "unhobbling-your-ai/ablation-loop"
   ],
   "featuredVisual": "unhobbling-your-ai/product-overhang",
   "researchPacket": "brain://library/paper-to-portfolio/works/unhobbling-your-ai.json",
-  "researchDigest": "d715c7d0b000a43eca7a7610a18e657283cc3723271778dadc00bc63788325f0",
+  "researchDigest": "95796dd7bbba9f1241b5bfc5aaac1ab0d65e7c8b22fab450fd583c4810aaa6b8",
   "angleApproval": {
     "approvedAt": "2026-09-02",
     "approvedBy": "Lucas",
@@ -59,5 +58,11 @@
     "thesis": "Unhobbling trata cada componente del harness como una hipótesis que debe ganar su costo frente al modelo y la tarea actuales.",
     "counterpoint": "Borrar reglas no es una estrategia universal: capacidad, autorización y seguridad siguen siendo problemas diferentes."
   },
-  "visibility": "draft"
+  "visibility": "published",
+  "releaseApproval": {
+    "digest": "4e1b4767943fe020b70ab31f61cb21ad11df0151735d803c44b1216a658a40da",
+    "approvedAt": "2026-09-07",
+    "approvedBy": "Lucas"
+  },
+  "publishedAt": "2026-09-07"
 }

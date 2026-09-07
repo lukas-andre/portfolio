@@ -3,8 +3,8 @@
   "translationKey": "unhobbling-your-ai",
   "kind": "graph",
   "claimRefs": [
-    "claim-01",
-    "claim-06"
+    "claim-06",
+    "claim-10"
   ],
   "model": {
     "items": [
@@ -71,76 +71,76 @@
   },
   "copy": {
     "es": {
-      "title": "De proponer a comprobar",
-      "question": "¿Qué parte del trabajo permite hacer la interfaz?",
-      "takeaway": "Una interfaz de texto puede detenerse en una sugerencia. Edición, tests y feedback permiten intentar y comprobar la corrección sin exigir por sí solos otro modelo.",
-      "alt": "Un mismo modelo y una tarea, corregir un bug, se bifurcan en dos interfaces. La de texto termina en una propuesta que ejecuta la persona. Las herramientas habilitan un ciclo de editar, probar y leer el resultado.",
-      "caption": "Ejemplo conceptual de product overhang: la interfaz puede limitar el trabajo que llega a realizar el modelo. Habilitar un ciclo de trabajo no garantiza resolver la tarea ni justifica ampliar permisos.",
+      "title": "Una forma de comprobar",
+      "question": "¿Puede probar lo que propone?",
+      "takeaway": "Las herramientas pueden habilitar un ciclo de corrección y comprobación; el resultado todavía debe evaluarse.",
+      "alt": "Un mismo modelo recibe la tarea de corregir una fórmula. Con conversación propone y la persona comprueba. Con herramientas puede cambiar una copia, calcular y comprobar el resultado.",
+      "caption": "Ejemplo ilustrativo: dar una herramienta permite intentar una comprobación. No garantiza acertar.",
       "labels": {
         "model": {
           "title": "Mismo modelo",
-          "detail": "Misma tarea: corregir un bug. Comparación conceptual, no un experimento medido."
+          "detail": "Misma tarea: corregir una fórmula."
         },
         "chat": {
-          "title": "Solo texto",
-          "detail": "La interfaz recibe el problema y devuelve una respuesta."
+          "title": "Solo conversación",
+          "detail": "Puede proponer una corrección."
         },
         "tools": {
-          "title": "Edición y tests",
-          "detail": "Edición y tests dentro del alcance autorizado."
+          "title": "Con herramientas",
+          "detail": "Puede trabajar en una copia autorizada."
         },
         "proposal": {
-          "title": "Proponer",
-          "detail": "La persona aplica el parche y trae de vuelta el resultado."
+          "title": "La persona lo prueba",
+          "detail": "Aplica la fórmula y comprueba el resultado."
         },
         "edit": {
-          "title": "Editar",
-          "detail": "Aplicar una corrección en el entorno de trabajo."
+          "title": "Cambiar la fórmula",
+          "detail": "Modificar la copia de trabajo."
         },
         "test": {
-          "title": "Probar",
-          "detail": "Ejecutar los tests disponibles."
+          "title": "Calcular",
+          "detail": "Obtener el resultado de la fórmula."
         },
         "feedback": {
-          "title": "Leer resultado",
-          "detail": "Usar la salida para decidir si hace falta otra corrección; el éxito no está garantizado."
+          "title": "Comprobar el resultado",
+          "detail": "Volver a corregir si hace falta."
         }
       }
     },
     "en": {
-      "title": "From suggesting to checking",
-      "question": "How much of the work does the interface allow?",
-      "takeaway": "A text interface may stop at a suggestion. Editing, tests, and feedback let an agent attempt and check a fix without inherently requiring a different model.",
-      "alt": "The same model and task, fixing a bug, branch into two interfaces. Text ends in a proposal that a person executes. Tools enable a cycle of editing, testing, and reading the result.",
-      "caption": "A conceptual example of product overhang: an interface can limit the work a model gets to perform. Enabling a work loop neither guarantees success nor justifies broader permissions.",
+      "title": "A way to check",
+      "question": "Can it test what it proposes?",
+      "takeaway": "Tools can enable a cycle of correction and checking; the result still needs evaluation.",
+      "alt": "The same model is asked to fix a formula. With conversation it suggests and a person checks. With tools it can edit a copy, calculate, and check the result.",
+      "caption": "Illustrative example: a tool enables an attempt to check the work. It does not guarantee success.",
       "labels": {
         "model": {
           "title": "Same model",
-          "detail": "Same task: fix a bug. A conceptual comparison, not a measured experiment."
+          "detail": "Same task: fix a formula."
         },
         "chat": {
-          "title": "Text only",
-          "detail": "The interface receives a problem and returns a response."
+          "title": "Conversation only",
+          "detail": "Can suggest a correction."
         },
         "tools": {
           "title": "With tools",
-          "detail": "Editing and testing within the authorized scope."
+          "detail": "Can work on an authorized copy."
         },
         "proposal": {
-          "title": "Suggest",
-          "detail": "A person applies the patch and brings back the result."
+          "title": "A person tries it",
+          "detail": "Applies the formula and checks the result."
         },
         "edit": {
-          "title": "Edit",
-          "detail": "Apply a correction in the work environment."
+          "title": "Change the formula",
+          "detail": "Edit the working copy."
         },
         "test": {
-          "title": "Test",
-          "detail": "Run the available tests."
+          "title": "Calculate",
+          "detail": "Obtain the formula result."
         },
         "feedback": {
-          "title": "Read result",
-          "detail": "Use the output to decide whether another correction is needed; success is not guaranteed."
+          "title": "Check the result",
+          "detail": "Revise again if needed."
         }
       }
     }
