@@ -10,6 +10,8 @@ const publicEntries = publishedSitemapEntries();
 export default defineConfig({
   site: 'https://lucashenry.dev',
   trailingSlash: 'always',
+  // Deliver the first paint with the compressed HTML instead of two blocking CSS requests.
+  build: { inlineStylesheets: 'always' },
   integrations: [
     react(),
     mdx(),
