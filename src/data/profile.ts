@@ -8,6 +8,7 @@ export const profile = {
   domain: 'Customer & Seller Self Service',
   since: 'June 2026',
   headline: 'Tech Team Lead · Customer & Seller Self Service · Agentic Systems',
+  seoDescription: 'Lucas Henry, Tech Team Lead at Falabella. Engineering leadership, agentic systems and harness engineering. Projects and research notes in English and Spanish.',
   summary:
     'I lead the technology behind seven self-service capabilities at Falabella and design harnesses where people and agents ship with shared context, observable workflows, and verifiable evidence.',
   scope: {

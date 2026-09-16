@@ -3,6 +3,7 @@ import { mkdtempSync, mkdirSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
+import { request } from 'node:http';
 import { createStaticServer } from '../../server.js';
 
 test('static server serves browser and agent artifacts with correct HTTP semantics', async (t) => {
@@ -12,6 +13,7 @@ test('static server serves browser and agent artifacts with correct HTTP semanti
   mkdirSync(join(root, 'images/notes/diagrams/example/visual'), { recursive: true });
   mkdirSync(join(root, 'open-graph/v4'), { recursive: true });
   writeFileSync(join(root, 'index.html'), '<h1>home</h1>');
+  writeFileSync(join(root, 'sitemap-index.xml'), '<sitemapindex/>');
   writeFileSync(join(root, 'es/notas/example/index.html'), '<h1>nota</h1>');
   writeFileSync(join(root, 'es/notas/example/index.md'), '# Nota\n');
   writeFileSync(join(root, 'es/notas/feed.xml'), '<rss></rss>');
@@ -30,6 +32,38 @@ test('static server serves browser and agent artifacts with correct HTTP semanti
   const nested = await fetch(`${base}/es/notas/example/?from=test`);
   assert.equal(nested.status, 200);
   assert.match(await nested.text(), /nota/);
+  assert.equal(nested.headers.get('cache-control'), 'public, max-age=0, must-revalidate, no-transform');
+  assert.equal(nested.headers.get('x-content-type-options'), 'nosniff');
+
+  for (const path of ['/es/notas/example', '/es/notas/example/index.html']) {
+    const redirect = await fetch(`${base}${path}?from=test`, { redirect: 'manual' });
+    assert.equal(redirect.status, 308);
+    assert.equal(redirect.headers.get('location'), '/es/notas/example/?from=test');
+  }
+  const sitemapAlias = await fetch(`${base}/sitemap.xml`, { redirect: 'manual' });
+  assert.equal(sitemapAlias.status, 308);
+  assert.equal(sitemapAlias.headers.get('location'), '/sitemap-index.xml');
+
+  for (const headers of [
+    { host: 'www.lucashenry.dev' },
+    { host: 'lucashenry.dev', 'x-forwarded-proto': 'http' },
+    { host: 'lucashenry.dev', 'cf-visitor': '{"scheme":"http"}' },
+  ]) {
+    const redirect = await new Promise((resolve, reject) => {
+      const req = request(`${base}/es/notas/example?from=test`, { headers }, (res) => {
+        res.resume();
+        resolve(res);
+      });
+      req.on('error', reject);
+      req.end();
+    });
+    assert.equal(redirect.statusCode, 308);
+    assert.equal(redirect.headers.location, 'https://lucashenry.dev/es/notas/example/?from=test');
+  }
+  const tunnelRequest = await fetch(`${base}/es/notas/example/`, {
+    headers: { host: 'lucashenry.dev', 'cf-visitor': '{"scheme":"https"}', 'x-forwarded-proto': 'http' }, redirect: 'manual',
+  });
+  assert.equal(tunnelRequest.status, 200, 'Tunnel must not create an HTTPS redirect loop');
 
   const markdown = await fetch(`${base}/es/notas/example/index.md`);
   assert.equal(markdown.headers.get('content-type'), 'text/markdown; charset=utf-8');
@@ -59,7 +93,7 @@ test('static server serves browser and agent artifacts with correct HTTP semanti
   const compatibilityCard = await fetch(`${base}/open-graph/v4/home.png`);
   assert.equal(compatibilityCard.status, 200);
   assert.equal(compatibilityCard.headers.get('content-type'), 'image/png');
-  assert.equal(compatibilityCard.headers.get('cache-control'), null);
+  assert.equal(compatibilityCard.headers.get('cache-control'), 'public, max-age=0, must-revalidate');
 
   const unsupported = await fetch(`${base}/`, { method: 'POST' });
   assert.equal(unsupported.status, 405);

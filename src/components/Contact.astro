@@ -1,5 +1,5 @@
 ---
-import CinematicReveal from './ui/CinematicReveal.tsx';
+import CinematicReveal from './ui/CinematicReveal.astro';
 import Icon from './ui/Icon.tsx';
 
 const contactLinks = [
@@ -28,7 +28,7 @@ const contactLinks = [
 ---
 
 <section id="contact" class="section contact">
-  <CinematicReveal client:load>
+  <CinematicReveal>
     <div class="section-header">
       <span class="section-cmd">ssh lucas@connect</span>
       <h2 class="section-title">
@@ -40,7 +40,7 @@ const contactLinks = [
   </CinematicReveal>
 
   <div class="contact-content">
-    <CinematicReveal client:load delay={0.2}>
+    <CinematicReveal delay={0.2}>
       <div class="ssh-terminal">
         <div class="terminal-bar">
           <div class="terminal-dots">
@@ -131,6 +131,7 @@ const contactLinks = [
                 class="contact-input"
                 placeholder="try 'hello' to connect..."
                 id="contact-cmd"
+                aria-label="Terminal command: type hello to connect"
               />
               <span class="cursor"></span>
             </div>
@@ -141,7 +142,7 @@ const contactLinks = [
     </CinematicReveal>
 
     <!-- Location Info -->
-    <CinematicReveal client:load delay={0.4}>
+    <CinematicReveal delay={0.4}>
       <div class="location-block">
         <div class="location-header">
           <span class="location-cmd">curl -s ipinfo.io/lucas</span>
@@ -177,7 +178,7 @@ const contactLinks = [
     </CinematicReveal>
 
     <!-- CTA -->
-    <CinematicReveal client:load delay={0.6}>
+    <CinematicReveal delay={0.6}>
       <div class="cta-block">
         <span class="cta-prompt">echo $MISSION</span>
         <p class="cta-text">

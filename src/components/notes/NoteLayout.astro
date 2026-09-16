@@ -5,6 +5,7 @@ import { noteSocialCardPath } from '../../lib/diagrams';
 import { getNoteSources, getRelatedNotes, noteMarkdownPath, notePath, readingMinutes, type NoteEntry } from '../../lib/notes';
 import NotesNav from './NotesNav.astro';
 import NoteShare from './NoteShare.astro';
+import { blogSchema, personSchema } from '../../lib/seo';
 
 interface Props { note: NoteEntry; translation?: NoteEntry; }
 const { note, translation } = Astro.props;
@@ -40,10 +41,11 @@ const jsonLd = {
   description: note.data.description,
   inLanguage: note.data.lang,
   url: canonicalUrl,
-  mainEntityOfPage: { '@id': canonicalUrl },
-  isPartOf: { '@type': 'Blog', '@id': new URL(isSpanish ? '/es/notas/' : '/en/notes/', site).toString() },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
+  isPartOf: blogSchema(note.data.lang, site),
   image: new URL(ogImage, site).toString(),
-  author: { '@type': 'Person', '@id': 'https://lucashenry.dev/#lucas', name: 'Lucas Henry', url: 'https://lucashenry.dev' },
+  author: personSchema(site),
+  publisher: { '@id': new URL('/#lucas', site).toString() },
   keywords: [...note.data.tags, ...note.data.topics],
   about: note.data.topics.map((topic) => ({ '@type': 'Thing', name: topic })),
   citation: sourceRows.flatMap(({ source }) => source ? [source.data.url] : []),
@@ -55,12 +57,15 @@ const jsonLd = {
 ---
 
 <Layout
-  title={`${note.data.title} | Lucas Henry`}
-  description={note.data.description}
+  title={`${note.data.seoTitle ?? note.data.title} | Lucas Henry`}
+  description={note.data.seoDescription ?? note.data.description}
   showBoot={false}
   lang={note.data.lang}
   canonicalPath={canonicalPath}
   ogType="article"
+  articlePublishedTime={note.data.publishedAt?.toISOString()}
+  articleModifiedTime={note.data.updatedAt?.toISOString()}
+  articleAuthorUrl={site.toString()}
   ogImage={ogImage}
   ogImageAlt={ogImageAlt}
   alternateLanguages={alternates}
@@ -83,7 +88,7 @@ const jsonLd = {
         <h1>{note.data.title}</h1>
         <p class="note-header__description">{note.data.description}</p>
         <div class="note-header__byline">
-          <span>Lucas Henry</span>
+          <a href="/#about" rel="author">Lucas Henry</a>
           {date && <time datetime={date.toISOString()}>{new Intl.DateTimeFormat(note.data.lang, { dateStyle: 'long', timeZone: 'UTC' }).format(date)}</time>}
         </div>
         {!note.data.draft && <NoteShare title={note.data.title} url={canonicalUrl} lang={note.data.lang} placement="header" />}
@@ -233,7 +238,8 @@ const jsonLd = {
   .note-header__draft { padding: .12rem .45rem; color: var(--accent-amber); border: 1px solid rgba(212,165,116,.35); }
   .note-header h1 { max-width: 950px; margin: 1.25rem auto 1.5rem; font-family: var(--font-editorial); font-size: clamp(3.1rem, 9vw, 7rem); font-weight: 450; line-height: .94; letter-spacing: -.055em; text-wrap: balance; }
   .note-header__description { max-width: 66ch; margin: 0 auto 2rem; font-size: clamp(1.05rem, 2.2vw, 1.3rem); text-wrap: balance; }
-  .note-header__byline span:first-child { color: var(--accent-cream); }
+  .note-header__byline a[rel="author"] { color: var(--accent-cream); text-underline-offset: .2em; }
+  .note-header__byline a[rel="author"]:hover { text-decoration: underline; }
   .note-header__actions { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: .35rem; margin-top: .7rem; }
   .note-header__actions button, .note-header__actions a { display: inline-flex; align-items: center; gap: .45rem; min-height: 2.5rem; padding: .45rem .65rem; border: 1px solid transparent; background: transparent; color: var(--text-muted); font: 500 .62rem/1 var(--font-terminal); cursor: pointer; }
   .note-header__actions button:hover, .note-header__actions a:hover, .note-header__actions button:focus-visible, .note-header__actions a:focus-visible { border-color: var(--accent-amber); color: var(--accent-cream); }

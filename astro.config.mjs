@@ -3,9 +3,13 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
+import { publishedSitemapEntries } from './scripts/seo/sitemap.mjs';
+
+const publicEntries = publishedSitemapEntries();
 
 export default defineConfig({
   site: 'https://lucashenry.dev',
+  trailingSlash: 'always',
   integrations: [
     react(),
     mdx(),
@@ -25,14 +29,8 @@ export default defineConfig({
       },
     },
     sitemap({
-      filter: (page) => !(
-        page.endsWith('.md')
-        || page.endsWith('.xml')
-        || page.endsWith('.json')
-        || page.endsWith('.txt')
-        || page.includes('/open-graph/')
-        || page.includes('/images/notes/diagrams/')
-      ),
+      filter: (page) => publicEntries.has(new URL(page).pathname),
+      serialize: (item) => ({ ...item, ...publicEntries.get(new URL(item.url).pathname) }),
     }),
   ],
   vite: {

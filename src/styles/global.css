@@ -4,8 +4,10 @@
    Light by default, dark on demand
    ========================================== */
 
-/* Fonts - Space Grotesk for display, JetBrains for terminal */
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&family=Newsreader:opsz,wght@6..72,350;6..72,450;6..72,600&display=swap');
+/* Self-hosted variable fonts; no third-party font requests. */
+@font-face { font-family: 'Space Grotesk Variable'; font-style: normal; font-display: swap; font-weight: 300 700; src: url('/fonts/space-grotesk-latin-wght-normal.woff2') format('woff2'); }
+@font-face { font-family: 'JetBrains Mono Variable'; font-style: normal; font-display: swap; font-weight: 100 800; src: url('/fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Newsreader Variable'; font-style: normal; font-display: swap; font-weight: 200 800; src: url('/fonts/newsreader-latin-standard-normal.woff2') format('woff2'); }
 
 /* CSS Custom Properties */
 :root {
@@ -72,9 +74,9 @@
   --neural-opacity: 0.3;
 
   /* Typography */
-  --font-terminal: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
-  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
-  --font-editorial: 'Newsreader', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --font-terminal: 'JetBrains Mono Variable', 'Fira Code', 'Consolas', monospace;
+  --font-display: 'Space Grotesk Variable', 'Inter', system-ui, sans-serif;
+  --font-editorial: 'Newsreader Variable', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
 
   /* Spacing */
   --section-padding: clamp(6rem, 15vh, 12rem);
@@ -990,3 +992,6 @@ p {
     display: none;
   }
 }
+
+.skip-link { position: fixed; top: -100px; left: 1rem; z-index: 1000; padding: .7rem 1rem; background: var(--accent-cream); color: var(--bg-void); }
+.skip-link:focus { top: 1rem; }

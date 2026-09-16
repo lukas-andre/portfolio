@@ -11,15 +11,15 @@ const copy = lang === 'es'
 ---
 
 <nav class="notes-nav" aria-label={lang === 'es' ? 'Navegación de notas' : 'Notes navigation'}>
-  <a class="notes-nav__mark" href="/" aria-label="Lucas Henry — home">
+  <a class="notes-nav__mark" href="/" aria-label="LH — Lucas Henry">
     <span aria-hidden="true">[</span>LH<span aria-hidden="true">]</span>
   </a>
   <div class="notes-nav__links">
     <a href="/">{copy.home}</a>
     <span aria-hidden="true">/</span>
-    <a href={lang === 'es' ? '/es/notas/' : '/en/notes/'} aria-current="page">{copy.archive}</a>
+    <a href={lang === 'es' ? '/es/notas/' : '/en/notes/'} aria-current={Astro.url.pathname === (lang === 'es' ? '/es/notas/' : '/en/notes/') ? 'page' : undefined}>{copy.archive}</a>
   </div>
-  <a class="notes-nav__language" href={switchHref} hreflang={lang === 'es' ? 'en' : 'es'} aria-label={copy.switchLabel}>
+  <a class="notes-nav__language" href={switchHref} hreflang={lang === 'es' ? 'en' : 'es'} aria-label={`${copy.switchText} — ${copy.switchLabel}`}>
     {copy.switchText}<span aria-hidden="true"> ↗</span>
   </a>
 </nav>

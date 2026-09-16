@@ -7,7 +7,7 @@ const entry = await getEntry('sources', source);
 if (!entry) throw new Error(`Unknown source: ${source}`);
 ---
 
-<a class="citation" href={entry.data.url} target="_blank" rel="noreferrer" title={`${entry.data.title} — ${locator}`}>
+<a class="citation" href={entry.data.url} target="_blank" rel="noopener noreferrer" title={`${entry.data.title} — ${locator}`}>
   [{entry.data.identifier}, {locator}]<span class="sr-only"> ({entry.data.title})</span>
 </a>
 

@@ -1,10 +1,10 @@
 ---
-import CinematicReveal from './ui/CinematicReveal.tsx';
+import CinematicReveal from './ui/CinematicReveal.astro';
 import { profile } from '../data/profile';
 ---
 
 <section id="about" class="section about">
-  <CinematicReveal client:load>
+  <CinematicReveal>
     <div class="section-header">
       <span class="section-cmd">cat /etc/lucas.conf</span>
       <h2 class="section-title">
@@ -17,11 +17,11 @@ import { profile } from '../data/profile';
 
   <div class="about-layout">
     <!-- Photo Section -->
-    <CinematicReveal client:load delay={0.2}>
+    <CinematicReveal delay={0.2}>
       <div class="about-photo-container">
         <div class="photo-frame">
           <div class="photo-wrapper">
-            <img src="/images/profile.jpeg" alt="Lucas Henry" class="profile-photo" />
+            <img src="/images/profile.webp" width="360" height="360" alt="Lucas Henry" class="profile-photo" loading="lazy" decoding="async" />
             <div class="scan-line"></div>
           </div>
           <div class="photo-border"></div>
@@ -38,7 +38,7 @@ import { profile } from '../data/profile';
 
     <!-- Config File Section -->
     <div class="about-content">
-      <CinematicReveal client:load delay={0.3}>
+      <CinematicReveal delay={0.3}>
         <div class="config-block">
           <div class="config-header">
             <span class="config-path">~/.config/lucas/profile.conf</span>
@@ -110,7 +110,7 @@ import { profile } from '../data/profile';
       </CinematicReveal>
 
       <!-- System Stats -->
-      <CinematicReveal client:load delay={0.4}>
+      <CinematicReveal delay={0.4}>
         <div class="system-stats">
           <div class="stats-header">
             <span class="stats-cmd">systemctl status lucas</span>
@@ -141,7 +141,7 @@ import { profile } from '../data/profile';
       </CinematicReveal>
 
       <!-- Installed Packages (Certifications) -->
-      <CinematicReveal client:load delay={0.5}>
+      <CinematicReveal delay={0.5}>
         <div class="packages-block">
           <div class="packages-header">
             <span class="packages-cmd">pacman -Qi certifications</span>
@@ -189,7 +189,7 @@ import { profile } from '../data/profile';
   </div>
 
   <!-- Philosophy Quote -->
-  <CinematicReveal client:load delay={0.6}>
+  <CinematicReveal delay={0.6}>
     <div class="philosophy-block">
       <span class="philosophy-prompt">echo $PHILOSOPHY</span>
       <p class="philosophy-text">"Build systems where people and agents can ship with evidence."</p>

@@ -1,12 +1,12 @@
 ---
-import CinematicReveal from './ui/CinematicReveal.tsx';
+import CinematicReveal from './ui/CinematicReveal.astro';
 import { profile } from '../data/profile';
 
 const totalCapabilities = profile.capabilityGroups.reduce((total, group) => total + group.items.length, 0);
 ---
 
 <section id="skills" class="section skills">
-  <CinematicReveal client:load>
+  <CinematicReveal>
     <header class="section-header">
       <span class="section-cmd">pacman -Syu --needed capability-stack</span>
       <h2 class="section-title"><span>[</span> Capability Stack <span>]</span></h2>
@@ -14,7 +14,7 @@ const totalCapabilities = profile.capabilityGroups.reduce((total, group) => tota
     </header>
   </CinematicReveal>
 
-  <CinematicReveal client:load delay={0.1}>
+  <CinematicReveal delay={0.1}>
     <div class="package-summary">
       <span><i></i> system online</span>
       <code>{profile.capabilityGroups.length} modules / {totalCapabilities} capabilities</code>
@@ -23,7 +23,7 @@ const totalCapabilities = profile.capabilityGroups.reduce((total, group) => tota
 
   <div class="skills-grid">
     {profile.capabilityGroups.map((group, index) => (
-      <CinematicReveal client:load delay={Math.min(0.12 * (index + 1), 0.55)}>
+      <CinematicReveal delay={Math.min(0.12 * (index + 1), 0.55)}>
         <article class:list={['module', { highlight: 'highlight' in group && group.highlight }]}>
           <header>
             <span class="repo">{group.repo}</span>

@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import type { NoteEntry, NoteLanguage } from '../../lib/notes';
+import { notePath, type NoteEntry, type NoteLanguage } from '../../lib/notes';
+import { blogSchema, personSchema, websiteSchema } from '../../lib/seo';
 import NotesNav from './NotesNav.astro';
 import NoteCard from './NoteCard.astro';
 
@@ -19,6 +20,29 @@ const copy = isSpanish ? {
   empty: 'No notes have been published yet.',
 };
 const canonicalPath = isSpanish ? '/es/notas/' : '/en/notes/';
+const site = Astro.site ?? new URL('https://lucashenry.dev');
+const canonicalUrl = new URL(canonicalPath, site).toString();
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': `${canonicalUrl}#webpage`,
+  url: canonicalUrl,
+  name: copy.title,
+  description: copy.description,
+  inLanguage: lang,
+  publisher: personSchema(site),
+  isPartOf: websiteSchema(site),
+  mainEntity: {
+    ...blogSchema(lang, site),
+    blogPost: notes.filter((note) => !note.data.draft).map((note) => ({
+      '@type': 'BlogPosting',
+      '@id': `${new URL(notePath(note), site)}#article`,
+      url: new URL(notePath(note), site).toString(),
+      headline: note.data.title,
+      inLanguage: note.data.lang,
+    })),
+  },
+};
 ---
 
 <Layout
@@ -27,6 +51,7 @@ const canonicalPath = isSpanish ? '/es/notas/' : '/en/notes/';
   showBoot={false}
   lang={lang}
   canonicalPath={canonicalPath}
+  jsonLd={jsonLd}
   alternateLanguages={[{ lang: 'es', href: '/es/notas/' }, { lang: 'en', href: '/en/notes/' }]}
 >
   <a class="skip-link" href="#notes-list">{isSpanish ? 'Saltar a las notas' : 'Skip to notes'}</a>

@@ -2,6 +2,7 @@
 import BootScreen from '../components/ui/BootScreen.tsx';
 import ThemeToggle from '../components/ThemeToggle.astro';
 import { profile } from '../data/profile';
+import { personSchema, serializeJsonLd, websiteSchema } from '../lib/seo';
 
 interface Props {
   title: string;
@@ -17,12 +18,15 @@ interface Props {
   robots?: string;
   markdownPath?: string;
   describedByPath?: string;
+  articlePublishedTime?: string;
+  articleModifiedTime?: string;
+  articleAuthorUrl?: string;
 }
 
 const {
   title,
-  description = profile.summary,
-  showBoot = true,
+  description = profile.seoDescription,
+  showBoot = false,
   lang = 'en',
   canonicalPath = '/',
   ogType = 'website',
@@ -30,27 +34,29 @@ const {
   ogImageAlt = 'Lucas Henry — Tech Team Lead for Customer and Seller Self Service, and builder of agentic systems.',
   alternateLanguages = [],
   robots = 'index, follow',
-  jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: 'Lucas Andre Henry Diaz',
-    jobTitle: 'Tech Team Lead — Customer & Seller Self Service',
-    url: 'https://lucashenry.dev',
-    image: 'https://lucashenry.dev/images/profile.jpeg',
-    sameAs: [
-      'https://linkedin.com/in/lucas-henryd',
-      'https://github.com/lukas-andre',
-    ],
-    worksFor: { '@type': 'Organization', name: 'Falabella' },
-    knowsAbout: ['Self Service', 'Engineering Leadership', 'Harness Engineering', 'Multi-Agent Orchestration', 'TypeScript', 'Go', 'React', 'E-commerce'],
-  },
+  jsonLd,
   markdownPath,
   describedByPath = '/llms.txt',
+  articlePublishedTime,
+  articleModifiedTime,
+  articleAuthorUrl,
 } = Astro.props;
 
 const site = Astro.site ?? new URL('https://lucashenry.dev');
 const canonicalUrl = new URL(canonicalPath, site).toString();
 const ogImageUrl = new URL(ogImage, site).toString();
+const locales = { es: 'es_CL', en: 'en_US' } as const;
+const structuredData = jsonLd ?? {
+  '@context': 'https://schema.org',
+  '@type': canonicalPath === '/' ? 'ProfilePage' : 'WebPage',
+  '@id': `${canonicalUrl}#webpage`,
+  url: canonicalUrl,
+  name: title,
+  description,
+  inLanguage: lang,
+  mainEntity: personSchema(site),
+  isPartOf: websiteSchema(site),
+};
 ---
 
 <!DOCTYPE html>
@@ -71,7 +77,6 @@ const ogImageUrl = new URL(ogImage, site).toString();
   </script>
   <meta name="description" content={description} />
   <meta name="author" content="Lucas Andre Henry Diaz" />
-  <meta name="keywords" content="Tech Team Lead, Self Service, Engineering Leadership, Harness Engineering, Agentic Systems, Vercel AI SDK, Herdr, TypeScript, Go, React, Falabella, Chile" />
   <meta name="robots" content={robots} />
   <meta name="googlebot" content={robots} />
   <!-- Canonical -->
@@ -95,12 +100,20 @@ const ogImageUrl = new URL(ogImage, site).toString();
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content={ogType} />
+  <meta property="og:site_name" content={profile.name} />
+  <meta property="og:locale" content={locales[lang]} />
+  {alternateLanguages.filter((alternate) => alternate.lang !== lang).map((alternate) => (
+    <meta property="og:locale:alternate" content={locales[alternate.lang]} />
+  ))}
   <meta property="og:url" content={canonicalUrl} />
   <meta property="og:image" content={ogImageUrl} />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:alt" content={ogImageAlt} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  {ogType === 'article' && articlePublishedTime && <meta property="article:published_time" content={articlePublishedTime} />}
+  {ogType === 'article' && articleModifiedTime && <meta property="article:modified_time" content={articleModifiedTime} />}
+  {ogType === 'article' && articleAuthorUrl && <meta property="article:author" content={articleAuthorUrl} />}
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
@@ -109,15 +122,15 @@ const ogImageUrl = new URL(ogImage, site).toString();
   <meta name="twitter:image" content={ogImageUrl} />
   <meta name="twitter:image:alt" content={ogImageAlt} />
 
+  <link rel="preload" href="/fonts/space-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/jetbrains-mono-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  {canonicalPath !== '/' && <link rel="preload" href="/fonts/newsreader-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin />}
+
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link rel="apple-touch-icon" href="/favicon.png" />
 
-  <!-- Performance hints -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-
-  <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <script is:inline type="application/ld+json" set:html={serializeJsonLd(structuredData)} />
 
   <title>{title}</title>
 </head>
@@ -181,10 +194,10 @@ const ogImageUrl = new URL(ogImage, site).toString();
 <style is:global>
   @import '../styles/global.css';
 
-  /* Main content fade in */
+  /* Server-rendered content stays visible even when JavaScript is unavailable. */
   .main-content {
-    opacity: 0;
-    transform: translateY(20px);
+    opacity: 1;
+    transform: none;
     transition: opacity 0.8s ease, transform 0.8s ease;
   }
 

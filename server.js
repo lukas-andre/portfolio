@@ -55,12 +55,37 @@ function resolveRequestPath(root, requestUrl = '/') {
 
 export function createStaticServer(root = distDir) {
   return createServer((req, res) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    res.setHeader('Content-Security-Policy', "base-uri 'self'; object-src 'none'; frame-ancestors 'self'");
+    res.setHeader('Strict-Transport-Security', 'max-age=31536000');
     if (!['GET', 'HEAD'].includes(req.method ?? 'GET')) {
       res.writeHead(405, { 'Content-Type': 'text/plain; charset=utf-8', Allow: 'GET, HEAD' });
       res.end('Method not allowed');
       return;
     }
-    const filePath = resolveRequestPath(root, req.url);
+    const requestUrl = new URL(req.url ?? '/', 'http://localhost');
+    const host = (req.headers.host ?? '').split(':')[0].toLowerCase();
+    // CF-Visitor preserves the visitor's scheme across Cloudflare → Tunnel → Traefik.
+    let visitorScheme;
+    try { visitorScheme = JSON.parse(req.headers['cf-visitor'] ?? '{}').scheme; } catch { /* Fall back to proxy header. */ }
+    const scheme = visitorScheme ?? req.headers['x-forwarded-proto']?.split(',')[0].trim();
+    const publicHost = ['lucashenry.dev', 'www.lucashenry.dev'].includes(host);
+    const forceOrigin = publicHost && (host.startsWith('www.') || scheme === 'http');
+    let canonicalPath = requestUrl.pathname;
+    if (canonicalPath === '/sitemap.xml' && existsSync(join(root, 'sitemap-index.xml'))) canonicalPath = '/sitemap-index.xml';
+    const filePath = resolveRequestPath(root, canonicalPath);
+    if (filePath?.endsWith(`${sep}index.html`)) {
+      canonicalPath = `/${relative(resolve(root), filePath).split(sep).join('/').slice(0, -'index.html'.length)}`;
+    }
+    if (forceOrigin || canonicalPath !== requestUrl.pathname) {
+      // Build the destination from a fixed origin to avoid protocol-relative redirects.
+      const destination = new URL(`.${canonicalPath}`, 'https://lucashenry.dev/');
+      destination.search = requestUrl.search;
+      res.writeHead(308, { Location: publicHost ? destination.href : destination.pathname + destination.search });
+      res.end();
+      return;
+    }
 
     if (!filePath) {
       res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
@@ -74,6 +99,7 @@ export function createStaticServer(root = distDir) {
     if (relativePath.endsWith('/feed.xml')) contentType = 'application/rss+xml; charset=utf-8';
     const isContentAddressedAsset = /^open-graph\/notes\/.+\/[a-z]{2}-[a-f0-9]{12}\.png$/.test(relativePath)
       || /^images\/notes\/diagrams\/.+\/[a-z]{2}-[a-f0-9]{12}\.png$/.test(relativePath);
+    const isHashedAsset = relativePath.startsWith('_astro/');
     const isMachineReadable = relativePath === 'llms.txt'
       || relativePath === 'notes/manifest.json'
       || relativePath.endsWith('/feed.xml')
@@ -85,11 +111,11 @@ export function createStaticServer(root = distDir) {
       const headers = {
         'Content-Type': contentType,
         ETag: etag,
-        ...(isContentAddressedAsset
+        ...((isContentAddressedAsset || isHashedAsset)
           ? { 'Cache-Control': 'public, max-age=31536000, immutable' }
           : isMachineReadable
             ? { 'Cache-Control': 'public, max-age=3600, stale-while-revalidate=86400' }
-            : {}),
+            : { 'Cache-Control': ext === '.html' ? 'public, max-age=0, must-revalidate, no-transform' : relativePath.startsWith('open-graph/v') ? 'public, max-age=0, must-revalidate' : 'public, max-age=3600' }),
         ...(isMachineReadable ? { 'Access-Control-Allow-Origin': '*' } : {}),
         ...(relativePath.endsWith('/index.md') ? {
           Link: `<https://lucashenry.dev/${relativePath.slice(0, -'index.md'.length)}>; rel="canonical"`,

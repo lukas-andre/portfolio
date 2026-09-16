@@ -18,6 +18,12 @@
       <span class="year">2026</span>
     </p>
 
+    <nav class="footer-links" aria-label="Explore Lucas Henry">
+      <a href="/es/notas/" hreflang="es">Notas en español</a>
+      <a href="/en/notes/" hreflang="en">Notes in English</a>
+      <a href="https://show.lucashenry.dev/">Show · projects & briefs ↗</a>
+    </nav>
+
     <div class="footer-tech">
       <span class="tech-item">Astro</span>
       <span class="tech-dot">•</span>
@@ -31,6 +37,8 @@
 </footer>
 
 <style>
+  .footer-links { display: flex; flex-wrap: wrap; gap: .6rem 1.5rem; justify-content: center; margin: 1.3rem 0; font: .8rem/1.6 var(--font-terminal); }
+  .footer-links a { color: var(--accent-amber); text-decoration: underline; text-underline-offset: .25em; }
   .footer {
     padding: 3rem 5%;
     border-top: 1px solid var(--glass-border);

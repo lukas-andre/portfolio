@@ -27,7 +27,9 @@ test('home communicates the current role, scope, and honest agent-system states'
   await expect(agentSystem).toContainText('BUILDING');
 
   const jsonLd = JSON.parse((await page.locator('script[type="application/ld+json"]').textContent()) ?? '{}');
-  expect(jsonLd.jobTitle).toBe('Tech Team Lead — Customer & Seller Self Service');
+  expect(jsonLd['@type']).toBe('ProfilePage');
+  expect(jsonLd.mainEntity['@id']).toBe('https://lucashenry.dev/#lucas');
+  expect(jsonLd.mainEntity.jobTitle).toBe('Tech Team Lead — Customer & Seller Self Service');
 
   await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
     'content',

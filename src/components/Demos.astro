@@ -1,5 +1,5 @@
 ---
-import CinematicReveal from './ui/CinematicReveal.tsx';
+import CinematicReveal from './ui/CinematicReveal.astro';
 import Icon from './ui/Icon.tsx';
 
 const demos = [
@@ -57,7 +57,7 @@ const totalSize = demos.reduce((acc, d) => acc + parseInt(d.size), 0);
 ---
 
 <section id="demos" class="section demos">
-  <CinematicReveal client:load>
+  <CinematicReveal>
     <div class="section-header">
       <span class="section-cmd">ls -la ~/projects/</span>
       <h2 class="section-title">
@@ -68,7 +68,9 @@ const totalSize = demos.reduce((acc, d) => acc + parseInt(d.size), 0);
     </div>
   </CinematicReveal>
 
-  <CinematicReveal client:load delay={0.2}>
+  <p class="show-link"><a href="https://show.lucashenry.dev/">Explore working apps and technical project briefs in Show ↗</a></p>
+
+  <CinematicReveal delay={0.2}>
     <div class="ls-container">
       <!-- Terminal Header -->
       <div class="terminal-bar">
@@ -182,7 +184,7 @@ const totalSize = demos.reduce((acc, d) => acc + parseInt(d.size), 0);
   <!-- Project Details (expanded view) -->
   <div class="project-details-container">
     {demos.map((demo, i) => (
-      <CinematicReveal client:load delay={0.3 + (i * 0.1)}>
+      <CinematicReveal delay={0.3 + (i * 0.1)}>
         <div class="project-card" id={`card-${demo.id}`}>
           <div class="card-header">
             <div class="card-title-row">
@@ -239,6 +241,8 @@ const totalSize = demos.reduce((acc, d) => acc + parseInt(d.size), 0);
 </section>
 
 <style>
+  .show-link { max-width: var(--content-width); margin: 1.5rem auto 2rem; text-align: center; font: .85rem/1.6 var(--font-terminal); }
+  .show-link a { color: var(--accent-amber); text-decoration: underline; text-underline-offset: .25em; }
   .demos {
     background: linear-gradient(180deg, var(--bg-primary), var(--bg-secondary));
   }

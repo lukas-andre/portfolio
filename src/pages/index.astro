@@ -20,17 +20,19 @@ const latestTranslation = latestNote ? await getTranslation(latestNote) : undefi
 
 <Layout
   title="Lucas Henry | Tech Team Lead & Agentic Systems"
-  description={profile.summary}
+  description={profile.seoDescription}
   showBoot={false}
 >
   <!-- Neural Network Background -->
-  <NeuralCanvas client:load />
+  <NeuralCanvas client:idle />
 
   <!-- Navigation -->
   <Navigation />
 
+  <a class="skip-link" href="#main-content-body">Skip to content</a>
+
   <!-- Main Content -->
-  <main>
+  <main id="main-content-body">
     <Hero
       latestNote={latestNote}
       latestTranslation={latestTranslation}
@@ -52,20 +54,6 @@ const latestTranslation = latestNote ? await getTranslation(latestNote) : undefi
   /* Smooth scroll behavior */
   html {
     scroll-behavior: smooth;
-  }
-
-  /* Page transitions */
-  main {
-    animation: fadeIn 1s ease;
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
   }
 
   /* Ensure sections stack correctly */

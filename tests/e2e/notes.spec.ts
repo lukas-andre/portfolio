@@ -27,8 +27,8 @@ test('home promotes the latest published note with a thumbnail derived from its 
   const latest = page.getByRole('complementary', { name: 'Latest research note' });
   await expect(latest).toBeVisible();
   await expect(latest.getByRole('heading', { level: 2 })).toHaveText(newestTitle);
-  await expect(latest.getByRole('link', { name: /Read research note:/ })).toHaveAttribute('href', `/en/notes/${newest.editions.en.slug}/`);
-  await expect(latest.getByRole('link', { name: 'Leer esta nota en español' })).toHaveAttribute('href', `/es/notas/${newest.editions.es.slug}/`);
+  await expect(latest.locator('.latest-note__primary')).toHaveAttribute('href', `/en/notes/${newest.editions.en.slug}/`);
+  await expect(latest.getByRole('link', { name: 'ES — Leer esta nota en español' })).toHaveAttribute('href', `/es/notas/${newest.editions.es.slug}/`);
   const thumbnail = latest.locator('img');
   await expect(thumbnail).toHaveAttribute('src', /\/images\/notes\/diagrams\/.+\/en-[a-f0-9]{12}\.png$/);
   await expect(thumbnail).not.toHaveAttribute('alt', '');

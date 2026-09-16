@@ -36,7 +36,7 @@ export default function NeuralCanvas() {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -49,9 +49,9 @@ export default function NeuralCanvas() {
       initDataStreams();
     };
 
-    // Initialize particles - MORE particles (150+)
+    // Keep the ambient canvas proportionate to the viewport and bounded on desktop.
     const initParticles = () => {
-      const particleCount = Math.max(150, Math.floor((canvas.width * canvas.height) / 12000));
+      const particleCount = Math.min(100, Math.max(30, Math.floor((canvas.width * canvas.height) / 16000)));
       particlesRef.current = [];
 
       const colorKeys = Object.keys(COLORS) as (keyof typeof COLORS)[];

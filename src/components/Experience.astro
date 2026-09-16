@@ -1,10 +1,10 @@
 ---
-import CinematicReveal from './ui/CinematicReveal.tsx';
+import CinematicReveal from './ui/CinematicReveal.astro';
 import { profile } from '../data/profile';
 ---
 
 <section id="experience" class="section experience">
-  <CinematicReveal client:load>
+  <CinematicReveal>
     <header class="section-header">
       <span class="section-cmd">git log --graph --career</span>
       <h2 class="section-title"><span>[</span> Runtime History <span>]</span></h2>
@@ -12,7 +12,7 @@ import { profile } from '../data/profile';
     </header>
   </CinematicReveal>
 
-  <CinematicReveal client:load delay={0.1}>
+  <CinematicReveal delay={0.1}>
     <div class="scope-bar" aria-label="Current leadership scope">
       <span><b>HEAD</b> {profile.role}</span>
       <span><b>{profile.scope.capabilities}</b> capabilities</span>
@@ -23,7 +23,7 @@ import { profile } from '../data/profile';
 
   <div class="timeline">
     {profile.experiences.map((experience, index) => (
-      <CinematicReveal client:load delay={Math.min(0.12 * (index + 1), 0.65)}>
+      <CinematicReveal delay={Math.min(0.12 * (index + 1), 0.65)}>
         <article class:list={['career-entry', { current: experience.current }]}>
           <div class="rail" aria-hidden="true">
             <span class="dot"></span>

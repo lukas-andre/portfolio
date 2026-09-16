@@ -10,6 +10,8 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {
+    ...(process.env.PLAYWRIGHT_CHANNEL ? { channel: process.env.PLAYWRIGHT_CHANNEL } : {}),
+    ...(process.env.PLAYWRIGHT_HEADED === '1' ? { headless: false } : {}),
     baseURL: externalBaseURL ?? 'http://127.0.0.1:4321',
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',

@@ -1,12 +1,12 @@
 ---
-import CinematicReveal from './ui/CinematicReveal.tsx';
+import CinematicReveal from './ui/CinematicReveal.astro';
 import { profile } from '../data/profile';
 
 const lanes = [profile.agentSystem.personal, profile.agentSystem.corporate];
 ---
 
 <section id="ai" class="section agent-system">
-  <CinematicReveal client:load>
+  <CinematicReveal>
     <header class="section-header">
       <span class="section-cmd">systemctl status agent-harness</span>
       <h2 class="section-title"><span>[</span> Agent Operating System <span>]</span></h2>
@@ -17,7 +17,7 @@ const lanes = [profile.agentSystem.personal, profile.agentSystem.corporate];
     </header>
   </CinematicReveal>
 
-  <CinematicReveal client:load delay={0.15}>
+  <CinematicReveal delay={0.15}>
     <div class="architecture" aria-label="Agent operating system architecture">
       <div class="terminal-bar">
         <div class="terminal-dots" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -65,7 +65,7 @@ const lanes = [profile.agentSystem.personal, profile.agentSystem.corporate];
     </div>
   </CinematicReveal>
 
-  <CinematicReveal client:load delay={0.35}>
+  <CinematicReveal delay={0.35}>
     <div class="principles">
       <article>
         <span>01 / CONTEXT</span>
@@ -85,7 +85,7 @@ const lanes = [profile.agentSystem.personal, profile.agentSystem.corporate];
     </div>
   </CinematicReveal>
 
-  <CinematicReveal client:load delay={0.5}>
+  <CinematicReveal delay={0.5}>
     <blockquote>
       <code>echo $OPERATING_PRINCIPLE</code>
       <p>“I don't optimize for more AI output. I build the harness that makes useful output trustworthy.”</p>

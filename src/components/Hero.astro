@@ -2,8 +2,8 @@
 import { getEntry } from 'astro:content';
 import GlitchText from './ui/GlitchText.tsx';
 import TypeWriter from './ui/TypeWriter.tsx';
-import CinematicReveal from './ui/CinematicReveal.tsx';
-import { diagramPngPath } from '../lib/diagrams';
+import CinematicReveal from './ui/CinematicReveal.astro';
+import { diagramPngPath, diagramDimensions } from '../lib/diagrams';
 import { notePath, readingMinutes, type NoteEntry } from '../lib/notes';
 import { profile } from '../data/profile';
 
@@ -31,7 +31,7 @@ const latestDateLabel = latestDate
 
 <section id="hero" class:list={['hero', { 'hero--with-note': latestNote }]}>
   <div class="hero-content">
-    <CinematicReveal client:load delay={0.3}>
+    <CinematicReveal delay={0.3}>
       <div class="hero-terminal-line">
         <span class="prompt-user">lucas</span>
         <span class="prompt-at">@</span>
@@ -43,11 +43,11 @@ const latestDateLabel = latestDate
       </div>
     </CinematicReveal>
 
-    <CinematicReveal client:load delay={0.6}>
+    <CinematicReveal delay={0.6}>
       <div class="hero-identity">
         <div class="hero-photo-small">
           <div class="photo-wrapper">
-            <img src="/images/profile.jpeg" alt="Lucas Henry" class="profile-photo" />
+            <img src="/images/profile.webp" width="360" height="360" alt="Lucas Henry" class="profile-photo" decoding="async" />
           </div>
           <div class="photo-frame-glow"></div>
         </div>
@@ -61,7 +61,7 @@ const latestDateLabel = latestDate
       </div>
     </CinematicReveal>
 
-    <CinematicReveal client:load delay={0.9}>
+    <CinematicReveal delay={0.9}>
       <div class="hero-roles">
         <span class="role-badge primary">{profile.role}</span>
         <span class="role-separator">//</span>
@@ -71,7 +71,7 @@ const latestDateLabel = latestDate
       </div>
     </CinematicReveal>
 
-    <CinematicReveal client:load delay={1.1}>
+    <CinematicReveal delay={1.1}>
       <div class="hero-output">
         <p class="output-line">
           <span class="output-key">company</span>
@@ -96,7 +96,7 @@ const latestDateLabel = latestDate
       </div>
     </CinematicReveal>
 
-    <CinematicReveal client:load delay={1.4}>
+    <CinematicReveal delay={1.4}>
       <div class="hero-cta">
         <a href="#contact" class="btn btn-primary">
           <span>ssh connect</span>
@@ -121,12 +121,14 @@ const latestDateLabel = latestDate
       <a
         class="latest-note__primary"
         href={notePath(latestNote)}
-        aria-label={`Read research note: ${latestNote.data.title}`}
+
       >
         {latestVisual && latestVisualCopy && <figure class="latest-note__visual">
           <img
             src={diagramPngPath(latestVisual, latestNote.data.lang)}
             alt={latestVisualCopy.alt}
+            width={diagramDimensions(latestVisual, latestNote.data.lang).width}
+            height={diagramDimensions(latestVisual, latestNote.data.lang).height}
             loading="eager"
             decoding="async"
           />
@@ -162,7 +164,7 @@ const latestDateLabel = latestDate
             class="latest-note__language"
             href={notePath(latestTranslation)}
             hreflang={latestTranslation.data.lang}
-            aria-label="Leer esta nota en español"
+            aria-label="ES — Leer esta nota en español"
           >
             ES <span aria-hidden="true">↗</span>
           </a>
@@ -435,7 +437,7 @@ const latestDateLabel = latestDate
   }
 
   @keyframes latest-note-in {
-    from { opacity: 0; transform: translateY(18px); }
+    from { transform: translateY(18px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
