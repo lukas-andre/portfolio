@@ -18,6 +18,8 @@ test('static server serves browser and agent artifacts with correct HTTP semanti
   writeFileSync(join(root, 'es/notas/example/index.md'), '# Nota\n');
   writeFileSync(join(root, 'es/notas/feed.xml'), '<rss></rss>');
   writeFileSync(join(root, 'llms.txt'), '# Index\n');
+  const largeArticle = '<main><h1>Published article</h1>' + '<p>Content available to readers and crawlers.</p>'.repeat(150) + '</main>';
+  writeFileSync(join(root, 'large.html'), largeArticle);
   writeFileSync(join(root, 'notes/manifest.json'), '{"schemaVersion":1}');
   writeFileSync(join(root, 'images/notes/diagrams/example/visual/es-012345abcdef.png'), Buffer.from([0x89, 0x50, 0x4e, 0x47]));
   writeFileSync(join(root, 'open-graph/v4/home.png'), Buffer.from([0x89, 0x50, 0x4e, 0x47]));
@@ -102,4 +104,21 @@ test('static server serves browser and agent artifacts with correct HTTP semanti
   const missing = await fetch(`${base}/definitely-missing`);
   assert.equal(missing.status, 404);
   assert.equal(await missing.text(), 'Not found');
+
+  const identity = await fetch(`${base}/large.html`, { headers: { 'Accept-Encoding': 'identity' } });
+  assert.equal(identity.headers.get('content-encoding'), null);
+  assert.equal(await identity.text(), largeArticle);
+  for (const encoding of ['br', 'gzip']) {
+    const compressed = await fetch(`${base}/large.html`, { headers: { 'Accept-Encoding': encoding } });
+    assert.equal(compressed.headers.get('content-encoding'), encoding);
+    assert.equal(compressed.headers.get('vary'), 'Accept-Encoding');
+    assert.ok(Number(compressed.headers.get('content-length')) < largeArticle.length / 2);
+    assert.notEqual(compressed.headers.get('etag'), identity.headers.get('etag'));
+    assert.equal(await compressed.text(), largeArticle);
+    const cached = await fetch(`${base}/large.html`, { headers: { 'Accept-Encoding': encoding, 'If-None-Match': compressed.headers.get('etag') } });
+    assert.equal(cached.status, 304);
+  }
+  const refused = await fetch(`${base}/large.html`, { headers: { 'Accept-Encoding': 'br;q=0, gzip;q=0, *;q=0' } });
+  assert.equal(refused.headers.get('content-encoding'), null);
+  assert.equal(await refused.text(), largeArticle);
 });

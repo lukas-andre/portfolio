@@ -3,6 +3,7 @@ import { createHash } from 'crypto';
 import { readFileSync, existsSync, statSync } from 'fs';
 import { join, extname, relative, resolve, sep } from 'path';
 import { fileURLToPath } from 'url';
+import { brotliCompressSync, gzipSync, constants } from 'zlib';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const distDir = join(__dirname, 'dist');
@@ -54,6 +55,7 @@ function resolveRequestPath(root, requestUrl = '/') {
 }
 
 export function createStaticServer(root = distDir) {
+  const encodedAssets = new Map();
   return createServer((req, res) => {
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
@@ -107,9 +109,33 @@ export function createStaticServer(root = distDir) {
 
     try {
       const content = readFileSync(filePath);
-      const etag = `"${createHash('sha256').update(content).digest('hex')}"`;
+      const digest = createHash('sha256').update(content).digest('hex');
+      const compressible = content.length >= 1024 && /^(text\/|application\/(javascript|json|xml|rss\+xml))/.test(contentType);
+      const accepted = new Map((req.headers['accept-encoding'] ?? '').split(',').map((entry) => {
+        const [name, ...parameters] = entry.trim().toLowerCase().split(';');
+        const quality = parameters.find((parameter) => parameter.trim().startsWith('q='));
+        return [name, quality ? Number(quality.trim().slice(2)) : 1];
+      }));
+      const encoding = compressible
+        ? ['br', 'gzip'].find((name) => (accepted.get(name) ?? accepted.get('*') ?? 0) > 0)
+        : undefined;
+      let body = content;
+      if (encoding) {
+        const key = `${digest}:${encoding}`;
+        if (!encodedAssets.has(key)) {
+          if (encodedAssets.size >= 64) encodedAssets.delete(encodedAssets.keys().next().value);
+          encodedAssets.set(key, encoding === 'br'
+            ? brotliCompressSync(content, { params: { [constants.BROTLI_PARAM_QUALITY]: 4 } })
+            : gzipSync(content));
+        }
+        body = encodedAssets.get(key);
+      }
+      const etag = `"${digest}${encoding ? `-${encoding}` : ''}"`;
       const headers = {
         'Content-Type': contentType,
+        'Content-Length': body.length,
+        ...(compressible ? { Vary: 'Accept-Encoding' } : {}),
+        ...(encoding ? { 'Content-Encoding': encoding } : {}),
         ETag: etag,
         ...((isContentAddressedAsset || isHashedAsset)
           ? { 'Cache-Control': 'public, max-age=31536000, immutable' }
@@ -127,7 +153,7 @@ export function createStaticServer(root = distDir) {
         return;
       }
       res.writeHead(200, headers);
-      res.end(req.method === 'HEAD' ? undefined : content);
+      res.end(req.method === 'HEAD' ? undefined : body);
     } catch {
       res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
       res.end('Not found');
