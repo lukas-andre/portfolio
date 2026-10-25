@@ -1,7 +1,14 @@
-import { defineCollection, reference, z } from 'astro:content';
+import { defineCollection, reference } from 'astro:content';
+import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
 
+// Preserve source IDs verbatim: Astro's default slugging removes dots from DOI/arXiv references.
 const sources = defineCollection({
-  type: 'data',
+  loader: glob({
+    pattern: '**/*.json',
+    base: './src/content/sources',
+    generateId: ({ entry }) => entry.replace(/\.json$/, ''),
+  }),
   schema: z.object({
     type: z.enum(['paper', 'dataset', 'official-doc', 'article', 'talk']),
     title: z.string(),
@@ -22,7 +29,11 @@ const approval = z.object({
 });
 
 const publications = defineCollection({
-  type: 'data',
+  loader: glob({
+    pattern: '**/*.json',
+    base: './src/content/publications',
+    generateId: ({ entry }) => entry.replace(/\.json$/, ''),
+  }),
   schema: z.object({
     schemaVersion: z.literal(1),
     kind: z.enum(['single', 'synthesis', 'essay']),
@@ -71,12 +82,16 @@ const diagramCopy = z.object({
   takeaway: z.string().min(12),
   alt: z.string().min(12),
   caption: z.string().min(12),
-  labels: z.record(diagramLabel),
+  labels: z.record(z.string(), diagramLabel),
   note: z.string().optional(),
 });
 
 const diagrams = defineCollection({
-  type: 'data',
+  loader: glob({
+    pattern: '**/*.json',
+    base: './src/content/diagrams',
+    generateId: ({ entry }) => entry.replace(/\.json$/, ''),
+  }),
   schema: z.object({
     schemaVersion: z.literal(1),
     translationKey: z.string(),
@@ -110,7 +125,11 @@ const diagrams = defineCollection({
 });
 
 const notes = defineCollection({
-  type: 'content',
+  loader: glob({
+    pattern: '**/*.mdx',
+    base: './src/content/notes',
+    generateId: ({ entry }) => entry,
+  }),
   schema: z.object({
     translationKey: z.string(),
     lang: z.enum(['es', 'en']),

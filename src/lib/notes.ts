@@ -17,7 +17,8 @@ type ResolvedFields = {
   related: string[];
 };
 
-export type NoteEntry = Omit<LocalizedNoteEntry, 'data'> & {
+export type NoteEntry = Omit<LocalizedNoteEntry, 'data' | 'body'> & {
+  body: string;
   data: LocalizedNoteEntry['data'] & ResolvedFields;
   publication: PublicationEntry;
 };
@@ -30,8 +31,10 @@ export const localeConfig = {
 const includeDrafts = !import.meta.env.PROD || process.env.INCLUDE_DRAFTS === 'true';
 
 function resolveNote(entry: LocalizedNoteEntry, publication: PublicationEntry): NoteEntry {
+  if (entry.body === undefined) throw new Error(`Missing MDX body for ${entry.id}`);
   return {
     ...entry,
+    body: entry.body,
     data: {
       ...entry.data,
       kind: publication.data.kind,

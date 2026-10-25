@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
+import { unified } from '@astrojs/markdown-remark';
 import { publishedSitemapEntries } from './scripts/seo/sitemap.mjs';
 
 const publicEntries = publishedSitemapEntries();
@@ -10,6 +11,8 @@ const publicEntries = publishedSitemapEntries();
 export default defineConfig({
   site: 'https://lucashenry.dev',
   trailingSlash: 'always',
+  compressHTML: true,
+  markdown: { processor: unified() },
   // Deliver the first paint with the compressed HTML instead of two blocking CSS requests.
   build: { inlineStylesheets: 'always' },
   integrations: [
@@ -19,7 +22,7 @@ export default defineConfig({
       name: 'isolated-vite-cache',
       hooks: {
         'astro:config:setup': ({ command, config, updateConfig }) => {
-          // Astro 4's content sync also starts a Vite optimizer. Builds, checks,
+          // Content sync can also start a Vite optimizer. Builds, checks,
           // and a second dev server must not replace an active preview's deps.
           const namespace = command === 'dev' ? `dev-${config.server.port}` : command;
           updateConfig({
